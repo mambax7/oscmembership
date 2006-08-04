@@ -1,0 +1,14 @@
+<table class="outer">
+  <tr>
+    <th><input name="allbox" id="allbox" onclick="xoopsCheckGroup('notificationlist', 'allbox', 'del_mod[]');" type="checkbox" value="<{$lang_checkall}>" /></th>
+    <th><{$osc_optionsort}></th>
+    <th><{$osc_optionname}></th>
+  </tr>
+<{foreach item=optionitem from=$optionitems}>
+  <tr>
+    <td class="head"></td>
+    <td>test</td>
+    <td><{$optionitem.optioname}></td>
+    </tr>
+<{/foreach}>
+</table>

@@ -1,0 +1,40 @@
+<h2 class=comTitle><{$title}>xxx</h2>
+
+<form name='listform' action='index.php?sort=<{$sort}>' method="POST">
+<input type=hidden name=sortprior value='<{$sort}>'>
+<table class='outer' >
+<tr><TD colspan="3"><input type="text" name="filter">&nbsp; <input type="submit" name="<{$oscmem_applyfilter}>" value="<{$oscmem_applyfilter}>">&nbsp;<input type="submit" name="<{$oscmem_clearfilter}>" value="<{$oscmem_clearfilter}>"></TD><td align="right"><input type="submit" name="<{$oscmem_addtocart}>" value="<{$oscmem_addtocart}>"> 
+
+<input type="submit" name="<{$oscmem_intersectcart}>" value="<{$oscmem_intersectcart}>">
+<input type="submit" name="<{$oscmem_removefromcart}>" value="<{$oscmem_removefromcart}>">
+</td></tr>
+<tr><th><input name="allbox" id="allbox" onclick="xoopsCheckAll('listform','allbox');" type="checkbox" value="Check All" /></th>
+<th><a href='index.php?sort=lastname' class=sort><{$oscmem_name}></a></th>
+<th><{$oscmem_address}></th><th><{$oscmem_email}></th><th></th>
+</tr>
+<{foreach item=person from=$persons}>
+<{ if $person.oddrow == true }>
+<tr class="odd">
+<{/if}>
+<{ if $person.oddrow == false }>
+<tr class="even">
+<{/if}>
+
+<td width=10><input name="chk<{$person.loopcount}>" value="<{$person.id}>" type="checkbox"></td>
+<td><{$person.lastname}>, <{$person.firstname}></td>
+<td><{$person.city}>, <{$person.state}></td><td><{$person.email}></td>
+<td><a href='persondetailform.php?id=<{$person.id}>'>Edit</a></td>
+</tr>
+<{/foreach}>
+
+</table>
+<input type="hidden" name="loopcount" value="<{$loopcount}>">
+<!--
+Empty Cart<br>
+Empty Cart to Group<br>
+Empty Cart to Family<br>
+CSV Export<br>
+Open Standard E-mail Client<br>
+-->
+</form>
+

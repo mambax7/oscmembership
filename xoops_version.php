@@ -1,0 +1,79 @@
+<?php
+$modversion['name'] = _oscmem_MOD_NAME;
+$modversion['version'] = "0.01";
+$modversion['description'] = _oscmem_MOD_DESC;
+$modversion['credits'] = "Open Source Church Project - http://sourceforge.net/osc";
+$modversion['author'] = "Steve McAtee";
+$modversion['help'] = "help.html";
+$modversion['license'] = "GPL see LICENSE";
+$modversion['official'] = 1;
+$modversion['image'] = "cs_slogo.gif";
+$modversion['dirname'] = "oscmembership";
+$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
+$modversion['tables'][0] = "oscmembership_person";
+$modversion['tables'][1] = "oscmembership_family";
+$modversion['tables'][2] = "oscmembership_group";
+$modversion['tables'][3] = "oscmembership_groupprop_master";
+$modversion['tables'][4] = "oscmembership_list";
+$modversion['tables'][5] = "oscmembership_p2g2r";
+$modversion['tables'][6] = "oscmembership_group_members";
+$modversion['tables'][7] = "oscmembership_person_custom";
+$modversion['tables'][8] = "oscmembership_person_custom_master";
+$modversion['tables'][9] = "oscmembership_cart";
+
+// Templates
+$modversion['templates'][0]['file'] = 'simple.html';
+$modversion['templates'][0]['description'] = 'Simple';
+$modversion['templates'][1]['file'] = 'oscmembership_optionlist.html';
+$modversion['templates'][1]['description'] = '';
+$modversion['templates'][2]['file'] = 'cartview.html';
+$modversion['templates'][2]['description'] = 'Cart View Template';
+$modversion['templates'][3]['file'] = 'memberview.html';
+$modversion['templates'][3]['description'] = 'Member View Template';
+
+//$modversion['blocks'][1]['file'] = "churchsplashblock.php";
+//$modversion['blocks'][1]['name'] = _CS_MOD_NAME;
+//$modversion['blocks'][1]['description'] = "Church Splash";
+//$modversion['blocks'][1]['show_func'] = "churchsplashblock_show";
+$modversion['hasSearch'] = 0;
+//$modversion['search']['file']="include/search.inc.php";
+//$modversion['search']['func']="oscmem_search";
+$modversion['hasAdmin'] = 1;
+$modversion['adminindex'] = "admin/index.php";
+$modversion['adminmenu'] = "admin/menu.php";
+$modversion['hasMain'] = 1;
+//$modversion['templates'][1]['file'] = 'cs_index.html';
+//$modversion['templates'][1]['description'] = 'cs main template file';
+$modversion['hasComments'] = 1;
+$modversion['comments']['pageName'] = 'index.php';
+$modversion['comments']['itemName'] = 'id';
+
+$i = 1;
+$modversion['sub'][$i]['name'] = _oscmembership_viewperson;
+$modversion['sub'][$i]['url'] = "index.php";
+$i++;
+$modversion['sub'][$i]['name'] = _oscmembership_addperson;
+$modversion['sub'][$i]['url'] = "persondetailform.php?action=create";
+$i++;
+$modversion['sub'][$i]['name'] = _oscmembership_addfamily;
+$modversion['sub'][$i]['url'] = "familydetailform.php?action=create";
+$i++;
+$modversion['sub'][$i]['name'] = _oscmembership_viewfamily;
+$modversion['sub'][$i]['url'] = "familylistform.php";
+$i++;
+$modversion['sub'][$i]['name'] = _oscmembership_viewgroup;
+$modversion['sub'][$i]['url'] = "groupselect.php";
+$i++;
+$modversion['sub'][$i]['name'] = _oscmembership_addgroup;
+$modversion['sub'][$i]['url'] = "groupdetailform.php?action=create";
+$i++;
+$modversion['sub'][$i]['name'] = _oscmem_customfield;
+$modversion['sub'][$i]['url'] = "customfieldselectform.php";
+$i++;
+$modversion['sub'][$i]['name'] = _oscmem_osclist_famrole_TITLE;
+$modversion['sub'][$i]['url'] = "admin/osclistselect_smarty.php?id=4";
+$i++;
+$modversion['sub'][$i]['name'] = _oscmem_view_cart;
+$modversion['sub'][$i]['url'] = "viewcart.php";
+
+?>
