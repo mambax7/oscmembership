@@ -58,15 +58,38 @@ class oscMembershipOsclistHandler extends XoopsObjectHandler
 		WHERE id=" . $osclist->getVar('id');
 		$sql =  $sql . " order by optionsequence";
 
+		//echo $sql;
 		
-		$retcol[]=array();
+		$oddrow=false;
+
+		$oscitems[]=array();
+		
 		if ($result = $this->db->query($sql)) 
 		{
-			return $result;
+			$i=0; //start counter
+			while($row = $this->db->fetchArray($result)) 
+			{
+				if(isset($row))
+				{
+					$osclist->assignVars($row);
+					$oscitems[$i]['oddrow']=$oddrow;
+					$oscitems[$i]['id']=$osclist->getVar('id');
+					$oscitems[$i]['optionid']=$osclist->getVar('optionid');
+					$oscitems[$i]['optionsequence']=$osclist->getVar('optionsequence');
+					$oscitems[$i]['optionname']=$osclist->getVar('optionname');
+					$oscitems[$i]['loopcount']=$i;
+					
+				}
+				$i++; //start counter
+			}
+			
+			return $oscitems;
 		}
 		else return null;
+		
 	}
 
+	
     function remove($osclist)
     {
 		$sql = "Delete " .

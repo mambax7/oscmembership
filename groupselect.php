@@ -1,6 +1,6 @@
 <?php
 include("../../mainfile.php");
-$xoopsOption['template_main'] = 'cs_index.html';
+//$xoopsOption['template_main'] = 'cs_index.html';
 
 //redirect
 if (!$xoopsUser)
@@ -27,6 +27,22 @@ elseif ( file_exists( "../language/english/main.php" ) ) {
 
 include(XOOPS_ROOT_PATH."/header.php");
 
+if (isset($_POST['submit'])) $submit = $_POST['submit'];
+
+
+if(isset($submit))
+{
+	switch($submit)
+	{
+	case _oscmem_addgroup:
+		redirect_header("groupdetailform.php?action=create", 2, _oscmem_addgroup_redirect);
+		
+		//do nothing
+		break;
+	}
+}
+
+
 $group_handler = &xoops_getmodulehandler('group', 'oscmembership');
 	
 $searcharray=array();
@@ -35,7 +51,13 @@ $result = $group_handler->search($searcharray);
 
 $form = new XoopsThemeForm(_oscmem_groupselect_TITLE, "groupselectform", "groupselect.php", "post", false);
 
+//<a href='groupdetailform.php?action=create'>" . _oscmembership_addgroup . "</a>
+
 $submit_button = new XoopsFormButton("", "groupselectsubmit", _osc_select, "submit");
+
+echo "<form action='groupselect.php' method=post>";
+echo "<input type=submit name=submit value='" . _oscmem_addgroup . "'>";
+echo "</form>";
 
 //echo "<h2 class=comTitle>" . _oscmem_personselect . "</h2>";
 /*
@@ -48,7 +70,7 @@ $inner_table = $inner_table . "</tr>";
 
 */
 $db = &Database::getInstance();
-
+$rowcount=0;
 $group=new Group();
 
 while($row = $db->fetchArray($result)) 
@@ -84,8 +106,6 @@ if(!isset($group_label))
 $form->display();
 
 include(XOOPS_ROOT_PATH."/footer.php");
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-echo "module/index.php";
 
 
 ?>

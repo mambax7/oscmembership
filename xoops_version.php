@@ -1,6 +1,6 @@
 <?php
 $modversion['name'] = _oscmem_MOD_NAME;
-$modversion['version'] = "0.01";
+$modversion['version'] = "0.02";
 $modversion['description'] = _oscmem_MOD_DESC;
 $modversion['credits'] = "Open Source Church Project - http://sourceforge.net/osc";
 $modversion['author'] = "Steve McAtee";
@@ -20,6 +20,7 @@ $modversion['tables'][6] = "oscmembership_group_members";
 $modversion['tables'][7] = "oscmembership_person_custom";
 $modversion['tables'][8] = "oscmembership_person_custom_master";
 $modversion['tables'][9] = "oscmembership_cart";
+$modversion['tables'][10] = "oscmembership_churchdir";
 
 // Templates
 $modversion['templates'][0]['file'] = 'simple.html';
@@ -30,11 +31,19 @@ $modversion['templates'][2]['file'] = 'cartview.html';
 $modversion['templates'][2]['description'] = 'Cart View Template';
 $modversion['templates'][3]['file'] = 'memberview.html';
 $modversion['templates'][3]['description'] = 'Member View Template';
+$modversion['templates'][4]['file'] = 'reports.html';
+$modversion['templates'][4]['description'] = 'Report Page';
+$modversion['templates'][5]['file'] = 'reportdirectory.html';
+$modversion['templates'][5]['description'] = 'Report Directory Options';
 
-//$modversion['blocks'][1]['file'] = "churchsplashblock.php";
-//$modversion['blocks'][1]['name'] = _CS_MOD_NAME;
-//$modversion['blocks'][1]['description'] = "Church Splash";
-//$modversion['blocks'][1]['show_func'] = "churchsplashblock_show";
+$modversion['blocks'][1]['file'] = "oscmemnav.php";
+$modversion['blocks'][1]['name'] = 'navigation';
+$modversion['blocks'][1]['description'] = "OSC Membership Menu";
+$modversion['blocks'][1]['show_func'] = "oscmemnav_show";
+$modversion['blocks'][2]['file'] = "oscnav.php";
+$modversion['blocks'][2]['name'] = 'OSC Menu';
+$modversion['blocks'][2]['description'] = "OSC Menu";
+$modversion['blocks'][2]['show_func'] = "oscnav_show";
 $modversion['hasSearch'] = 0;
 //$modversion['search']['file']="include/search.inc.php";
 //$modversion['search']['func']="oscmem_search";
@@ -64,7 +73,7 @@ $i++;
 $modversion['sub'][$i]['name'] = _oscmembership_viewgroup;
 $modversion['sub'][$i]['url'] = "groupselect.php";
 $i++;
-$modversion['sub'][$i]['name'] = _oscmembership_addgroup;
+$modversion['sub'][$i]['name'] = _oscmem_addgroup;
 $modversion['sub'][$i]['url'] = "groupdetailform.php?action=create";
 $i++;
 $modversion['sub'][$i]['name'] = _oscmem_customfield;

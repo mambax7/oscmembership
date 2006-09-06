@@ -220,7 +220,49 @@ function &modsearch($searcharray)
 		}
     }
 		
-	     
+
+    function &getarray()
+    //Search on criteria and return result
+    {
+	$result='';
+	$returnresult='';
+
+	$group =&$this->create(false);
+	
+	$sql = "SELECT * FROM " . $this->db->prefix("oscmembership_group") ;
+
+//	echo $sql;		
+	$groupitems[]=array();
+	
+	if ($result = $this->db->query($sql)) 
+	{
+		$oddrow=1;
+		$i=0; //start counter
+		while($row = $this->db->fetchArray($result)) 
+		{
+			if(isset($row))
+			{
+				$group->assignVars($row);
+				$groupitems[$i]['oddrow']=$oddrow;
+				$oddrow=$oddrow * -1;
+				$groupitems[$i]['id']=$group->getVar('id');
+				$groupitems[$i]['group_type']=$group->getVar('group_type');
+				$groupitems[$i]['group_RoleListID']=$group->getVar('group_RoleListID');
+				$groupitems[$i]['group_DefaultRole']=$group->getVar('group_DefaultRole');
+				$groupitems[$i]['group_Description']=$group->getVar('group_Description');
+					
+				$groupitems[$i]['group_Name']=$group->getVar('group_Name');
+			
+				$groupitems[$i]['group_hasSpecialProps']=$group->getVar('group_hasSpecialProps');
+	
+				$groupitems[$i]['loopcount']=$i;
+				
+			}
+			$i++; //start counter
+		}
+		return $groupitems;
+	}
+}	     
 	function &update(&$group)
     	{
 		$sql = "UPDATE " . $group->table

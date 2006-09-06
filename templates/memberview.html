@@ -1,12 +1,17 @@
-<h2 class=comTitle><{$title}>xxx</h2>
 
-<form name='listform' action='index.php?sort=<{$sort}>' method="POST">
+<h2 class=comTitle><{$title}></h2>
+
+<form action='index.php?sort=<{$sort}>' method="POST">
 <input type=hidden name=sortprior value='<{$sort}>'>
 <table class='outer' >
-<tr><TD colspan="3"><input type="text" name="filter">&nbsp; <input type="submit" name="<{$oscmem_applyfilter}>" value="<{$oscmem_applyfilter}>">&nbsp;<input type="submit" name="<{$oscmem_clearfilter}>" value="<{$oscmem_clearfilter}>"></TD><td align="right"><input type="submit" name="<{$oscmem_addtocart}>" value="<{$oscmem_addtocart}>"> 
+<tr><TD colspan="4">
 
-<input type="submit" name="<{$oscmem_intersectcart}>" value="<{$oscmem_intersectcart}>">
-<input type="submit" name="<{$oscmem_removefromcart}>" value="<{$oscmem_removefromcart}>">
+<input type="text" name="filter">&nbsp; 
+<input type="submit" name="submit" value="<{$oscmem_applyfilter}>">&nbsp;
+<input type="submit" name="submit" value="<{$oscmem_clearfilter}>"></TD><td align="right">
+<input type="submit" name="submit" value="<{$oscmem_addmember}>">
+&nbsp;&nbsp;<input type="submit" name="submit"  value="<{$oscmem_addtocart}>"> 
+&nbsp;<input type="submit" name="submit" value="<{$oscmem_removefromcart}>">
 </td></tr>
 <tr><th><input name="allbox" id="allbox" onclick="xoopsCheckAll('listform','allbox');" type="checkbox" value="Check All" /></th>
 <th><a href='index.php?sort=lastname' class=sort><{$oscmem_name}></a></th>

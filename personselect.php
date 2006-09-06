@@ -71,9 +71,9 @@ $submit_button = new XoopsFormButton("", "personselectsubmit", _osc_select, "sub
 //echo "<h2 class=comTitle>" . _oscmem_personselect . "</h2>";
 
 $inner_table="<table class='outer'  >";
-$inner_table = $inner_table . "<tr><th>&nbsp;</th><th>" . _oscdir_name . "</th><th>" . _oscdir_address . "</th>";
-$inner_table = $inner_table . "<th>" . _oscdir_city . "," . _oscdir_state . "</th>";
-$inner_table = $inner_table . "<th>" . _oscdir_email . "</th>";
+$inner_table = $inner_table . "<tr><th>&nbsp;</th><th>" . _oscmem_name . "</th><th>" . _oscmem_address . "</th>";
+$inner_table = $inner_table . "<th>" . _oscmem_city . "," . _oscmem_state . "</th>";
+$inner_table = $inner_table . "<th>" . _oscmem_email . "</th>";
 $inner_table = $inner_table . "<th>&nbsp;</th>";
 $inner_table = $inner_table . "</tr>";
 

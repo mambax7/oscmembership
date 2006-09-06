@@ -44,7 +44,7 @@ if(isset($submit))
 				}
 			}
 		
-		redirect_header("viewcart.php", 2, _oscmem_msg_removedfromcart);
+			redirect_header("viewcart.php", 2, _oscmem_msg_removedfromcart);
 		break;
 		
 		case _oscmem_emptycart:
@@ -53,6 +53,10 @@ if(isset($submit))
 
 			redirect_header("viewcart.php", 2, _oscmem_msg_removedfromcart);
 		
+		break;
+		
+		case _oscmem_generatelabels:
+			redirect_header("PDFLabels.php",2,"");
 		break;
 	}
 }

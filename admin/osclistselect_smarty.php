@@ -1,8 +1,12 @@
 <?php
 
 include("../../../mainfile.php");
+
+include '../../../include/cp_header.php';
+
 include_once XOOPS_ROOT_PATH.'/header.php';
 
+xoops_cp_header();
 
 $xoopsOption['template_main'] = 'oscmembership_optionlist.html';
 
@@ -34,6 +38,8 @@ switch (true)
 		break;    
 }
 
+
+
 $osclist_handler = &xoops_getmodulehandler('osclist', 'oscmembership');
 
 if (isset($_GET['id'])) $id=$_GET['id'];
@@ -42,70 +48,47 @@ if (isset($_POST['id'])) $id=$_POST['id'];
 $osclist = $osclist_handler->create();
 $osclist->assignVar('id',$id);
 
+switch ($id)
+{
+case 2: //family roles
+	$xoopsTpl->assign("option_class",_oscmem_addfamilyrole);
+	$xoopsTpl->assign("title",_oscmem_osclist_TITLE_familyroles);
+	
+	break;
+
+case 4: //member classification
+	$xoopsTpl->assign("option_class",_oscmem_addmemberclassification );
+	$xoopsTpl->assign("title",_oscmem_osclist_TITLE_memberclassifications);
+	
+	break;
+
+case 3: //member classification
+	$xoopsTpl->assign("option_class",_oscmem_addgrouptype );
+	$xoopsTpl->assign("title",_oscmem_osclist_TITLE_grouptypes);
+	
+	break;
+}
+
+
 $optionItems = $osclist_handler->getitems($osclist);
 
-echo $optionItems;
 //    $user_info = array ('uid' => $xoopsUser->getVar('uid'));
-
 
 $xoopsTpl->assign("osc_optionsort",_oscmem_option_sort);
 $xoopsTpl->assign("osc_optionname",_oscmem_familyrole_optionname);
 $xoopsTpl->assign("optionitems",$optionItems);
+$xoopsTpl->assign("id",$id);
 
-/*
-$form = new XoopsThemeForm(_oscmem_osclist_TITLE, "osclistselectform", "osclistselect.php", "post", false);
-
-$submit_button = new XoopsFormButton("", "osclistselectsubmit", _osc_select, "submit");
-
-//echo "<h2 class=comTitle>" . _oscmem_personselect . "</h2>";
-/*
-$inner_table="<table class='outer'  >";
-$inner_table = $inner_table . "<tr><th>&nbsp;</th><th>" . _oscmem_groupname . "</th>";
-$inner_table = $inner_table . "<th>" . _oscdir_city . "," . _oscdir_state . "</th>";
-$inner_table = $inner_table . "<th>" . _oscdir_email . "</th>";
-$inner_table = $inner_table . "<th>&nbsp;</th>";
-$inner_table = $inner_table . "</tr>";
-
-*/
-//$db = &Database::getInstance();
 
 $osclist=new Osclist();
-/*  
-while($row = $db->fetchArray($result)) 
-{
-	$rowcount++;
-	$osclist->assignVars($row);
-
-	echo "<tr>";
-
-	echo "<td><a href='admin/osclistdetailform.php?id=" . $osclist->getVar('id') . "'>" . _oscmem_edit . "</a></td>";
-	
-	echo "<td>" . $osclist->getVar('optionname') . "</td>";
-
-	echo "</tr>";	
-}
-*/
-/*
-if(!isset($osclist_label))
-{
-	$osclist_label= new XoopsFormLabel('',_oscmem_noitems);
-	$form->addElement($osclist_label);
-}	
-
-$osclist_label= new XoopsFormLabel('',"");
-$form->addElement($osclist_label);
-
-$add_link=new XoopsFormLabel("","<a href='osclistdetailform.php?id=" . $id . "&action=create'>" . _oscmem_addfamilyrole . "</a>");
-$form->addElement($add_link);
-
-
-//$form->addElement($topid_hidden);
-//$form->addElement($table_label);
-$form->display();
-*/
 
 include(XOOPS_ROOT_PATH."/footer.php");
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+
 
 
 ?>

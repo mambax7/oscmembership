@@ -50,7 +50,16 @@ define("_oscmem_itemname","Item Name");
 define("_oscmem_itemsequence","Sequence");
 
 //3
-define("_oscmem_grouptype_optionname","Group Type");
 define("_oscmem_addgrouptype","Add Group Type");
+define("_oscmem_osclist_TITLE_grouptypes","Group Types");
+
+//2
+define("_oscmem_addfamilyrole","Add Family Role");
+define("_oscmem_osclist_TITLE_familyroles","Family Roles");
+
+//4
+define("_oscmem_addmemberclassification","Add Member Classification");
+define("_oscmem_osclist_TITLE_memberclassifications","Member Classifications");
+
 
 ?>

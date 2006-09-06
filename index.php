@@ -1,5 +1,7 @@
 <?php
 include("../../mainfile.php");
+//$xoopsOption['pagetype'] = "admin";
+
 $GLOBALS['xoopsOption']['template_main'] ="memberview.html";
 
 //redirect
@@ -14,10 +16,13 @@ if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin(
     exit("Access Denied");
 }
 
+include XOOPS_ROOT_PATH."/include/cp_functions.php";
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/person.php';
 
 include(XOOPS_ROOT_PATH."/header.php");
+
+//xoops_cp_header();
 
 $sort="";
 $filter="";
@@ -33,16 +38,23 @@ if(isset($submit))
 {
 	switch($submit)
 	{
+	case _oscmem_addmember:
+		redirect_header("persondetailform.php?action=create", 2, _oscmem_addingmember);
+		break;
+	
+	
 	case _oscmem_applyfilter:
 		//do nothing
 		break;
 	case _oscmem_clearfilter:
+		echo $filter;
 		$filter="";
 		break;
 		
-	case _oscmem_addtocart:
+	case _oscmem_addtocart: 
 		//call add cart
-		for($i=1;$i<$loopcount+1;$i++)
+		echo "xxx";
+		for($i=0;$i<$loopcount+1;$i++)
 		{
 			if (isset($_POST['chk' . $i]))
 			{
@@ -97,10 +109,14 @@ $xoopsTpl->assign('oscmem_address',_oscmem_address);
 $xoopsTpl->assign('oscmem_email',_oscmem_email);
 $xoopsTpl->assign('oscmem_clearfilter',_oscmem_clearfilter);
 $xoopsTpl->assign('oscmem_addtocart',_oscmem_addtocart);
-$xoopsTpl->assign('oscmem_intersectcart',_oscmem_intersectcart);
 $xoopsTpl->assign('oscmem_removefromcart',_oscmem_removefromcart);
+$xoopsTpl->assign('oscmem_addmember',_oscmem_addmember);
+
 $xoopsTpl->assign('persons',$persons);
+
 $xoopsTpl->assign('loopcount', $persons[0]['totalloopcount']);
+
+//xoops_cp_footer();
 
 include(XOOPS_ROOT_PATH."/footer.php");
 

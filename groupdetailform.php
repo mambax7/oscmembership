@@ -29,9 +29,7 @@
 // Project: The XOOPS Project, The Open Source Church project (OSC)
 // ------------------------------------------------------------------------- //
 include("../../mainfile.php");
-$xoopsOption['template_main'] = 'cs_index.html';
 include(XOOPS_ROOT_PATH."/header.php");
-//include("../../../include/cp_header.php");
 include_once(XOOPS_ROOT_PATH . "/class/xoopsformloader.php");
 include_once(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/class/group.php");
 

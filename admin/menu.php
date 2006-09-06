@@ -2,14 +2,14 @@
 $admini=0;
 
 $adminmenu[$admini]['title'] = _oscmem_admin_osclist_familyroles;
-$adminmenu[$admini]['link'] = "admin/osclistselect.php?id=2";
+$adminmenu[$admini]['link'] = "admin/osclistselect_smarty.php?id=2";
 
 $admini++;
 $adminmenu[$admini]['title'] = _oscmem_admin_osclist_memberclassification;
-$adminmenu[$admini]['link'] = "admin/osclistselect.php?id=4";
+$adminmenu[$admini]['link'] = "admin/osclistselect_smarty.php?id=1";
 
 $admini++;
 $adminmenu[$admini]['title'] = _oscmem_admin_osclist_grouptype;
-$adminmenu[$admini]['link'] = "admin/osclistselect.php?id=3";
+$adminmenu[$admini]['link'] = "admin/osclistselect_smarty.php?id=3";
 
 ?>

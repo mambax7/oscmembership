@@ -287,7 +287,7 @@ else
 
 $addMember_button = new XoopsFormButton("", "addmembersubmit", _osc_addmember, "submit");
 
-$addMember_link=new XoopsFormLabel('',"<a href='personselect.php?familyid=" . $familyid . "'>" . _osc_addmember . "</a>");
+$addMember_link=new XoopsFormLabel('',"<a href='personselect.php?type=family&id=" . $familyid . "'>" . _osc_addmember . "</a>");
 $form->addElement($addMember_link);
 $member_label = new XoopsFormLabel(_oscmem_familymember, $memberresult);
 $form->addElement($member_label);

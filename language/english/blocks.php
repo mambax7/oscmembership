@@ -1,5 +1,5 @@
 <?php
 // Blocks
-define("_oscdir_BLOCK_TITLE","OSC Directory");
+define("_oscmem_nav_block_title","OSC Membership Navigation Block");
 //
 ?>
