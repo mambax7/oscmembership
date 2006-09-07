@@ -1,0 +1,96 @@
+<h2><{$title}></h2>
+<table class="outer">
+<tr><TD colspan="2"><hr></TD></tr>
+<tr><td>
+<{$form}>
+</td>
+</tr>
+
+<tr><TD colspan="2"><hr></TD></tr>
+
+<tr><TD>
+<{$oscmem_informationinclude}>
+
+</TD>
+<td>
+<input type="checkbox" Name="bDirAddress" value="1" checked><{$oscmem_address}><br>
+<input type="checkbox" Name="bDirWedding" value="1" checked><{$oscmem_weddingdate}><br>
+<input type="checkbox" Name="bDirBirthday" value="1" checked><{$oscmem_birthday}><br>
+file:/var/www/xoopsdev/modules/oscmembership/templates/reportdirectory.html
+<input type="checkbox" Name="bDirFamilyPhone" value="1" checked><{$oscmem_familyhomephone}><br>
+<input type="checkbox" Name="bDirFamilyWork" value="1" checked><{$oscmem_familyworkphone}><br>
+<input type="checkbox" Name="bDirFamilyCell" value="1" checked><{$oscmem_familycellphone}><br>
+<input type="checkbox" Name="bDirFamilyEmail" value="1" checked><{$oscmem_familyemail}><br>
+
+<input type="checkbox" Name="bDirPersonalPhone" value="1" checked><{$oscmem_personalphone}><br>
+<input type="checkbox" Name="bDirPersonalWork" value="1" checked><{$oscmem_personalworkphone}><br>
+<input type="checkbox" Name="bDirPersonalCell" value="1" checked><{$oscmem_personalcell}><br>
+<input type="checkbox" Name="bDirPersonalEmail" value="1" checked><{$oscmem_personalemail}><br>
+<input type="checkbox" Name="bDirPersonalWorkEmail" value="1" checked><{$oscmem_personalworkemail}><br>
+
+</td></tr>
+<tr><TD colspan="2"><hr></TD></tr>
+<tr><TD>
+<{$oscmem_diroptions}>
+</TD><td>
+	<input type="checkbox" Name="baltFamilyName" value="1" >
+	<{$oscmem_altfamilyname}></input>
+	<br>
+	<input type="checkbox" Name="baltHeader" value="1" ><{$oscmem_althead}></input>
+
+</TD></tr>
+
+<tr><TD colspan="2"><hr></TD></tr>
+
+<tr><TD><{$oscmem_dirsort}></TD>
+<td>
+	<input type="checkbox" Name="bSortFirstName" value="1"><{$oscmem_orderbyfirstname}></input>
+
+</td>
+</tr>
+<tr><TD colspan="2"><hr></TD></tr>
+<tr><td><{$oscmem_titlepagesettings}></td>
+</tr>
+<tr><td></td>
+<td><input type="checkbox" Name="bDirUseTitlePage" value="1">&nbsp;<{$oscmem_usetitlepageyn}>
+</td>
+</tr>
+<tr>
+<td><{$oscmem_churchname_label}></td>
+<td><input type="text" Name="sChurchName" value="<{$oscmem_churchname}>"></td>
+</tr>
+
+<tr>
+	<td><{$oscmem_address}></td>
+	<td><input type="text" Name="sChurchAddress" value="<{$oscmem_churchaddress}>"></td>
+</tr>
+<tr>
+<td><{$oscmem_city}></td>
+<td><input type="text" Name="sChurchCity" value="<{$oscmem_churchcity}>"></td>
+</tr>
+<tr>
+<td><{$oscmem_state}></td>
+<td><input type="text" Name="sChurchState" value="<{$oscmem_churchstate}>"></td>
+</tr>
+<tr>
+<td><{$oscmem_post}></td>
+<td><input type="text" Name="sChurchZip" value="<{$oscmem_churchzip}>"></td>
+</tr>
+<tr>
+<td><{$oscmem_phone}></td>
+<td><input type="text" Name="sChurchPhone" value="<{$oscmem_churchphone}>"></td>
+</tr>
+<tr>
+<td><{$oscmem_disclaimer}></td>
+<td><textarea Name="sDirectoryDisclaimer" cols="35" rows="4"><{$oscmem_directorydisclaimer}></textarea></td>
+</tr>
+
+</td>
+</tr>
+<tr><TD colspan="2"><hr></TD></tr>
+
+<tr><TD>
+<input type=submit name="submit" value="<{$oscmem_submit}>">
+</TD></tr>
+</table>
+</form>
