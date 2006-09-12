@@ -22,6 +22,7 @@ define("_oscmem_title","Member Directory");
 define("_oscmem_birthday","Birthday");
 define("_oscmem_gender","Gender");
 define("_oscmem_membershipdate","Membership Date");
+define("_oscmem_memberclass","Classification");
 define("_oscmem_submit","Submit");
 define("_osc_save","Save");
 define("_osc_select","Select");

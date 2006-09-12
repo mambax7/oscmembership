@@ -57,8 +57,6 @@ class oscMembershipOsclistHandler extends XoopsObjectHandler
 		$sql = "SELECT p.* FROM " . $osclist->table . " p
 		WHERE id=" . $osclist->getVar('id');
 		$sql =  $sql . " order by optionsequence";
-
-		//echo $sql;
 		
 		$oddrow=false;
 

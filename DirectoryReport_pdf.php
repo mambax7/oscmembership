@@ -444,7 +444,7 @@ $bDirPersonalEmail = isset($_POST["bDirPersonalEmail"]);
 $bDirPersonalWorkEmail = isset($_POST["bDirPersonalWorkEmail"]);
 
 if(isset($_POST["sChurchName"])) $sChurchName = $_POST["sChurchName"] ;
-if(isset($_POST["sDirectoryDisclaimer"])) $sDirectoryDisclaimer = $_POST[sDirectoryDisclaimer];
+if(isset($_POST["sDirectoryDisclaimer"])) $sDirectoryDisclaimer = $_POST["sDirectoryDisclaimer"];
 if(isset($_POST["sChurchAddress"])) $sChurchAddress = $_POST["sChurchAddress"];
 if(isset($_POST["sChurchCity"]))  $sChurchCity = $_POST["sChurchCity"];
 if(isset($_POST["sChurchState"])) $sChurchState = $_POST["sChurchState"];
@@ -483,6 +483,10 @@ if (strlen($sDirClassifications)) $sClassQualifier = "AND cls_id in (" . $sDirCl
 
 $db = &Database::getInstance();
 
+$sGroupTable = "";
+
+$sWhereExt="";
+
 if (!empty($_POST["GroupID"]))
 {
 	$sGroupTable = ", " . $db->prefix('oscmembership_p2g2r');
@@ -511,22 +515,22 @@ else
 	$sortMe=" per_LastName ";
 
 
-$sSQL = "(SELECT *, 0 AS memberCount, " . $sortMe . " AS SortMe  FROM person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID WHERE per_fam_ID = 0 AND person_per.chu_Church_ID=" . $_SESSION['iChurchID'] . " $sWhereExt $sClassQualifier)
-	UNION (SELECT *, COUNT(*) AS memberCount, fam_Name AS SortMe FROM person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID WHERE per_fam_ID > 0  AND person_per.chu_Church_ID=" . $_SESSION['iChurchID'] . " $sWhereExt $sClassQualifier GROUP BY per_fam_ID HAVING memberCount = 1)
-	UNION (SELECT *, COUNT(*) AS memberCount, fam_Name AS SortMe FROM person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID WHERE per_fam_ID > 0 AND person_per.chu_Church_ID=" . $_SESSION['iChurchID'] . " $sWhereExt $sClassQualifier GROUP BY per_fam_ID HAVING memberCount > 1) ";
+$sSQL = "(SELECT *, 0 AS memberCount, " . $sortMe . " AS SortMe  FROM person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID WHERE per_fam_ID = 0 " . " $sWhereExt $sClassQualifier)
+	UNION (SELECT *, COUNT(*) AS memberCount, fam_Name AS SortMe FROM person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID WHERE per_fam_ID > 0  " . " $sWhereExt $sClassQualifier GROUP BY per_fam_ID HAVING memberCount = 1)
+	UNION (SELECT *, COUNT(*) AS memberCount, fam_Name AS SortMe FROM person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID WHERE per_fam_ID > 0 " . " $sWhereExt $sClassQualifier GROUP BY per_fam_ID HAVING memberCount > 1) ";
 
 if($baltFamilyName) 
 {
-	$sSQL= $sSQL . "UNION (SELECT *, COUNT(*) AS memberCount, fam_altFamilyname AS SortMe FROM person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID WHERE per_fam_ID > 0  AND length(family_fam.fam_altFamilyname)>0 AND person_per.chu_Church_ID=" . $_SESSION['iChurchID'] . " $sWhereExt $sClassQualifier GROUP BY per_fam_ID HAVING memberCount = 1)
-	UNION (SELECT *, COUNT(*) AS memberCount, fam_altFamilyname AS SortMe FROM person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID WHERE per_fam_ID > 0 AND length(family_fam.fam_altFamilyname)>0 AND person_per.chu_Church_ID=" . $_SESSION['iChurchID'] . " $sWhereExt $sClassQualifier GROUP BY per_fam_ID HAVING memberCount > 1) ";
+	$sSQL= $sSQL . "UNION (SELECT *, COUNT(*) AS memberCount, fam_altFamilyname AS SortMe FROM person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID WHERE per_fam_ID > 0  AND length(family_fam.fam_altFamilyname)>0 " . " $sWhereExt $sClassQualifier GROUP BY per_fam_ID HAVING memberCount = 1)
+	UNION (SELECT *, COUNT(*) AS memberCount, fam_altFamilyname AS SortMe FROM person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID WHERE per_fam_ID > 0 AND length(family_fam.fam_altFamilyname)>0 " . " $sWhereExt $sClassQualifier GROUP BY per_fam_ID HAVING memberCount > 1) ";
 }	
 
 $sSQL = $sSQL . "ORDER BY SortMe ";
 
-exit;
+echo $sSQL;
 $rsRecords=$db->query($sSQL);
 //$rsRecords = RunQuery($sSQL);
-
+exit;
 // This is used for the headings for the letter changes.
 // Start out with something that isn't a letter to force the first one to work
 $sLastLetter = "0";
@@ -559,9 +563,9 @@ while ($aRow = mysql_fetch_array($rsRecords))
 		$bNoRecordName = true;
 
 		// Find the Head of Household
-		$sSQL = "SELECT * from person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID 
-			WHERE per_fam_ID = " . $iFamilyID . " 
-			AND per_fmr_ID in ($sDirRoleHeads) $sWhereExt $sClassQualifier $sGroupBy";
+		$sSQL = "SELECT * from " . $this->db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN " $this->db->prefix("oscmembership_family") . " family ON person.famid = family.id 
+			WHERE person.famid = " . $iFamilyID . " 
+			AND person.fmrid in ($sDirRoleHeads) $sWhereExt $sClassQualifier $sGroupBy";
 		$rsPerson = RunQuery($sSQL);
 
 		if (mysql_num_rows($rsPerson) > 0)

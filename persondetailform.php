@@ -125,6 +125,8 @@ switch (true)
 
 	if(isset($_POST['birthyear'])) $person->assignVar('birthyear',$_POST['birthyear']);
 
+	if(isset($_POST['memberclass'])) $person->assignVar('clsid',$_POST['memberclass']);
+
 	if(isset($_POST['membershipdate'])) $person->assignVar('membershipdate',$_POST['membershipdate']);
 
 	if(isset($_POST['gender'])) $person->assignVar('gender',$_POST['gender']);
@@ -162,6 +164,27 @@ switch (true)
 	redirect_header("persondetailform.php?id=" . $personid, 3, $message);
     break;
 }
+
+$osclist_handler = &xoops_getmodulehandler('osclist', 'oscmembership');
+
+$osclist = $osclist_handler->create();
+$id=1;
+$osclist->assignVar('id',$id);
+$optionItems = $osclist_handler->getitems($osclist);
+
+$option_array=array();
+$db = &Database::getInstance();
+
+$osclist = $osclist_handler->create();
+
+if(isset($optionItems))
+{
+	foreach($optionItems as $osclist)
+	{
+		$option_array[$osclist['optionid']]=$osclist['optionname'];
+	}
+}
+
 
 $firstname_text = new XoopsFormText(_oscmem_firstname, "firstname", 30, 50, $person->getVar('firstname'));
 $lastname_text=new XoopsFormText(_oscmem_lastname,"lastname",30,50,$person->getVar('lastname'));
@@ -205,6 +228,11 @@ $gender_array[1]=_oscmem_female;
 
 $gender_select = new XoopsFormSelect(_oscmem_gender,'gender',$person->getVar('gender'),1,false, 'gender');
 $gender_select->addOptionArray($gender_array);
+
+$memberclass_select = new XoopsFormSelect(_oscmem_memberclass,'memberclass',$person->getVar('clsid'),1,false, 'memberclass');
+
+$memberclass_select->addOptionArray($option_array);
+
 
 $datelastedited_label = new XoopsFormLabel(_oscmem_datelastedited, $person->getVar('datelastedited'));
 
@@ -271,6 +299,7 @@ $form->addElement($cellphone_text);
 $form->addElement($email_text);
 $form->addElement($workemail_text);
 $form->addElement($birth_tray);
+$form->addElement($memberclass_select);
 $form->addElement($membershipdate_text);
 $form->addElement($gender_select);
 $form->addElement($datelastedited_label);

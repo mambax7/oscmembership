@@ -72,7 +72,7 @@ $optionItems = $osclist_handler->getitems($osclist);
 
 $form = new XoopsThemeForm("", "reportdirectoryform", "DirectoryReport_pdf.php", "post", true);
 
-$class_select = new XoopsFormSelect(_oscmem_dirreport_selectclass,'sDirClassifications[]',"",5,true, 'class');
+$class_select = new XoopsFormSelect(_oscmem_dirreport_selectclass,'sDirClassifications',"",5,true, 'class');
 foreach($optionItems as $osclist)
 {
 	$class_select->addOption($osclist['optionid'], $osclist['optionname']);
@@ -81,7 +81,7 @@ foreach($optionItems as $osclist)
 $group_handler = &xoops_getmodulehandler('group', 'oscmembership');
 $groups = $group_handler->getarray();
 
-$group_select = new XoopsFormSelect(_oscmem_dirreport_groupmemb,'GroupID[]',"",5,true, 'group');
+$group_select = new XoopsFormSelect(_oscmem_dirreport_groupmemb,'GroupID',"",5,true, 'group');
 foreach($groups as $group)
 {
 	$group_select->addOption($group['id'], $group['group_Name']);
@@ -90,41 +90,132 @@ foreach($groups as $group)
 $osclist = $osclist_handler->create();
 $osclist->assignVar('id','2');
 $role_result = $osclist_handler->getitems($osclist);
-$role_select = new XoopsFormSelect(_oscmem_dirreport_headhouse,'sDirRoleHead[]',"",5,true, 'role');
+$role_select = new XoopsFormSelect(_oscmem_dirreport_headhouse,'sDirRoleHead',"",5,true, 'role');
 foreach($role_result as $osclist)
 {
 	$role_select->addOption($osclist['optionid'], $osclist['optionname']);
 }
 
-$dirAddress = new XoopsFormCheckBox(_oscmem_address,"bdirAddress",0);
-$dirAddress->addOption(0,"test");
+$spouserole_select = new XoopsFormSelect(_oscmem_dirreport_spouse,'sDirRoleSpouse',"",5,true, 'role');
+foreach($role_result as $osclist)
+{
+	$spouserole_select->addOption($osclist['optionid'], $osclist['optionname']);
+}
+
+$childrole_select = new XoopsFormSelect(_oscmem_dirreport_child,'sDirRoleChild',"",5,true, 'role');
+foreach($role_result as $osclist)
+{
+	$childrole_select->addOption($osclist['optionid'], $osclist['optionname']);
+}
+
+
+$dirAddress = new XoopsFormCheckBox("","bDirAddress",0);
+$dirAddress->addOption(0,_oscmem_address);
+$dirWedding = new XoopsFormCheckBox("","bDirWedding",0);
+$dirWedding->addOption(0,_oscmem_weddingdate);
+$dirBirthday = new XoopsFormCheckBox("","bDirBirthday",0);
+$dirBirthday->addOption(0,_oscmem_birthday);
+$dirFamilyPhone = new XoopsFormCheckBox("","bDirFamilyPhone",0);
+$dirFamilyPhone->addOption(0,_oscmem_familyhomephone);
+$dirFamilyWork = new XoopsFormCheckBox("","bDirFamilyWork",0);
+$dirFamilyWork->addOption(0,_oscmem_familyworkphone);
+$dirFamilyCell = new XoopsFormCheckBox("","bDirFamilyCell",0);
+$dirFamilyCell->addOption(0,_oscmem_familycellphone);
+$dirFamilyEmail = new XoopsFormCheckBox("","bDirFamilyEmail",0);
+$dirFamilyEmail->addOption(0,_oscmem_familyemail);
+$dirPersonalPhone = new XoopsFormCheckBox("","bDirPersonalPhone",0);
+$dirPersonalPhone->addOption(0,_oscmem_personalphone);
+$dirPersonalWork = new XoopsFormCheckBox("","bDirPersonalWork",0);
+$dirPersonalWork->addOption(0,_oscmem_personalworkphone);
+$dirPersonalCell = new XoopsFormCheckBox("","bDirPersonalCell",0);
+$dirPersonalCell->addOption(0,_oscmem_personalcell);
+$dirPersonalEmail = new XoopsFormCheckBox("","bDirPersonalEmail",0);
+$dirPersonalEmail->addOption(0,_oscmem_personalemail);
+$dirPersonalWorkEmail = new XoopsFormCheckBox("","bDirPersonalWorkEmail",0);
+$dirPersonalWorkEmail->addOption(0,_oscmem_personalworkemail);
+
+
 $information_tray = new XoopsFormElementTray(_oscmem_dirreport_infoinclude, '&nbsp;');
 
-$information_tray->addElement($dirAddress);
+$information_tray2 = new XoopsFormElementTray(_oscmem_diroptions, '&nbsp;');
+
+$diraltFamilyName = new XoopsFormCheckBox("","baltFamilyName",0);
+$diraltFamilyName->addOption(0,_oscmem_altfamilyname);
+$diraltHeader = new XoopsFormCheckBox("","baltHeader",0);
+$diraltHeader->addOption(0,_oscmem_althead);
+
+$information_tray3 = new XoopsFormElementTray(_oscmem_dirsort, '&nbsp;');
+
+$dirSortFirstName = new XoopsFormCheckBox("","bSortFirstName",0);
+$dirSortFirstName->addOption(0,_oscmem_orderbyfirstname);
+
+$information_tray4 = new XoopsFormElementTray(_oscmem_titlepagesettings, '&nbsp;');
+$diruseTitlePage = new XoopsFormCheckBox("","bDirUseTitlePage",0);
+$diruseTitlePage->addOption(0,_oscmem_usetitlepageyn);
+
+$churchname_text = new XoopsFormText(_oscmem_churchname_label, "sChurchName", 30, 50, $churchdir->getVar('church_name'));
+
+$churchaddress_text = new XoopsFormText(_oscmem_address, "sChurchAddress", 30, 50, $churchdir->getVar('church_address'));
+
+$churchcity_text = new XoopsFormText(_oscmem_city, "sChurchCity", 30, 50, $churchdir->getVar('church_city'));
+
+$churchstate_text = new XoopsFormText(_oscmem_state, "sChurchState", 30, 50, $churchdir->getVar('church_state'));
+
+$churchpost_text = new XoopsFormText(_oscmem_post, "sChurchZip", 30, 50, $churchdir->getVar('church_post'));
+
+$churchphone_text = new XoopsFormText(_oscmem_phone, "sChurchPhone", 30, 50, $churchdir->getVar('church_phone'));
+
+
+$disclaimer_textarea= new XoopsFormTextArea(_oscmem_disclaimer,"sDirectoryDisclaimer",$churchdir->getVar('disclaimer'));
 
 $form->addElement($class_select);
 $form->setRequired($class_select);
 $form->addElement($group_select);
 $form->addElement($role_select);
+
+$form->addElement($spouserole_select);
+$form->addElement($childrole_select);
+
+
 $form->addElement($information_tray);
+$form->addElement($dirAddress);
+$form->addElement($dirBirthday);
+$form->addElement($dirWedding);
+$form->addElement($dirBirthday);
+$form->addElement($dirFamilyPhone);
+$form->addElement($dirFamilyWork);
+$form->addElement($dirFamilyCell);
+$form->addElement($dirFamilyEmail);
+$form->addElement($dirPersonalPhone);
+$form->addElement($dirPersonalWork);
+$form->addElement($dirPersonalCell);
+$form->addElement($dirPersonalEmail);
+$form->addElement($dirPersonalWorkEmail);
+$form->addElement($information_tray2);
+$form->addElement($diraltFamilyName);
+$form->addElement($diraltHeader);
+$form->addElement($information_tray3);
+$form->addElement($dirSortFirstName);
 
-/*
-<tr><TD>
-<{$oscmem_informationinclude}>
+$form->addElement($information_tray4);
+$form->addElement($diruseTitlePage);
+$form->addElement($churchname_text);
+$form->addElement($churchaddress_text);
+$form->addElement($churchcity_text);
+$form->addElement($churchstate_text);
+$form->addElement($churchpost_text);
+$form->addElement($churchphone_text);
+$form->addElement($disclaimer_textarea);
 
-</TD>
-<td>
-<input type="checkbox" Name="bDirAddress" value="1" checked><{$oscmem_address}><br>
-<input type="checkbox" Name="bDirWedding" value="1" checked><{$oscmem_weddingdate}><br>
-<input type="checkbox" Name="bDirBirthday" value="1" checked><{$oscmem_birthday}><br>
-*/
+$submit_button = new XoopsFormButton("", "submit", _oscmem_submit, "submit");
 
-
+$form->addElement($submit_button);
 
 $rform= $form->render();
 
 $xoopsTpl->assign('form',$rform);
 
+/*
 $xoopsTpl->assign('groups',$groups);
 
 $osclist = $osclist_handler->create();
@@ -172,7 +263,7 @@ $xoopsTpl->assign('oscmem_churchstate',$churchdir->getVar('church_state'));
 $xoopsTpl->assign('oscmem_churchzip',$churchdir->getVar('church_post'));
 $xoopsTpl->assign('oscmem_churchphone',$churchdir->getVar('church_phone'));
 $xoopsTpl->assign('oscmem_directorydisclaimer',$churchdir->getVar('disclaimer'));
-
+*/
 
 include(XOOPS_ROOT_PATH."/footer.php");
 ?>
