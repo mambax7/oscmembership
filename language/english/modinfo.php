@@ -177,4 +177,6 @@ define("_oscmem_usetitlepageyn","Use Title Page");
 define("_oscmem_churchname_label","Church Name");
 define("_oscmem_disclaimer","Disclaimer");
 
+define("_oscmem_directory","Directory");
+define("_oscmem_page","Page");
 ?>

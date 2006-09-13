@@ -74,7 +74,7 @@ class PDF_Directory extends FPDF {
 			//Move to the right
 			$this->Cell(10);
 			//Framed title
-			$this->Cell(190,10,$sChurchName . " - " . gettext("Member Directory"),1,0,'C');
+			$this->Cell(190,10,$sChurchName . " - " . _oscmem_title ,1,0,'C');
 		}
 	}
 
@@ -92,7 +92,7 @@ class PDF_Directory extends FPDF {
 			$iPageNumber = $this->PageNo();
 			if ($bDirUseTitlePage)
 				$iPageNumber--;
-			$this->Cell(0,10, gettext("Page") . " " . $iPageNumber,0,0,'C');
+			$this->Cell(0,10, _oscmem_page . " " . $iPageNumber,0,0,'C');
 		}
 	}
 
@@ -116,7 +116,7 @@ class PDF_Directory extends FPDF {
 		//Line break
 		$this->Ln(5);
 		//Move to the right
-		$this->MultiCell(197,10,"\n\n\n". $sChurchName . "\n\n" . gettext("Directory") . "\n\n",0,'C');
+		$this->MultiCell(197,10,"\n\n\n". $sChurchName . "\n\n" . _oscmem_Directory . "\n\n",0,'C');
 		$this->Ln(5);
 		$today = date("F j, Y");
 		$this->MultiCell(197,10,$today . "\n\n",0,'C');
@@ -527,10 +527,10 @@ if($baltFamilyName)
 
 $sSQL = $sSQL . "ORDER BY SortMe ";
 
-echo $sSQL;
+//echo $sSQL;
 $rsRecords=$db->query($sSQL);
 //$rsRecords = RunQuery($sSQL);
-exit;
+//exit;
 // This is used for the headings for the letter changes.
 // Start out with something that isn't a letter to force the first one to work
 $sLastLetter = "0";
