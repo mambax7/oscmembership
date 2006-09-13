@@ -63,7 +63,8 @@ class PDF_Label extends FPDF
 	var $_Avery_Labels = array (
 
 		'5160'=>array('name'=>'5160', 'paper-size'=>'letter', 'metric'=>'mm', 'marginLeft'=>4, 'marginTop'=>11, 'NX'=>3, 'NY'=>10, 'SpaceX'=>3.175, 'SpaceY'=>0, 'width'=>66.675, 'height'=>25.4, 'font-size'=>11),
-		'5161'=>array('name'=>'5161', 'paper-size'=>'letter', 'metric'=>'mm', 'marginLeft'=>1, 'marginTop'=>10.7, 'NX'=>2, 'NY'=>10, 'SpaceX'=>3.967, 'SpaceY'=>0, 'width'=>101.6, 'height'=>25.4, 'font-size'=>11),
+		'5161'=>array('name'=>'5161', 'paper-size'=>'letter', //'metric'=>'mm', 'marginLeft'=>1, 'marginTop'=>10.7, 'NX'=>2,
+		'metric'=>'mm', 'marginLeft'=>1.15, 'marginTop'=>10.7, 'NX'=>2, 'NY'=>10, 'SpaceX'=>3.967, 'SpaceY'=>0, 'width'=>101.6, 'height'=>25.4, 'font-size'=>11),
 		'5162'=>array('name'=>'5162', 'paper-size'=>'letter', 'metric'=>'mm', 'marginLeft'=>4, 'marginTop'=>20.224, 'NX'=>2, 'NY'=>7, 'SpaceX'=>4.762, 'SpaceY'=>0, 'width'=>100.807, 'height'=>34, 'font-size'=>12),
 		'5163'=>array('name'=>'5163', 'paper-size'=>'letter', 'metric'=>'mm', 'marginLeft'=>1.762, 'marginTop'=>10.7, 'NX'=>2, 'NY'=>5, 'SpaceX'=>3.175, 'SpaceY'=>0, 'width'=>101.6, 'height'=>50.8, 'font-size'=>8),
 		'5164'=>array('name'=>'5164', 'paper-size'=>'letter', 'metric'=>'in', 'marginLeft'=>0.148, 'marginTop'=>0.5, 'NX'=>2, 'NY'=>3, 'SpaceX'=>0.2031, 'SpaceY'=>0, 'width'=>4.0, 'height'=>3.33, 'font-size'=>12),

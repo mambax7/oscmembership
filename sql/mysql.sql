@@ -38,6 +38,7 @@ CREATE TABLE `oscmembership_family` (
   `id` mediumint(9) NOT NULL auto_increment,
   `churchid` int(11) NOT NULL default '0',
   `familyname` varchar(50) default NULL,
+  `altfamilyname` varchar(50) default NULL,
   `address1` varchar(255) default NULL,
   `address2` varchar(255) default NULL,
   `city` varchar(50) default NULL,

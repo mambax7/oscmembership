@@ -696,8 +696,8 @@ function &searchgroupmembers($searcharray, $groupid)
 		 
 		" where id=" . $person->getVar('id');
 	
-		//echo $sql;
-		
+		echo $sql;
+		exit;
 		if (!$result = $this->db->query($sql)) {
 			echo "<br />oscmembershipHandler::get error::" . $sql;
 			return false;

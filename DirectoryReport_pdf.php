@@ -479,7 +479,7 @@ $pdf = new PDF_Directory();
 
 if ($bDirUseTitlePage) $pdf->TitlePage();
 
-if (strlen($sDirClassifications)) $sClassQualifier = "AND cls_id in (" . $sDirClassifications . ")";
+if (strlen($sDirClassifications)) $sClassQualifier = "AND person.clsid in (" . $sDirClassifications . ")";
 
 $db = &Database::getInstance();
 
@@ -510,19 +510,19 @@ if (!empty($_POST["GroupID"]))
 
 //Determine sort selection
 if($bSortFirstName)
-	$sortMe = " per_FirstName ";
+	$sortMe = " person.firstname ";
 else
-	$sortMe=" per_LastName ";
+	$sortMe=" person.lastname ";
 
 
-$sSQL = "(SELECT *, 0 AS memberCount, " . $sortMe . " AS SortMe  FROM person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID WHERE per_fam_ID = 0 " . " $sWhereExt $sClassQualifier)
-	UNION (SELECT *, COUNT(*) AS memberCount, fam_Name AS SortMe FROM person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID WHERE per_fam_ID > 0  " . " $sWhereExt $sClassQualifier GROUP BY per_fam_ID HAVING memberCount = 1)
-	UNION (SELECT *, COUNT(*) AS memberCount, fam_Name AS SortMe FROM person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID WHERE per_fam_ID > 0 " . " $sWhereExt $sClassQualifier GROUP BY per_fam_ID HAVING memberCount > 1) ";
+$sSQL = "(SELECT *, 0 AS memberCount, " . $sortMe . " AS SortMe  FROM  " . $db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN " . $db->prefix("oscmembership_family") . " family ON family.id= person.famid WHERE person.famid = 0 " . " $sWhereExt $sClassQualifier)
+	UNION (SELECT *, COUNT(*) AS memberCount, familyname AS SortMe FROM " . $db->prefix("oscmembership_person") . "  person $sGroupTable LEFT JOIN  " . $db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0  " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount = 1)
+	UNION (SELECT *, COUNT(*) AS memberCount, familyname AS SortMe FROM " . $db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN  " . $db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0 " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount > 1) ";
 
 if($baltFamilyName) 
 {
-	$sSQL= $sSQL . "UNION (SELECT *, COUNT(*) AS memberCount, fam_altFamilyname AS SortMe FROM person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID WHERE per_fam_ID > 0  AND length(family_fam.fam_altFamilyname)>0 " . " $sWhereExt $sClassQualifier GROUP BY per_fam_ID HAVING memberCount = 1)
-	UNION (SELECT *, COUNT(*) AS memberCount, fam_altFamilyname AS SortMe FROM person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID WHERE per_fam_ID > 0 AND length(family_fam.fam_altFamilyname)>0 " . " $sWhereExt $sClassQualifier GROUP BY per_fam_ID HAVING memberCount > 1) ";
+	$sSQL= $sSQL . "UNION (SELECT *, COUNT(*) AS memberCount, altfamilyname AS SortMe FROM " . $db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN  " . $db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0  AND length(family.altfamilyname)>0 " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount = 1)
+	UNION (SELECT *, COUNT(*) AS memberCount, altfamilyname AS SortMe FROM " . $db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN " . $db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0 AND length(family.altfamilyname)>0 " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount > 1) ";
 }	
 
 $sSQL = $sSQL . "ORDER BY SortMe ";
@@ -563,7 +563,7 @@ while ($aRow = mysql_fetch_array($rsRecords))
 		$bNoRecordName = true;
 
 		// Find the Head of Household
-		$sSQL = "SELECT * from " . $this->db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN " $this->db->prefix("oscmembership_family") . " family ON person.famid = family.id 
+		$sSQL = "SELECT * from " . $this->db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN " . $this->db->prefix("oscmembership_family") . " family ON person.famid = family.id 
 			WHERE person.famid = " . $iFamilyID . " 
 			AND person.fmrid in ($sDirRoleHeads) $sWhereExt $sClassQualifier $sGroupBy";
 		$rsPerson = RunQuery($sSQL);
@@ -578,9 +578,9 @@ while ($aRow = mysql_fetch_array($rsRecords))
 		}
 
 		// Find the Spouse of Household
-		$sSQL = "SELECT * from person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID 
-			WHERE per_fam_ID = " . $iFamilyID . " 
-			AND per_fmr_ID in ($sDirRoleSpouses) $sWhereExt $sClassQualifier $sGroupBy";
+		$sSQL = "SELECT * from " . $db->prefix("oscmembership_person") . "  person $sGroupTable LEFT JOIN family_fam ON person.famid = family.id 
+			WHERE person.famid = " . $iFamilyID . " 
+			AND person.famid in ($sDirRoleSpouses) $sWhereExt $sClassQualifier $sGroupBy";
 		$rsPerson = RunQuery($sSQL);
 
 		if (mysql_num_rows($rsPerson) > 0)
@@ -604,9 +604,9 @@ while ($aRow = mysql_fetch_array($rsRecords))
 		}
 			
 		// Find the other members of a family
-		$sSQL = "SELECT * from person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID
-            WHERE per_fam_ID = " . $iFamilyID . " AND !(per_fmr_ID in ($sDirRoleHeads))
-            AND !(per_fmr_ID in ($sDirRoleSpouses))  $sWhereExt $sClassQualifier $sGroupBy";
+		$sSQL = "SELECT * from " . $db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN " . $db->prefix("oscmembership_family") . " family ON person.famid = family.id
+            WHERE person.famid = " . $iFamilyID . " AND !(person.fmrid in ($sDirRoleHeads))
+            AND !(person.fmrid in ($sDirRoleSpouses))  $sWhereExt $sClassQualifier $sGroupBy";
 //		$sSQL = "SELECT * from person_per $sGroupTable LEFT JOIN family_fam ON per_fam_ID = fam_ID
 //			WHERE per_fam_ID = " . $iFamilyID . " AND !(per_fmr_ID in ($sDirRoleHeads))
 //			AND per_fmr_ID in ($sDirRoleChildren) $sWhereExt $sGroupBy";

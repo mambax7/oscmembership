@@ -243,7 +243,7 @@ if($person->getVar('editedby')<>'')
 	$user = $member_handler->getUser($person->getVar('editedby'));
 }
 
-$familyrole_select = new XoopsFormSelect(_oscmem_familyrole,"fmrid");
+$familyrole_select = new XoopsFormSelect(_oscmem_familyrole,"fmrid",$person->getVar('fmrid'),1,false,'fmrid');
 
 $db = &Database::getInstance();
 
