@@ -44,6 +44,8 @@ include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/incl
 
 require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/class_fpdf_labels.php";
 
+require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php";
+
 
 // Load the FPDF library
 //LoadLib_FPDF();
@@ -74,7 +76,7 @@ class PDF_Directory extends FPDF {
 			//Move to the right
 			$this->Cell(10);
 			//Framed title
-			$this->Cell(190,10,$sChurchName . " - " . _oscmem_title ,1,0,'C');
+			$this->Cell(190,10,$sChurchName . " - " . gettext("Member Directory"),1,0,'C');
 		}
 	}
 
@@ -92,7 +94,7 @@ class PDF_Directory extends FPDF {
 			$iPageNumber = $this->PageNo();
 			if ($bDirUseTitlePage)
 				$iPageNumber--;
-			$this->Cell(0,10, _oscmem_page . " " . $iPageNumber,0,0,'C');
+			$this->Cell(0,10, gettext("Page") . " " . $iPageNumber,0,0,'C');
 		}
 	}
 
@@ -116,7 +118,7 @@ class PDF_Directory extends FPDF {
 		//Line break
 		$this->Ln(5);
 		//Move to the right
-		$this->MultiCell(197,10,"\n\n\n". $sChurchName . "\n\n" . _oscmem_Directory . "\n\n",0,'C');
+		$this->MultiCell(197,10,"\n\n\n". $sChurchName . "\n\n" . gettext("Directory") . "\n\n",0,'C');
 		$this->Ln(5);
 		$today = date("F j, Y");
 		$this->MultiCell(197,10,$today . "\n\n",0,'C');
@@ -530,7 +532,6 @@ $sSQL = $sSQL . "ORDER BY SortMe ";
 //echo $sSQL;
 $rsRecords=$db->query($sSQL);
 //$rsRecords = RunQuery($sSQL);
-//exit;
 // This is used for the headings for the letter changes.
 // Start out with something that isn't a letter to force the first one to work
 $sLastLetter = "0";
@@ -620,10 +621,10 @@ while ($aRow = mysql_fetch_array($rsRecords))
 	}
 	else
 	{
-		if (strlen($fam_Name))
-			$pdf->sLastName = $fam_Name;
+		if (strlen($familyname))
+			$pdf->sLastName = $familyname;
 		else
-			$pdf->sLastName = $per_LastName;
+			$pdf->sLastName = $lastname;
 		
 //		if($baltHeader)
 //		{ //Do nothing
@@ -632,15 +633,15 @@ while ($aRow = mysql_fetch_array($rsRecords))
 //		{
 		//here
 		if($bSortFirstName)
-			$pdf->sRecordName = $per_FirstName . " " . $pdf->sLastName;
+			$pdf->sRecordName = $firstname . " " . $pdf->sLastName;
 		else
-			$pdf->sRecordName = $pdf->sLastName . ", " . $per_FirstName;
+			$pdf->sRecordName = $pdf->sLastName . ", " . $firstname;
 //                }
 
-		if ($bDirBirthday && $per_BirthMonth && $per_BirthDay)
-			$pdf->sRecordName .= sprintf(" (%d/%d)", $per_BirthMonth, $per_BirthDay);
+		if ($bDirBirthday && $birthmonth && $birthday)
+			$pdf->sRecordName .= sprintf(" (%d/%d)", $birthmonth, $birthday);
 
-		SelectWhichAddress($sAddress1, $sAddress2, $per_Address1, $per_Address2, $fam_Address1, $fam_Address2, false);
+		SelectWhichAddress($address1, $address2, $per_Address1, $per_Address2, $fam_Address1, $fam_Address2, false);
 		$sAddress2 = SelectWhichInfo($per_Address2, $fam_Address2, false);
 		$sCity = SelectWhichInfo($per_City, $fam_City, false);
 		$sState = SelectWhichInfo($per_State, $fam_State, false);
@@ -692,6 +693,8 @@ while ($aRow = mysql_fetch_array($rsRecords))
 		$pdf->Add_Record($pdf->sRecordName, $OutStr, $numlines);  // another hack: added +1
 	}
 }
+
+exit;
 
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");

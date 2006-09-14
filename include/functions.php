@@ -636,4 +636,95 @@ exit();
 } 
 } 
 
+//
+// Returns the correct address to use via the sReturnAddress arguments.
+// Function value returns 0 if no info was given, 1 if person info was used, and 2 if family info was used.
+// We do address lines 1 and 2 in together because seperately we might end up with half family address and half person address!
+//
+function SelectWhichAddress(&$sReturnAddress1, &$sReturnAddress2, $sPersonAddress1, $sPersonAddress2, $sFamilyAddress1, $sFamilyAddress2, $bFormat = false)
+{
+	global $bShowFamilyData;
+
+	if ($bShowFamilyData) {
+
+		if ($bFormat) {
+			$sFamilyInfoBegin = "<span style=\"color: red;\">";
+			$sFamilyInfoEnd = "</span>";
+		}
+
+		if ($sPersonAddress1 || $sPersonAddress2) {
+				$sReturnAddress1 = $sPersonAddress1;
+				$sReturnAddress2 = $sPersonAddress2;
+				return 1;
+		} elseif ($sFamilyAddress1 || $sFamilyAddress2) {
+			if ($bFormat) {
+				if ($sFamilyAddress1)
+					$sReturnAddress1 = $sFamilyInfoBegin . $sFamilyAddress1 . $sFamilyInfoEnd;
+				else $sReturnAddress1 = "";
+				if ($sFamilyAddress2)
+					$sReturnAddress2 = $sFamilyInfoBegin . $sFamilyAddress2 . $sFamilyInfoEnd;
+				else $sReturnAddress2 = "";
+				return 2;
+			} else {
+				$sReturnAddress1 = $sFamilyAddress1;
+				$sReturnAddress2 = $sFamilyAddress2;
+				return 2;
+			}
+		} else {
+			$sReturnAddress1 = "";
+			$sReturnAddress2 = "";
+			return 0;
+		}
+
+	} else {
+		if ($sPersonAddress1 || $sPersonAddress2) {
+			$sReturnAddress1 = $sPersonAddress1;
+			$sReturnAddress2 = $sPersonAddress2;
+			return 1;
+		} else {
+			$sReturnAddress1 = "";
+			$sReturnAddress2 = "";
+			return 0;
+		}
+	}
+}
+
+/******************************************************************************
+ * Returns the proper information to use for a field.
+ * Person info overrides Family info if they are different.
+ * If using family info and bFormat set, generate HTML tags for text color red.
+ * If neither family nor person info is available, return an empty string.
+ *****************************************************************************/
+
+function SelectWhichInfo($sPersonInfo, $sFamilyInfo, $bFormat = false)
+{
+	global $bShowFamilyData;
+
+	if ($bShowFamilyData) {
+
+		if ($bFormat) {
+			$sFamilyInfoBegin = "<span style=\"color: red;\">";
+			$sFamilyInfoEnd = "</span>";
+		}
+
+		if ($sPersonInfo != "") {
+			return $sPersonInfo;
+		} elseif ($sFamilyInfo != "") {
+			if ($bFormat) {
+				return $sFamilyInfoBegin . $sFamilyInfo . $sFamilyInfoEnd;
+			} else {
+				return $sFamilyInfo;
+			}
+		} else {
+			return "";
+		}
+
+	} else {
+		if ($sPersonInfo != "")
+			return $sPersonInfo;
+		else
+			return "";
+	}
+}
+
 ?>

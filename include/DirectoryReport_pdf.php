@@ -39,6 +39,7 @@ if ( !is_object($xoopsUser) || !is_object($xoopsModule))  {
     exit("Access Denied");
 }
 
+
 require (XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/ReportConfig.php");
 include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/fpdf151/fpdf.php";
 
@@ -521,6 +522,7 @@ if($baltFamilyName)
 
 $sSQL = $sSQL . "ORDER BY SortMe ";
 
+echo $sSQL;
 exit;
 $rsRecords=$db->query($sSQL);
 //$rsRecords = RunQuery($sSQL);
