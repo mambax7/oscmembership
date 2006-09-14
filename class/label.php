@@ -121,19 +121,45 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	else
 		$sortMe=" person.lastname ";
 
-	$sSQL = "(SELECT *, 0 AS memberCount, " . $sortMe . " AS SortMe  FROM  " . $db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN " . $db->prefix("oscmembership_family") . " family ON family.id= person.famid WHERE person.famid = 0 " . " $sWhereExt $sClassQualifier)
-		UNION (SELECT *, COUNT(*) AS memberCount, familyname AS SortMe FROM " . $db->prefix("oscmembership_person") . "  person $sGroupTable LEFT JOIN  " . $db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0  " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount = 1)
-		UNION (SELECT *, COUNT(*) AS memberCount, familyname AS SortMe FROM " . $db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN  " . $db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0 " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount > 1) ";
+	$sSQL = "(SELECT *, 0 AS memberCount, " . $sortMe . " AS SortMe  FROM  " . $this->db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN " . $this->db->prefix("oscmembership_family") . " family ON family.id= person.famid WHERE person.famid = 0 " . " $sWhereExt $sClassQualifier)
+		UNION (SELECT *, COUNT(*) AS memberCount, familyname AS SortMe FROM " . $this->db->prefix("oscmembership_person") . "  person $sGroupTable LEFT JOIN  " . $this->db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0  " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount = 1)
+		UNION (SELECT *, COUNT(*) AS memberCount, familyname AS SortMe FROM " . $this->db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN  " . $this->db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0 " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount > 1) ";
 	
 	if($baltFamilyName) 
 	{
-		$sSQL= $sSQL . "UNION (SELECT *, COUNT(*) AS memberCount, altfamilyname AS SortMe FROM " . $db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN  " . $db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0  AND length(family.altfamilyname)>0 " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount = 1)
-		UNION (SELECT *, COUNT(*) AS memberCount, altfamilyname AS SortMe FROM " . $db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN " . $db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0 AND length(family.altfamilyname)>0 " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount > 1) ";
+		$sSQL= $sSQL . "UNION (SELECT *, COUNT(*) AS memberCount, altfamilyname AS SortMe FROM " . $this->db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN  " . $this->db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0  AND length(family.altfamilyname)>0 " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount = 1)
+		UNION (SELECT *, COUNT(*) AS memberCount, altfamilyname AS SortMe FROM " . $this->db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN " . $this->db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0 AND length(family.altfamilyname)>0 " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount > 1) ";
 	}	
 	
 	$sSQL = $sSQL . "ORDER BY SortMe ";
 
-	echo $sSQL;
+	$sSQL= "create temporary table tmpLabel(line1 varchar(255), line2 varchar(255))";
+	
+		if (!$result = $this->db->query($sSQL)) 
+		{
+			return false;
+		}
+
+	$sSQL = "insert into tmpLabel Select concat(lastname, ',', firstname),' ' from " . $this->db->prefix("oscmembership_person");
+		if (!$result = $this->db->query($sSQL)) 
+		{
+			return false;
+		}
+
+	$sSQL="select * from tmpLabel";
+	
+		if (!$result = $this->db->query($sSQL)) 
+		{
+			return false;
+		}
+
+$row = $this->db->fetchArray($result)
+
+
+echo $row[0];	
+
+	//Insert in individuals
+	  
 	
 	$labels[$i]['labelname']="Name";
 	$labels[$i]['address1']="Address";
