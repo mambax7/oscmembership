@@ -105,7 +105,7 @@ switch (true)
 
 	if(isset($_POST['state'])) $person->assignVar('state',$_POST['state']);
     
-	if(isset($_POST['zip'])) $person->assignVar('post',$_POST['post']);
+	if(isset($_POST['post'])) $person->assignVar('zip',$_POST['post']);
 
 	if(isset($_POST['country'])) $person->assignVar('country',$_POST['country']);
 	

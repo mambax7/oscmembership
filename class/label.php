@@ -133,33 +133,34 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	
 	$sSQL = $sSQL . "ORDER BY SortMe ";
 
-	$sSQL= "create temporary table tmpLabel(line1 varchar(255), line2 varchar(255))";
+
+	$familyprefix="";
+	$sSQL="
+CREATE TABLE  `xoops`.`tmplabel` (
+  `Recipient` varchar(255) default NULL,
+  `AddressLine1` varchar(255) default NULL,
+  `AddressLine2` varchar(255) default NULL,
+  `City` varchar(255) default NULL,
+  `State` varchar(255) default NULL,
+  `Zip` varchar(255) default NULL
+) ";
+	$sSQL= "truncate table tmpLabel";
+	$this->db->query($sSQL);
 	
-		if (!$result = $this->db->query($sSQL)) 
-		{
-			return false;
-		}
-
-	$sSQL = "insert into tmpLabel Select concat(lastname, ',', firstname),' ' from " . $this->db->prefix("oscmembership_person");
-		if (!$result = $this->db->query($sSQL)) 
-		{
-			return false;
-		}
-
+	$sSQL = "insert into tmpLabel Select concat(lastname, ',', firstname),address1,address2,city,state,zip from " . $this->db->prefix("oscmembership_person") . " where famid=0";
+	$this->db->query($sSQL); 
+	
+	$sSQL = "insert into tmpLabel Select concat('$familyprefix', familyname),address1,address2, city, state, zip from " . $this->db->prefix("oscmembership_family") ;
+echo $sSQL;
+	$this->db->query($sSQL); 
+	
 	$sSQL="select * from tmpLabel";
-	
-		if (!$result = $this->db->query($sSQL)) 
+	if (!$result = $this->db->query($sSQL)) 
 		{
 			return false;
 		}
 
-$row = $this->db->fetchArray($result)
 
-
-echo $row[0];	
-
-	//Insert in individuals
-	  
 	
 	$labels[$i]['labelname']="Name";
 	$labels[$i]['address1']="Address";

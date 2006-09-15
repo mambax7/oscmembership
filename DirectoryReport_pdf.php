@@ -46,6 +46,13 @@ require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/incl
 
 require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php";
 
+$label_handler = &xoops_getmodulehandler('label', 'oscmembership');
+
+$groups=array();
+
+$test=$label_handler->getlabels(false, false, $groups,"");
+
+exit;
 
 // Load the FPDF library
 //LoadLib_FPDF();
@@ -76,7 +83,7 @@ class PDF_Directory extends FPDF {
 			//Move to the right
 			$this->Cell(10);
 			//Framed title
-			$this->Cell(190,10,$sChurchName . " - " . gettext("Member Directory"),1,0,'C');
+			$this->Cell(190,10,$sChurchName . " - " . _oscmem_page,1,0,'C');
 		}
 	}
 
@@ -118,7 +125,7 @@ class PDF_Directory extends FPDF {
 		//Line break
 		$this->Ln(5);
 		//Move to the right
-		$this->MultiCell(197,10,"\n\n\n". $sChurchName . "\n\n" . gettext("Directory") . "\n\n",0,'C');
+		$this->MultiCell(197,10,"\n\n\n". $sChurchName . "\n\n" . _oscmem_directory . "\n\n",0,'C');
 		$this->Ln(5);
 		$today = date("F j, Y");
 		$this->MultiCell(197,10,$today . "\n\n",0,'C');
