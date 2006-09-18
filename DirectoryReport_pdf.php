@@ -46,13 +46,6 @@ require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/incl
 
 require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php";
 
-$label_handler = &xoops_getmodulehandler('label', 'oscmembership');
-
-$groups=array();
-
-$test=$label_handler->getlabels(false, false, $groups,"");
-
-exit;
 
 // Load the FPDF library
 //LoadLib_FPDF();
@@ -438,19 +431,26 @@ foreach ($_POST["sDirRoleChild"] as $Child)
 }
 // $sDirRoleChildren = implode(",",$aChildren);
 
-// Get other settings
-$bDirAddress = isset($_POST["bDirAddress"]);
-$bDirWedding = isset($_POST["bDirWedding"]);
-$bDirBirthday = isset($_POST["bDirBirthday"]);
-$bDirFamilyPhone = isset($_POST["bDirFamilyPhone"]);
-$bDirFamilyWork = isset($_POST["bDirFamilyWork"]);
-$bDirFamilyCell = isset($_POST["bDirFamilyCell"]);
-$bDirFamilyEmail = isset($_POST["bDirFamilyEmail"]);
-$bDirPersonalPhone = isset($_POST["bDirPersonalPhone"]);
-$bDirPersonalWork = isset($_POST["bDirPersonalWork"]);
-$bDirPersonalCell = isset($_POST["bDirPersonalCell"]);
-$bDirPersonalEmail = isset($_POST["bDirPersonalEmail"]);
-$bDirPersonalWorkEmail = isset($_POST["bDirPersonalWorkEmail"]);
+$label_handler = &xoops_getmodulehandler('label', 'oscmembership');
+$labelcritiera_handler = &xoops_getmodulehandler('labelcriteria', 'oscmembership');
+
+$groups=array();
+
+$labelcritiera=$labelcritiera_handler->create();
+
+$labelcritiera->assignVar('bdiraddress',isset($_POST["bDirAddress"]));
+$labelcritiera->assignVar('bdirwedding',isset($_POST["bDirWedding"]));
+$labelcritiera->assignVar('bdirbirthday',isset($_POST["bDirBirthday"]));
+$labelcritiera->assignVar('bdirfamilyphone',isset($_POST["bDirFamilyPhone"]));
+$labelcritiera->assignVar('bdirfamilywork',isset($_POST["bDirFamilyWork"]));
+$labelcritiera->assignVar('bdirfamilycell',isset($_POST["bDirFamilyWork"]));
+$labelcritiera->assignVar('bdirfamilyemail',isset($_POST["bDirFamilyEmail"]));
+$labelcritiera->assignVar('bdirpersonalphone',isset($_POST["bDirPersonalPhone"]));
+$labelcritiera->assignVar('bdirpersonalwork',isset($_POST["bDirPersonalWork"]));
+$labelcritiera->assignVar('bdirpersonalcell',isset($_POST["bDirPersonalCell"]));
+$labelcritiera->assignVar('bdirpersonalemail',isset($_POST["bDirPersonalEmail"]));
+$labelcritiera->assignVar('bdirpersonalworkemail',isset($_POST["bDirPersonalWorkEmail"]));
+
 
 if(isset($_POST["sChurchName"])) $sChurchName = $_POST["sChurchName"] ;
 if(isset($_POST["sDirectoryDisclaimer"])) $sDirectoryDisclaimer = $_POST["sDirectoryDisclaimer"];
@@ -470,7 +470,12 @@ $churchdir->assignVar('church_state',$sChurchState);
 $churchdir->assignVar('church_post',$sChurchZip);
 $churchdir->assignVar('church_phone',$sChurchPhone);
 
+
 $churchdir = $churchdir_handler->update($churchdir);
+
+
+$labels=$label_handler->getlabels(false, false, $groups,"",$labelcritiera);
+
 
 $bDirUseTitlePage = isset($_POST["bDirUseTitlePage"]);
 
@@ -479,6 +484,9 @@ $baltHeader = isset($_POST["baltHeader"]);
 
 $bSortFirstName=0;
 $bSortFirstName = isset($_POST["bSortFirstName"]);
+
+/*
+
 
 if($baltFamilyName)
 $baltHeader=true;
@@ -523,7 +531,6 @@ if($bSortFirstName)
 else
 	$sortMe=" person.lastname ";
 
-
 $sSQL = "(SELECT *, 0 AS memberCount, " . $sortMe . " AS SortMe  FROM  " . $db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN " . $db->prefix("oscmembership_family") . " family ON family.id= person.famid WHERE person.famid = 0 " . " $sWhereExt $sClassQualifier)
 	UNION (SELECT *, COUNT(*) AS memberCount, familyname AS SortMe FROM " . $db->prefix("oscmembership_person") . "  person $sGroupTable LEFT JOIN  " . $db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0  " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount = 1)
 	UNION (SELECT *, COUNT(*) AS memberCount, familyname AS SortMe FROM " . $db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN  " . $db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0 " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount > 1) ";
@@ -554,7 +561,6 @@ while ($aRow = mysql_fetch_array($rsRecords))
 
 		$pdf->sRecordName = "";
 
-/*
 		if($baltHeader)
 		{
 //			$pdf->sRecordName = $baltHeader;
@@ -564,7 +570,6 @@ while ($aRow = mysql_fetch_array($rsRecords))
 		{
 		$pdf->sRecordName = $fam_Name;
 		}
-*/
 		$pdf->sLastName = $fam_Name;
 		//$OutStr .= $SortMe . "\n";
 		$OutStr .=  $pdf->sGetFamilyString($aRow);
@@ -578,13 +583,10 @@ while ($aRow = mysql_fetch_array($rsRecords))
 
 		if (mysql_num_rows($rsPerson) > 0)
 		{
-/*
 			$aHead = mysql_fetch_array($rsPerson);
 			$OutStr .= $pdf->sGetHeadString($aHead, $baltHeader, $SortMe);
 			$bNoRecordName = false;
-*/
 		}
-
 		// Find the Spouse of Household
 		$sSQL = "SELECT * from " . $db->prefix("oscmembership_person") . "  person $sGroupTable LEFT JOIN family_fam ON person.famid = family.id 
 			WHERE person.famid = " . $iFamilyID . " 
@@ -625,6 +627,7 @@ while ($aRow = mysql_fetch_array($rsRecords))
 			$OutStr .= $pdf->sGetMemberString($aRow);
 		}
 		
+	
 	}
 	else
 	{
@@ -700,7 +703,7 @@ while ($aRow = mysql_fetch_array($rsRecords))
 		$pdf->Add_Record($pdf->sRecordName, $OutStr, $numlines);  // another hack: added +1
 	}
 }
-
+*/
 exit;
 
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");

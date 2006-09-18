@@ -27,74 +27,82 @@
 
 class  Label extends XoopsObject {
     var $db;
+    
 //    var $table;
 
     function Label()
     {
         $this->db = &Database::getInstance();
+	
 //        $this->table = $this->db->prefix("oscmembership_person");
 //
 	$this->initVar('id',XOBJ_DTYPE_INT);
-	$this->initVar('churchid',XOBJ_DTYPE_INT);
-        $this->initVar('title', XOBJ_DTYPE_TXTBOX);
-	$this->initVar('firstname', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('middlename', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('lastname', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('suffix', XOBJ_DTYPE_TXTBOX);
+        $this->initVar('recipient', XOBJ_DTYPE_TXTBOX);
         $this->initVar('address1', XOBJ_DTYPE_TXTBOX);
         $this->initVar('address2', XOBJ_DTYPE_TXTBOX);
         $this->initVar('city', XOBJ_DTYPE_TXTBOX);
         $this->initVar('state', XOBJ_DTYPE_TXTBOX);
 	$this->initVar('zip',XOBJ_DTYPE_TXTBOX);
         $this->initVar('country', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('homephone', XOBJ_DTYPE_TXTBOX);
-	$this->initVar('workphone', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('cellphone', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('email', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('workemail', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('birthmonth', XOBJ_DTYPE_INT);
-        $this->initVar('birthday', XOBJ_DTYPE_INT);
-	$this->initVar('birthyear', XOBJ_DTYPE_INT);
-	$this->initVar('membershipdate', XOBJ_DTYPE_TXTBOX);
-	$this->initVar('gender', XOBJ_DTYPE_TXTBOX);
-	$this->initVar('fmrid', XOBJ_DTYPE_TXTBOX);
-	$this->initVar('clsid', XOBJ_DTYPE_TXTBOX);
-	$this->initVar('famid', XOBJ_DTYPE_TXTBOX);
-	$this->initVar('envelope', XOBJ_DTYPE_TXTBOX);
-	$this->initVar('datelastedited', XOBJ_DTYPE_TXTBOX);
-	$this->initVar('dateentered', XOBJ_DTYPE_TXTBOX);
-	$this->initVar('enteredby', XOBJ_DTYPE_INT);
-	$this->initVar('editedby', XOBJ_DTYPE_INT);
+    }
+}    
+
+    function Labelcriteria()
+    {
+	$this->initVar('id',XOBJ_DTYPE_INT);
+        $this->initVar('bdiraddress', XOBJ_DTYPE_INT);
+        $this->initVar('bdirwedding', XOBJ_DTYPE_INT);
+        $this->initVar('bdirbirthday', XOBJ_DTYPE_INT);
+        $this->initVar('bdirfamilyphone', XOBJ_DTYPE_INT);
+        $this->initVar('bdirfamilywork', XOBJ_DTYPE_INT);
+        $this->initVar('bdirfamilycell', XOBJ_DTYPE_INT);
+        $this->initVar('bdirfamilyemail', XOBJ_DTYPE_INT);
+        $this->initVar('bdirpersonalphone', XOBJ_DTYPE_INT);
+        $this->initVar('bdirpersonalwork', XOBJ_DTYPE_INT);
+        $this->initVar('bdirpersonalcell', XOBJ_DTYPE_INT);
+        $this->initVar('bdirpersonalemail', XOBJ_DTYPE_INT);
+        $this->initVar('bdirpersonalworkemail', XOBJ_DTYPE_INT);
+        $this->initVar('sdirclassifications', XOBJ_DTYPE_TXTBOX);
+        $this->initVar('sdirroleheads', XOBJ_DTYPE_TXTBOX);
+
     }
 
-}    
-    
 
 class oscMembershipLabelHandler extends XoopsObjectHandler
 {
-
-
     
     function &create($isNew = true)
     {
         $label = new Label();
         if ($isNew) {
             $label->setNew();
+	    $label->cr="<br>";
         }
         return $label;
     }
 
+    function &createlabelcriteria($isNew = true)
+    {
+        $labelcriteria = new Labelcriteria();
+        if ($isNew) {
+            $labelcriteria->setNew();
+        }
+        return $labelcriteria;
+    }
 
-    function &getlabels($bSortFirstName, $baltFamilyName, $arrGroups, $sDirClassifications)
+
+    function &getlabels($bSortFirstName, $baltFamilyName, $arrGroups, $sDirClassifications,$labelcriteria)
     {
 	$labels[]=array();
     
 	$i=0;
 
+	$cr="'<br>'";
+		
 	$sGroupTable = "";
 	
 	$sWhereExt="";
-	
+		
 	if (strlen($sDirClassifications)) $sClassQualifier = "AND person.clsid in (" . $sDirClassifications . ")";
 
 	
@@ -121,6 +129,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	else
 		$sortMe=" person.lastname ";
 
+/*
 	$sSQL = "(SELECT *, 0 AS memberCount, " . $sortMe . " AS SortMe  FROM  " . $this->db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN " . $this->db->prefix("oscmembership_family") . " family ON family.id= person.famid WHERE person.famid = 0 " . " $sWhereExt $sClassQualifier)
 		UNION (SELECT *, COUNT(*) AS memberCount, familyname AS SortMe FROM " . $this->db->prefix("oscmembership_person") . "  person $sGroupTable LEFT JOIN  " . $this->db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0  " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount = 1)
 		UNION (SELECT *, COUNT(*) AS memberCount, familyname AS SortMe FROM " . $this->db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN  " . $this->db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0 " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount > 1) ";
@@ -132,39 +141,101 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	}	
 	
 	$sSQL = $sSQL . "ORDER BY SortMe ";
+*/
 
 
 	$familyprefix="";
-	$sSQL="
-CREATE TABLE  `xoops`.`tmplabel` (
+/*	$sSQL="
+CREATE TABLE  `tmplabel` (
   `Recipient` varchar(255) default NULL,
   `AddressLine1` varchar(255) default NULL,
   `AddressLine2` varchar(255) default NULL,
   `City` varchar(255) default NULL,
   `State` varchar(255) default NULL,
-  `Zip` varchar(255) default NULL
+  `Zip` varchar(255) default NULL,
+  `sortme` varchar(255) default NULL
 ) ";
-	$sSQL= "truncate table tmpLabel";
+*/
+
+
+	$sSQL= "truncate table tmplabel";
 	$this->db->query($sSQL);
+
+	$address="'','','','',''";
+//Build column clause
+	$recipientplus="''";
+	$famrecipient="familyname";
+
+	echo $labelcriteria->getVar('bdiraddress');
 	
-	$sSQL = "insert into tmpLabel Select concat(lastname, ',', firstname),address1,address2,city,state,zip from " . $this->db->prefix("oscmembership_person") . " where famid=0";
+	If($labelcriteria->getVar('bdiraddress'))
+	{
+		$address="address1, address2,city,state,zip";
+	}	
+	
+	If($labelcriteria->getVar('bdirwedding'))
+	{
+		$famrecipient.=", coalesce(concat($cr,weddingdate),'')";
+	}
+
+	$bdate="''";	
+	if($labelcriteria->getVar('bdirbirthday'))
+	{ $bdate="concat(' (',birthday, '/', birthmonth,')')"; }
+
+	if($labelcriteria->getVar('bdirfamilyphone'))
+	{ $famrecipient.= ", $cr,homephone"; }
+	
+	if($labelcriteria->getVar('bdirfamilywork'))
+	{ $famrecipient.= ", $cr,workphone"; }
+	
+	if($labelcriteria->getVar('bdirfamilycell'))
+	{ $famrecipient.=", $cr, cellphone"; }
+	
+	if($labelcriteria->getVar('bdirfamilyemail'))
+	{ $famrecipient.=", $cr, email"; }
+		
+	if($labelcriteria->getVar('bdirpersonalphone'))
+	{ $recipientplus.=", $cr, homephone"; }
+	
+	if($labelcriteria->getVar('bdirpersonalwork'))
+	{ $recipientplus.=", $cr, workphone"; }
+
+	if($labelcriteria->getVar('bdirpersonalcell'))
+	{ $recipientplus.=", $cr, cellphone"; }
+
+	if($labelcriteria->getVar('bdirpersonalemail'))
+	{ $recipientplus.=", $cr, email"; }
+
+	if($labelcriteria->getVar('bdirpersonalworkemail'))
+	{ $recipientplus.=", $cr, workemail"; }
+
+	$sSQL = "insert into tmplabel Select concat(lastname, ',', firstname,$bdate)," . $address . ", $sortMe from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid=0" . $sWhereExt;
 	$this->db->query($sSQL); 
-	
-	$sSQL = "insert into tmpLabel Select concat('$familyprefix', familyname),address1,address2, city, state, zip from " . $this->db->prefix("oscmembership_family") ;
+	echo $sSQL;
+
+	$sortMe="familyname";	
+	$sSQL = "insert into tmplabel Select concat('$familyprefix', " . $famrecipient . ")," . $address . ", $sortMe from " . $this->db->prefix("oscmembership_family") ;
 echo $sSQL;
 	$this->db->query($sSQL); 
 	
 	$sSQL="select * from tmpLabel";
-	if (!$result = $this->db->query($sSQL)) 
+	$i=0;
+	while($row = $this->db->fetchArray($sSQL)) 
+	{
+		if(isset($row))
 		{
-			return false;
-		}
+			$labels[$i]['recipient']=$row['recipient'];
+			$labels[$i]['address1']=$row['address1'];
+			$labels[$i]['address2']=$row['address2'];
+			$labels[$i]['city']=$row['city'];
+			$labels[$i]['state']=$row['state'];
+			$labels[$i]['zip']=$row['zip'];
+			$labels[$i]['country']=$row['country'];
+		}		
+		
+		$i++;	
+	}
 
-
-	
-	$labels[$i]['labelname']="Name";
-	$labels[$i]['address1']="Address";
-	
  	return $labels;   
     }    
     
