@@ -76,7 +76,7 @@ class PDF_Directory extends FPDF {
 			//Move to the right
 			$this->Cell(10);
 			//Framed title
-			$this->Cell(190,10,$sChurchName . " - " . _oscmem_page,1,0,'C');
+			$this->Cell(190,10,$sChurchName . " - " . gettext("Member Directory"),1,0,'C');
 		}
 	}
 
@@ -118,7 +118,7 @@ class PDF_Directory extends FPDF {
 		//Line break
 		$this->Ln(5);
 		//Move to the right
-		$this->MultiCell(197,10,"\n\n\n". $sChurchName . "\n\n" . _oscmem_directory . "\n\n",0,'C');
+		$this->MultiCell(197,10,"\n\n\n". $sChurchName . "\n\n" . gettext("Directory") . "\n\n",0,'C');
 		$this->Ln(5);
 		$today = date("F j, Y");
 		$this->MultiCell(197,10,$today . "\n\n",0,'C');
@@ -434,8 +434,6 @@ foreach ($_POST["sDirRoleChild"] as $Child)
 $label_handler = &xoops_getmodulehandler('label', 'oscmembership');
 $labelcritiera_handler = &xoops_getmodulehandler('labelcriteria', 'oscmembership');
 
-$groups=array();
-
 $labelcritiera=$labelcritiera_handler->create();
 
 $labelcritiera->assignVar('bdiraddress',isset($_POST["bDirAddress"]));
@@ -450,7 +448,6 @@ $labelcritiera->assignVar('bdirpersonalwork',isset($_POST["bDirPersonalWork"]));
 $labelcritiera->assignVar('bdirpersonalcell',isset($_POST["bDirPersonalCell"]));
 $labelcritiera->assignVar('bdirpersonalemail',isset($_POST["bDirPersonalEmail"]));
 $labelcritiera->assignVar('bdirpersonalworkemail',isset($_POST["bDirPersonalWorkEmail"]));
-
 
 if(isset($_POST["sChurchName"])) $sChurchName = $_POST["sChurchName"] ;
 if(isset($_POST["sDirectoryDisclaimer"])) $sDirectoryDisclaimer = $_POST["sDirectoryDisclaimer"];
@@ -470,12 +467,11 @@ $churchdir->assignVar('church_state',$sChurchState);
 $churchdir->assignVar('church_post',$sChurchZip);
 $churchdir->assignVar('church_phone',$sChurchPhone);
 
-
 $churchdir = $churchdir_handler->update($churchdir);
 
+$groups=array();
 
 $labels=$label_handler->getlabels(false, false, $groups,"",$labelcritiera);
-
 
 $bDirUseTitlePage = isset($_POST["bDirUseTitlePage"]);
 
@@ -485,9 +481,6 @@ $baltHeader = isset($_POST["baltHeader"]);
 $bSortFirstName=0;
 $bSortFirstName = isset($_POST["bSortFirstName"]);
 
-/*
-
-
 if($baltFamilyName)
 $baltHeader=true;
 
@@ -495,6 +488,40 @@ $baltHeader=true;
 $pdf = new PDF_Directory();
 
 if ($bDirUseTitlePage) $pdf->TitlePage();
+
+foreach($labels as $label)
+{
+	$pdf->sRecordName = $label['recipient'];
+	$pdf->sLastName = $label['recipient'];
+
+//	echo $label['body'];
+	
+	$body=preg_replace("/&lt;br&gt;/","&n;",$label['body']);
+	$body=preg_replace("/&n;&n;/","&n;",$body);
+
+	echo $body;
+	
+	// Count the number of lines in the output string
+	if (strlen($body))
+		$numlines = substr_count($body, "\n");
+	else
+		$numlines = 0;
+
+	if ($numlines > 0)
+	{
+		if (strtoupper($sLastLetter) != strtoupper(substr($pdf->sRecordName,0,1)))
+		{
+			$pdf->Check_Lines($numlines+2);
+			$sLastLetter = strtoupper(substr($pdf->sRecordName,0,1));
+			$pdf->Add_Header($sLastLetter);
+		}
+		$pdf->Add_Record($pdf->sRecordName, $body, $numlines);  // 
+	}
+	
+}
+
+/*
+
 
 if (strlen($sDirClassifications)) $sClassQualifier = "AND person.clsid in (" . $sDirClassifications . ")";
 
@@ -704,13 +731,14 @@ while ($aRow = mysql_fetch_array($rsRecords))
 	}
 }
 */
-exit;
 
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cachhe");
+
+exit;
 
 if ($iPDFOutputType == 1)
 	$pdf->Output("Directory-" . date("Ymd-Gis") . ".pdf", true);
