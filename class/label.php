@@ -36,22 +36,22 @@ class  Label extends XoopsObject {
 	
 //        $this->table = $this->db->prefix("oscmembership_person");
 //
-	$this->initVar('id',XOBJ_DTYPE_INT);
+				$this->initVar('id',XOBJ_DTYPE_INT);
         $this->initVar('recipient', XOBJ_DTYPE_TXTBOX);
         $this->initVar('address1', XOBJ_DTYPE_TXTBOX);
         $this->initVar('address2', XOBJ_DTYPE_TXTBOX);
         $this->initVar('city', XOBJ_DTYPE_TXTBOX);
         $this->initVar('state', XOBJ_DTYPE_TXTBOX);
-	$this->initVar('zip',XOBJ_DTYPE_TXTBOX);
+				$this->initVar('zip',XOBJ_DTYPE_TXTBOX);
         $this->initVar('country', XOBJ_DTYPE_TXTBOX);
-	$this->initVar('sortme',XOBJ_DTYPE_TXTBOX);
-	$this->initVar('body',XOBJ_DTYPE_TXTBOX);
+				$this->initVar('sortme',XOBJ_DTYPE_TXTBOX);
+				$this->initVar('body',XOBJ_DTYPE_TXTBOX);
     }
 }    
 
     function Labelcriteria()
     {
-	$this->initVar('id',XOBJ_DTYPE_INT);
+				$this->initVar('id',XOBJ_DTYPE_INT);
         $this->initVar('bdiraddress', XOBJ_DTYPE_INT);
         $this->initVar('bdirwedding', XOBJ_DTYPE_INT);
         $this->initVar('bdirbirthday', XOBJ_DTYPE_INT);
@@ -147,8 +147,8 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 */
 
 
-/*
 	$familyprefix="";
+/*
 $sSQL="
 CREATE TABLE  `tmplabel` (
   `recipient` varchar(255) default NULL,
@@ -159,9 +159,7 @@ CREATE TABLE  `tmplabel` (
   `zip` varchar(255) default NULL,
   `sortme` varchar(255) default NULL,
   `body` text )";
-  
-	*/
-
+  */
 
 	$sSQL= "truncate table tmplabel";
 	$this->db->query($sSQL);
@@ -188,42 +186,42 @@ CREATE TABLE  `tmplabel` (
 
 	$bdate="''";	
 	if($labelcriteria->getVar('bdirbirthday'))
-	{ $bdate="concat(' (',birthday, '/', birthmonth,')')"; }
+	{ $bdate="case when birthday is not null then concat(birthday, '/', birthmonth)"; }
 
 	if($labelcriteria->getVar('bdirfamilyphone'))
-	{ $fambody.= ", $cr,homephone"; }
+	{ $fambody.= ", case when homephone is not null concat($cr,homephone)"; }
 	
 	if($labelcriteria->getVar('bdirfamilywork'))
-	{ $fambody.= ", $cr,workphone"; }
+	{ $fambody.= ", case when workphone is not null concat($cr,workphone)"; }
 	
 	if($labelcriteria->getVar('bdirfamilycell'))
-	{ $fambody.=", $cr, cellphone"; }
+	{ $fambody.=", case when cellphone is not null concat($cr, cellphone)"; }
 	
 	if($labelcriteria->getVar('bdirfamilyemail'))
-	{ $fambody.=", $cr, email"; }
+	{ $fambody.=", case when email is not null concat($cr, email)"; }
 		
 	if($labelcriteria->getVar('bdirpersonalphone'))
-	{ $recipientplus.=", $cr, homephone"; }
+	{ $recipientplus.=", case when email is not null concat($cr, homephone)"; }
 	
 	if($labelcriteria->getVar('bdirpersonalwork'))
-	{ $recipientplus.=", $cr, workphone"; }
+	{ $recipientplus.=", case when workphone is not null concat($cr, workphone)"; }
 
 	if($labelcriteria->getVar('bdirpersonalcell'))
-	{ $recipientplus.=", $cr, cellphone"; }
+	{ $recipientplus.=", case when cellphone is not null concat($cr, cellphone)"; }
 
 	if($labelcriteria->getVar('bdirpersonalemail'))
-	{ $recipientplus.=", $cr, email"; }
+	{ $recipientplus.=", case when email is not null concat($cr, email)"; }
 
 	if($labelcriteria->getVar('bdirpersonalworkemail'))
-	{ $recipientplus.=", $cr, workemail"; }
+	{ $recipientplus.=", case when email is not null concat($cr, workemail)"; }
 
 	$sSQL = "insert into tmplabel Select concat(lastname, ',', firstname,$bdate)," . $address . ", $sortMe, concat($recipientplus) from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid=0" . $sWhereExt;
 	$this->db->query($sSQL); 
-//	echo $sSQL;
+	echo $sSQL;
 
 	$sortMe="familyname";	
 	$sSQL = "insert into tmplabel Select concat('$familyprefix', " . $famrecipient . ")," . $address . ", $sortMe,concat($fambody) from " . $this->db->prefix("oscmembership_family") ;
-//echo $sSQL;
+echo $sSQL;
 	$this->db->query($sSQL); 
 	
 	$sSQL="select * from tmplabel";
@@ -236,6 +234,7 @@ CREATE TABLE  `tmplabel` (
 		if(isset($row))
 		{
 			$label->assignVars($row);
+			echo $label->getVar('recipient');
 			$labels[$i]['recipient']=$label->getVar('recipient');
 			$labels[$i]['address1']=$label->getVar('address1');
 			$labels[$i]['address2']=$label->getVar('address2');
@@ -246,7 +245,8 @@ CREATE TABLE  `tmplabel` (
 			$labels[$i]['sortme']=$label->getVar('sortme');
 			$labels[$i]['body']=$label->getVar('body');
 		}		
-		
+	
+		echo $labels[$i]['recipient'];	
 		$i++;	
 	}
 
