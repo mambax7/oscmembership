@@ -100,7 +100,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	$i=0;
 
 	$cr="'<br>'";
-		
+	$blank="''";		
 	$sGroupTable = "";
 	
 	$sWhereExt="";
@@ -181,47 +181,49 @@ CREATE TABLE  `tmplabel` (
 	
 	If($labelcriteria->getVar('bdirwedding'))
 	{
-		$fambody.=", case when weddingdate is not null then concat($cr,weddingdate) ";
+		$fambody.=", concat($cr, coalesce(weddingdate,$blank)) ";
 	}
 
 	$bdate="''";	
 	if($labelcriteria->getVar('bdirbirthday'))
-	{ $bdate="case when birthday is not null then concat(birthday, '/', birthmonth)"; }
+	{ $bdate=" concat(' (', birthday, '/', birthmonth, ')')"; }
 
 	if($labelcriteria->getVar('bdirfamilyphone'))
-	{ $fambody.= ", case when homephone is not null concat($cr,homephone)"; }
+	{ $fambody.= ", concat($cr, coalesce(homephone,$blank))"; }
 	
 	if($labelcriteria->getVar('bdirfamilywork'))
-	{ $fambody.= ", case when workphone is not null concat($cr,workphone)"; }
+	{ $fambody.= ", concat($cr, coalesce(workphone,$blank)) "; }
 	
 	if($labelcriteria->getVar('bdirfamilycell'))
-	{ $fambody.=", case when cellphone is not null concat($cr, cellphone)"; }
+	{ $fambody.=", conat($cr, coalesce(cellphone,$blank))"; }
 	
 	if($labelcriteria->getVar('bdirfamilyemail'))
-	{ $fambody.=", case when email is not null concat($cr, email)"; }
+	{ $fambody.=", concat($cr, coalesce(email,$blank))"; }
 		
 	if($labelcriteria->getVar('bdirpersonalphone'))
-	{ $recipientplus.=", case when email is not null concat($cr, homephone)"; }
+	{ $recipientplus.=', concat(' . $cr . ', coalesce(homephone,' . $blank . '))'; }
+	
+//	echo $recipientplus;
 	
 	if($labelcriteria->getVar('bdirpersonalwork'))
-	{ $recipientplus.=", case when workphone is not null concat($cr, workphone)"; }
+	{ $recipientplus.=", concat($cr, coalesce(workphone,$blank))"; }
 
 	if($labelcriteria->getVar('bdirpersonalcell'))
-	{ $recipientplus.=", case when cellphone is not null concat($cr, cellphone)"; }
+	{ $recipientplus.=", concat($cr, coalesce(cellphone,$blank))"; }
 
 	if($labelcriteria->getVar('bdirpersonalemail'))
-	{ $recipientplus.=", case when email is not null concat($cr, email)"; }
+	{ $recipientplus.=", concat($cr, coalesce(email,$blank)) "; }
 
 	if($labelcriteria->getVar('bdirpersonalworkemail'))
-	{ $recipientplus.=", case when email is not null concat($cr, workemail)"; }
+	{ $recipientplus.=", concat($cr, coalesce(workemail,$blank)) "; }
 
-	$sSQL = "insert into tmplabel Select concat(lastname, ',', firstname,$bdate)," . $address . ", $sortMe, concat($recipientplus) from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid=0" . $sWhereExt;
+	$sSQL = "insert into tmplabel Select concat(lastname, ', ', firstname,$bdate)," . $address . ", $sortMe, concat($recipientplus) from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid=0" . $sWhereExt;
 	$this->db->query($sSQL); 
-	echo $sSQL;
+//	echo $sSQL;
 
 	$sortMe="familyname";	
 	$sSQL = "insert into tmplabel Select concat('$familyprefix', " . $famrecipient . ")," . $address . ", $sortMe,concat($fambody) from " . $this->db->prefix("oscmembership_family") ;
-echo $sSQL;
+//echo $sSQL;
 	$this->db->query($sSQL); 
 	
 	$sSQL="select * from tmplabel";
@@ -234,7 +236,6 @@ echo $sSQL;
 		if(isset($row))
 		{
 			$label->assignVars($row);
-			echo $label->getVar('recipient');
 			$labels[$i]['recipient']=$label->getVar('recipient');
 			$labels[$i]['address1']=$label->getVar('address1');
 			$labels[$i]['address2']=$label->getVar('address2');
@@ -246,7 +247,7 @@ echo $sSQL;
 			$labels[$i]['body']=$label->getVar('body');
 		}		
 	
-		echo $labels[$i]['recipient'];	
+//		echo $labels[$i]['recipient'];	
 		$i++;	
 	}
 

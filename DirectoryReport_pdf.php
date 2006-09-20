@@ -102,7 +102,7 @@ class PDF_Directory extends FPDF {
 			$iPageNumber = $this->PageNo();
 			if ($bDirUseTitlePage)
 				$iPageNumber--;
-			$this->Cell(0,10, gettext("Page") . " " . $iPageNumber,0,0,'C');
+			$this->Cell(0,10, _oscmem_page . " " . $iPageNumber,0,0,'C');
 		}
 	}
 
@@ -494,25 +494,31 @@ $baltHeader=true;
 
 // Instantiate the directory class and build the report.
 $pdf = new PDF_Directory();
-
 if ($bDirUseTitlePage) $pdf->TitlePage();
+
+$sLastLetter="";
 
 foreach($labels as $label)
 {
-	$pdf->sRecordName = $label['recipient'];
-	$pdf->sLastName = $label['recipient'];
-
+	$pdf->sRecordName = preg_replace("/\(0\/0\)/","",$label['recipient']);
+	$pdf->sLastName = $pdf->sRecordName;
 	
 	$body=preg_replace("/&lt;br&gt;/","&n;",$label['body']);
 	$body=preg_replace("/&n;&n;/","&n;",$body);
+	$body=preg_replace("/&n;&n;/","&n;",$body);
+	$body=preg_replace("/&n;&n;/","&n;",$body);
+	$body=preg_replace("/&n;/","/\n",$body);
 
-	echo $body;
+	
+//	echo $pdf->sLastName;
 	
 	// Count the number of lines in the output string
-	if (strlen($body))
-		$numlines = substr_count($body, "\n");
+	if (strlen($pdf->sLastName . $body))
+		$numlines = substr_count($pdf->sLastName . $body, "\n");
 	else
 		$numlines = 0;
+
+//echo $numlines;
 
 	if ($numlines > 0)
 	{
@@ -526,61 +532,8 @@ foreach($labels as $label)
 	}
 	
 }
-exit;
 
 /*
-
-
-if (strlen($sDirClassifications)) $sClassQualifier = "AND person.clsid in (" . $sDirClassifications . ")";
-
-$db = &Database::getInstance();
-
-$sGroupTable = "";
-
-$sWhereExt="";
-
-if (!empty($_POST["GroupID"]))
-{
-	$sGroupTable = ", " . $db->prefix('oscmembership_p2g2r');
-//	$sGroupTable = ", person2group2role_p2g2r";
-
-	$count = 0;
-	foreach ($_POST["GroupID"] as $Grp)
-	{
-		$aGroups[$count++] = $Grp;
-	}
-	$sGroupsList = implode(",",$aGroups);
-
-	$sWhereExt .= "AND per_ID = p2g2r_per_ID AND p2g2r_grp_ID in (" . $sGroupsList . ") ";
-
-	// This is used by per-role queries to remove duplicate rows from people assigned multiple groups.
-	$sGroupBy = " GROUP BY per_ID";
-}
-
-// This query is similar to that of the CSV export with family roll-up.
-// Here we want to gather all unique families, and those that are not attached to a family.
-
-//Determine sort selection
-if($bSortFirstName)
-	$sortMe = " person.firstname ";
-else
-	$sortMe=" person.lastname ";
-
-$sSQL = "(SELECT *, 0 AS memberCount, " . $sortMe . " AS SortMe  FROM  " . $db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN " . $db->prefix("oscmembership_family") . " family ON family.id= person.famid WHERE person.famid = 0 " . " $sWhereExt $sClassQualifier)
-	UNION (SELECT *, COUNT(*) AS memberCount, familyname AS SortMe FROM " . $db->prefix("oscmembership_person") . "  person $sGroupTable LEFT JOIN  " . $db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0  " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount = 1)
-	UNION (SELECT *, COUNT(*) AS memberCount, familyname AS SortMe FROM " . $db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN  " . $db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0 " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount > 1) ";
-
-if($baltFamilyName) 
-{
-	$sSQL= $sSQL . "UNION (SELECT *, COUNT(*) AS memberCount, altfamilyname AS SortMe FROM " . $db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN  " . $db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0  AND length(family.altfamilyname)>0 " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount = 1)
-	UNION (SELECT *, COUNT(*) AS memberCount, altfamilyname AS SortMe FROM " . $db->prefix("oscmembership_person") . " person $sGroupTable LEFT JOIN " . $db->prefix("oscmembership_family") . " family ON person.famid = family.id WHERE person.famid > 0 AND length(family.altfamilyname)>0 " . " $sWhereExt $sClassQualifier GROUP BY person.famid HAVING memberCount > 1) ";
-}	
-
-$sSQL = $sSQL . "ORDER BY SortMe ";
-
-//echo $sSQL;
-$rsRecords=$db->query($sSQL);
-//$rsRecords = RunQuery($sSQL);
 // This is used for the headings for the letter changes.
 // Start out with something that isn't a letter to force the first one to work
 $sLastLetter = "0";
@@ -746,8 +699,7 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cachhe");
 
-exit;
-
+//exit;
 if ($iPDFOutputType == 1)
 	$pdf->Output("Directory-" . date("Ymd-Gis") . ".pdf", true);
 else
