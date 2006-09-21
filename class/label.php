@@ -149,19 +149,19 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 
 
 	$familyprefix="";
+
 /*
-$sSQL="
+$sSQL=" drop table `tmplabel`;
 CREATE TABLE  `tmplabel` (
   `recipient` varchar(255) default NULL,
-  `addressLine1` varchar(255) default NULL,
-  `addressLine2` varchar(255) default NULL,
-  `city` varchar(255) default NULL,
-  `state` varchar(255) default NULL,
-  `zip` varchar(255) default NULL,
+  `AddressLine1` varchar(255) default NULL,
+  `AddressLine2` varchar(255) default NULL,
+  `City` varchar(255) default NULL,
+  `State` varchar(255) default NULL,
+  `Zip` varchar(255) default NULL,
   `sortme` varchar(255) default NULL,
   `body` text )";
-  */
-
+*/
 	$sSQL= "truncate table tmplabel";
 	$this->db->query($sSQL);
 
@@ -202,22 +202,24 @@ CREATE TABLE  `tmplabel` (
 	{ $fambody.=", concat($cr, '" . _oscmem_email . ": ', coalesce(email,$blank))"; }
 		
 	if($labelcriteria->getVar('bdirpersonalphone'))
-	{ $recipientplus.=', concat(' . $cr . ', coalesce(homephone,' . $blank . '))'; }
+	{ $recipientplus.=", concat($cr, '" . _oscmem_phone . ": ', coalesce(homephone,$blank))"; }
 	
 //	echo $recipientplus;
 	
 	if($labelcriteria->getVar('bdirpersonalwork'))
-	{ $recipientplus.=", concat($cr, '" . _oscmem_workphone . ":', coalesce(workphone,$blank))"; }
+	{ $recipientplus.=", concat($cr, '" . _oscmem_workphone . ": ', coalesce(workphone,$blank))"; }
 
 	if($labelcriteria->getVar('bdirpersonalcell'))
-	{ $recipientplus.=", concat($cr, coalesce(cellphone,$blank))"; }
+	{ $recipientplus.=", concat($cr, '". _oscmem_cellphone . ": ', coalesce(cellphone,$blank))"; }
 
 	if($labelcriteria->getVar('bdirpersonalemail'))
-	{ $recipientplus.=", concat($cr, coalesce(email,$blank)) "; }
+	{ $recipientplus.=", concat($cr, '" . _oscmem_email . ": ', coalesce(email,$blank)) "; }
 
 	if($labelcriteria->getVar('bdirpersonalworkemail'))
-	{ $recipientplus.=", concat($cr, coalesce(workemail,$blank)) "; }
+	{ $recipientplus.=", concat($cr, '" . _oscmem_workemail . ": ', coalesce(workemail,$blank)) "; }
 
+	$recipientplus.=",$cr";
+	
 	$sSQL = "insert into tmplabel Select concat(lastname, ', ', firstname,$bdate)," . $address . ", $sortMe, concat($recipientplus) from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid=0" . $sWhereExt;
 	$this->db->query($sSQL); 
 //	echo $sSQL;
@@ -239,12 +241,14 @@ CREATE TABLE  `tmplabel` (
 		{
 			$label->assignVars($row);
 			$labels[$i]['recipient']=$label->getVar('recipient');
+			echo $labelcriteria->getVar('bdiraddress');
 			
 			If($labelcriteria->getVar('bdiraddress'))
 			{
-				$labels[$i]['addresslabel']=$label->getVar('AddressLine1');
+							$labels[$i]['addresslabel']=$label->getVar('AddressLine1');
+							echo $label->getVar('AddressLine1');
 				if($label->getVar('AddressLine2')<>'')
-				$labels[$i]['addresslabel'].= "\n" . $label->getVar('AddressLine2');
+					$labels[$i]['addresslabel'].= "\n" . $label->getVar('AddressLine2');
 				$labels[$i]['addresslabel'].= "\n" . $label->getVar('City') . ", " . $label->getVar('State') . "  " . $label->getVar('Zip');
 			}
 			$labels[$i]['address1']=$label->getVar('AddressLine1');
@@ -257,7 +261,7 @@ CREATE TABLE  `tmplabel` (
 			$labels[$i]['body']=$label->getVar('body');
 		}		
 	
-//		echo $labels[$i]['city'];	
+		//echo $labels[$i]['addresslabel'];	
 		$i++;	
 	}
 

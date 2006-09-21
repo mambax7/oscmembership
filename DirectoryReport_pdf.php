@@ -510,6 +510,14 @@ foreach($labels as $label)
 
 	$body = $label['addresslabel'] . "\n" . $label['body'];		
 
+//echo $body;
+//Strip out empty lines
+  $body=preg_replace("/" . _oscmem_workemail . ": &lt;br&gt;/","",$body);
+  $body=preg_replace("/" . _oscmem_phone . ": &lt;br&gt;/","",$body);
+  $body=preg_replace("/" . _oscmem_workphone . ": &lt;br&gt;/","",$body);
+  $body=preg_replace("/" . _oscmem_cellphone . ": &lt;br&gt;/", "", $body);
+  $body=preg_replace("/" . _oscmem_email . ": &lt;br&gt;/", "", $body);
+
 	$body=preg_replace("/&lt;br&gt;/","&n;",$body);
 	$body=preg_replace("/&n;&n;/","&n;",$body);
 	$body=preg_replace("/&n;&n;/","&n;",$body);
@@ -540,7 +548,7 @@ foreach($labels as $label)
 	}
 	
 }
-
+//exit;
 /*
 // This is used for the headings for the letter changes.
 // Start out with something that isn't a letter to force the first one to work
