@@ -513,9 +513,10 @@ foreach($labels as $label)
 //echo $body;
 //Strip out empty lines
   $body=preg_replace("/" . _oscmem_workemail . ": &lt;br&gt;/","",$body);
-  $body=preg_replace("/" . _oscmem_phone . ": &lt;br&gt;/","",$body);
   $body=preg_replace("/" . _oscmem_workphone . ": &lt;br&gt;/","",$body);
   $body=preg_replace("/" . _oscmem_cellphone . ": &lt;br&gt;/", "", $body);
+  $body=preg_replace("/" . _oscmem_homephone . ": &lt;br&gt;/", "", $body);
+  $body=preg_replace("/" . _oscmem_phone . ": &lt;br&gt;/","",$body);
   $body=preg_replace("/" . _oscmem_email . ": &lt;br&gt;/", "", $body);
 
 	$body=preg_replace("/&lt;br&gt;/","&n;",$body);

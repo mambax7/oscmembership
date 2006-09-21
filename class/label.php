@@ -160,6 +160,7 @@ CREATE TABLE  `tmplabel` (
   `State` varchar(255) default NULL,
   `Zip` varchar(255) default NULL,
   `sortme` varchar(255) default NULL,
+  `familyid` int default null,
   `body` text )";
 */
 	$sSQL= "truncate table tmplabel";
@@ -196,7 +197,7 @@ CREATE TABLE  `tmplabel` (
 	{ $fambody.= ", concat($cr, '" . _oscmem_workphone . ": ', coalesce(workphone,$blank)) "; }
 	
 	if($labelcriteria->getVar('bdirfamilycell'))
-	{ $fambody.=", conat($cr, '" . _oscmem_cellphone . ": ', coalesce(cellphone,$blank))"; }
+	{ $fambody.=", concat($cr, '" . _oscmem_cellphone . ": ', coalesce(cellphone,$blank))"; }
 	
 	if($labelcriteria->getVar('bdirfamilyemail'))
 	{ $fambody.=", concat($cr, '" . _oscmem_email . ": ', coalesce(email,$blank))"; }
@@ -219,17 +220,18 @@ CREATE TABLE  `tmplabel` (
 	{ $recipientplus.=", concat($cr, '" . _oscmem_workemail . ": ', coalesce(workemail,$blank)) "; }
 
 	$recipientplus.=",$cr";
+	$fambody.=",$cr";
 	
-	$sSQL = "insert into tmplabel Select concat(lastname, ', ', firstname,$bdate)," . $address . ", $sortMe, concat($recipientplus) from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid=0" . $sWhereExt;
+	$sSQL = "insert into tmplabel Select concat(lastname, ', ', firstname,$bdate)," . $address . ", $sortMe,0, concat($recipientplus) from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid=0" . $sWhereExt;
 	$this->db->query($sSQL); 
 //	echo $sSQL;
 
 	$sortMe="familyname";	
-	$sSQL = "insert into tmplabel Select concat('$familyprefix', " . $famrecipient . ")," . $address . ", $sortMe,concat($fambody) from " . $this->db->prefix("oscmembership_family") ;
+	$sSQL = "insert into tmplabel Select concat('$familyprefix', " . $famrecipient . ")," . $address . ", $sortMe, id, concat($fambody) from " . $this->db->prefix("oscmembership_family") ;
 //echo $sSQL;
 	$this->db->query($sSQL); 
 	
-	$sSQL="select * from tmplabel";
+	$sSQL="select * from tmplabel order by sortme";
 	$result=$this->db->query($sSQL); 
 
 	$i=0;
