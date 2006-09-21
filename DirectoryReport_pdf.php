@@ -219,6 +219,7 @@ class PDF_Directory extends FPDF {
 		$this->_CurLine++;
 	}
 
+	/*
 	// This function formats the string for the family info
 	function sGetFamilyString( $aRow )
 	{
@@ -253,10 +254,12 @@ class PDF_Directory extends FPDF {
 
 		return $sFamilyStr;
 	}
-
+	*/
+	
 	// This function formats the string for the head of household.
 	// NOTE: This is used for the Head AND Spouse (called twice)
-	function sGetHeadString( $aHead, $baltHeader, $SortMe )
+	/*
+	function sGetHeadString( $aHead,fvvv $baltHeader, $SortMe )
 	{
 		global $bDirBirthday;
 		global $bDirPersonalPhone;
@@ -335,8 +338,10 @@ class PDF_Directory extends FPDF {
 		else
 			return $sHeadStr;
 	}
-
+	*/
+	
 	// This function formats the string for other family member records
+	/*
 	function sGetMemberString( $aRow )
 	{
 		global $bDirPersonalPhone;
@@ -389,7 +394,7 @@ class PDF_Directory extends FPDF {
 
 		return $sMemberStr;
 	}
-
+*/
 	// Number of lines is only for the $text parameter
 	function Add_Record($sName, $text, $numlines)
 	{
@@ -501,13 +506,15 @@ $sLastLetter="";
 foreach($labels as $label)
 {
 	$pdf->sRecordName = preg_replace("/\(0\/0\)/","",$label['recipient']);
-	$pdf->sLastName = $pdf->sRecordName;
-	
-	$body=preg_replace("/&lt;br&gt;/","&n;",$label['body']);
+//	$pdf->sLastName = $pdf->sRecordName;
+
+	$body = $label['addresslabel'] . "\n" . $label['body'];		
+
+	$body=preg_replace("/&lt;br&gt;/","&n;",$body);
 	$body=preg_replace("/&n;&n;/","&n;",$body);
 	$body=preg_replace("/&n;&n;/","&n;",$body);
 	$body=preg_replace("/&n;&n;/","&n;",$body);
-	$body=preg_replace("/&n;/","/\n",$body);
+	$body=preg_replace("/&n;/","\n",$body);
 
 	
 //	echo $pdf->sLastName;
@@ -528,6 +535,7 @@ foreach($labels as $label)
 			$sLastLetter = strtoupper(substr($pdf->sRecordName,0,1));
 			$pdf->Add_Header($sLastLetter);
 		}
+//		echo $body;
 		$pdf->Add_Record($pdf->sRecordName, $body, $numlines);  // 
 	}
 	

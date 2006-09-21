@@ -36,22 +36,23 @@ class  Label extends XoopsObject {
 	
 //        $this->table = $this->db->prefix("oscmembership_person");
 //
-				$this->initVar('id',XOBJ_DTYPE_INT);
+	$this->initVar('id',XOBJ_DTYPE_INT);
         $this->initVar('recipient', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('address1', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('address2', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('city', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('state', XOBJ_DTYPE_TXTBOX);
-				$this->initVar('zip',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('addresslabel',XOBJ_DTYPE_TXTBOX);
+        $this->initVar('AddressLine1', XOBJ_DTYPE_TXTBOX);
+        $this->initVar('AddressLine2', XOBJ_DTYPE_TXTBOX);
+        $this->initVar('City', XOBJ_DTYPE_TXTBOX);
+        $this->initVar('State', XOBJ_DTYPE_TXTBOX);
+	$this->initVar('Zip',XOBJ_DTYPE_TXTBOX);
         $this->initVar('country', XOBJ_DTYPE_TXTBOX);
-				$this->initVar('sortme',XOBJ_DTYPE_TXTBOX);
-				$this->initVar('body',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('sortme',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('body',XOBJ_DTYPE_TXTBOX);
     }
 }    
 
     function Labelcriteria()
     {
-				$this->initVar('id',XOBJ_DTYPE_INT);
+	$this->initVar('id',XOBJ_DTYPE_INT);
         $this->initVar('bdiraddress', XOBJ_DTYPE_INT);
         $this->initVar('bdirwedding', XOBJ_DTYPE_INT);
         $this->initVar('bdirbirthday', XOBJ_DTYPE_INT);
@@ -186,19 +187,19 @@ CREATE TABLE  `tmplabel` (
 
 	$bdate="''";	
 	if($labelcriteria->getVar('bdirbirthday'))
-	{ $bdate=" concat(' (', birthday, '/', birthmonth, ')')"; }
+	{ $bdate=" concat(' (', birthmonth, '/', birthday , ')')"; }
 
 	if($labelcriteria->getVar('bdirfamilyphone'))
-	{ $fambody.= ", concat($cr, coalesce(homephone,$blank))"; }
+	{ $fambody.= ", concat($cr, '" . _oscmem_homephone . ": ',  coalesce(homephone,$blank))"; }
 	
 	if($labelcriteria->getVar('bdirfamilywork'))
-	{ $fambody.= ", concat($cr, coalesce(workphone,$blank)) "; }
+	{ $fambody.= ", concat($cr, '" . _oscmem_workphone . ": ', coalesce(workphone,$blank)) "; }
 	
 	if($labelcriteria->getVar('bdirfamilycell'))
-	{ $fambody.=", conat($cr, coalesce(cellphone,$blank))"; }
+	{ $fambody.=", conat($cr, '" . _oscmem_cellphone . ": ', coalesce(cellphone,$blank))"; }
 	
 	if($labelcriteria->getVar('bdirfamilyemail'))
-	{ $fambody.=", concat($cr, coalesce(email,$blank))"; }
+	{ $fambody.=", concat($cr, '" . _oscmem_email . ": ', coalesce(email,$blank))"; }
 		
 	if($labelcriteria->getVar('bdirpersonalphone'))
 	{ $recipientplus.=', concat(' . $cr . ', coalesce(homephone,' . $blank . '))'; }
@@ -206,7 +207,7 @@ CREATE TABLE  `tmplabel` (
 //	echo $recipientplus;
 	
 	if($labelcriteria->getVar('bdirpersonalwork'))
-	{ $recipientplus.=", concat($cr, coalesce(workphone,$blank))"; }
+	{ $recipientplus.=", concat($cr, '" . _oscmem_workphone . ":', coalesce(workphone,$blank))"; }
 
 	if($labelcriteria->getVar('bdirpersonalcell'))
 	{ $recipientplus.=", concat($cr, coalesce(cellphone,$blank))"; }
@@ -233,21 +234,30 @@ CREATE TABLE  `tmplabel` (
 	$label=new Label();
 	while($row = $this->db->fetchArray($result)) 
 	{
+	
 		if(isset($row))
 		{
 			$label->assignVars($row);
 			$labels[$i]['recipient']=$label->getVar('recipient');
-			$labels[$i]['address1']=$label->getVar('address1');
-			$labels[$i]['address2']=$label->getVar('address2');
-			$labels[$i]['city']=$label->getVar('city');
-			$labels[$i]['state']=$label->getVar('state');
-			$labels[$i]['zip']=$label->getVar('zip');
+			
+			If($labelcriteria->getVar('bdiraddress'))
+			{
+				$labels[$i]['addresslabel']=$label->getVar('AddressLine1');
+				if($label->getVar('AddressLine2')<>'')
+				$labels[$i]['addresslabel'].= "\n" . $label->getVar('AddressLine2');
+				$labels[$i]['addresslabel'].= "\n" . $label->getVar('City') . ", " . $label->getVar('State') . "  " . $label->getVar('Zip');
+			}
+			$labels[$i]['address1']=$label->getVar('AddressLine1');
+			$labels[$i]['address2']=$label->getVar('AddressLine2');
+			$labels[$i]['city']=$label->getVar('City');
+			$labels[$i]['state']=$label->getVar('State');
+			$labels[$i]['zip']=$label->getVar('Zip');
 			$labels[$i]['country']=$label->getVar('country');
 			$labels[$i]['sortme']=$label->getVar('sortme');
 			$labels[$i]['body']=$label->getVar('body');
 		}		
 	
-//		echo $labels[$i]['recipient'];	
+//		echo $labels[$i]['city'];	
 		$i++;	
 	}
 
