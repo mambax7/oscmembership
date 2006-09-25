@@ -422,7 +422,7 @@ foreach ($_POST["sDirClassifications"] as $strCls)
 	$aClasses[$count++] = $strCls; //FilterInput($Cls,'int');
 }
 $sDirClassifications = implode(",",$aClasses);
-
+/*
 $count = 0;
 foreach ($_POST["sDirRoleHead"] as $Head)
 {
@@ -443,7 +443,7 @@ foreach ($_POST["sDirRoleChild"] as $Child)
 	$aChildren[$count++] = $Child; // FilterInput($Child,'int');
 }
 // $sDirRoleChildren = implode(",",$aChildren);
-
+*/
 $label_handler = &xoops_getmodulehandler('label', 'oscmembership');
 $labelcritiera_handler = &xoops_getmodulehandler('labelcriteria', 'oscmembership');
 

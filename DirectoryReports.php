@@ -171,10 +171,10 @@ $disclaimer_textarea= new XoopsFormTextArea(_oscmem_disclaimer,"sDirectoryDiscla
 $form->addElement($class_select);
 $form->setRequired($class_select);
 $form->addElement($group_select);
-$form->addElement($role_select);
+//$form->addElement($role_select);
 
-$form->addElement($spouserole_select);
-$form->addElement($childrole_select);
+//$form->addElement($spouserole_select);
+//$form->addElement($childrole_select);
 
 
 $form->addElement($information_tray);

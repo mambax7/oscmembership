@@ -121,8 +121,18 @@ $familydetail_handler = &xoops_getmodulehandler('family', 'oscmembership');
 	
 	if(isset($_POST['email'])) $family->assignVar('email',$_POST['email']);
 	
-	if(isset($_POST['weddingdate'])) $family->assignVar('weddingdate',$_POST['weddingdate']);
-
+	
+	if(isset($_POST['weddingdate']))
+	{
+		if(!preg_match('`[0-9]{4}/[01][0-9]/[0123][0-9]`', $_POST['weddingdate'])) 
+		{
+			redirect_header("famildetailform.php?id=" . $familyid, 3, _oscmem_incorrectdt_weddingdate."<br />".implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
+			exit;
+		}
+		else
+		$family->assignVar('weddingdate',$_POST['weddingdate']);
+	}
+	
 	$family->assignVar('datelastedited',date('y-m-d g:i:s'));
 	$family->assignVar('editedby',$xoopsUser->getVar('uid'));
 
@@ -187,8 +197,7 @@ $cellphone_text = new XoopsFormText(_oscmem_cellphone, "cellphone", 30, 50, $fam
 
 $email_text = new XoopsFormText(_oscmem_email, "email", 30, 50, $family->getVar('email'));
 
-
-$weddingdate_text = new XoopsFormText(_oscmem_weddingdate, "weddingdate", 30, 50, $family->getVar('weddingdate'));
+$weddingdate_dt= new XoopsFormTextDateSelect(_oscmem_weddingdate,'weddingdate', 15, $family->getVar('weddingdate'));
 
 $datelastedited_label = new XoopsFormLabel(_oscmem_datelastedited, $family->getVar('datelastedited'));
 
@@ -236,7 +245,7 @@ $form->addElement($homephone_text);
 $form->addElement($workphone_text);
 $form->addElement($cellphone_text);
 $form->addElement($email_text);
-$form->addElement($weddingdate_text);
+$form->addElement($weddingdate_dt);
 $form->addElement($datelastedited_label);
 $form->addElement($editedby_label);
 $form->addElement($dateentered_label);

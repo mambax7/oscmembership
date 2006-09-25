@@ -79,7 +79,6 @@ if (isset($_POST['id'])) $personid=$_POST['id'];
 if (isset($_POST['action'])) $action=$_POST['action'];
 if (isset($_GET['action'])) $action=$_GET['action'];
 
-
 $myts = &MyTextSanitizer::getInstance();
 $persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');
     
@@ -127,7 +126,16 @@ switch (true)
 
 	if(isset($_POST['memberclass'])) $person->assignVar('clsid',$_POST['memberclass']);
 
-	if(isset($_POST['membershipdate'])) $person->assignVar('membershipdate',$_POST['membershipdate']);
+	if(isset($_POST['membershipdate']))
+	{
+		if(!preg_match('`[0-9]{4}/[01][0-9]/[0123][0-9]`', $_POST['membershipdate'])) 
+		{
+			redirect_header("persondetailform.php?id=" . $personid, 3, _oscmem_incorrectdt_membershipdate."<br />".implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
+			exit;
+		}
+		else
+		$person->assignVar('membershipdate',$_POST['membershipdate']);
+	}
 
 	if(isset($_POST['gender'])) $person->assignVar('gender',$_POST['gender']);
 
@@ -220,7 +228,9 @@ $birth_tray->addElement($birthday_text);
 $birth_tray->addElement($birthyear_text);
 $birth_tray->addElement($birthday_instructions);
 
-$membershipdate_text = new XoopsFormText(_oscmem_membershipdate, "membershipdate", 30, 50, $person->getVar('membershipdate'));
+$membershipdate_dt= new XoopsFormTextDateSelect(_oscmem_membershipdate,'membershipdate', 15, $person->getVar('membershipdate'));
+	
+//$membershipdate_text = new XoopsFormText(_oscmem_membershipdate, "membershipdate", 30, 50, $person->getVar('membershipdate'));
 
 $gender_array=array();
 $gender_array[0]=_oscmem_male;
@@ -300,7 +310,8 @@ $form->addElement($email_text);
 $form->addElement($workemail_text);
 $form->addElement($birth_tray);
 $form->addElement($memberclass_select);
-$form->addElement($membershipdate_text);
+$form->addElement($membershipdate_dt);
+//$form->addElement($membershipdate_text);
 $form->addElement($gender_select);
 $form->addElement($datelastedited_label);
 $form->addElement($editedby_label);

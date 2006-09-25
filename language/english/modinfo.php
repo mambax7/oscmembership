@@ -179,4 +179,8 @@ define("_oscmem_disclaimer","Disclaimer");
 
 define("_oscmem_directory","Directory");
 define("_oscmem_page","Page");
+
+define("_oscmem_incorrectdt_membershipdate","Incorrect Membership Date Format");
+define("_oscmem_incorrectdt_weddingdate","Incorrect Wedding Date Format");
+
 ?>

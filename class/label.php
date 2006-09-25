@@ -172,7 +172,10 @@ CREATE TABLE  `tmplabel` (
 //Build column clause
 	$familyprefix="";
 	$recipientplus="''";
-	$famrecipient="familyname";
+	if($baltFamilyName)
+		$famrecipient="altfamilyname";
+	else
+		$famrecipient="familyname";
 
 //	echo $labelcriteria->getVar('bdiraddress');
 	
@@ -183,7 +186,7 @@ CREATE TABLE  `tmplabel` (
 	
 	If($labelcriteria->getVar('bdirwedding'))
 	{
-		$fambody.=", concat($cr, coalesce(weddingdate,$blank)) ";
+		$fambody.=", concat($cr,'" . _oscmem_weddingdate . ": ', coalesce(weddingdate,$blank)) ";
 	}
 
 	$bdate="''";	
@@ -229,26 +232,11 @@ CREATE TABLE  `tmplabel` (
 	$sortMe="familyname";	
 	
 	$sSQL = "insert into tmplabel(familyid) Select distinct fam.id from " . $this->db->prefix("oscmembership_family") . " fam join " . $this->db->prefix("oscmembership_person") . " person on fam.id=person.famid ";
-	echo $sSQL;
-	
-	exit;
-
-	select * from tmplabel
-	
-	update tmplabel, xoopsdev_oscmembership_family  set recipient=`familyname`
-where id=familyid
-
-	$sSQL="update tmplabel set recipient=concat('$familyprefix', " . $famrecipient . "), addresslabel=$address, sortme=$sortMe, body=concat($fambody) from 
-
- $sSQL = "insert into tmplabel Select concat('$familyprefix', " . $famrecipient . ")," . $address . ", $sortMe, id, concat($fambody) from " . $this->db->prefix("oscmembership_family") ;
-
-select * from xoopsdev_oscmembership_family join tmplabel on id=familyid
-
-	
-	$sSQL = "insert into tmplabel Select concat('$familyprefix', " . $famrecipient . ")," . $address . ", $sortMe, id, concat($fambody) from " . $this->db->prefix("oscmembership_family") ;
-//echo $sSQL;
 	$this->db->query($sSQL); 
-	
+
+	$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " fam set recipient=concat('$familyprefix', " . $famrecipient . "), AddressLine1=fam.address1, AddressLine2=fam.address2, tmplabel.City=fam.city, tmplabel.state=fam.state, tmplabel.zip=fam.zip, sortme=$sortMe, body=concat($fambody) where tmplabel.familyid=fam.id";
+	$this->db->query($sSQL); 
+		
 	$sSQL="select * from tmplabel order by sortme";
 	$result=$this->db->query($sSQL); 
 
@@ -256,7 +244,6 @@ select * from xoopsdev_oscmembership_family join tmplabel on id=familyid
 	$label=new Label();
 	while($row = $this->db->fetchArray($result)) 
 	{
-	
 		if(isset($row))
 		{
 			$label->assignVars($row);
@@ -265,7 +252,7 @@ select * from xoopsdev_oscmembership_family join tmplabel on id=familyid
 			
 			If($labelcriteria->getVar('bdiraddress'))
 			{
-							$labels[$i]['addresslabel']=$label->getVar('AddressLine1');
+				$labels[$i]['addresslabel']=$label->getVar('AddressLine1');
 							//echo $label->getVar('AddressLine1');
 				if($label->getVar('AddressLine2')<>'')
 					$labels[$i]['addresslabel'].= "\n" . $label->getVar('AddressLine2');
