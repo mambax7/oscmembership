@@ -124,13 +124,20 @@ $familydetail_handler = &xoops_getmodulehandler('family', 'oscmembership');
 	
 	if(isset($_POST['weddingdate']))
 	{
-		if(!preg_match('`[0-9]{4}/[01][0-9]/[0123][0-9]`', $_POST['weddingdate'])) 
+		if($_POST['weddingdate'])
 		{
-			redirect_header("famildetailform.php?id=" . $familyid, 3, _oscmem_incorrectdt_weddingdate."<br />".implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
-			exit;
+			//do nothing
 		}
 		else
-		$family->assignVar('weddingdate',$_POST['weddingdate']);
+		{
+			if(!preg_match('`[0-9]{4}/[01][0-9]/[0123][0-9]`', $_POST['weddingdate'])) 
+			{
+				redirect_header("familydetailform.php?id=" . $familyid, 3, _oscmem_incorrectdt_weddingdate."<br />".implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
+				exit;
+			}
+			else
+			$family->assignVar('weddingdate',$_POST['weddingdate']);
+		}
 	}
 	
 	$family->assignVar('datelastedited',date('y-m-d g:i:s'));
