@@ -279,14 +279,15 @@ function &modsearch($searcharray)
 		$this->db->quoteString($family->getVar('cellphone'))
 		. ",email=" . 	
 		$this->db->quoteString($family->getVar('email'))
-		. ",weddingdate=" . 	
-		$this->db->quoteString($family->getVar('weddingdate'));
-		$sql = $sql . ",datelastedited=" .  			
+		. ",weddingdate='" . 	
+		date('Y-m-d',strtotime($this->db->quoteString($family->getVar('weddingdate'))));
+		$sql = $sql . "',datelastedited=" .  			
 		$this->db->quoteString($family->getVar('datelastedited'))
 		. ",editedby=" . $this->db->quoteString($family->getVar('editedby')) . 
 		 
 		" where id=" . $family->getVar('id');
-	
+		echo $sql;
+			
 		if (!$result = $this->db->query($sql)) {
 			echo "<br />oscmembershipHandler::get error::" . $sql;
 			return false;

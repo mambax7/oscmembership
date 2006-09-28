@@ -131,12 +131,12 @@ switch (true)
 		break;
 		
 				
-	case($op=="addmembersubmit"):
+/*	case($op=="addmembersubmit"):
 		redirect_header("personselect.php?type=group&id=" . $familyid,0,$message);		
 		break;    
-
-			case($op=="addmembersubmit"):
-		redirect_header("personselect.php?type=group&id=" . $groupid,0,$message);		
+*/
+	case($op=="addmembersubmit"):
+			redirect_header("personselect.php?type=group&id=" . $groupid,0,$message);		
 		break;    
 
 	case($op=="remove"):
@@ -205,7 +205,7 @@ $db = &Database::getInstance();
 
 $person=new Person();
 
-$member_tray = new XoopsFormElementTray('', '&nbsp;');
+//$member_tray = new XoopsFormElementTray('', '&nbsp;');
 
 $memberresult="<table><th>" . _oscmem_lastname . "</th><th>" . _oscmem_firstname . "</th><th>" . _oscmem_actions . "</th>";
 
@@ -245,15 +245,17 @@ $form->addElement($groupname_text);
 $form->addElement($groupdescript_textarea);
 $form->addElement($grouptype_select);
 
-$addMember_button = new XoopsFormButton("", "addmembersubmit", _osc_addgroupmember, "submit");
-
-$addMember_link=new XoopsFormLabel('',"<a href='personselect.php?type=group&id=" . $groupid . "'>" . _osc_addgroupmember . "</a>");
-$form->addElement($addMember_link);
-
-
-$member_label = new XoopsFormLabel(_oscmem_groupmember, $memberresult);
-$form->addElement($member_label);
-
+if($action<>"create")
+{
+  $addMember_button = new XoopsFormButton("", "addmembersubmit" . $op_hidden, _osc_addgroupmember, "submit");
+  
+  $addMember_link=new XoopsFormLabel('',"<a href='personselect.php?type=group&id=" . $groupid . "'>" . _osc_addgroupmember . "</a>");
+  $form->addElement($addMember_link);
+  
+  
+  $member_label = new XoopsFormLabel(_oscmem_groupmember, $memberresult);
+  $form->addElement($member_label);
+}
 
 $form->addElement($op_hidden);
 
