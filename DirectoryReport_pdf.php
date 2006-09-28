@@ -415,6 +415,8 @@ class PDF_Directory extends FPDF {
 
 // Get and filter the classifications selected
 
+$aClasses=array();
+
 $count = 0;
 $strCls="";
 foreach ($_POST["sDirClassifications"] as $strCls)
@@ -425,7 +427,7 @@ $sDirClassifications = implode(",",$aClasses);
 
 $count = 0;
 $strCls="";
-foreach ($_POST["GROUPID"] AS $strCls)
+foreach ($_POST["GroupID"] AS $strCls)
 {
 	$aClasses[$count++] = $strCls; //FilterInput($Cls,'int');
 }

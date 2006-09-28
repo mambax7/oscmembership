@@ -141,7 +141,6 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 
 
 	$familyprefix="";
-
 /*
 $sSQL=" drop table `tmplabel`;
 CREATE TABLE  `tmplabel` (
@@ -155,7 +154,7 @@ CREATE TABLE  `tmplabel` (
   `sortme` varchar(255) default NULL,
   `familyid` int default null,
   `body` text )";
-*/
+*/	
 	$sSQL= "truncate table tmplabel";
 	$this->db->query($sSQL);
 
@@ -234,15 +233,26 @@ CREATE TABLE  `tmplabel` (
 		
 	$persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');    
 	$person = $persondetail_handler->create(true);  //only one record
-	$families=array();
+	
+	
+	$sSQL="select person.* from " . $this->db->prefix("oscmembership_person") . " person left join tmplabel t on person.famid = t.familyid";
+	
+	$result=$this->db->query($sSQL);
 
+	$i=0;		
+	$families=array();
+	
 	while($row = $this->db->fetchArray($result)) 
 	{
 		if(isset($row))
 		{
+			if(! isset($families[$i]['label']))
+			$families[$i]['label']="";
+			
 			$person->assignVars($row);
 			$families[$i]['familyid']=$person->getVar("famid");
 			$families[$i]['label'].=$person->getVar("lastname") . ", " . $person->getVar("firstname");
+			
 			if($labelcriteria->getVar('bdirbirthday'))
 			{
 				if($person->getVar('birthmonth')<>0)
