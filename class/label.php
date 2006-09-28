@@ -94,7 +94,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
     }
 
 
-    function &getlabels($bSortFirstName, $baltFamilyName, $arrGroups, $sDirClassifications,$labelcriteria)
+    function &getlabels($bSortFirstName, $baltFamilyName, $sGroupsList, $sDirClassifications,$labelcriteria)
     {
 	$labels[]=array();
     
@@ -106,22 +106,14 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	
 	$sWhereExt="";
 		
-//	if (strlen($sDirClassifications)) $sClassQualifier = "AND person.clsid in (" . $sDirClassifications . ")";
-
-
+	if (strlen($sDirClassifications)) $sClassQualifier = "AND person.clsid in (" . $sDirClassifications . ")";
 	
-	if (!empty($arrGroups))
+	if (!empty($sGroupsList))
 	{
 
-		$sGroupTable = ", " . $db->prefix('oscmembership_p2g2r');
-
-		foreach ($arrGroups as $Grp)
-		{
-			$aGroups[$count++] = $Grp;
-		}
-		$sGroupsList = implode(",",$aGroups);
+		$sGroupTable = ", " . $this->db->prefix('oscmembership_p2g2r');
 	
-		$sWhereExt .= "AND per_ID = p2g2r_per_ID AND p2g2r_grp_ID in (" . $sGroupsList . ") ";
+		$sWhereExt .= " AND per_ID = p2g2r_per_ID AND p2g2r_grp_ID in (" . $sGroupsList . ") ";
 	
 		// This is used by per-role queries to remove duplicate rows from people assigned multiple groups.
 		$sGroupBy = " GROUP BY per_ID";
