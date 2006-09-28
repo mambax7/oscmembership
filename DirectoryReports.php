@@ -87,6 +87,7 @@ foreach($groups as $group)
 	$group_select->addOption($group['id'], $group['group_Name']);
 }
 
+/*
 $osclist = $osclist_handler->create();
 $osclist->assignVar('id','2');
 $role_result = $osclist_handler->getitems($osclist);
@@ -107,7 +108,7 @@ foreach($role_result as $osclist)
 {
 	$childrole_select->addOption($osclist['optionid'], $osclist['optionname']);
 }
-
+*/
 
 $dirAddress = new XoopsFormCheckBox("","bDirAddress",0);
 $dirAddress->addOption(0,_oscmem_address);

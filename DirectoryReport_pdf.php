@@ -422,6 +422,14 @@ foreach ($_POST["sDirClassifications"] as $strCls)
 	$aClasses[$count++] = $strCls; //FilterInput($Cls,'int');
 }
 $sDirClassifications = implode(",",$aClasses);
+
+$count = 0;
+$strCls="";
+foreach ($_POST["GROUPID"] AS $strCls)
+{
+	$aClasses[$count++] = $strCls; //FilterInput($Cls,'int');
+}
+$groups= implode(",",$aClasses);
 /*
 $count = 0;
 foreach ($_POST["sDirRoleHead"] as $Head)
@@ -481,8 +489,6 @@ $churchdir->assignVar('church_post',$sChurchZip);
 $churchdir->assignVar('church_phone',$sChurchPhone);
 
 $churchdir = $churchdir_handler->update($churchdir);
-
-$groups=array();
 
 $labels=$label_handler->getlabels(false, false, $groups,"",$labelcritiera);
 
