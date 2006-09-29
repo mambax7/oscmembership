@@ -186,4 +186,6 @@ define("_oscmem_incorrectdt_weddingdate","Incorrect Wedding Date Format");
 define("_oscmem_CREATESUCCESS_group","Group Successfully Created");
 define("_oscmem_csvexport","CSV Export");
 
+define("_oscmem_cvsexport_infoinclude","Fields to include in Export");
+
 ?>
