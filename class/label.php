@@ -111,9 +111,9 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	if (!empty($sGroupsList))
 	{
 
-		$sGroupTable = ", " . $this->db->prefix('oscmembership_p2g2r');
+		$sGroupTable = ", " . $this->db->prefix("oscmembership_group_members") . " g ";
 	
-		$sWhereExt .= " AND per_ID = p2g2r_per_ID AND p2g2r_grp_ID in (" . $sGroupsList . ") ";
+		$sWhereExt .= " AND g.person_id = person.id AND g.group_id in (" . $sGroupsList . ") ";
 	
 		// This is used by per-role queries to remove duplicate rows from people assigned multiple groups.
 		$sGroupBy = " GROUP BY per_ID";
@@ -221,10 +221,10 @@ CREATE TABLE  `tmplabel` (
 	$sSQL = "insert into tmplabel Select concat(lastname, ', ', firstname,$bdate)," . $address . ", $sortMe,0, concat($recipientplus) from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid=0" . $sWhereExt;
 	$this->db->query($sSQL); 
 
-	echo $sSQL;
+//	echo $sSQL;
 	$sortMe="familyname";	
 	
-	$sSQL = "insert into tmplabel(familyid) Select distinct fam.id from " . $this->db->prefix("oscmembership_family") . " fam join " . $this->db->prefix("oscmembership_person") . " person on fam.id=person.famid ";
+	$sSQL = "insert into tmplabel(familyid) Select distinct fam.id from " . $this->db->prefix("oscmembership_family") . " fam , " . $this->db->prefix("oscmembership_person") . " person  " . $sGroupTable . " where person.famid>0 and  fam.id=person.famid " . $sWhereExt;
 	$this->db->query($sSQL); 
 
 	$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " fam set recipient=concat('$familyprefix', " . $famrecipient . "), AddressLine1=fam.address1, AddressLine2=fam.address2, tmplabel.City=fam.city, tmplabel.state=fam.state, tmplabel.zip=fam.zip, sortme=$sortMe, body=concat($fambody) where tmplabel.familyid=fam.id";
@@ -234,7 +234,7 @@ CREATE TABLE  `tmplabel` (
 	$person = $persondetail_handler->create(true);  //only one record
 	
 	
-	$sSQL="select person.* from " . $this->db->prefix("oscmembership_person") . " person left join tmplabel t on person.famid = t.familyid";
+	$sSQL="select person.* from " . $this->db->prefix("oscmembership_person") . " person join tmplabel t on person.famid = t.familyid where person.famid>0";
 	
 	$result=$this->db->query($sSQL);
 
