@@ -17,6 +17,7 @@ include(XOOPS_ROOT_PATH."/header.php");
 
 $xoopsTpl->assign('title',_oscmem_reporttitle); 
 $xoopsTpl->assign('OSCMEM_directoryreport',_oscmem_directoryreport); 
+$xoopsTpl->assign('OSCMEM_csvexport',_oscmem_csvexport);
 
 include(XOOPS_ROOT_PATH."/footer.php");
 ?>
