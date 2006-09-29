@@ -221,12 +221,11 @@ CREATE TABLE  `tmplabel` (
 	$sSQL = "insert into tmplabel Select concat(lastname, ', ', firstname,$bdate)," . $address . ", $sortMe,0, concat($recipientplus) from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid=0" . $sWhereExt;
 	$this->db->query($sSQL); 
 
-
+	echo $sSQL;
 	$sortMe="familyname";	
 	
 	$sSQL = "insert into tmplabel(familyid) Select distinct fam.id from " . $this->db->prefix("oscmembership_family") . " fam join " . $this->db->prefix("oscmembership_person") . " person on fam.id=person.famid ";
 	$this->db->query($sSQL); 
-
 
 	$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " fam set recipient=concat('$familyprefix', " . $famrecipient . "), AddressLine1=fam.address1, AddressLine2=fam.address2, tmplabel.City=fam.city, tmplabel.state=fam.state, tmplabel.zip=fam.zip, sortme=$sortMe, body=concat($fambody) where tmplabel.familyid=fam.id";
 	$this->db->query($sSQL); 

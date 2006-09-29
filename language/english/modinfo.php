@@ -183,4 +183,5 @@ define("_oscmem_page","Page");
 define("_oscmem_incorrectdt_membershipdate","Incorrect Membership Date Format");
 define("_oscmem_incorrectdt_weddingdate","Incorrect Wedding Date Format");
 
+define("_oscmem_CREATESUCCESS_group","Group Successfully Created");
 ?>
