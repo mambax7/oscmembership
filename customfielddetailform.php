@@ -115,7 +115,7 @@ switch (true)
 		$message=_oscmem_CREATESUCCESS;
 	}
 	    
-	redirect_header("customfielddetailform.php?id=" . $personid, 3, $message);
+//	redirect_header("customfielddetailform.php?id=" . $personid, 3, $message);
     break;
 }
 
@@ -168,7 +168,7 @@ $customOrder_text= new XoopsFormText(_oscmem_customfieldOrder, "custom_Order", 3
 $customName_text= new XoopsFormText(_oscmem_customName, "custom_Name", 30, 50, $customField->getVar('custom_Name'));
 
 //$customTypeid_select = new XoopsFormSelect(_oscmem_customfield_Type,_oscmem_customfield_Type,_oscmem_customfield_Type,'z');
-$customTypeid_select = new XoopsFormSelect(_oscmem_customfield_Type, "typeID");
+$customTypeid_select = new XoopsFormSelect(_oscmem_customfield_Type, "type_ID");
 //    $indeximage_select = new XoopsFormSelect('', 'indeximage', $fc->getVar('cat_image'));
  //   $indeximage_select->addOptionArray($graph_array);
 

@@ -107,6 +107,17 @@ class oscMembershipCustomfieldHandler extends XoopsObjectHandler
 	function &insert(&$customfield)
     	{
 
+		//Find last custom field
+		$fields = mysql_list_fields($sDATABASE, "person_custom", $cnInfoCentral);
+		$last = mysql_num_fields($fields) - 1;
+		
+		// Set the new field number based on the highest existing.  Chop off the "c" at the beginning of the old one's name.
+		// The "c#" naming scheme is necessary because MySQL 3.23 doesn't allow numeric-only field (table column) names.
+		
+		$newFieldNum = substr(mysql_field_name($fields, $last), 1) + 1;
+
+		$customfield->assignVar('custom_Field','c' . $newFieldNum);
+
 		$sql = "INSERT into " . $customfield->table
 		. "(custom_Order, custom_Field, custom_Name, custom_Special, custom_Side, type_ID) ";
 	
@@ -123,54 +134,56 @@ class oscMembershipCustomfieldHandler extends XoopsObjectHandler
 		$this->db->quoteString($customfield->getVar('type_ID'))
 		.  ")";
 
-		if (!$result = $this->db->query($sql)) {
+		if (!$result = $this->db->query($sql)) 
+		{
 			echo "<br />oscmembershipHandler::get error::" . $sql;
 			return false;
-			}
-			else
-			{
-// Insert into the custom fields table
-$sSQL = "ALTER TABLE " . this->db->prefix("oscmembership_person_custom") . " ADD `c" . $newFieldNum . "` ";
-switch($newFieldType)
-{case 1:$sSQL .= "ENUM('false', 'true')";
-break;
-case 2:$sSQL .= "DATE";
-break;
-case 3:$sSQL .= "VARCHAR(50)";
-break;
-case 4:$sSQL .= "VARCHAR(100)";
-break;
-case 5:$sSQL .= "TEXT";
-break;
-case 6:$sSQL .= "YEAR";
-break;
-case 7:$sSQL .= "ENUM('winter', 'spring', 'summer', 'fall')";
-break;
-case 8:$sSQL .= "INT";
-break;
-case 9:$sSQL .= "MEDIUMINT(9)";
-break;
-case 10:$sSQL .= "DECIMAL(10,2)";
-break;
-case 11:$sSQL .= "VARCHAR(30)";
-break;
-case 12:$sSQL .= "TINYINT(4)";
-}$sSQL .= " DEFAULT NULL ;"
-;
-
-$this->db>query($sql);
-
-}}}				
-				
-		if (!$result = $this->db->query($sql)) {
-			echo "<br />oscmembershipHandler::get error::" . $sql;
-			return false;
-			}
+		}
 		else
 		{
-			return $this->db->getInsertId();
+		
+  // Insert into the custom fields table
+  		$sql = "ALTER TABLE " . $this->db->prefix("oscmembership_person_custom") . " ADD `" . $customfield->getVar('custom_Field') . "` ";
+  		switch($customfield->getVar('type_ID'))
+  		{
+  			case 1:$sql .= "ENUM('false', 'true')";
+  				break;
+  			case 2:$sql .= "DATE";
+  				break;
+  			case 3:$sql .= "VARCHAR(50)";
+  				break;
+  			case 4:$sql .= "VARCHAR(100)";
+  				break;
+  			case 5:$sql .= "TEXT";
+  				break;
+  			case 6:$sql .= "YEAR";
+  				break;
+  			case 7:$sql .= "ENUM('winter', 'spring', 'summer', 'fall')";
+  				break;
+  			case 8:$sql .= "INT";
+  				break;
+  			case 9:$sql .= "MEDIUMINT(9)";
+  				break;
+  			case 10:$sql .= "DECIMAL(10,2)";
+  				break;
+  			case 11:$sql .= "VARCHAR(30)";
+  				break;
+  			case 12:$sql .= "TINYINT(4)";
+  		}
+  		$sql .= " DEFAULT NULL ;";
+  		
+  		echo $sql;
+  				
+  		if (!$result = $this->db->query($sql)) 
+  		{
+  			echo "<br />oscmembershipHandler::get error::" . $sql;
+  			return false;
+  		}
+  		else
+  		{
+  			return $this->db->getInsertId();
+  		}
 		}
-	
 	}
 
 	function &getcustomfieldtypes()
