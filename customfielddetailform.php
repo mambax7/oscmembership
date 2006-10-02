@@ -80,13 +80,20 @@ if (isset($_GET['action'])) $action=$_GET['action'];
 if (isset($_GET['id'])) $id=$_GET['id'];
 if (isset($_POST['id'])) $id=$_POST['id'];
 
+if (isset($_POST['custom_Order'])) $customOrder=$_POST['custom_Order'];
+if (isset($_POST['custom_Field'])) $customField=$_POST['custom_Field'];
+if (isset($_POST['custom_Name'])) $customName=$_POST['custom_Name'];
+if (isset($_POST['custom_Special'])) $customSpecial=$_POST['custom_Special'];
+if (isset($_POST['custom_Side'])) $customSide=$_POST['custom_Side'];
+if (isset($_POST['type_ID'])) $typeID=$_POST['type_ID'];
 
 $myts = &MyTextSanitizer::getInstance();
 $customfield_handler = &xoops_getmodulehandler('customfield', 'oscmembership');
 
+
 switch (true) 
 {
-    case ($op=="save" || $op=="create"):
+  case ($op=="save" || $op=="create"):
 
 	if($op=="save")
 	{
@@ -95,8 +102,16 @@ switch (true)
 	}
 	if($op=="create")
 	{
-		
 	
+		$customfield=$customfield_handler->create();
+		$customfield->assignVar('custom_Order',$customOrder);
+		$customfield->assignVar('custom_Field',$customField);
+		$customfield->assignVar('custom_Name',$customName);
+		$customfield->assignVar('custom_Special',$customSpecial);
+		$customfield->assignVar('custom_Side',$customSide);
+		$customfield->assignVar('type_ID',$typeID);
+
+		$customfield_handler->insert($customfield);	
 		$message=_oscmem_CREATESUCCESS;
 	}
 	    
