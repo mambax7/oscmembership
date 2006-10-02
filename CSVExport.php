@@ -53,7 +53,6 @@ include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/c
 
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 
-
 $churchdir_handler = &xoops_getmodulehandler('churchdir', 'oscmembership');
 $churchdir= $churchdir_handler->create();
 $churchdir = $churchdir_handler->get($churchdir);
@@ -71,6 +70,10 @@ $osclist->assignVar('id',1);  //pull membership classifications
 $optionItems = $osclist_handler->getitems($osclist);
 
 $form = new XoopsThemeForm("", "csvexportform", "CSVExport_out.php", "post", true);
+
+$table1 = new XoopsTableForm("", "csvexporttable", "", "post", true);
+$table2 = new XoopsTableForm("", "csvexporttable", "", "post", true);
+$table3 = new XoopsTableForm("", "csvexporttable", "", "post", true);
 
 $class_select = new XoopsFormSelect(_oscmem_dirreport_selectclass,'sDirClassifications',"",5,true, 'class');
 foreach($optionItems as $osclist)
@@ -111,6 +114,28 @@ $chkhomephone = new XoopsFormCheckBox("","bhomephone",0);
 $chkhomephone->addOption(0,_oscmem_homephone);
 $chkworkphone = new XoopsFormCheckBox("","bworkphone",0);
 $chkworkphone->addOption(0,_oscmem_workphone);
+$chkcellphone=new XoopsFormCheckBox("","bcellphone",0);
+$chkcellphone->addOption(0,_oscmem_cellphone);
+$chkemail=new XoopsFormCheckBox("","bemail",0);
+$chkemail->addOption(0,_oscmem_email);
+$chkotheremail=new XoopsFormCheckBox("","otheremail",0);
+$chkotheremail->addOption(0,_oscmem_otheremail);
+$chkenvelope=new XoopsFormCheckBox("","benvelope",0);
+$chkenvelope->addOption(0,_oscmem_envelopenumber);
+$chkmembership=new XoopsFormCheckBox("","bmembershipdate",0);
+$chkmembership->addOption(0,_oscmem_membershipdate);
+$chkbirth=new XoopsFormCheckBox("","bbirthanniversary",0);
+$chkbirth->addOption(0,_oscmem_csv_birthanniversary);
+$chkagemarriage=new XoopsFormCheckBox("","bagemarried",0);
+$chkagemarriage->addOption(0,_oscmem_csv_ageyearsmarried);
+$chkfamilyrole=new XoopsFormCheckBox("","bfamilyrole",0);
+$chkfamilyrole->addOption(0,_oscmem_csv_familyrole);
+$chkfamilyname=new XoopsFormCheckBox("","bfamilyname",0);
+$chkfamilyname->addOption(0,_oscmem_csv_familyname);
+
+$chkministry=new XoopsFormCheckBox("","bministry",0);
+$chkministry->addOption(0,_oscmem_csv_ministry);
+
 
 //$form->addElement($lblLastName);
 //$form->setRequired($class_select);
@@ -119,28 +144,51 @@ $chkworkphone->addOption(0,_oscmem_workphone);
 //$form->addElement($spouserole_select);
 //$form->addElement($childrole_select);
 
-$information_tray = new XoopsFormElementTray(_oscmem_cvsexport_infoinclude, '&nbsp;');
+$element_tray = new XoopsFormElementTray(_oscmem_cvsexport_infoinclude, '&nbsp;');
 
-$form->addElement($information_tray);
-$form->addElement($chkTitle);
-$form->addElement($chkFirstName);
-//$form->addElement($chkMiddlename);
-//$form->addElement($chkSuffix);
-$form->addElement($chkAddress1);
-$form->addElement($chkCity);
-$form->addElement($chkState);
-$form->addElement($chkPost);
-$form->addElement($chkCountry);
-$form->addElement($chkhomephone);
-$form->addElement($chkworkphone);
+$element_tray2 = new XoopsFormElementTray(_oscmem_cvsexport_infoinclude, '&nbsp;');
+
+$table1->addElement($element_tray);
+$table1->addElement($chkTitle);
+$table1->addElement($chkFirstName);
+$table1->addElement($chkTitle);
+$table1->addElement($chkFirstName);
+//$table1->addElement($chkMiddlename);
+//$table1->addElement($chkSuffix);
+$table1->addElement($chkAddress1);
+$table1->addElement($chkCity);
+$table1->addElement($chkState);
+$table1->addElement($chkPost);
+$table1->addElement($chkCountry);
+$table1->addElement($chkhomephone);
+$table1->addElement($chkworkphone);
+
+$table1->addElement($chkcellphone);
+$table1->addElement($chkemail);
+$table1->addElement($chkotheremail);
+$table1->addElement($chkenvelope);
+$table1->addElement($chkmembership);
+$table1->addElement($chkbirth);
+$table1->addElement($chkagemarriage);
+$table1->addElement($chkfamilyrole);
+$table1->addElement($chkfamilyname);
+
+//$form->addElement($element_tray);
 
 $submit_button = new XoopsFormButton("", "submit", _oscmem_submit, "submit");
 
-$form->addElement($submit_button);
+//$form->addElement($submit_button);
 
-$rform= $form->render();
+$rtray1=$table1->render();
+$rtray2=$table2->render();
+$rtray3=$table3->render();
 
-$xoopsTpl->assign('form',$rform);
+//$rform= $form->render();
+
+$xoopsTpl->assign('col1',$rtray1);
+$xoopsTpl->assign('col2',$rtray2);
+$xoopsTpl->assign('col3',$rtray3);
+//$xoopsTpl->assign('form',$rform);
 
 
 include(XOOPS_ROOT_PATH."/footer.php");

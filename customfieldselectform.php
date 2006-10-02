@@ -81,8 +81,8 @@ if (isset($_GET['action'])) $action=$_GET['action'];
 
 $myts = &MyTextSanitizer::getInstance();
 $persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');
-														
-    $member_handler =& xoops_gethandler('member');
+
+$member_handler =& xoops_gethandler('member');
 
 switch (true) 
 {
@@ -92,21 +92,22 @@ switch (true)
 	{
 //		$persondetail_handler->update($person);
 		$message=_oscmem_UPDATESUCCESS;
+		redirect_header("customfielddetailform.php?action=save&id=" . $personid, 3, $message);
 	}
 	if($op=="create")
 	{
 		$message=_oscmem_CREATESUCCESS_individual;
+		redirect_header("customfielddetailform.php?action=create&id=" . $personid, 3, $message);
 	}
 	    
-	redirect_header("customfielddetailform.php?id=" . $personid, 3, $message);
     break;
 }
 
 
 //$id_hidden = new XoopsFormHidden("id",$person->getVar('id'));
 
-$op_hidden = new XoopsFormHidden("op", "save");  //save operation
-$submit_button = new XoopsFormButton("", "customdetailsubmit", _osc_save, "submit");
+$op_hidden = new XoopsFormHidden("op", "create");  //save operation
+$submit_button = new XoopsFormButton("", "customdetailsubmit", _osc_create, "submit");
 
 if($action=="create")
 {
@@ -114,7 +115,7 @@ if($action=="create")
 	$submit_button = new XoopsFormButton("", "customfielddetailsubmit", _osc_create, "submit");
 }
 
-$form = new XoopsThemeForm(_oscmem_customfield, "customfielddetailform", "customfielddetailform.php", "post", true);
+$form = new XoopsThemeForm(_oscmem_customfield, "customfielddetailform", "customfieldselectform.php?action=create", "post", true);
 
 
 $form->addElement($op_hidden);

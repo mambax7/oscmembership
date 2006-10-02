@@ -30,7 +30,7 @@
 // Project: The XOOPS Project, The Open Source Church project (OSC)
 // ------------------------------------------------------------------------- //
 include("../../mainfile.php");
-$xoopsOption['template_main'] = 'cs_index.html';
+//$xoopsOption['template_main'] = 'cs_index.html';
 include(XOOPS_ROOT_PATH."/header.php");
 //include("../../../include/cp_header.php");
 include_once(XOOPS_ROOT_PATH . "/class/xoopsformloader.php");
@@ -95,7 +95,9 @@ switch (true)
 	}
 	if($op=="create")
 	{
-		$message=_oscmem_CREATESUCCESS_individual;
+		
+	
+		$message=_oscmem_CREATESUCCESS;
 	}
 	    
 	redirect_header("customfielddetailform.php?id=" . $personid, 3, $message);
@@ -115,7 +117,6 @@ if($action=="create")
 }
 
 $form = new XoopsThemeForm(_oscmem_customfield, "customfielddetailform", "customfielddetailform.php", "post", true);
-
 
 $form->addElement($op_hidden);
 //$form->addElement($id_hidden);

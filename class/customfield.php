@@ -80,143 +80,51 @@ class oscMembershipCustomfieldHandler extends XoopsObjectHandler
     
 		
 	     
-	function &update(&$person)
+	function &update(&$customfield)
     	{
-		$sql = "UPDATE " . $person->table
+		$sql = "UPDATE " . $customfield->table
 		. " SET "
-		. "title=" . $this->db->quoteString($person->getVar('title'))
-		. ",firstname=" .
-		$this->db->quoteString($person->getVar('firstname'))
-		. ",lastname=" . 	
-		$this->db->quoteString($person->getVar('lastname'))
-		. ",middlename=" . 	
-		$this->db->quoteString($person->getVar('middlename'))
-		. ",suffix=" . 	
-		$this->db->quoteString($person->getVar('suffix'))
-		. ",address1=" . 	
-		$this->db->quoteString($person->getVar('address1'))
-		. ",address2=" . 	
-		$this->db->quoteString($person->getVar('address2'))
-		. ",city=" . 	
-		$this->db->quoteString($person->getVar('city'))
-		. ",state=" . 	
-		$this->db->quoteString($person->getVar('state'))
-		. ",zip=" . 	
-		$this->db->quoteString($person->getVar('zip'))
-		. ",country=" . 	
-		$this->db->quoteString($person->getVar('country'))
-		. ",homephone=" . 	
-		$this->db->quoteString($person->getVar('homephone'))
-		. ",workphone=" . 	
-		$this->db->quoteString($person->getVar('workphone'))
-		. ",cellphone=" . 	
-		$this->db->quoteString($person->getVar('cellphone'))
-		. ",email=" . 	
-		$this->db->quoteString($person->getVar('email'))
-		. ",workemail=" . 	
-		$this->db->quoteString($person->getVar('workemail'))
-		. ",birthmonth=" . $person->getVar('birthmonth')
-		. ",birthday=" . $person->getVar('birthday')
-		. ",birthyear=" . $person->getVar('birthyear')
-		. ",membershipdate=" . 	
-		$this->db->quoteString($person->getVar('membershipdate'))
-		. ",gender=" . $person->getVar('gender');
-		if($person->getVar('famid')!='')
-		{
-			$sql=$sql . ",famid=" . $person->getVar('famid');
-		}
-		else
-		{
-			$sql=$sql . ",famid=null";
-		}
-		if($person->getVar('envelope')!='')		
-		{
-			$sql=$sql . ",envelope=" . $person->getVar('envelope'); 	
-		}
-		else
-		{
-			$sql = $sql . ",envelope=null";
-		}
-		$sql = $sql . ",datelastedited=" .  			
-		$this->db->quoteString($person->getVar('datelastedited'))
-		. ",editedby=" . $this->db->quoteString($person->getVar('editedby')) . 
+		. "custom_Order=" . ($customfield->getVar('custom_Order'))
+		. ",custom_Name=" . 	
+		$this->db->quoteString($customfield->getVar('custom_Name'))
+		. ",custom_Special=" . 	
+		$this->db->quoteString($customfield->getVar('custom_Special'))
+		. ",custom_Side=" . 	
+		$this->db->quoteString($customfield->getVar('custom_Side'))
+		. ",type_ID=" . 	
+		($customfield->getVar('type_ID'))
 		 
-		" where id=" . $person->getVar('id');
+		" where custom_Field=" . $customfield->getVar('custom_Field');
 	
 		if (!$result = $this->db->query($sql)) {
 			echo "<br />oscmembershipHandler::get error::" . $sql;
 			return false;
 			}
-			
 	
 	}
 
 	     
-	function &insert(&$person)
+	function &insert(&$customfield)
     	{
 
-		$sql = "INSERT into " . $person->table
-		. "(title, firstname, lastname, middlename, " 
-		. "suffix, address1, address2, city, state, zip, " 
-		. "country, homephone, workphone, cellphone, email, "
-		. "workemail, birthmonth, birthday, birthyear, "
-		. "membershipdate, gender, famid, envelope, "
-		. "datelastedited, editedby, dateentered, enteredby) ";
+		$sql = "INSERT into " . $customfield->table
+		. "(custom_Order, custom_Field, custom_Name, custom_Special, custom_Side, type_ID) ";
 	
-		$sql = $sql . "values(" . $this->db->quoteString($person->getVar('title'))
+		$sql = $sql . "values(" . ($customfield->getVar('customOrder'))
 		. "," . 
-		$this->db->quoteString($person->getVar('firstname'))
+		$this->db->quoteString($customfield->getVar('custom_Field'))
 		. "," . 
-		$this->db->quoteString($person->getVar('lastname'))
+		$this->db->quoteString($customfield->getVar('custom_Name'))
 		. "," . 
-		$this->db->quoteString($person->getVar('middlename'))
+		$this->db->quoteString($customfield->getVar('custom_Special'))
 		. "," . 
-		$this->db->quoteString($person->getVar('suffix'))
+		$this->db->quoteString($customfield->getVar('custom_Side'))
 		. "," .
-		$this->db->quoteString($person->getVar('address1'))
-		. "," .
-		$this->db->quoteString($person->getVar('address2'))
-		. "," .
-		$this->db->quoteString($person->getVar('city'))
-		. "," .
-		$this->db->quoteString($person->getVar('state'))
-		. "," .
-		$this->db->quoteString($person->getVar('zip'))
-		. "," .
-		$this->db->quoteString($person->getVar('country'))
-		. "," .
-		$this->db->quoteString($person->getVar('homephone'))
-		. "," .
-		$this->db->quoteString($person->getVar('workphone'))
-		. "," .
-		$this->db->quoteString($person->getVar('cellphone'))
-		. "," .
-		$this->db->quoteString($person->getVar('email'))
-		. "," .
-		$this->db->quoteString($person->getVar('workemail'))
-		. "," .
-		$this->db->quoteString($person->getVar('birthmonth'))
-		. "," .
-		$this->db->quoteString($person->getVar('birthday'))
-		. "," .
-		$this->db->quoteString($person->getVar('birthyear'))
-		. "," .
-		$this->db->quoteString($person->getVar('membershipdate'))
-		. "," .
-		$this->db->quoteString($person->getVar('gender'))
-		. "," .
-		$this->db->quoteString($person->getVar('famid'))
-		. "," .
-		$this->db->quoteString($person->getVar('envelope'))
-		. "," .
-		$this->db->quoteString($person->getVar('datelastedited'))
-		. "," .
-		$this->db->quoteString($person->getVar('editedby'))
-		. "," .
-		$this->db->quoteString($person->getVar('dateentered'))
-		. "," .
-		$this->db->quoteString($person->getVar('enteredby')) . ")";
-		
+		$this->db->quoteString($customfield->getVar('type_ID'))
+		.  ")";
+
+		echo $sql;
+				
 		if (!$result = $this->db->query($sql)) {
 			echo "<br />oscmembershipHandler::get error::" . $sql;
 			return false;
