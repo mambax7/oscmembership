@@ -188,4 +188,8 @@ define("_oscmem_csvexport","CSV Export");
 
 define("_oscmem_cvsexport_infoinclude","Fields to include in Export");
 
+define("_oscmem_customfieldcreate_ack","Redirecting to Create Screen");
+define("_oscmem_customfield_Type","Custom Field Type");
+
+define("_osmem_createcustomfield_success","Custom Field Successfuly Created");
 ?>

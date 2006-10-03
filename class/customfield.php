@@ -108,7 +108,7 @@ class oscMembershipCustomfieldHandler extends XoopsObjectHandler
     	{
 
 		//Find last custom field
-		$fields = mysql_list_fields($sDATABASE, "person_custom", $cnInfoCentral);
+		$fields = mysql_list_fields(XOOPS_DB_NAME, $this->db->prefix("oscmembership_person_custom"));
 		$last = mysql_num_fields($fields) - 1;
 		
 		// Set the new field number based on the highest existing.  Chop off the "c" at the beginning of the old one's name.
@@ -172,8 +172,6 @@ class oscMembershipCustomfieldHandler extends XoopsObjectHandler
   		}
   		$sql .= " DEFAULT NULL ;";
   		
-  		echo $sql;
-  				
   		if (!$result = $this->db->query($sql)) 
   		{
   			echo "<br />oscmembershipHandler::get error::" . $sql;

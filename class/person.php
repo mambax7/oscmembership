@@ -778,7 +778,9 @@ function &searchgroupmembers($searcharray, $groupid)
 			}
 		else
 		{
-			return $this->db->getInsertId();
+			$personid = $this->db->getInsertId();
+			$sql="INSERT into " . $this->db->prefix("oscmembership_person_custom") " (per_ID) values(" . $personid . ")";
+			return $personid;
 		}
 	
 	}

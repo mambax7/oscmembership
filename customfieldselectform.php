@@ -96,15 +96,13 @@ switch (true)
 	}
 	if($op=="create")
 	{
-		$message=_oscmem_CREATESUCCESS_individual;
-		redirect_header("customfielddetailform.php?action=create&id=" . $personid, 3, $message);
+		$message=_oscmem_customfieldcreate_ack;
+		redirect_header("customfielddetailform.php?action=create", 0,$message);
 	}
 	    
     break;
 }
 
-
-//$id_hidden = new XoopsFormHidden("id",$person->getVar('id'));
 
 $op_hidden = new XoopsFormHidden("op", "create");  //save operation
 $submit_button = new XoopsFormButton("", "customdetailsubmit", _osc_create, "submit");
@@ -112,7 +110,7 @@ $submit_button = new XoopsFormButton("", "customdetailsubmit", _osc_create, "sub
 if($action=="create")
 {
 	$op_hidden = new XoopsFormHidden("op", "create");  //save operation
-	$submit_button = new XoopsFormButton("", "customfielddetailsubmit", _osc_create, "submit");
+	$submit_button = new XoopsFormButton("", "customfielddetailsubmit", _osc_create, "button");
 }
 
 $form = new XoopsThemeForm(_oscmem_customfield, "customfielddetailform", "customfieldselectform.php?action=create", "post", true);
