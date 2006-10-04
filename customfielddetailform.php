@@ -90,33 +90,37 @@ if (isset($_POST['type_ID'])) $typeID=$_POST['type_ID'];
 $myts = &MyTextSanitizer::getInstance();
 $customfield_handler = &xoops_getmodulehandler('customfield', 'oscmembership');
 
-
 switch (true) 
 {
   case ($op=="save" || $op=="create"):
 
+	$customfield=$customfield_handler->create();
+	$customfield->assignVar('custom_Order',$customOrder);
+	$customfield->assignVar('custom_Field',$id);
+	$customfield->assignVar('custom_Name',$customName);
+	$customfield->assignVar('custom_Special',$customSpecial);
+	$customfield->assignVar('custom_Side',$customSide);
+	$customfield->assignVar('type_ID',$typeID);
+
 	if($op=="save")
 	{
-//		$persondetail_handler->update($person);
+		$customfield_handler->update($customfield);
 		$message=_oscmem_UPDATESUCCESS;
 	}
 	if($op=="create")
 	{
 	
-		$customfield=$customfield_handler->create();
-		$customfield->assignVar('custom_Order',$customOrder);
-//		$customfield->assignVar('custom_Field',$customField);
-		$customfield->assignVar('custom_Name',$customName);
-		$customfield->assignVar('custom_Special',$customSpecial);
-		$customfield->assignVar('custom_Side',$customSide);
-		$customfield->assignVar('type_ID',$typeID);
-
 		$customfield_handler->insert($customfield);	
 		$message=_osmem_createcustomfield_success;
 	}
 	    
 	redirect_header("customfieldselectform.php" , 3, $message);
     break;
+    
+    default:
+	$customfield=$customfield_handler->get($id);
+    
+	break;
 }
 
 
@@ -145,7 +149,6 @@ $form->addElement($submit_button);
 $db = &Database::getInstance();
 
 //Retrieve custom fields
-$customField = $customfield_handler->get($id);
 $count=1;
 $customFieldtypes_result = $customfield_handler->getcustomfieldtypes();
 $option_array=array();
@@ -163,9 +166,9 @@ if(isset($customFieldtypes_result))
 
 //$fieldname_text= new XoopsFormText(_oscmem_customfieldName, "custom_Field", 30, 50, $customField->getVar('custom_Field'));
 
-$customOrder_text= new XoopsFormText(_oscmem_customfieldOrder, "custom_Order", 30, 50, $customField->getVar('custom_Order'));
+$customOrder_text= new XoopsFormText(_oscmem_customfieldOrder, "custom_Order", 30, 50, $customfield->getVar('custom_Order'));
 	
-$customName_text= new XoopsFormText(_oscmem_customName, "custom_Name", 30, 50, $customField->getVar('custom_Name'));
+$customName_text= new XoopsFormText(_oscmem_customName, "custom_Name", 30, 50, $customfield->getVar('custom_Name'));
 
 //$customTypeid_select = new XoopsFormSelect(_oscmem_customfield_Type,_oscmem_customfield_Type,_oscmem_customfield_Type,'z');
 $customTypeid_select = new XoopsFormSelect(_oscmem_customfield_Type, "type_ID");
@@ -174,6 +177,7 @@ $customTypeid_select = new XoopsFormSelect(_oscmem_customfield_Type, "type_ID");
 
 $customTypeid_select->addOptionArray($option_array);
 
+$id_hidden = new XoopsFormHidden("id",$customfield->getVar('custom_Field')); 
 $form->addElement($customTypeid_select);
 
 	
@@ -183,7 +187,7 @@ $form->addElement($customName_text);
 $form->setRequired($customOrder_text);
 $form->setRequired($customName_text);
 $form->setRequired($customTypeid_select);
-
+$form->addElement($id_hidden);
 
 //xoops_cp_header();
 $form->display();

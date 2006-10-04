@@ -84,25 +84,11 @@ $persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');
 
 $member_handler =& xoops_gethandler('member');
 
-switch (true) 
+if($op=="create")
 {
-    case ($op=="save" || $op=="create"):
-
-	if($op=="save")
-	{
-//		$persondetail_handler->update($person);
-		$message=_oscmem_UPDATESUCCESS;
-		redirect_header("customfielddetailform.php?action=save&id=" . $personid, 3, $message);
-	}
-	if($op=="create")
-	{
-		$message=_oscmem_customfieldcreate_ack;
-		redirect_header("customfielddetailform.php?action=create", 0,$message);
-	}
-	    
-    break;
+	$message=_oscmem_customfieldcreate_ack;
+	redirect_header("customfielddetailform.php?action=create", 0,$message);
 }
-
 
 $op_hidden = new XoopsFormHidden("op", "create");  //save operation
 $submit_button = new XoopsFormButton("", "customdetailsubmit", _osc_create, "submit");
@@ -137,7 +123,7 @@ while($row = $db->fetchArray($customFields))
 {
 	$table_code = $table_code . "<tr><td>" . $count++ . "</td>";
 
-	$customName = new XoopsFormText('',"custom_Name",30,50,$row["custom_Name"]);	
+	$customName = new XoopsFormLabel('',$row["custom_Name"]);	
 		
 	$table_code = $table_code . "<td>" . $customName->render() . "</td>";
 	$table_code = $table_code . "<td>" . $row["optionname"]. "</td>";

@@ -64,6 +64,7 @@ class  Person extends XoopsObject {
 	$this->initVar('dateentered', XOBJ_DTYPE_TXTBOX);
 	$this->initVar('enteredby', XOBJ_DTYPE_INT);
 	$this->initVar('editedby', XOBJ_DTYPE_INT);
+	$this->initVar('customFields',XOBJ_DTYPE_TXTBOX);
     }
 
 }    
@@ -200,6 +201,7 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 			$person->assignVars($row);
 		}
 
+		
 		
         }
         return $person;
@@ -779,15 +781,11 @@ function &searchgroupmembers($searcharray, $groupid)
 		else
 		{
 			$personid = $this->db->getInsertId();
-			$sql="INSERT into " . $this->db->prefix("oscmembership_person_custom") " (per_ID) values(" . $personid . ")";
+			$sql="INSERT into " . $this->db->prefix("oscmembership_person_custom") . " (per_ID) values(" . $personid . ")";
 			return $personid;
 		}
 	
 	}
-
-	
-	
-	
 }
 
 

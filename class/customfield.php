@@ -59,7 +59,7 @@ class oscMembershipCustomfieldHandler extends XoopsObjectHandler
     function &get($id)
     {
         $customfield =&$this->create(false);
-        if ($id > 0) 
+        if (isset($id)) 
 	{
 		$sql = "SELECT * FROM " . $this->db->prefix("oscmembership_person_custom_master") . " WHERE custom_Field = '" . $id . "'";
 		if (!$result = $this->db->query($sql)) 
@@ -77,11 +77,8 @@ class oscMembershipCustomfieldHandler extends XoopsObjectHandler
         return $customfield;
     }
     
-    
-		
-	     
 	function &update(&$customfield)
-    	{
+	{
 		$sql = "UPDATE " . $customfield->table
 		. " SET "
 		. "custom_Order=" . ($customfield->getVar('custom_Order'))
@@ -94,7 +91,7 @@ class oscMembershipCustomfieldHandler extends XoopsObjectHandler
 		. ",type_ID=" . 	
 		($customfield->getVar('type_ID'))
 		.
-		" where custom_Field=" . $customfield->getVar('custom_Field');
+		" where custom_Field=" . $this->db->quoteString($customfield->getVar('custom_Field'));
 	
 		if (!$result = $this->db->query($sql)) {
 			echo "<br />oscmembershipHandler::get error::" . $sql;
