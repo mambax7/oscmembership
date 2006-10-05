@@ -325,6 +325,8 @@ $form->addElement($editedby_label);
 $form->addElement($dateentered_label);
 $form->addElement($enteredby_label);
 
+$customfields = new XoopsFormText(_oscmem_cellphone, "customfield", 30, 50, $person->getVar('customfields'));
+
 
 $form->addElement($op_hidden);
 $form->addElement($id_hidden);
@@ -335,6 +337,9 @@ $form->addElement($submit_button);
 $form->setRequired($lastname_text);
 $form->setRequired($firstname_text);
 
+$form->addElement($customfields);
+
+/*
 $db = &Database::getInstance();
 
 //Retrieve custom fields
@@ -385,7 +390,7 @@ while($row = $db->fetchArray($customFields))
 	$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 30, 50,$customData[$row["custom_Field"]]));
 	
 }
-
+*/
 
 //xoops_cp_header();
 $form->display();

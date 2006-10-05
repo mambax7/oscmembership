@@ -64,7 +64,7 @@ class  Person extends XoopsObject {
 	$this->initVar('dateentered', XOBJ_DTYPE_TXTBOX);
 	$this->initVar('enteredby', XOBJ_DTYPE_INT);
 	$this->initVar('editedby', XOBJ_DTYPE_INT);
-	$this->initVar('customFields',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('customfields',XOBJ_DTYPE_TXTBOX);
     }
 
 }    
@@ -190,18 +190,24 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
         $person =&$this->create(false);
         if ($id > 0) 
 	{
-		$sql = "SELECT * FROM " . $this->db->prefix("oscmembership_person") . " WHERE id = " . intval($id);
+		$sql = "SELECT *, '' as text FROM " . $this->db->prefix("oscmembership_person") . " WHERE id = " . intval($id);
 		if (!$result = $this->db->query($sql)) 
 		{
-			//echo "<br />NewbbForumHandler::get error::" . $sql;
+			echo "<br />PersonHandler::get error::" . $sql;
 			return false;
 		} 
 		if($row = $this->db->fetchArray($result)) 
 		{
 			$person->assignVars($row);
+			//pull custom fields
+			$customresult=$this->getcustompersonData($id);
+			$customrow=$this->db->fetchArray($customresult);
+			$customfields=implode(",",$customrow);
+			
+			$person->assignVar('customfields',$customfields);
+			
+			
 		}
-
-		
 		
         }
         return $person;
@@ -256,7 +262,7 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 		$sql = "SELECT * FROM " . $this->db->prefix("oscmembership_person_custom") . " WHERE per_ID=" . $personid;
 		if (!$result = $this->db->query($sql)) 
 		{
-			//echo "<br />NewbbForumHandler::get error::" . $sql;
+			echo "<br />PersonHandler::get error::" . $sql;
 			return false;
 		}
 		return $result;
