@@ -59,12 +59,10 @@ if (!$xoopsUser)
     redirect_header(XOOPS_URL."/user.php", 3, _AD_NORIGHT);
 }
 
-
 //verify permission
 if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
     exit("Access Denied");
 }
-
 
 //determine action
 $op = '';
@@ -78,6 +76,8 @@ if (isset($_GET['id'])) $personid=$_GET['id'];
 if (isset($_POST['id'])) $personid=$_POST['id'];
 if (isset($_POST['action'])) $action=$_POST['action'];
 if (isset($_GET['action'])) $action=$_GET['action'];
+
+$db = &Database::getInstance();
 
 $myts = &MyTextSanitizer::getInstance();
 $persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');
@@ -142,6 +142,22 @@ switch (true)
 		}
 		else
 		$person->assignVar('membershipdate',$_POST['membershipdate']);
+		
+		$customFields = $persondetail_handler->getcustompersonFields();
+
+		$customfieldata_post="";
+		
+		$i=1;
+		while($row = $db->fetchArray($customFields)) 
+		{
+			if(isset($_POST['c' . $i])) $customfieldata_post+= $_POST['c' . $i] . ",";
+		}
+		
+		//Strip off end comma;
+		if(isset($customfieldata_post)) $customfieldata_post=rtrim($customfieldata_post,",");
+		
+		$person->assignVar('customfields',$customfieldata_post);		
+		
 	}
 
 	if(isset($_POST['gender'])) $person->assignVar('gender',$_POST['gender']);
@@ -188,7 +204,6 @@ $osclist->assignVar('id',$id);
 $optionItems = $osclist_handler->getitems($osclist);
 
 $option_array=array();
-$db = &Database::getInstance();
 
 $osclist = $osclist_handler->create();
 
@@ -262,7 +277,6 @@ if($person->getVar('editedby')<>'')
 
 $familyrole_select = new XoopsFormSelect(_oscmem_familyrole,"fmrid",$person->getVar('fmrid'),1,false,'fmrid');
 
-$db = &Database::getInstance();
 
 // Get Group Types for the drop-down
 $sSQL = "SELECT * FROM " . $db->prefix("oscmembership_list") . " WHERE id= 2 ORDER BY optionsequence";
@@ -325,8 +339,6 @@ $form->addElement($editedby_label);
 $form->addElement($dateentered_label);
 $form->addElement($enteredby_label);
 
-$customfields = new XoopsFormText(_oscmem_cellphone, "customfield", 30, 50, $person->getVar('customfields'));
-
 
 $form->addElement($op_hidden);
 $form->addElement($id_hidden);
@@ -337,46 +349,47 @@ $form->addElement($submit_button);
 $form->setRequired($lastname_text);
 $form->setRequired($firstname_text);
 
-$form->addElement($customfields);
+//$form->addElement($customfields);
 
-/*
-$db = &Database::getInstance();
 
 //Retrieve custom fields
-$customFields = $persondetail_handler->getcustompersonFields();
-$customData = $persondetail_handler->getcustompersonData($person->getVar('id'));
+//$customfields = new XoopsFormText(_oscmem_cellphone, "customfield", 30, 50, $person->getVar('customfields'));
 
+$customFields = $persondetail_handler->getcustompersonFields();
+$customData = explode(",",$person->getVar('customfields'));
+
+$i=1;
 while($row = $db->fetchArray($customFields)) 
 {
 	switch($row["type_ID"])
 	{
 	case "1": //True false
-		$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], $customData[$row["custom_Field"]]));
+		$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], $customData[$i]));
 	
 		break;
 	case "2": //Date
-		$form->addElement(new XoopsFormTextDateSelect($row["custom_Name"],$row["custom_Field"], 10,$customData[$row["custom_Field"]]));
+		$form->addElement(new XoopsFormTextDateSelect($row["custom_Name"],$row["custom_Field"], 10,$customData[$i]));
 		break;
 			
 	case "3":
-		$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 50, 50,$customData[$row["custom_Field"]]));
+		$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 50, 50,$customData[$i]));
 		break;
 
 	case "4":
-		$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 100, 100,$customData[$row["custom_Field"]]));
+		$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 100, 100,$customData[$i]));
 		break;
 		
 	case "5":
-		$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 200, 200,$customData[$row["custom_Field"]]));
+		$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 200, 200,$customData[$i]));
 		break;
 		
 	case "6": //year
 	case "8": //number
-		$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 10, 10,$customData[$row["custom_Field"]]));
+		$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 10, 10,$customData[$i]));
 		break;
 
 	case "7":  //season
-		$season=new XoopsFormSelect($row["custom_Name"],$row["custom_Field"], 1, false,$customData[$row["custom_Field"]]);
+		$season=new XoopsFormSelect($row["custom_Name"],$row["custom_Field"], 1, false,$customData[$i]);
 		
 		$season->addOption("select season",0);
 		$season->addOption("-------------",0);
@@ -387,10 +400,10 @@ while($row = $db->fetchArray($customFields))
 
 	}
 	
-	$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 30, 50,$customData[$row["custom_Field"]]));
+//	$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 30, 50,$customData[$row["custom_Field"]]));
 	
+	$i++;
 }
-*/
 
 //xoops_cp_header();
 $form->display();

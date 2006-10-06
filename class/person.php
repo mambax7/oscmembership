@@ -710,6 +710,66 @@ function &searchgroupmembers($searcharray, $groupid)
 			echo "<br />oscmembershipHandler::get error::" . $sql;
 			return false;
 			}
+			else
+			{
+			
+				$customupdate=explode($person->getVar('customfields'));
+				
+				//update custom fields
+				$sql="Update " . $this->db->prefix("oscmembership_person_custom");
+				$sql+= " set ";
+				
+				$customFields = $this->getcustompersonFields();
+
+				$i=1;
+				while($row = $this->db->fetchArray($customFields)) 
+				{
+					switch($row["type_ID"])
+					{
+						case "1": //True false
+											
+							$sql+= "c" . $i . "= " . $customupdate[$i] . ",";
+							break;
+						case "2": //Date
+							$sql+= "c" . $i . "='" . $customupdate[$i] . "',";
+							break;
+			
+						case "3":
+							$sql+= "c" . $i . "='" . $customupdate[$i] . "',";
+						break;
+
+						case "4":
+							$sql+= "c" . $i . "='" . $customupdate[$i] . "',";
+						break;
+		
+						case "5":
+							$sql+= "c" . $i . "='" . $customupdate[$i] . "',";
+						break;
+		
+						case "6": //year
+							$sql+= "c" . $i . "= " . $customupdate[$i] . ",";
+							break;
+													
+						case "8": //number
+							$sql+= "c" . $i . "= " . $customupdate[$i] . ",";
+							break;
+
+						case "7":  //season
+							$sql+= "c" . $i . "= " . $customupdate[$i] . ",";
+							break;
+
+					}					
+				}
+				
+				$sql= rtrim($sql,",");
+				$sql+= " WHERE per_ID=" . $person->getVar('id');
+				
+				if (!$result = $this->db->query($sql)) 
+				{
+					echo "<br />PersonHandler::get error::" . $sql;
+					return false;
+				}
+			}
 			
 	
 	}
