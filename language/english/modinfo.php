@@ -192,4 +192,11 @@ define("_oscmem_customfieldcreate_ack","Redirecting to Create Screen");
 define("_oscmem_customfield_Type","Custom Field Type");
 
 define("_osmem_createcustomfield_success","Custom Field Successfuly Created");
+
+define("_oscmem_season_select","Select a season");
+define("_oscmem_season_spring","Spring");
+define("_oscmem_season_summer","Summer");
+define("_oscmem_season_fall","Fall");
+define("_oscmem_season_winter","Winter");
+
 ?>

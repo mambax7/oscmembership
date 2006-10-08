@@ -150,12 +150,13 @@ switch (true)
 		$i=1;
 		while($row = $db->fetchArray($customFields)) 
 		{
-			if(isset($_POST['c' . $i])) $customfieldata_post+= $_POST['c' . $i] . ",";
+			if(isset($_POST['c' . $i])) $customfieldata_post.= $_POST['c' . $i] . ",";
+			$i++;
 		}
 		
 		//Strip off end comma;
 		if(isset($customfieldata_post)) $customfieldata_post=rtrim($customfieldata_post,",");
-		
+
 		$person->assignVar('customfields',$customfieldata_post);		
 		
 	}
@@ -389,15 +390,17 @@ while($row = $db->fetchArray($customFields))
 		break;
 
 	case "7":  //season
-		$season=new XoopsFormSelect($row["custom_Name"],$row["custom_Field"], 1, false,$customData[$i]);
+	
+		$season=new XoopsFormSelect($row["custom_Name"],$row["custom_Field"], $customData[$i],1,false, $row["custom_Field"] );
 		
-		$season->addOption("select season",0);
+		$season->addOption(_oscmem_season_select,0);
 		$season->addOption("-------------",0);
-		$season->addOption("spring");
-		$season->addOption("fall");
+		$season->addOption(_oscmem_season_spring,_oscmem_season_spring);
+		$season->addOption(_oscmem_season_summer,_oscmem_season_summer);
+		$season->addOption(_oscmem_season_fall,_oscmem_season_fall);
+		$season->addOption(_oscmem_season_winter,_oscmem_season_winter);
 		$form->addElement($season);
 		break;
-
 	}
 	
 //	$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 30, 50,$customData[$row["custom_Field"]]));

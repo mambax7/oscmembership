@@ -712,12 +712,15 @@ function &searchgroupmembers($searcharray, $groupid)
 			}
 			else
 			{
-			
-				$customupdate=explode($person->getVar('customfields'));
+
+				//echo "explode: " . $person->getVar('customfields');
+				$customupdate=explode(",",$person->getVar('customfields'));
+				
+				echo $person->getVar('customfields');
 				
 				//update custom fields
 				$sql="Update " . $this->db->prefix("oscmembership_person_custom");
-				$sql+= " set ";
+				$sql.= " set ";
 				
 				$customFields = $this->getcustompersonFields();
 
@@ -728,42 +731,56 @@ function &searchgroupmembers($searcharray, $groupid)
 					{
 						case "1": //True false
 											
-							$sql+= "c" . $i . "= " . $customupdate[$i] . ",";
+							$sql.= "c" . $i . "= " . $customupdate[$i-1] . ",";
 							break;
 						case "2": //Date
-							$sql+= "c" . $i . "='" . $customupdate[$i] . "',";
+							$sql.= "c" . $i . "='" . $customupdate[$i-1] . "',";
 							break;
 			
 						case "3":
-							$sql+= "c" . $i . "='" . $customupdate[$i] . "',";
+							$sql.= "c" . $i . "='" . $customupdate[$i-1] . "',";
 						break;
 
 						case "4":
-							$sql+= "c" . $i . "='" . $customupdate[$i] . "',";
+							$sql.= "c" . $i . "='" . $customupdate[$i-1] . "',";
 						break;
 		
 						case "5":
-							$sql+= "c" . $i . "='" . $customupdate[$i] . "',";
+							$sql.= "c" . $i . "='" . $customupdate[$i-1] . "',";
 						break;
 		
 						case "6": //year
-							$sql+= "c" . $i . "= " . $customupdate[$i] . ",";
+							$sql.= "c" . $i . "= " . $customupdate[$i-1] . ",";
 							break;
 													
 						case "8": //number
-							$sql+= "c" . $i . "= " . $customupdate[$i] . ",";
+							$sql.= "c" . $i . "= " . $customupdate[$i-1] . ",";
 							break;
 
 						case "7":  //season
-							$sql+= "c" . $i . "= " . $customupdate[$i] . ",";
-							break;
+							switch($customupdate[$i-1])
+							{
+							case  _oscmem_season_select :
+								$sql.="c" . $i . "='',";
+								break;
+							
+							case "-------------" :
+								$sql.="c" . $i . "='',";
+								break;
+							
+							default:
+								$sql.= "c" . $i . "= " . $this->db->quoteString($customupdate[$i-1]) . ",";
+								break;
+							}
 
-					}					
+					}
+					$i++;					
 				}
 				
 				$sql= rtrim($sql,",");
-				$sql+= " WHERE per_ID=" . $person->getVar('id');
+				$sql.= " WHERE per_ID=" . $person->getVar('id');
 				
+				echo $sql;
 				if (!$result = $this->db->query($sql)) 
 				{
 					echo "<br />PersonHandler::get error::" . $sql;
