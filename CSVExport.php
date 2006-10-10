@@ -69,7 +69,7 @@ $osclist = $osclist_handler->create();
 $osclist->assignVar('id',1);  //pull membership classifications
 $optionItems = $osclist_handler->getitems($osclist);
 
-$form = new XoopsThemeForm("", "csvexportform", "CSVExport_out.php", "post", true);
+$form = new XoopsThemeForm("", "csvexportform", "CSVCreateFile.php", "post", true);
 
 $table1 = new XoopsTableForm("", "csvexporttable", "", "post", true);
 $table2 = new XoopsTableForm("", "csvexporttable", "", "post", true);
@@ -146,7 +146,9 @@ $chkministry->addOption(0,_oscmem_csv_ministry);
 
 $element_tray = new XoopsFormElementTray(_oscmem_cvsexport_infoinclude, '&nbsp;');
 
-$element_tray2 = new XoopsFormElementTray(_oscmem_cvsexport_infoinclude, '&nbsp;');
+$element_tray2 = new XoopsFormElementTray("Custom Fields", '&nbsp;');
+
+$element_tray3 = new XoopsFormElementTray(_oscmem_filters, '&nbsp;');
 
 $table1->addElement($element_tray);
 $table1->addElement($chkTitle);
@@ -178,6 +180,30 @@ $table1->addElement($chkfamilyname);
 $submit_button = new XoopsFormButton("", "submit", _oscmem_submit, "submit");
 
 //$form->addElement($submit_button);
+$db = &Database::getInstance();
+$persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');
+
+$customFields = $persondetail_handler->getcustompersonFields();
+
+$i=1;
+$table2->addElement($element_tray2);
+while($row = $db->fetchArray($customFields)) 
+{
+	$custfield=new XoopsFormCheckBox("",$row["custom_Field"],0);
+	$custfield->addOption(0,$row["custom_Name"]);
+
+	$table2->addElement($custfield);
+	$i++;
+}
+
+//Table 3
+$filter_select = new XoopsFormSelect(_oscmem_recordstoexport,'sfilters',"",5,true, 'class');
+
+$classification_select = new XoopsFormSelect(_oscmem_classificationstoexport,'sclassifications',"",5,true, 'class');
+
+$table3->addElement($element_tray3);
+$table3->addElement($filter_select);
+$table3->addElement($classification_select);
 
 $rtray1=$table1->render();
 $rtray2=$table2->render();

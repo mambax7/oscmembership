@@ -199,4 +199,7 @@ define("_oscmem_season_summer","Summer");
 define("_oscmem_season_fall","Fall");
 define("_oscmem_season_winter","Winter");
 
+define("_oscmem_filters","Filters");
+define("_oscmem_recordstoexport","Records to Export");
+define("_oscmem_classificationstoexport","Classifications to Export");
 ?>
