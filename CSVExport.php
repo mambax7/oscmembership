@@ -144,13 +144,11 @@ $chkministry->addOption(0,_oscmem_csv_ministry);
 //$form->addElement($spouserole_select);
 //$form->addElement($childrole_select);
 
-$element_tray = new XoopsFormElementTray(_oscmem_cvsexport_infoinclude, '&nbsp;');
+$tableheader1=new XoopsFormLabel('',_oscmem_cvsexport_infoinclude);
+$tableheader2=new XoopsFormLabel('',_oscmem_cvsexport_customfields);
+$tableheader3=new XoopsFormLabel('',_oscmem_filters);
 
-$element_tray2 = new XoopsFormElementTray("Custom Fields", '&nbsp;');
-
-$element_tray3 = new XoopsFormElementTray(_oscmem_filters, '&nbsp;');
-
-$table1->addElement($element_tray);
+$table1->addElement($tableheader1);
 $table1->addElement($chkTitle);
 $table1->addElement($chkFirstName);
 $table1->addElement($chkTitle);
@@ -186,7 +184,7 @@ $persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');
 $customFields = $persondetail_handler->getcustompersonFields();
 
 $i=1;
-$table2->addElement($element_tray2);
+$table2->addElement($tableheader2);
 while($row = $db->fetchArray($customFields)) 
 {
 	$custfield=new XoopsFormCheckBox("",$row["custom_Field"],0);
@@ -197,13 +195,31 @@ while($row = $db->fetchArray($customFields))
 }
 
 //Table 3
-$filter_select = new XoopsFormSelect(_oscmem_recordstoexport,'sfilters',"",5,true, 'class');
+$filter_select = new XoopsFormSelect(_oscmem_recordstoexport,'sfilters',"",1,false, 'class');
+
+$filter_select->addOption(_oscmem_fromfilterbelow, _oscmem_fromfilterbelow);
+$filter_select->addOption(_oscmem_fromcart, _oscmem_fromcart);
 
 $classification_select = new XoopsFormSelect(_oscmem_classificationstoexport,'sclassifications',"",5,true, 'class');
 
-$table3->addElement($element_tray3);
+$option_array=array();
+$osclist = $osclist_handler->create();
+if(isset($optionItems))
+{
+	foreach($optionItems as $osclist)
+	{
+		$option_array[$osclist['optionid']]=$osclist['optionname'];
+	}
+}
+
+$classification_select->addOptionArray($option_array);
+
+$familyrole_select = new XoopsFormSelect(_oscmem_rolestoexport,'srole',"",5,true, 'class');
+
+$table3->addElement($tableheader3);
 $table3->addElement($filter_select);
 $table3->addElement($classification_select);
+$table3->addElement($familyrole_select);
 
 $rtray1=$table1->render();
 $rtray2=$table2->render();

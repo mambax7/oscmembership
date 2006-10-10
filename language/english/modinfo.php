@@ -202,4 +202,10 @@ define("_oscmem_season_winter","Winter");
 define("_oscmem_filters","Filters");
 define("_oscmem_recordstoexport","Records to Export");
 define("_oscmem_classificationstoexport","Classifications to Export");
+
+define("_oscmem_fromfilterbelow","Based on Filters Below...");
+define("_oscmem_fromcart","People in Cart (filters ignored)");
+
+define("_oscmem_cvsexport_customfields","Custom Fields for Export");
+define("_oscmem_rolestoexport","Family Roles to Export");
 ?>
