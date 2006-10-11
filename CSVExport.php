@@ -216,10 +216,67 @@ $classification_select->addOptionArray($option_array);
 
 $familyrole_select = new XoopsFormSelect(_oscmem_rolestoexport,'srole',"",5,true, 'class');
 
+// Get Group Types for the drop-down
+$sSQL = "SELECT * FROM " . $db->prefix("oscmembership_list") . " WHERE id= 2 ORDER BY optionsequence";
+
+$familyroles=$db->query($sSQL);
+
+$container='';
+while($row = $db->fetchArray($familyroles)) 
+{
+	$familyrole_select->addOption($row['optionid'],$row['optionname']);
+}
+
+$gender_array=array();
+$gender_array[0]=_oscmem_gender_nofilter;
+$gender_array[1]=_oscmem_male;
+$gender_array[2]=_oscmem_female;
+
+$gender_select = new XoopsFormSelect(_oscmem_gender,'gender',null,1,false, 'gender');
+$gender_select->addOptionArray($gender_array);
+
+$group_select = new XoopsFormSelect(_oscmem_groupmember,'group',"",5,true, 'class');
+
+$group_handler = &xoops_getmodulehandler('group', 'oscmembership');
+	
+$searcharray=array();
+$searcharray[0]='';
+$result = $group_handler->search($searcharray);
+
+$rowcount=0;
+$group=new Group();
+
+while($row = $db->fetchArray($result)) 
+{
+	$group->assignVars($row);	
+	$group_select->addOption($group->getVar('id'), $group->getVar('group_Name'));
+	
+}
+
+
+$membershipdate_tray = new XoopsFormElementTray(_oscmem_membershipdate,"<br>",true );
+$membershipdate_from = new XoopsFormTextDateSelect(_oscmem_filter_from,'memberdatefrom');
+$membershipdate_to = new XoopsFormTextDateSelect(_oscmem_filter_to,'memberdateto');
+
+$membershipdate_tray->addElement($membershipdate_from);
+$membershipdate_tray->addElement($membershipdate_to);
+
+$birthday_tray = new XoopsFormElementTray(_oscmem_birthday,"<br>",true );
+$birthday_from = new XoopsFormTextDateSelect(_oscmem_filter_from,'birthdayfrom');
+$birthday_to = new XoopsFormTextDateSelect(_oscmem_filter_to,'birthdayto');
+
+$birthday_tray->addElement($birthday_from);
+$birthday_tray->addElement($birthday_to);
+
+
 $table3->addElement($tableheader3);
 $table3->addElement($filter_select);
 $table3->addElement($classification_select);
 $table3->addElement($familyrole_select);
+$table3->addElement($gender_select);
+$table3->addElement($group_select);
+$table3->addElement($membershipdate_tray);
+$table3->addElement($birthday_tray);
 
 $rtray1=$table1->render();
 $rtray2=$table2->render();

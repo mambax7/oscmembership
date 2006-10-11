@@ -208,4 +208,9 @@ define("_oscmem_fromcart","People in Cart (filters ignored)");
 
 define("_oscmem_cvsexport_customfields","Custom Fields for Export");
 define("_oscmem_rolestoexport","Family Roles to Export");
+
+define("_oscmem_gender_nofilter","Do not filter on Gender");
+
+define("_oscmem_filter_from","From");
+define("_oscmem_filter_to","To");
 ?>
