@@ -213,4 +213,14 @@ define("_oscmem_gender_nofilter","Do not filter on Gender");
 
 define("_oscmem_filter_from","From");
 define("_oscmem_filter_to","To");
+
+define("_oscmem_otheremail","Other Email");
+define("_oscmem_envelopenumber","Envelope Number");
+define("_oscmem_csv_birthanniversary","Birth/Anniversary");
+define("_oscmem_csv_ageyearsmarried","Age and Years Married");
+define("_oscmem_csv_familyrole","Family Role");
+define("_oscmem_csv_familyname","Family Name");
+define("_oscmem_csv_ministry","Ministry");
+define("_oscmem_anniversary","Anniversary");
+
 ?>

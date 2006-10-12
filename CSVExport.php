@@ -96,10 +96,10 @@ $chkTitle = new XoopsFormCheckBox("","btitle",0);
 $chkTitle->addOption(0,_oscmem_title);
 $chkFirstName = new XoopsFormCheckBox("","bfirstname",0);
 $chkFirstName->addOption(0,_oscmem_firstname);
-$chkMiddlename = new XoopsFormCheckBox("","bmiddlename",0);
-$chkMiddlename->addOption(0,_oscmem_middlename);
-$chkSuffix = new XoopsFormCheckBox("","bsuffix",0);
-$chkSuffix->addOption(0,_oscmem_suffix);
+//$chkMiddlename = new XoopsFormCheckBox("","bmiddlename",0);
+//$chkMiddlename->addOption(0,_oscmem_middlename);
+//$chkSuffix = new XoopsFormCheckBox("","bsuffix",0);
+//$chkSuffix->addOption(0,_oscmem_suffix);
 $chkAddress1 = new XoopsFormCheckBox("","baddress1",0);
 $chkAddress1->addOption(0,_oscmem_address);
 $chkCity = new XoopsFormCheckBox("","bcity",0);
@@ -268,6 +268,21 @@ $birthday_to = new XoopsFormTextDateSelect(_oscmem_filter_to,'birthdayto');
 $birthday_tray->addElement($birthday_from);
 $birthday_tray->addElement($birthday_to);
 
+$anniversary_tray = new XoopsFormElementTray(_oscmem_anniversary,"<br>",true );
+
+$ann_from = new XoopsFormTextDateSelect(_oscmem_filter_from,'anniversaryfrom');
+$anniversary_tray->addElement($ann_from);
+
+$ann_to=new XoopsFormTextDateSelect(_oscmem_filter_to,'anniversaryto');
+$anniversary_tray->addElement($ann_to);
+
+$dateentered_tray = new XoopsFormElementTray(_oscmem_dateentered,"<br>",true );
+
+$dateentered_from = new XoopsFormTextDateSelect(_oscmem_filter_from,'dateenteredfrom');
+$dateentered_tray->addElement($dateentered_from);
+
+$dateentered_to=new XoopsFormTextDateSelect(_oscmem_filter_to,'dateenteredto');
+$dateentered_tray->addElement($dateentered_to);
 
 $table3->addElement($tableheader3);
 $table3->addElement($filter_select);
@@ -277,6 +292,8 @@ $table3->addElement($gender_select);
 $table3->addElement($group_select);
 $table3->addElement($membershipdate_tray);
 $table3->addElement($birthday_tray);
+$table3->addElement($anniversary_tray);
+$table3->addElement($dateentered_tray);
 
 $rtray1=$table1->render();
 $rtray2=$table2->render();
