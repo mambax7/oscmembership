@@ -91,87 +91,32 @@ foreach($groups as $group)
 }
 
 
-$lblLastName = new XoopsFormLabel(_oscmem_lastname);
-$chkTitle = new XoopsFormCheckBox("","btitle",0);
-$chkTitle->addOption(0,_oscmem_title);
-$chkFirstName = new XoopsFormCheckBox("","bfirstname",0);
-$chkFirstName->addOption(0,_oscmem_firstname);
-//$chkMiddlename = new XoopsFormCheckBox("","bmiddlename",0);
-//$chkMiddlename->addOption(0,_oscmem_middlename);
-//$chkSuffix = new XoopsFormCheckBox("","bsuffix",0);
-//$chkSuffix->addOption(0,_oscmem_suffix);
-$chkAddress1 = new XoopsFormCheckBox("","baddress1",0);
-$chkAddress1->addOption(0,_oscmem_address);
-$chkCity = new XoopsFormCheckBox("","bcity",0);
-$chkCity->addOption(0,_oscmem_city);
-$chkState = new XoopsFormCheckBox("","bstate",0);
-$chkState->addOption(0,_oscmem_state);
-$chkPost = new XoopsFormCheckBox("","bpost",0);
-$chkPost->addOption(0,_oscmem_post);
-$chkCountry = new XoopsFormCheckBox("","bcountry",0);
-$chkCountry->addOption(0,_oscmem_country);
-$chkhomephone = new XoopsFormCheckBox("","bhomephone",0);
-$chkhomephone->addOption(0,_oscmem_homephone);
-$chkworkphone = new XoopsFormCheckBox("","bworkphone",0);
-$chkworkphone->addOption(0,_oscmem_workphone);
-$chkcellphone=new XoopsFormCheckBox("","bcellphone",0);
-$chkcellphone->addOption(0,_oscmem_cellphone);
-$chkemail=new XoopsFormCheckBox("","bemail",0);
-$chkemail->addOption(0,_oscmem_email);
-$chkotheremail=new XoopsFormCheckBox("","otheremail",0);
-$chkotheremail->addOption(0,_oscmem_otheremail);
-$chkenvelope=new XoopsFormCheckBox("","benvelope",0);
-$chkenvelope->addOption(0,_oscmem_envelopenumber);
-$chkmembership=new XoopsFormCheckBox("","bmembershipdate",0);
-$chkmembership->addOption(0,_oscmem_membershipdate);
-$chkbirth=new XoopsFormCheckBox("","bbirthanniversary",0);
-$chkbirth->addOption(0,_oscmem_csv_birthanniversary);
-$chkagemarriage=new XoopsFormCheckBox("","bagemarried",0);
-$chkagemarriage->addOption(0,_oscmem_csv_ageyearsmarried);
-$chkfamilyrole=new XoopsFormCheckBox("","bfamilyrole",0);
-$chkfamilyrole->addOption(0,_oscmem_csv_familyrole);
-$chkfamilyname=new XoopsFormCheckBox("","bfamilyname",0);
-$chkfamilyname->addOption(0,_oscmem_csv_familyname);
-
-$chkministry=new XoopsFormCheckBox("","bministry",0);
-$chkministry->addOption(0,_oscmem_csv_ministry);
+$xoopsTpl->assign('oscmem_lastname',_oscmem_lastname);
+$xoopsTpl->assign('oscmem_title',_oscmem_title);
+$xoopsTpl->assign('oscmem_firstname',_oscmem_firstname);
+$xoopsTpl->assign('oscmem_address',_oscmem_address);
+$xoopsTpl->assign('oscmem_city',_oscmem_city);
+$xoopsTpl->assign('oscmem_state',_oscmem_state);
+$xoopsTpl->assign('oscmem_post',_oscmem_post);
+$xoopsTpl->assign('oscmem_country',_oscmem_country);
+$xoopsTpl->assign('oscmem_homephone',_oscmem_homephone);
+$xoopsTpl->assign('oscmem_workphone',_oscmem_workphone);
+$xoopsTpl->assign('oscmem_cellphone',_oscmem_cellphone);
+$xoopsTpl->assign('oscmem_email',_oscmem_email);
+$xoopsTpl->assign('oscmem_otheremail',_oscmem_otheremail);
+$xoopsTpl->assign('oscmem_envelopenumber',_oscmem_otheremail);
+$xoopsTpl->assign('oscmem_membershipdate',_oscmem_membershipdate);
+$xoopsTpl->assign('oscmem_csv_birthanniversary',_oscmem_csv_birthanniversary);
+$xoopsTpl->assign('oscmem_csv_ageyearsmarried',_oscmem_csv_ageyearsmarried);
+$xoopsTpl->assign('oscmem_csv_familyrole',_oscmem_csv_familyrole);
+$xoopsTpl->assign('oscmem_csv_familyname',_oscmem_csv_familyname);
+$xoopsTpl->assign('oscmem_csv_ministry',_oscmem_csv_ministry);
+$xoopsTpl->assign('oscmem_cvsexport_infoinclude',_oscmem_cvsexport_infoinclude);
 
 
-//$form->addElement($lblLastName);
-//$form->setRequired($class_select);
-//$form->addElement($role_select);
-
-//$form->addElement($spouserole_select);
-//$form->addElement($childrole_select);
-
-$tableheader1=new XoopsFormLabel('',_oscmem_cvsexport_infoinclude);
 $tableheader2=new XoopsFormLabel('',_oscmem_cvsexport_customfields);
 $tableheader3=new XoopsFormLabel('',_oscmem_filters);
 
-$table1->addElement($tableheader1);
-$table1->addElement($chkTitle);
-$table1->addElement($chkFirstName);
-$table1->addElement($chkTitle);
-$table1->addElement($chkFirstName);
-//$table1->addElement($chkMiddlename);
-//$table1->addElement($chkSuffix);
-$table1->addElement($chkAddress1);
-$table1->addElement($chkCity);
-$table1->addElement($chkState);
-$table1->addElement($chkPost);
-$table1->addElement($chkCountry);
-$table1->addElement($chkhomephone);
-$table1->addElement($chkworkphone);
-
-$table1->addElement($chkcellphone);
-$table1->addElement($chkemail);
-$table1->addElement($chkotheremail);
-$table1->addElement($chkenvelope);
-$table1->addElement($chkmembership);
-$table1->addElement($chkbirth);
-$table1->addElement($chkagemarriage);
-$table1->addElement($chkfamilyrole);
-$table1->addElement($chkfamilyname);
 
 //$form->addElement($element_tray);
 
@@ -284,7 +229,22 @@ $dateentered_tray->addElement($dateentered_from);
 $dateentered_to=new XoopsFormTextDateSelect(_oscmem_filter_to,'dateenteredto');
 $dateentered_tray->addElement($dateentered_to);
 
-$table3->addElement($tableheader3);
+$outputmethod = new XoopsFormSelect(_oscmem_csv_outputmethod,'soutputmethod',"",1,false, 'class');
+
+$outputmethod->addOption(_oscmem_csv_individual, _oscmem_csv_individual);
+$outputmethod->addOption(_oscmem_csv_combinefamily, _oscmem_csv_combinefamily);
+$outputmethod->addOption(_oscmem_csv_addtocart,_oscmem_csv_addtocart);
+
+$chkskipincompleteaddress=new XoopsFormCheckBox("","bincompleteaddress",0);
+$chkskipincompleteaddress->addOption(0,_oscmem_csv_skipincompleteaddress);
+
+$chkskipnoenvelope=new XoopsFormCheckBox("","bnoenvelope",0);
+$chkskipnoenvelope->addOption(0,_oscmem_csv_skipnoenvelope);
+
+$submit_button = new XoopsFormButton("", "createcsvsubmit", _oscmem_submit, "submit");
+
+
+$table3->addElement($tableheadper3);
 $table3->addElement($filter_select);
 $table3->addElement($classification_select);
 $table3->addElement($familyrole_select);
@@ -294,6 +254,10 @@ $table3->addElement($membershipdate_tray);
 $table3->addElement($birthday_tray);
 $table3->addElement($anniversary_tray);
 $table3->addElement($dateentered_tray);
+$table3->addElement($outputmethod);
+$table3->addElement($chkskipincompleteaddress);
+$table3->addElement($chkskipnoenvelope);
+$table3->addElement($submit_button);
 
 $rtray1=$table1->render();
 $rtray2=$table2->render();

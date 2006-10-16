@@ -223,4 +223,11 @@ define("_oscmem_csv_familyname","Family Name");
 define("_oscmem_csv_ministry","Ministry");
 define("_oscmem_anniversary","Anniversary");
 
+define("_oscmem_csv_individual","CSV Individual Records");
+define("_oscmem_csv_combinefamily","CSV Combine Families");
+define("_oscmem_csv_addtocart","Add Individuals to Cart");
+define("_oscmem_csv_outputmethod","Output Method");
+
+define("_oscmem_csv_skipincompleteaddress","Skip Incomplete Mail Addresses");
+define("_oscmem_csv_skipnoenvelope","Skip Records with No Envelope Number<br>(Individual Records Only)");
 ?>
