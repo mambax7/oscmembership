@@ -37,6 +37,8 @@ $modversion['templates'][5]['file'] = 'reportdirectory.html';
 $modversion['templates'][5]['description'] = 'Report Directory Options';
 $modversion['templates'][6]['file'] = 'csvexport.html';
 $modversion['templates'][6]['description'] = 'CSV Export Options';
+$modversion['templates'][7]['file'] = 'oscselect.html';
+$modversion['templates'][7]['description'] = 'standard select template';
 
 $modversion['blocks'][1]['file'] = "oscmemnav.php";
 $modversion['blocks'][1]['name'] = 'navigation';

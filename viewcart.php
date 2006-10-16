@@ -58,6 +58,11 @@ if(isset($submit))
 		case _oscmem_generatelabels:
 			redirect_header("PDFLabels.php",2,"");
 		break;
+		
+		case _oscmem_emptycarttogroup:
+			redirect_header("groupselect.php",2,"");
+			
+		break;
 	}
 }
 
