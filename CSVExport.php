@@ -216,28 +216,27 @@ $membershipdate_to = new XoopsFormTextDateSelect(_oscmem_filter_to,'memberdateto
 $xoopsTpl->assign('memberdatefrom', $membershipdate_from->render(););
 $xoopsTpl->assign('memberdateto',$membershipdate_to->render()); 
 
-$birthday_tray = new XoopsFormElementTray(_oscmem_birthday,"<br>",true );
+$xoopsTpl->assign('oscmem_birthday',_oscmem_birthday);
 $birthday_from = new XoopsFormTextDateSelect(_oscmem_filter_from,'birthdayfrom');
 $birthday_to = new XoopsFormTextDateSelect(_oscmem_filter_to,'birthdayto');
 
-$birthday_tray->addElement($birthday_from);
-$birthday_tray->addElement($birthday_to);
+$xoopsTpl->assign('birthdayfrom',$birthday_from->render());
+$xoopsTpl->assign('birthdayto',$birthday_to->render());
 
-$anniversary_tray = new XoopsFormElementTray(_oscmem_anniversary,"<br>",true );
+$xoopsTpl->assign('oscmem_anniversary',_oscmem_anniversary);
 
 $ann_from = new XoopsFormTextDateSelect(_oscmem_filter_from,'anniversaryfrom');
-$anniversary_tray->addElement($ann_from);
-
 $ann_to=new XoopsFormTextDateSelect(_oscmem_filter_to,'anniversaryto');
-$anniversary_tray->addElement($ann_to);
+$xoopsTpl->assign('ann_from',$ann_from->render());
+$xoopsTpl->assign('ann_to',$ann_to->render());
 
-$dateentered_tray = new XoopsFormElementTray(_oscmem_dateentered,"<br>",true );
+$xoopsTpl->assign('oscmem_dateentered',_oscmem_dateentered);
 
 $dateentered_from = new XoopsFormTextDateSelect(_oscmem_filter_from,'dateenteredfrom');
-$dateentered_tray->addElement($dateentered_from);
-
 $dateentered_to=new XoopsFormTextDateSelect(_oscmem_filter_to,'dateenteredto');
-$dateentered_tray->addElement($dateentered_to);
+
+$xoopsTpl->assign('dateentered_from',$dateentered_from->render());
+$xoopsTpl->assign('dateentered_to',$dateentered_to->render());
 
 $outputmethod = new XoopsFormSelect(_oscmem_csv_outputmethod,'soutputmethod',"",1,false, 'class');
 
@@ -245,39 +244,22 @@ $outputmethod->addOption(_oscmem_csv_individual, _oscmem_csv_individual);
 $outputmethod->addOption(_oscmem_csv_combinefamily, _oscmem_csv_combinefamily);
 $outputmethod->addOption(_oscmem_csv_addtocart,_oscmem_csv_addtocart);
 
+$xoopsTpl->assign('outputmethod',$outputmethod->render());
+
 $chkskipincompleteaddress=new XoopsFormCheckBox("","bincompleteaddress",0);
 $chkskipincompleteaddress->addOption(0,_oscmem_csv_skipincompleteaddress);
+$xoopsTpl->assign('skipincompleteaddress',$chkskipincompleteaddress);
 
 $chkskipnoenvelope=new XoopsFormCheckBox("","bnoenvelope",0);
 $chkskipnoenvelope->addOption(0,_oscmem_csv_skipnoenvelope);
+$xoopsTpl->assign('envelope',$chksipnoenvelope->render());
 
 $submit_button = new XoopsFormButton("", "createcsvsubmit", _oscmem_submit, "submit");
 
 
-$table3->addElement($tableheadper3);
-$table3->addElement($filter_select);
-$table3->addElement($classification_select);
-$table3->addElement($familyrole_select);
-$table3->addElement($gender_select);
-$table3->addElement($group_select);
-$table3->addElement($membershipdate_tray);
-$table3->addElement($birthday_tray);
-$table3->addElement($anniversary_tray);
-$table3->addElement($dateentered_tray);
-$table3->addElement($outputmethod);
-$table3->addElement($chkskipincompleteaddress);
-$table3->addElement($chkskipnoenvelope);
-$table3->addElement($submit_button);
-
-$rtray1=$table1->render();
-$rtray2=$table2->render();
-$rtray3=$table3->render();
 
 //$rform= $form->render();
 
-$xoopsTpl->assign('col1',$rtray1);
-$xoopsTpl->assign('col2',$rtray2);
-$xoopsTpl->assign('col3',$rtray3);
 //$xoopsTpl->assign('form',$rform);
 
 

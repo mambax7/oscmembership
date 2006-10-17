@@ -80,29 +80,29 @@
 <td><{$oscmem_classificationstoexport}></td>
 <td><select  size='5' name='sclassifications[]' id='class' multiple='multiple'>
 <{foreach item=option from=$option_array}>
-<option value='<{$option.id}>'><{$option.name]></option>
+<option value='<{$option.id}>'><{$option.name}></option>
 <{/foreach}>
 </select></td></tr>
 <tr valign='top' align='left'>
 <td><{$oscmem_rolestoexport}></td>
 <td><select  size='5' name='srole[]' id='class' multiple='multiple'>
-<{foreach item=role items=$role_array}>
+<{foreach item=role from=$role_array}>
 <option value='<{$role.id}>'><{$role.name}></option>
-</{foreach>
+<{/foreach}>
 </select></td></tr>
 <tr valign='top' align='left'>
 <td><{$oscmem_gender}></td>
 <td><select  size='1' name='gender' id='gender'>
-<{foreach item=gender items=$gender_array}>
+<{foreach item=gender from=$gender_array}>
 <option value='<{$gender.id}>'><{$gender.name}></option>
-</{foreach>
+<{/foreach}>
 </select></td></tr>
 <tr valign='top' align='left'>
 <td><td></td>
 <td><select  size='5' name='group[]' id='class' multiple='multiple'>
 <{foreach item=group from=$groups_array}>
 <option value='<{$group.id}>'><{$group.name}></option>
-</{foreach>
+<{/foreach}>
 </select></td></tr>
 <tr valign='top' align='left'>
 <td><{$oscmem_membershipdate}></td>
@@ -110,22 +110,31 @@
 <{$memberdateto}>
 </td></tr>
 <tr valign='top' align='left'>
-<td>Birthday</td><td>From&nbsp;<input size="15" value="YYYY/MM/DD" id="calendar-field-3" type="text" name="birthdayfrom" /><a href="#" id="calendar-trigger-3"><img align="middle" border="0" src="http://localhost/xoopsdev/class/calendar/img.gif" alt="" /></a><script type="text/javascript">Calendar.setup({"date":1161085673,"ifFormat":"%Y/%m/%d","daFormat":"%Y/%m/%d","firstDay":1,"showOthers":true,"showsTime":false,"inputField":"calendar-field-3","button":"calendar-trigger-3"});</script>
-<br>To&nbsp;<input size="15" value="YYYY/MM/DD" id="calendar-field-4" type="text" name="birthdayto" /><a href="#" id="calendar-trigger-4"><img align="middle" border="0" src="http://localhost/xoopsdev/class/calendar/img.gif" alt="" /></a><script type="text/javascript">Calendar.setup({"date":1161085673,"ifFormat":"%Y/%m/%d","daFormat":"%Y/%m/%d","firstDay":1,"showOthers":true,"showsTime":false,"inputField":"calendar-field-4","button":"calendar-trigger-4"});</script>
-</td></tr><tr valign='top' align='left'><td>Anniversary</td><td>From&nbsp;<input size="15" value="YYYY/MM/DD" id="calendar-field-5" type="text" name="anniversaryfrom" /><a href="#" id="calendar-trigger-5"><img align="middle" border="0" src="http://localhost/xoopsdev/class/calendar/img.gif" alt="" /></a><script type="text/javascript">Calendar.setup({"date":1161085673,"ifFormat":"%Y/%m/%d","daFormat":"%Y/%m/%d","firstDay":1,"showOthers":true,"showsTime":false,"inputField":"calendar-field-5","button":"calendar-trigger-5"});</script>
-<br>To&nbsp;<input size="15" value="YYYY/MM/DD" id="calendar-field-6" type="text" name="anniversaryto" /><a href="#" id="calendar-trigger-6"><img align="middle" border="0" src="http://localhost/xoopsdev/class/calendar/img.gif" alt="" /></a><script type="text/javascript">Calendar.setup({"date":1161085673,"ifFormat":"%Y/%m/%d","daFormat":"%Y/%m/%d","firstDay":1,"showOthers":true,"showsTime":false,"inputField":"calendar-field-6","button":"calendar-trigger-6"});</script>
-</td></tr><tr valign='top' align='left'><td>Date Entered</td><td>From&nbsp;<input size="15" value="YYYY/MM/DD" id="calendar-field-7" type="text" name="dateenteredfrom" /><a href="#" id="calendar-trigger-7"><img align="middle" border="0" src="http://localhost/xoopsdev/class/calendar/img.gif" alt="" /></a><script type="text/javascript">Calendar.setup({"date":1161085673,"ifFormat":"%Y/%m/%d","daFormat":"%Y/%m/%d","firstDay":1,"showOthers":true,"showsTime":false,"inputField":"calendar-field-7","button":"calendar-trigger-7"});</script>
-
-<br>To&nbsp;<input size="15" value="YYYY/MM/DD" id="calendar-field-8" type="text" name="dateenteredto" /><a href="#" id="calendar-trigger-8"><img align="middle" border="0" src="http://localhost/xoopsdev/class/calendar/img.gif" alt="" /></a><script type="text/javascript">Calendar.setup({"date":1161085673,"ifFormat":"%Y/%m/%d","daFormat":"%Y/%m/%d","firstDay":1,"showOthers":true,"showsTime":false,"inputField":"calendar-field-8","button":"calendar-trigger-8"});</script>
-</td></tr><tr valign='top' align='left'><td>Output Method</td><td><select  size='1' name='soutputmethod' id='class'>
-<option value='CSV Individual Records'>CSV Individual Records</option>
-<option value='CSV Combine Families'>CSV Combine Families</option>
-<option value='Add Individuals to Cart'>Add Individuals to Cart</option>
-</select></td></tr><tr valign='top' align='left'><td></td><td><input type='checkbox' id='bincompleteaddress0' name='bincompleteaddress' value='0' checked='checked' />Skip Incomplete Mail Addresses
-</td></tr><tr valign='top' align='left'><td></td><td><input type='checkbox' id='bnoenvelope0' name='bnoenvelope' value='0' checked='checked' />Skip Records with No Envelope Number<br>(Individual Records Only)
+<td><{$oscmem_birthday}></td>
+<td><{$birthdayfrom}>
+<{$birthdayto}>
 </td></tr>
-
-
+<tr valign='top' align='left'>
+<td><{$oscmem_anniversary}></td>
+<td><{$ann_from}>
+<{$ann_to}>
+</td></tr>
+<tr valign='top' align='left'>
+<td><{$_oscmem_dateentered}></td>
+<td>
+<{$dateentered_from}>
+<{$dateentered_to}>
+</td></tr>
+<tr valign='top' align='left'>
+<td><{$outputmethod}>
+</td></tr>
+<tr valign='top' align='left'>
+<td><{$skipincompleteaddress}>
+</td>
+</tr>
+<tr valign='top' align='left'>
+<td><{$envelope}></td>
+</tr>
 
 
 </td>
