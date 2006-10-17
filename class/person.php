@@ -224,7 +224,7 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 		
 		// Get the list of custom person fields
 		$sql = "SELECT * FROM " . $this->db->prefix("oscmembership_person_custom_master") . " cm JOIN " . $this->db->prefix("oscmembership_list") . " l ON  cm.type_ID = l.optionid WHERE l.id=4 ORDER BY custom_Order";
-	
+
 		if (!$result = $this->db->query($sql)) 
 		{
 			//echo "<br />NewbbForumHandler::get error::" . $sql;

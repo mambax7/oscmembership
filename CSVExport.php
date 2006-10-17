@@ -113,10 +113,8 @@ $xoopsTpl->assign('oscmem_csv_familyname',_oscmem_csv_familyname);
 $xoopsTpl->assign('oscmem_csv_ministry',_oscmem_csv_ministry);
 $xoopsTpl->assign('oscmem_cvsexport_infoinclude',_oscmem_cvsexport_infoinclude);
 
-
-$tableheader2=new XoopsFormLabel('',_oscmem_cvsexport_customfields);
-$tableheader3=new XoopsFormLabel('',_oscmem_filters);
-
+$xoopsTpl->assign('oscmem_cvsexport_customfields',_oscmem_cvsexport_customfields);
+$xoopsTpl->assign('oscmem_filters',_oscmem_filters);
 
 //$form->addElement($element_tray);
 
@@ -128,24 +126,25 @@ $persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');
 
 $customFields = $persondetail_handler->getcustompersonFields();
 
-$i=1;
-$table2->addElement($tableheader2);
+$i=0;
+$custfieldarr=array();
+
 while($row = $db->fetchArray($customFields)) 
 {
-	$custfield=new XoopsFormCheckBox("",$row["custom_Field"],0);
-	$custfield->addOption(0,$row["custom_Name"]);
-
-	$table2->addElement($custfield);
+	$custfieldarr[$i]["id"]=$row["custom_Field"];
+	$custfieldarr[$i]["name"]=$row["custom_Field"];
+	$custfieldarr[$i]["value"]=0;
+	$custfieldarr[$i]["field_name"]=$row["custom_Name"];
 	$i++;
 }
 
-//Table 3
-$filter_select = new XoopsFormSelect(_oscmem_recordstoexport,'sfilters',"",1,false, 'class');
+$xoopsTpl->assign('custfieldarr',$custfieldarr);
 
-$filter_select->addOption(_oscmem_fromfilterbelow, _oscmem_fromfilterbelow);
-$filter_select->addOption(_oscmem_fromcart, _oscmem_fromcart);
+$xoopsTpl->assign('oscmem_recordstoexport',_oscmem_recordstoexport);
+$xoopsTpl->assign('oscmem_fromfilterbelow',_oscmem_fromfilterbelow);
+$xoopsTpl->assign('oscmem_fromcart','_oscmem_fromcart');
 
-$classification_select = new XoopsFormSelect(_oscmem_classificationstoexport,'sclassifications',"",5,true, 'class');
+$xoopsTpl->assign('oscmem_classificationstoexport',_oscmem_classificationstoexport);
 
 $option_array=array();
 $osclist = $osclist_handler->create();
@@ -153,13 +152,14 @@ if(isset($optionItems))
 {
 	foreach($optionItems as $osclist)
 	{
-		$option_array[$osclist['optionid']]=$osclist['optionname'];
+		$option_array[$osclist['optionid']]['id']=$osclist['optionid'];
+		$option_array[$osclist['optionid']]['name']=$osclist['optionname'];
 	}
 }
 
-$classification_select->addOptionArray($option_array);
+$xoopsTpl->assign('option_array', $option_array);
 
-$familyrole_select = new XoopsFormSelect(_oscmem_rolestoexport,'srole',"",5,true, 'class');
+$xoopsTpl->assign('oscmem_rolestoexport',_oscmem_rolestoexport);
 
 // Get Group Types for the drop-down
 $sSQL = "SELECT * FROM " . $db->prefix("oscmembership_list") . " WHERE id= 2 ORDER BY optionsequence";
@@ -167,20 +167,29 @@ $sSQL = "SELECT * FROM " . $db->prefix("oscmembership_list") . " WHERE id= 2 ORD
 $familyroles=$db->query($sSQL);
 
 $container='';
+$roles_array=array();
+$i=0;
 while($row = $db->fetchArray($familyroles)) 
 {
-	$familyrole_select->addOption($row['optionid'],$row['optionname']);
+	$roles_array[$i]['id']=$row['optionid'];
+	$roles_array[$i]['name']=$row['optionname']
+	$i++;
 }
 
+$xoopsTpl->assign('roles_array',$roles_array);
+
 $gender_array=array();
-$gender_array[0]=_oscmem_gender_nofilter;
-$gender_array[1]=_oscmem_male;
-$gender_array[2]=_oscmem_female;
+$gender_array[0]['id']=0;
+$gender_array[0]['name']=_oscmem_gender_nofilter;
+$gender_array[1]['id']=1;
+$gender_array[1]['name']=_oscmem_male;
+$gender_array[2]['id']=2;
+$gender_array[2]['name']=_oscmem_female;
 
-$gender_select = new XoopsFormSelect(_oscmem_gender,'gender',null,1,false, 'gender');
-$gender_select->addOptionArray($gender_array);
+$xoopsTpl->assign('oscmem_gender',_oscmem_gender);
+$xoopsTpl->assign('gender_array',$gender_array);
 
-$group_select = new XoopsFormSelect(_oscmem_groupmember,'group',"",5,true, 'class');
+$xoopsTpl->assign('oscmem_groupmember',_oscmem_groupmember);
 
 $group_handler = &xoops_getmodulehandler('group', 'oscmembership');
 	
@@ -190,21 +199,22 @@ $result = $group_handler->search($searcharray);
 
 $rowcount=0;
 $group=new Group();
-
+$groups_array=array();
 while($row = $db->fetchArray($result)) 
 {
 	$group->assignVars($row);	
-	$group_select->addOption($group->getVar('id'), $group->getVar('group_Name'));
-	
+	$groups_array[$i]['id']=$group->getVar('id');
+	$groups_array[$i]['name']=$group->getVar('group_Name');
+	$i++;	
 }
 
+$xoopsTpl->assign('oscmem_membershipdate',_oscmem_membershipdate);
 
-$membershipdate_tray = new XoopsFormElementTray(_oscmem_membershipdate,"<br>",true );
 $membershipdate_from = new XoopsFormTextDateSelect(_oscmem_filter_from,'memberdatefrom');
 $membershipdate_to = new XoopsFormTextDateSelect(_oscmem_filter_to,'memberdateto');
 
-$membershipdate_tray->addElement($membershipdate_from);
-$membershipdate_tray->addElement($membershipdate_to);
+$xoopsTpl->assign('memberdatefrom', $membershipdate_from->render(););
+$xoopsTpl->assign('memberdateto',$membershipdate_to->render()); 
 
 $birthday_tray = new XoopsFormElementTray(_oscmem_birthday,"<br>",true );
 $birthday_from = new XoopsFormTextDateSelect(_oscmem_filter_from,'birthdayfrom');
