@@ -7,6 +7,7 @@
 <table border='0' width='100%'>
 <tr valign='top' align='left'><td></td><td><{$oscmem_cvsexport_infoinclude}>
 </td></tr>
+<tr><TD>&nbsp;</TD></tr>
 <tr valign='top' align='left'><td></td><td><input type='checkbox' id='btitle0' name='btitle' value='0' checked='checked' /><{$oscmem_title}>
 </td></tr>
 <tr valign='top' align='left'><td></td><td><input type='checkbox' id='bfirstname0' name='bfirstname' value='0' checked='checked' /><{$oscmem_firstname}>
@@ -55,10 +56,10 @@
 <{$oscmem_csv_familyname}>
 </td></tr>
 </table>
-
 </td>
 <td>
-<table class="outer"><TR><th><{$oscmem_cvsexport_customfields}></th></TR>
+<table class="outer"><TR><td><{$oscmem_cvsexport_customfields}></td></TR>
+<tr><TD>&nbsp;</TD></tr>
 <{foreach item=customfield from=$custfieldarr}>
 <tr valign="top">
 <td ><input type="checkbox" id="<{$customfield.id}>" name="<{$customfield.name}>" value="<{$customfield.value}>"/>
@@ -69,6 +70,9 @@
 </table>
 </td>
 <td>
+<table>
+<tr><TD>&nbsp;</TD></tr>
+<tr><TD>&nbsp;</TD></tr>
 <tr valign='top' align='left'>
 <td><{$oscmem_filters}></td>
 <td><select  size='1' name='sfilters' id='class'>
@@ -98,7 +102,7 @@
 <{/foreach}>
 </select></td></tr>
 <tr valign='top' align='left'>
-<td><td></td>
+<td><{$oscmem_groupmember}></td>
 <td><select  size='5' name='group[]' id='class' multiple='multiple'>
 <{foreach item=group from=$groups_array}>
 <option value='<{$group.id}>'><{$group.name}></option>
@@ -106,6 +110,7 @@
 </select></td></tr>
 <tr valign='top' align='left'>
 <td><{$oscmem_membershipdate}></td>
+<td>
 <{$memberdatefrom}>
 <{$memberdateto}>
 </td></tr>
@@ -120,25 +125,26 @@
 <{$ann_to}>
 </td></tr>
 <tr valign='top' align='left'>
-<td><{$_oscmem_dateentered}></td>
+<td><{$oscmem_dateentered}></td>
 <td>
 <{$dateentered_from}>
 <{$dateentered_to}>
 </td></tr>
 <tr valign='top' align='left'>
+<td><{$oscmem_csv_outputmethod}></td>
 <td><{$outputmethod}>
 </td></tr>
 <tr valign='top' align='left'>
+<td>&nbsp;</td>
 <td><{$skipincompleteaddress}>
 </td>
 </tr>
 <tr valign='top' align='left'>
-<td><{$envelope}></td>
+<td></td>
 </tr>
-
-
+</table>
 </td>
 </tr>
-
+<tr><TD><{$submit}></TD></tr>
 </table>
 </form>

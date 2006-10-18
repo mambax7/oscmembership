@@ -172,7 +172,7 @@ $i=0;
 while($row = $db->fetchArray($familyroles)) 
 {
 	$roles_array[$i]['id']=$row['optionid'];
-	$roles_array[$i]['name']=$row['optionname']
+	$roles_array[$i]['name']=$row['optionname'];
 	$i++;
 }
 
@@ -208,12 +208,14 @@ while($row = $db->fetchArray($result))
 	$i++;	
 }
 
+
+
 $xoopsTpl->assign('oscmem_membershipdate',_oscmem_membershipdate);
 
 $membershipdate_from = new XoopsFormTextDateSelect(_oscmem_filter_from,'memberdatefrom');
 $membershipdate_to = new XoopsFormTextDateSelect(_oscmem_filter_to,'memberdateto');
 
-$xoopsTpl->assign('memberdatefrom', $membershipdate_from->render(););
+$xoopsTpl->assign('memberdatefrom', $membershipdate_from->render());
 $xoopsTpl->assign('memberdateto',$membershipdate_to->render()); 
 
 $xoopsTpl->assign('oscmem_birthday',_oscmem_birthday);
@@ -244,19 +246,21 @@ $outputmethod->addOption(_oscmem_csv_individual, _oscmem_csv_individual);
 $outputmethod->addOption(_oscmem_csv_combinefamily, _oscmem_csv_combinefamily);
 $outputmethod->addOption(_oscmem_csv_addtocart,_oscmem_csv_addtocart);
 
+$xoopsTpl->assign('oscmem_csv_outputmethod',_oscmem_csv_outputmethod);
 $xoopsTpl->assign('outputmethod',$outputmethod->render());
 
 $chkskipincompleteaddress=new XoopsFormCheckBox("","bincompleteaddress",0);
 $chkskipincompleteaddress->addOption(0,_oscmem_csv_skipincompleteaddress);
-$xoopsTpl->assign('skipincompleteaddress',$chkskipincompleteaddress);
+$xoopsTpl->assign('oscmem_csv_skipincompleteaddress');
+$xoopsTpl->assign('skipincompleteaddress',$chkskipincompleteaddress->render());
 
 $chkskipnoenvelope=new XoopsFormCheckBox("","bnoenvelope",0);
 $chkskipnoenvelope->addOption(0,_oscmem_csv_skipnoenvelope);
-$xoopsTpl->assign('envelope',$chksipnoenvelope->render());
+$xoopsTpl->assign('envelope',$chkskipnoenvelope->render());
 
 $submit_button = new XoopsFormButton("", "createcsvsubmit", _oscmem_submit, "submit");
 
-
+$xoopsTpl->assign('submit',$submit_button->render());
 
 //$rform= $form->render();
 
