@@ -48,11 +48,13 @@ $bdropfamily = isset($_POST["dropfamily"]);
 $bfirstlastorder = isset($_POST["firstnamelastorder"]);
 
 // Get the custom fields
+/*
 if ($sFormat == "default")
 {
 	$sSQL = "SELECT * FROM  person_custom_master WHERE chu_Church_ID=" . $_SESSION['iChurchID'] . " ORDER BY custom_Order";
 	$rsCustomFields = RunQuery($sSQL);
 }
+*/
 
 //Get family roles
 $sSQL = "SELECT * FROM list_lst WHERE lst_ID = 2 AND chu_Church_ID=" . $_SESSION['iChurchID'] . " ORDER BY lst_OptionSequence";
