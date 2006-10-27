@@ -48,14 +48,41 @@ elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirnam
 //ob_start();
 
 // Get Source and Format from the request object and assign them locally
-$sSource = strtolower($_POST["Source"]);
-$sFormat = strtolower($_POST["Format"]);
+$sSource = isset($_POST["Source"]);
+$sSource= strtolower($sSource);
+$sFormat=isset($_POST["Format"]);
+$sFormat = strtolower($sFormat);
+
 $bSkipIncompleteAddr = isset($_POST["SkipIncompleteAddr"]);
 $bSkipNoEnvelope = isset($_POST["SkipNoEnvelope"]);
 $bdropfamily = isset($_POST["dropfamily"]);
 $bfirstlastorder = isset($_POST["firstnamelastorder"]);
 
+$aClasses=array();
 
+$count = 0;
+$strCls="";
+$sDirClassifications ="";
+if(isset($_POST["sDirClassifications"]))
+{
+  foreach ($_POST["sDirClassifications"] as $strCls)
+  {
+  	$aClasses[$count++] = $strCls; //FilterInput($Cls,'int');
+  }
+  $sDirClassifications = implode(",",$aClasses);
+}
+
+$count = 0;
+$strCls="";
+$groups="";
+if(isset($_POST["GroupID"]))
+{
+  foreach ($_POST["GroupID"] AS $strCls)
+  {
+  	$aClasses[$count++] = $strCls; //FilterInput($Cls,'int');
+  }
+  $groups= implode(",",$aClasses);
+}
 
 $label_handler = &xoops_getmodulehandler('label', 'oscmembership');
 $labelcritiera_handler = &xoops_getmodulehandler('labelcriteria', 'oscmembership');
@@ -82,7 +109,17 @@ $labelcritiera->assignVar('brole',isset($_POST["bfamilyrole"]));
 $labelcritiera->assignVar('bfamilyname',isset($_POST["bfamilyname"]));
 
 
+$labels=$label_handler->getlabels(false, false, $groups,"",$labelcritiera);
 
+foreach($labels as $label)
+{
+
+	echo $label['body'];
+
+
+}
+
+exit;
 // Get the custom fields
 /*
 if ($sFormat == "default")

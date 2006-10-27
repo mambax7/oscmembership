@@ -82,7 +82,7 @@
 </tr>
 <tr valign='top' align='left'>
 <td><{$oscmem_classificationstoexport}></td>
-<td><select  size='5' name='sclassifications[]' id='class' multiple='multiple'>
+<td><select  size='5' name='sDirClassifications[]' id='class' multiple='multiple'>
 <{foreach item=option from=$option_array}>
 <option value='<{$option.id}>'><{$option.name}></option>
 <{/foreach}>
@@ -103,7 +103,7 @@
 </select></td></tr>
 <tr valign='top' align='left'>
 <td><{$oscmem_groupmember}></td>
-<td><select  size='5' name='group[]' id='class' multiple='multiple'>
+<td><select  size='5' name='GroupID[]' id='class' multiple='multiple'>
 <{foreach item=group from=$groups_array}>
 <option value='<{$group.id}>'><{$group.name}></option>
 <{/foreach}>
