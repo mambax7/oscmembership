@@ -28,14 +28,22 @@ if ( !is_object($xoopsUser) || !is_object($xoopsModule))  {
     exit("Access Denied");
 }
 
-require (XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/ReportConfig.php");
 
+require (XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/ReportConfig.php");
 include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/fpdf151/fpdf.php";
 
 require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/class_fpdf_labels.php";
 
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/person.php';
+require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php";
 
+if (file_exists(XOOPS_ROOT_PATH. "/modules" . 	$xoopsModule->getVar('dirname') .  "/language/" . $xoopsConfig['language'] . "/modinfo.php")) 
+{
+    include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/language/" . $xoopsConfig['language'] . "/modinfo.php";
+}
+elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') ."/language/english/modinfo.php"))
+{ include XOOPS_ROOT_PATH ."/modules/" . $xoopsModule->getVar('dirname') . "/language/english/modinfo.php";
+
+}
 // Turn ON output buffering
 //ob_start();
 
@@ -46,6 +54,34 @@ $bSkipIncompleteAddr = isset($_POST["SkipIncompleteAddr"]);
 $bSkipNoEnvelope = isset($_POST["SkipNoEnvelope"]);
 $bdropfamily = isset($_POST["dropfamily"]);
 $bfirstlastorder = isset($_POST["firstnamelastorder"]);
+
+
+
+$label_handler = &xoops_getmodulehandler('label', 'oscmembership');
+$labelcritiera_handler = &xoops_getmodulehandler('labelcriteria', 'oscmembership');
+
+$labelcritiera=$labelcritiera_handler->create();
+
+
+$labelcritiera->assignVar('bdiraddress',isset($_POST["baddress"]));
+$labelcritiera->assignVar('bdirwedding',isset($_POST["bagemarried"]));
+$labelcritiera->assignVar('bdirbirthday',isset($_POST["bbirthanniversary"]));
+$labelcritiera->assignVar('bdirfamilyphone',isset($_POST["bhomephone"]));
+$labelcritiera->assignVar('bdirfamilywork',isset($_POST["bworkphone"]));
+$labelcritiera->assignVar('bdirfamilycell',isset($_POST["bcellphone"]));
+$labelcritiera->assignVar('bdirfamilyemail',isset($_POST["bemail"]));
+$labelcritiera->assignVar('bdirpersonalphone',isset($_POST["bhomephone"]));
+$labelcritiera->assignVar('bdirpersonalwork',isset($_POST["bworkphone"]));
+$labelcritiera->assignVar('bdirpersonalcell',isset($_POST["bcellphone"]));
+$labelcritiera->assignVar('bdirpersonalemail',isset($_POST["bemail"]));
+$labelcritiera->assignVar('bdirpersonalworkemail',isset($_POST["otheremail"]));
+
+
+$labelcritiera->assignVar('benvelope',isset($_POST["benvelope"]));
+$labelcritiera->assignVar('brole',isset($_POST["bfamilyrole"]));
+$labelcritiera->assignVar('bfamilyname',isset($_POST["bfamilyname"]));
+
+
 
 // Get the custom fields
 /*
