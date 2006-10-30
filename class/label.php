@@ -310,6 +310,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
     
 	$i=0;
 
+  $headersql="lastname, firstname";
 	$indivbodysql="lastname,',',firstname";
 	$familybodysql="familyname,',',''";
 	$cr="'<br>'";
@@ -339,7 +340,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	$familyprefix="";
 
 	//$sSQL=" drop table `tmplabel`;
-	$sSQL= "CREATE TABLE  `tmplabel` (
+$sSQL= "CREATE temporary TABLE  `tmplabel` (
 	`recipient` varchar(255) default NULL,
 	`AddressLine1` varchar(255) default NULL,
 	`AddressLine2` varchar(255) default NULL,
@@ -349,8 +350,8 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	`Zip` varchar(255) default NULL,
 	`sortme` varchar(255) default NULL,
 	`familyid` int default null,
-	`customfields` text )";
-	
+	`body` text )";
+		
 	$sSQL= "truncate table tmplabel";
 	$this->db->query($sSQL);
 
@@ -371,12 +372,14 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	{
 		$famaddress="fam.address1, fam.address2,fam.city,fam.state,fam.zip";
 		$address="address1, address2,'',  city,state,zip";
+		$headersql .= ",address1,address2,city,state,zip";
 		$indivbodysql .= ",',',address1,',',address2,',',city,',',state,',',zip";
 		$familybodysql .= ",',',address1,',',address2,',',city,',',state,',',zip";
 	}	
 	
 	If($labelcriteria->getVar('bdirwedding'))
 	{
+		$headersql .= ",weddingdate";
 		$fambody.=", concat($cr,'" . _oscmem_weddingdate . ": ', coalesce(weddingdate,$blank)) ";
 		$familybodysql .= ",',',weddingdate";
 	}
@@ -384,6 +387,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	$bdate="''";	
 	if($labelcriteria->getVar('bdirbirthday'))
 	{ $bdate=" concat(' (', birthmonth, '/', birthday , ')')"; 
+		$headersql .= ",birthdate";
 		$indivbodysql .= ",','," . $bdate;
 		$familybodysql .= ",',',''";
 	}
@@ -392,6 +396,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	{ $fambody.= ", concat($cr, '" . _oscmem_homephone . ": ',  coalesce(homephone,$blank))";
 	 	$indivbodysql .= ",',',homephone";
 	 	$familybodysql .= ",',',homephone";
+	 	$headersql .=",homephone";
 		
 	 }
 	
@@ -399,12 +404,14 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	{ $fambody.= ", concat($cr, '" . _oscmem_workphone . ": ', coalesce(workphone,$blank)) ";
 	 	$indivbodysql .= ",',',workphone";
 	 	$familybodysql .= ",',',workphone";
+	 	$headersql .= ",workphone";
 	 }
 	
 	if($labelcriteria->getVar('bdirfamilycell'))
 	{ $fambody.=", concat($cr, '" . _oscmem_cellphone . ": ', coalesce(cellphone,$blank))"; 
 		$indivbodysql .=",',',cellphone";
 		$familybodysql .=",',',cellphone";
+		$headersql .= ",cellphone";
 		
 	}
 	
@@ -412,6 +419,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	{ $fambody.=", concat($cr, '" . _oscmem_email . ": ', coalesce(email,$blank))"; 
 		$indivbodysql .= ",',',email";
 		$familybodysql .= ",',',email";
+		$headersql.= ",email";
 	}
 		
 
@@ -431,7 +439,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	body=concat($familybodysql)
 	 where tmplabel.familyid=fam.id";
 	$this->db->query($sSQL); 
-
+	
 	$persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');    
 	$person = $persondetail_handler->create(true);  //only one record
 	
