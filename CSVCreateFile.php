@@ -109,7 +109,7 @@ $labelcritiera->assignVar('brole',isset($_POST["bfamilyrole"]));
 $labelcritiera->assignVar('bfamilyname',isset($_POST["bfamilyname"]));
 
 
-$labels=$label_handler->getlabels(false, false, $groups,"",$labelcritiera);
+$labels=$label_handler->getexport(false, false, $groups,"",$labelcritiera);
 
 foreach($labels as $label)
 {
