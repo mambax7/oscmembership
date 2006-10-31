@@ -352,7 +352,7 @@ $sSQL= "CREATE temporary TABLE  `tmplabel` (
 	`familyid` int default null,
 	`body` text )";
 		
-	$sSQL= "truncate table tmplabel";
+//	$sSQL= "truncate table tmplabel";
 	$this->db->query($sSQL);
 
 	$address="'','','','','',''";
@@ -454,6 +454,9 @@ $sSQL= "CREATE temporary TABLE  `tmplabel` (
 
 	$i=0;
 	$label=new Label();
+	$labels[$i]['body']=$headersql;
+	$i++;
+	
 	while($row = $this->db->fetchArray($result)) 
 	{
 		if(isset($row))
