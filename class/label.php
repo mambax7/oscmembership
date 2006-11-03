@@ -70,6 +70,7 @@ class  Label extends XoopsObject {
         $this->initVar('benvelope', XOBJ_DTYPE_INT);
         $this->initVar('brole', XOBJ_DTYPE_INT);
         $this->initVar('bfamilyname', XOBJ_DTYPE_INT);
+	$this->initVar('customfields',XOBJ_DTYPE_ARRAY);
 
 
     }
@@ -367,6 +368,7 @@ $sSQL= "CREATE temporary TABLE  `tmplabel` (
 		$famrecipient="familyname";
 
 //	echo $labelcriteria->getVar('bdiraddress');
+
 	
 	If($labelcriteria->getVar('bdiraddress'))
 	{
@@ -421,7 +423,15 @@ $sSQL= "CREATE temporary TABLE  `tmplabel` (
 		$familybodysql .= ",',',email";
 		$headersql.= ",email";
 	}
+
+	if(isset($labelcriteria->getVar('customfields')))
+	{
+		$custfieldsql= ",','," . implode(",",$labelcriteria->getVar('customfields'))
+		$indivbodysql .= $custfieldsql;
+		$familybodysql .= $custfieldsql;
 		
+		$headersql .=",";	
+	}		
 
 	$recipientplus.=",$cr";
 	$fambody.=",$cr";

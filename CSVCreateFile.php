@@ -85,12 +85,30 @@ if(isset($_POST["GroupID"]))
   $groups= implode(",",$aClasses);
 }
 
+
+$customFields = $persondetail_handler->getcustompersonFields();
+
+$i=0;
+$custfieldarr=array();
+
+while($row = $db->fetchArray($customFields)) 
+{
+	if(isset($_POST[$row["custom_Field"]]))
+	{
+		$custfieldarr[$i]=$row["custom_Field"];
+	}
+	$i++;
+}
+
+
+
 $label_handler = &xoops_getmodulehandler('label', 'oscmembership');
 $labelcritiera_handler = &xoops_getmodulehandler('labelcriteria', 'oscmembership');
 
 $labelcritiera=$labelcritiera_handler->create();
 
 
+$labelcritiera->assignVar('customfiels',$custfieldarr);
 $labelcritiera->assignVar('bdiraddress',isset($_POST["baddress"]));
 $labelcritiera->assignVar('bdirwedding',isset($_POST["bagemarried"]));
 $labelcritiera->assignVar('bdirbirthday',isset($_POST["bbirthanniversary"]));
@@ -110,7 +128,7 @@ $labelcritiera->assignVar('brole',isset($_POST["bfamilyrole"]));
 $labelcritiera->assignVar('bfamilyname',isset($_POST["bfamilyname"]));
 
 
-	$labels=$label_handler->getexport(false, false, $groups,"",$labelcritiera);
+$labels=$label_handler->getexport(false, false, $groups,"",$labelcritiera);
 
 	header("Content-type: text/x-csv");
 	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
