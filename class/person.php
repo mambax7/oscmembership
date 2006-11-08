@@ -203,7 +203,8 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 			$customresult=$this->getcustompersonData($id);
 			$customrow=$this->db->fetchArray($customresult);
 			$customfields=implode(",",$customrow);
-			
+
+			//echo $customfields;			
 			$person->assignVar('customfields',$customfields);
 			
 			
@@ -220,7 +221,6 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 		$result='';
 		$returnresult='';
 		$ret=array();
-		
 		
 		// Get the list of custom person fields
 		$sql = "SELECT * FROM " . $this->db->prefix("oscmembership_person_custom_master") . " cm JOIN " . $this->db->prefix("oscmembership_list") . " l ON  cm.type_ID = l.optionid WHERE l.id=4 ORDER BY custom_Order";
@@ -712,12 +712,9 @@ function &searchgroupmembers($searcharray, $groupid)
 			}
 			else
 			{
-
 				//echo "explode: " . $person->getVar('customfields');
 				$customupdate=explode(",",$person->getVar('customfields'));
-				
-				echo $person->getVar('customfields');
-				
+
 				//update custom fields
 				$sql="Update " . $this->db->prefix("oscmembership_person_custom");
 				$sql.= " set ";
@@ -730,46 +727,54 @@ function &searchgroupmembers($searcharray, $groupid)
 					switch($row["type_ID"])
 					{
 						case "1": //True false
-											
-							$sql.= "c" . $i . "= " . $customupdate[$i-1] . ",";
+							switch($customupdate[$i-1])
+							{
+							case 1:
+								$sql.= $row['custom_Field'] . "= 'true',";
+								break;
+							
+							case 0:
+								$sql.= $row['custom_Field'] . "= 'false',";
+								break;
+							}
 							break;
 						case "2": //Date
-							$sql.= "c" . $i . "='" . $customupdate[$i-1] . "',";
+							$sql.= $row['custom_Field']  . "='" . $customupdate[$i-1] . "',";
 							break;
 			
 						case "3":
-							$sql.= "c" . $i . "='" . $customupdate[$i-1] . "',";
+							$sql.= $row['custom_Field'] . "='" . $customupdate[$i-1] . "',";
 						break;
 
 						case "4":
-							$sql.= "c" . $i . "='" . $customupdate[$i-1] . "',";
+							$sql.= $row['custom_Field'] . "='" . $customupdate[$i-1] . "',";
 						break;
 		
 						case "5":
-							$sql.= "c" . $i . "='" . $customupdate[$i-1] . "',";
+							$sql.= $row['custom_Field'] . "='" . $customupdate[$i-1] . "',";
 						break;
 		
 						case "6": //year
-							$sql.= "c" . $i . "= " . $customupdate[$i-1] . ",";
+							$sql.= $row['custom_Field'] . "= " . $customupdate[$i-1] . ",";
 							break;
-													
+		
 						case "8": //number
-							$sql.= "c" . $i . "= " . $customupdate[$i-1] . ",";
+							$sql.= $row['custom_Field'] . "= " . $customupdate[$i-1] . ",";
 							break;
 
 						case "7":  //season
 							switch($customupdate[$i-1])
 							{
 							case  _oscmem_season_select :
-								$sql.="c" . $i . "='',";
+								$sql.= $row['custom_Field'] . "='',";
 								break;
 							
 							case "-------------" :
-								$sql.="c" . $i . "='',";
+								$sql.= $row['custom_Field'] . "='',";
 								break;
 							
 							default:
-								$sql.= "c" . $i . "= " . $this->db->quoteString($customupdate[$i-1]) . ",";
+								$sql.= $row['custom_Field'] . "= " . $this->db->quoteString($customupdate[$i-1]) . ",";
 								break;
 							}
 
@@ -780,7 +785,7 @@ function &searchgroupmembers($searcharray, $groupid)
 				$sql= rtrim($sql,",");
 				$sql.= " WHERE per_ID=" . $person->getVar('id');
 				
-				echo $sql;
+				//echo "customfield" . $sql;
 				if (!$result = $this->db->query($sql)) 
 				{
 					echo "<br />PersonHandler::get error::" . $sql;
@@ -865,6 +870,9 @@ function &searchgroupmembers($searcharray, $groupid)
 		{
 			$personid = $this->db->getInsertId();
 			$sql="INSERT into " . $this->db->prefix("oscmembership_person_custom") . " (per_ID) values(" . $personid . ")";
+			
+			$this->db->query($sql);
+			
 			return $personid;
 		}
 	

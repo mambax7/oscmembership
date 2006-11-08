@@ -142,24 +142,22 @@ switch (true)
 		}
 		else
 		$person->assignVar('membershipdate',$_POST['membershipdate']);
-		
-		$customFields = $persondetail_handler->getcustompersonFields();
-
-		$customfieldata_post="";
-		
-		$i=1;
-		while($row = $db->fetchArray($customFields)) 
-		{
-			if(isset($_POST['c' . $i])) $customfieldata_post.= $_POST['c' . $i] . ",";
-			$i++;
-		}
-		
-		//Strip off end comma;
-		if(isset($customfieldata_post)) $customfieldata_post=rtrim($customfieldata_post,",");
-
-		$person->assignVar('customfields',$customfieldata_post);		
-		
 	}
+
+
+	$customFields = $persondetail_handler->getcustompersonFields();
+	
+	$customfieldata_post="";
+	
+	while($row = $db->fetchArray($customFields)) 
+	{
+		if(isset($_POST[$row['custom_Field']])) $customfieldata_post.= $_POST[$row['custom_Field']] . ",";
+	}
+	
+	//Strip off end comma;
+	if(isset($customfieldata_post)) $customfieldata_post=rtrim($customfieldata_post,",");
+	
+	$person->assignVar('customfields',$customfieldata_post);		
 
 	if(isset($_POST['gender'])) $person->assignVar('gender',$_POST['gender']);
 
@@ -266,7 +264,6 @@ $memberclass_select = new XoopsFormSelect(_oscmem_memberclass,'memberclass',$per
 
 $memberclass_select->addOptionArray($option_array);
 
-
 $datelastedited_label = new XoopsFormLabel(_oscmem_datelastedited, $person->getVar('datelastedited'));
 
 $user=new XoopsUser();
@@ -365,7 +362,15 @@ while($row = $db->fetchArray($customFields))
 	switch($row["type_ID"])
 	{
 	case "1": //True false
-		$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], $customData[$i]));
+		switch($customData[$i])
+		{
+		case "true":
+			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], 1));
+			break;		
+		case "false":
+			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], 0));
+			break;
+		}
 	
 		break;
 	case "2": //Date

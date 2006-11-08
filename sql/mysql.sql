@@ -110,7 +110,9 @@ CREATE TABLE `oscmembership_group_members` (
 
 
 CREATE TABLE `oscmembership_person_custom` (
-  `per_ID` mediumint(9) NOT NULL default '0',
+  `per_ID` mediumint(9) NOT NULL default '0'
+  /*
+  ,
   `c1` date default NULL,
   `c2` enum('false','true') default NULL,
   `c3` enum('winter','spring','summer','fall') default NULL,
@@ -118,7 +120,8 @@ CREATE TABLE `oscmembership_person_custom` (
   `c5` date default NULL,
   `c6` varchar(50) default NULL,
   `c7` tinyint(4) default NULL,
-  PRIMARY KEY  (`per_ID`)
+  */
+  ,PRIMARY KEY  (`per_ID`)
 ) TYPE=MyISAM; 
 
 CREATE TABLE `oscmembership_churchdir` (

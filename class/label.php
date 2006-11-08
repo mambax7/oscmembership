@@ -50,31 +50,6 @@ class  Label extends XoopsObject {
     }
 }    
 
-    function Labelcriteria()
-    {
-	$this->initVar('id',XOBJ_DTYPE_INT);
-        $this->initVar('bdiraddress', XOBJ_DTYPE_INT);
-        $this->initVar('bdirwedding', XOBJ_DTYPE_INT);
-        $this->initVar('bdirbirthday', XOBJ_DTYPE_INT);
-        $this->initVar('bdirfamilyphone', XOBJ_DTYPE_INT);
-        $this->initVar('bdirfamilywork', XOBJ_DTYPE_INT);
-        $this->initVar('bdirfamilycell', XOBJ_DTYPE_INT);
-        $this->initVar('bdirfamilyemail', XOBJ_DTYPE_INT);
-        $this->initVar('bdirpersonalphone', XOBJ_DTYPE_INT);
-        $this->initVar('bdirpersonalwork', XOBJ_DTYPE_INT);
-        $this->initVar('bdirpersonalcell', XOBJ_DTYPE_INT);
-        $this->initVar('bdirpersonalemail', XOBJ_DTYPE_INT);
-        $this->initVar('bdirpersonalworkemail', XOBJ_DTYPE_INT);
-        $this->initVar('sdirclassifications', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('sdirroleheads', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('benvelope', XOBJ_DTYPE_INT);
-        $this->initVar('brole', XOBJ_DTYPE_INT);
-        $this->initVar('bfamilyname', XOBJ_DTYPE_INT);
-	$this->initVar('customfields',XOBJ_DTYPE_ARRAY);
-
-
-    }
-
 
 class oscMembershipLabelHandler extends XoopsObjectHandler
 {
@@ -87,15 +62,6 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	    $label->cr="<br>";
         }
         return $label;
-    }
-
-    function &createlabelcriteria($isNew = true)
-    {
-        $labelcriteria = new Labelcriteria();
-        if ($isNew) {
-            $labelcriteria->setNew();
-        }
-        return $labelcriteria;
     }
 
 
@@ -212,7 +178,6 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	$sSQL = "insert into tmplabel Select concat(lastname, ', ', firstname,$bdate)," . $address . ", $sortMe,0, concat($recipientplus) from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid=0" . $sWhereExt;
 	$this->db->query($sSQL); 
 
-	echo $sSQL;
 	$sortMe="familyname";	
 	
 	$sSQL = "insert into tmplabel(familyid) Select distinct fam.id from " . $this->db->prefix("oscmembership_family") . " fam , " . $this->db->prefix("oscmembership_person") . " person  " . $sGroupTable . " where person.famid>0 and  fam.id=person.famid " . $sWhereExt;
@@ -299,7 +264,6 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	}
 
 
-
  	return $labels;   
     }    
     
@@ -372,91 +336,112 @@ $sSQL= "CREATE temporary TABLE  `tmplabel` (
 	
 	If($labelcriteria->getVar('bdiraddress'))
 	{
-		$famaddress="fam.address1, fam.address2,fam.city,fam.state,fam.zip";
-		$address="address1, address2,'',  city,state,zip";
 		$headersql .= ",address1,address2,city,state,zip";
-		$indivbodysql .= ",',',address1,',',address2,',',city,',',state,',',zip";
-		$familybodysql .= ",',',address1,',',address2,',',city,',',state,',',zip";
+		$indivbodysql .= ",',',person.address1,',',person.address2,',',person.city,',',person.state,',',person.zip";
+		$familybodysql .= ",',',family.address1,',',family.address2,',',family.city,',',family.state,',',family.zip";
 	}	
 	
 	If($labelcriteria->getVar('bdirwedding'))
 	{
 		$headersql .= ",weddingdate";
-		$fambody.=", concat($cr,'" . _oscmem_weddingdate . ": ', coalesce(weddingdate,$blank)) ";
 		$familybodysql .= ",',',weddingdate";
+		$indivbodysql  .= ",','," . "''";
 	}
 	
 	$bdate="''";	
 	if($labelcriteria->getVar('bdirbirthday'))
-	{ $bdate=" concat(' (', birthmonth, '/', birthday , ')')"; 
+	{ 
+		$bdate=" concat(' (', birthmonth, '/', birthday , ')')"; 
 		$headersql .= ",birthdate";
 		$indivbodysql .= ",','," . $bdate;
 		$familybodysql .= ",',',''";
 	}
 
 	if($labelcriteria->getVar('bdirfamilyphone'))
-	{ $fambody.= ", concat($cr, '" . _oscmem_homephone . ": ',  coalesce(homephone,$blank))";
-	 	$indivbodysql .= ",',',homephone";
-	 	$familybodysql .= ",',',homephone";
+	{ 
+	 	$indivbodysql .= ",',',person.homephone";
+	 	$familybodysql .= ",',',family.homephone";
 	 	$headersql .=",homephone";
 		
 	 }
 	
 	if($labelcriteria->getVar('bdirfamilywork'))
-	{ $fambody.= ", concat($cr, '" . _oscmem_workphone . ": ', coalesce(workphone,$blank)) ";
-	 	$indivbodysql .= ",',',workphone";
-	 	$familybodysql .= ",',',workphone";
+	{ 
+	 	$indivbodysql .= ",',',person.workphone";
+	 	$familybodysql .= ",',',family.workphone";
 	 	$headersql .= ",workphone";
 	 }
 	
 	if($labelcriteria->getVar('bdirfamilycell'))
-	{ $fambody.=", concat($cr, '" . _oscmem_cellphone . ": ', coalesce(cellphone,$blank))"; 
-		$indivbodysql .=",',',cellphone";
-		$familybodysql .=",',',cellphone";
+	{ 
+		$indivbodysql .=",',',person.cellphone";
+		$familybodysql .=",',',family.cellphone";
 		$headersql .= ",cellphone";
 		
 	}
 	
 	if($labelcriteria->getVar('bdirfamilyemail'))
-	{ $fambody.=", concat($cr, '" . _oscmem_email . ": ', coalesce(email,$blank))"; 
-		$indivbodysql .= ",',',email";
-		$familybodysql .= ",',',email";
+	{ 
+		$indivbodysql .= ",',',person.email";
+		$familybodysql .= ",',',person.email";
 		$headersql.= ",email";
 	}
 
-	if(isset($labelcriteria->getVar('customfields')))
+	if($labelcriteria->getVar('bfamilyname'))
 	{
-		$custfieldsql= ",','," . implode(",",$labelcriteria->getVar('customfields'))
-		$indivbodysql .= $custfieldsql;
-		$familybodysql .= $custfieldsql;
-		
-		$headersql .=",";	
-	}		
-
+		$headersql .= ", " . _oscmem_familyname;
+		$familybodysql .= ",',',family.familyname";
+		$indivbodysql .= ",',',family.familyname";
+	
+	}
+	
+	$customfields=$labelcriteria->getVar('customfields');
+	
+	if(!empty($customfields))
+	{	
+		foreach($customfields as $customfld)
+		{
+			$indivbodysql .=",',',coalesce(" . $customfld['custom_Field'] . ",'')";
+			$familybodysql .=",',',coalesce(" . $customfld['custom_Field'] . ",'')";
+			$headersql.="," . $customfld['custom_Name'];
+		}
+	}
+	
 	$recipientplus.=",$cr";
 	$fambody.=",$cr";
+
+	$sSQL = "insert into tmplabel(familyid, sortMe, body) Select 0,$sortMe, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid=0" . $sWhereExt;
 	
-	$sSQL = "insert into tmplabel(familyid, sortMe, body) Select 0,$sortMe, concat($indivbodysql) from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID " . $sGroupTable . " where famid=0" . $sWhereExt;
+//	echo $sSQL;
 	$this->db->query($sSQL); 
+
 
 	$sortMe="familyname";	
 	
-	$sSQL = "insert into tmplabel(familyid) Select distinct fam.id from " . $this->db->prefix("oscmembership_family") . " fam , " . $this->db->prefix("oscmembership_person") . " person  " . $sGroupTable . " where person.famid>0 and  fam.id=person.famid " . $sWhereExt;
-	$this->db->query($sSQL); 
-
-	$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " fam set 
-	sortme=$sortMe;
-	body=concat($familybodysql)
-	 where tmplabel.familyid=fam.id";
-	$this->db->query($sSQL); 
+	switch ($labelcriteria->getVar('soutputmethod'))
+	{	
+		case _oscmem_csv_combinefamily :
+		$sSQL = "insert into tmplabel(familyid) Select distinct fam.id from " . $this->db->prefix("oscmembership_family") . " fam , " . $this->db->prefix("oscmembership_person") . " person  " . $sGroupTable . " where person.famid>0 and  fam.id=person.famid " . $sWhereExt;
+		$this->db->query($sSQL); 
 	
-	$persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');    
-	$person = $persondetail_handler->create(true);  //only one record
+		$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " fam set 
+		sortme=$sortMe;
+		body=concat($familybodysql)
+		where tmplabel.familyid=fam.id";
+		$this->db->query($sSQL); 
+		break;
+		
+		default:
+		$sSQL = "insert into tmplabel(familyid, sortMe, body) Select 0,$sortMe, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid!=0" . $sWhereExt;
+		echo $sSQL;
+		$this->db->query($sSQL); 
+		break;
 	
-	
-	$sSQL="select person.* from " . $this->db->prefix("oscmembership_person") . " person join tmplabel t on person.famid = t.familyid where person.famid>0";
-	
-	$result=$this->db->query($sSQL);
+/*		$persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');    
+		$person = $persondetail_handler->create(true);  
+*/		
+		//only one record
+	}
 
 	
 	$sSQL="select * from tmplabel order by sortme";

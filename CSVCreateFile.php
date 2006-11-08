@@ -85,7 +85,8 @@ if(isset($_POST["GroupID"]))
   $groups= implode(",",$aClasses);
 }
 
-
+$db = &Database::getInstance();
+$persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');
 $customFields = $persondetail_handler->getcustompersonFields();
 
 $i=0;
@@ -95,11 +96,11 @@ while($row = $db->fetchArray($customFields))
 {
 	if(isset($_POST[$row["custom_Field"]]))
 	{
-		$custfieldarr[$i]=$row["custom_Field"];
+		$custfieldarr[$i]['custom_Field']=$row["custom_Field"];
+		$custfieldarr[$i]['custom_Name']=$row["custom_Name"];
 	}
 	$i++;
 }
-
 
 
 $label_handler = &xoops_getmodulehandler('label', 'oscmembership');
@@ -107,8 +108,7 @@ $labelcritiera_handler = &xoops_getmodulehandler('labelcriteria', 'oscmembership
 
 $labelcritiera=$labelcritiera_handler->create();
 
-
-$labelcritiera->assignVar('customfiels',$custfieldarr);
+$labelcritiera->assignVar('customfields',$custfieldarr);
 $labelcritiera->assignVar('bdiraddress',isset($_POST["baddress"]));
 $labelcritiera->assignVar('bdirwedding',isset($_POST["bagemarried"]));
 $labelcritiera->assignVar('bdirbirthday',isset($_POST["bbirthanniversary"]));
@@ -122,16 +122,15 @@ $labelcritiera->assignVar('bdirpersonalcell',isset($_POST["bcellphone"]));
 $labelcritiera->assignVar('bdirpersonalemail',isset($_POST["bemail"]));
 $labelcritiera->assignVar('bdirpersonalworkemail',isset($_POST["otheremail"]));
 
-
 $labelcritiera->assignVar('benvelope',isset($_POST["benvelope"]));
 $labelcritiera->assignVar('brole',isset($_POST["bfamilyrole"]));
 $labelcritiera->assignVar('bfamilyname',isset($_POST["bfamilyname"]));
-
+$labelcritiera->assignVar('soutputmethod',isset($_POST["soutputmethod"]));
 
 $labels=$label_handler->getexport(false, false, $groups,"",$labelcritiera);
 
-	header("Content-type: text/x-csv");
-	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
+header("Content-type: text/x-csv");
+header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
 
 	foreach($labels as $label)
 	{
