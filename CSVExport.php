@@ -94,10 +94,9 @@ foreach($groups as $group)
 $xoopsTpl->assign('oscmem_lastname',_oscmem_lastname);
 $xoopsTpl->assign('oscmem_membername',_oscmem_name);
 $xoopsTpl->assign('oscmem_address',_oscmem_address);
-$xoopsTpl->assign('oscmem_homephone',_oscmem_homephone);
-$xoopsTpl->assign('oscmem_workphone',_oscmem_workphone);
-$xoopsTpl->assign('oscmem_cellphone',_oscmem_cellphone);
+$xoopsTpl->assign('oscmem_phone',_oscmem_phone);
 $xoopsTpl->assign('oscmem_email',_oscmem_email);
+$xoopsTpl->assign('oscmem_envelopenumber',_oscmem_envelopenumber);
 $xoopsTpl->assign('oscmem_membershipdate',_oscmem_membershipdate);
 $xoopsTpl->assign('oscmem_csv_birthanniversary',_oscmem_csv_birthanniversary);
 $xoopsTpl->assign('oscmem_csv_ageyearsmarried',_oscmem_csv_ageyearsmarried);

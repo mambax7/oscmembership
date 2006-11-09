@@ -108,6 +108,8 @@ $labelcritiera_handler = &xoops_getmodulehandler('labelcriteria', 'oscmembership
 
 $labelcritiera=$labelcritiera_handler->create();
 
+$labelcritiera->assignVar('sdirclassifications',$sDirClassifications);
+
 $labelcritiera->assignVar('customfields',$custfieldarr);
 $labelcritiera->assignVar('bdiraddress',isset($_POST["baddress"]));
 $labelcritiera->assignVar('bdirwedding',isset($_POST["bagemarried"]));
@@ -127,7 +129,7 @@ $labelcritiera->assignVar('brole',isset($_POST["bfamilyrole"]));
 $labelcritiera->assignVar('bfamilyname',isset($_POST["bfamilyname"]));
 $labelcritiera->assignVar('soutputmethod',isset($_POST["soutputmethod"]));
 
-$labels=$label_handler->getexport(false, false, $groups,"",$labelcritiera);
+$labels=$label_handler->getexport(false, false, $groups,$labelcritiera);
 
 header("Content-type: text/x-csv");
 header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");

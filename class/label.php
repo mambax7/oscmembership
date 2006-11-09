@@ -269,13 +269,13 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
     
 
     
-    function &getexport($bSortFirstName, $baltFamilyName, $sGroupsList, $sDirClassifications,$labelcriteria)
+    function &getexport($bSortFirstName, $baltFamilyName, $sGroupsList, $labelcriteria)
     {
 	$labels[]=array();
     
 	$i=0;
 
-  $headersql="lastname, firstname";
+	$headersql="lastname, firstname";
 	$indivbodysql="lastname,',',firstname";
 	$familybodysql="familyname,',',''";
 	$cr="'<br>'";
@@ -283,8 +283,9 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	$sGroupTable = "";
 	
 	$sWhereExt="";
-		
-	if (strlen($sDirClassifications)) $sClassQualifier = "AND person.clsid in (" . $sDirClassifications . ")";
+	
+
+	if ($labelcriteria->getVar('sdirclassifications')) $sWhereExt = " person.clsid in (" . $labelcriteria->getVar('sdirclassifications') . ")";
 	
 	if (!empty($sGroupsList))
 	{
@@ -357,30 +358,24 @@ $sSQL= "CREATE temporary TABLE  `tmplabel` (
 		$familybodysql .= ",',',''";
 	}
 
-	if($labelcriteria->getVar('bdirfamilyphone'))
+	if($labelcriteria->getVar('bphone'))
 	{ 
 	 	$indivbodysql .= ",',',person.homephone";
 	 	$familybodysql .= ",',',family.homephone";
 	 	$headersql .=",homephone";
-		
-	 }
-	
-	if($labelcriteria->getVar('bdirfamilywork'))
-	{ 
+
 	 	$indivbodysql .= ",',',person.workphone";
 	 	$familybodysql .= ",',',family.workphone";
 	 	$headersql .= ",workphone";
-	 }
-	
-	if($labelcriteria->getVar('bdirfamilycell'))
-	{ 
+
 		$indivbodysql .=",',',person.cellphone";
 		$familybodysql .=",',',family.cellphone";
 		$headersql .= ",cellphone";
 		
-	}
+	 }
 	
-	if($labelcriteria->getVar('bdirfamilyemail'))
+	
+	if($labelcriteria->getVar('bemail'))
 	{ 
 		$indivbodysql .= ",',',person.email";
 		$familybodysql .= ",',',person.email";
@@ -391,7 +386,7 @@ $sSQL= "CREATE temporary TABLE  `tmplabel` (
 	{
 		$headersql .= ", " . _oscmem_familyname;
 		$familybodysql .= ",',',family.familyname";
-		$indivbodysql .= ",',',family.familyname";
+		$indivbodysql .= ",',',coalesce(family.familyname,'')";
 	
 	}
 	
@@ -410,9 +405,10 @@ $sSQL= "CREATE temporary TABLE  `tmplabel` (
 	$recipientplus.=",$cr";
 	$fambody.=",$cr";
 
+	
 	$sSQL = "insert into tmplabel(familyid, sortMe, body) Select 0,$sortMe, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid=0" . $sWhereExt;
 	
-//	echo $sSQL;
+	//echo $sSQL;
 	$this->db->query($sSQL); 
 
 
@@ -429,11 +425,13 @@ $sSQL= "CREATE temporary TABLE  `tmplabel` (
 		body=concat($familybodysql)
 		where tmplabel.familyid=fam.id";
 		$this->db->query($sSQL); 
+		
 		break;
 		
 		default:
+		
 		$sSQL = "insert into tmplabel(familyid, sortMe, body) Select 0,$sortMe, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid!=0" . $sWhereExt;
-		echo $sSQL;
+		
 		$this->db->query($sSQL); 
 		break;
 	

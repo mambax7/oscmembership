@@ -41,15 +41,8 @@ class  Labelcriteria extends XoopsObject
         $this->initVar('bdiraddress', XOBJ_DTYPE_INT);
         $this->initVar('bdirwedding', XOBJ_DTYPE_INT);
         $this->initVar('bdirbirthday', XOBJ_DTYPE_INT);
-        $this->initVar('bdirfamilyphone', XOBJ_DTYPE_INT);
-        $this->initVar('bdirfamilywork', XOBJ_DTYPE_INT);
-        $this->initVar('bdirfamilycell', XOBJ_DTYPE_INT);
-        $this->initVar('bdirfamilyemail', XOBJ_DTYPE_INT);
-        $this->initVar('bdirpersonalphone', XOBJ_DTYPE_INT);
-        $this->initVar('bdirpersonalwork', XOBJ_DTYPE_INT);
-        $this->initVar('bdirpersonalcell', XOBJ_DTYPE_INT);
-        $this->initVar('bdirpersonalemail', XOBJ_DTYPE_INT);
-        $this->initVar('bdirpersonalworkemail', XOBJ_DTYPE_INT);
+        $this->initVar('bphone', XOBJ_DTYPE_INT);
+        $this->initVar('bemail', XOBJ_DTYPE_INT);
         $this->initVar('sdirclassifications', XOBJ_DTYPE_TXTBOX);
         $this->initVar('sdirroleheads', XOBJ_DTYPE_TXTBOX);
         $this->initVar('benvelope', XOBJ_DTYPE_INT);
