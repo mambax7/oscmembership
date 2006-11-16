@@ -51,6 +51,15 @@ class  Labelcriteria extends XoopsObject
 	$this->initVar('soutputmethod',XOBJ_DTYPE_TXTBOX);
 		
 	$this->initVar('customfields',XOBJ_DTYPE_ARRAY);
+	$this->initVar('gender',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('membershipdatefrom',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('membershipdateto',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('birthdayfrom',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('birthdayto',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('anniversaryfrom',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('anniversaryto',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('dateenteredfrom',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('dateenteredto',XOBJ_DTYPE_TXTBOX);
 
     }
 

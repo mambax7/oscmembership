@@ -282,21 +282,50 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	$blank="''";		
 	$sGroupTable = "";
 	
-	$sWhereExt="";
+	$sWhereExt=" ";
 	
 
-	if ($labelcriteria->getVar('sdirclassifications')) $sWhereExt = " person.clsid in (" . $labelcriteria->getVar('sdirclassifications') . ")";
+	if ($labelcriteria->getVar('sdirclassifications')) $sWhereExt = "  and person.clsid in (" . $labelcriteria->getVar('sdirclassifications') . ")";
 	
 	if (!empty($sGroupsList))
 	{
-		$sGroupTable = ", " . $this->db->prefix("oscmembership_group_members") . " g ";
+		$sGroupTable = "join " . $this->db->prefix("oscmembership_group_members") . " g on g.person_id = person.id ";
 	
-		$sWhereExt .= " AND g.person_id = person.id AND g.group_id in (" . $sGroupsList . ") ";
+		$sWhereExt .= " AND g.group_id in (" . $sGroupsList . ") ";
 	
 		// This is used by per-role queries to remove duplicate rows from people assigned multiple groups.
 		$sGroupBy = " GROUP BY per_ID";
 	}
-		
+	
+	$gender = $labelcriteria->getVar('gender');
+	
+	if (!empty($gender))
+	{
+		$sWhereExt .= " AND person.gender=" . $labelcriteria->getVar('gender') ;
+	}
+
+	if(isset($labelcriteria->getVar('membershipdatefrom'))
+	{
+		$sWhereExt .= " AND person.membershipdate between '" . $labelcriteria->getVar('membershipdatefrom') . "' AND '" . $labelcriteria->getVar('membershipdateto') . "'";
+	}
+
+	if(isset($labelcriteria->getVar('birthdaymonthfrom'))
+	{
+		$sWhereExt .= " AND person.birthmonth between " . $labelcriteria->getVar('birthmonthfrom') . " AND " . $labelcriteria->getVar('birthmonthto');
+	}
+			
+
+	if(isset($labelcriteria->getVar('birthdayyearfrom'))
+	{
+		$sWhereExt .= " AND person.birthyear between " . $labelcriteria->getVar('birthyearfrom') . " AND " . $labelcriteria->getVar('birthyearto');
+	}
+
+	if(isset($labelcriteria->getVar('anniversaryfrom'))
+	{
+		$sWhereExt .= " AND family.person.birthyear between " . $labelcriteria->getVar('birthyearfrom') . " AND " . $labelcriteria->getVar('birthyearto');
+	}
+
+			
 		//Determine sort selection
 	if($bSortFirstName)
 		$sortMe = " person.firstname ";
@@ -408,7 +437,7 @@ $sSQL= "CREATE temporary TABLE  `tmplabel` (
 	
 	$sSQL = "insert into tmplabel(familyid, sortMe, body) Select 0,$sortMe, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid=0" . $sWhereExt;
 	
-	//echo $sSQL;
+	echo $sSQL;
 	$this->db->query($sSQL); 
 
 
@@ -431,6 +460,8 @@ $sSQL= "CREATE temporary TABLE  `tmplabel` (
 		default:
 		
 		$sSQL = "insert into tmplabel(familyid, sortMe, body) Select 0,$sortMe, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid!=0" . $sWhereExt;
+		
+//		echo $sSQL;
 		
 		$this->db->query($sSQL); 
 		break;

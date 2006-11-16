@@ -20,6 +20,10 @@ define("_oscmem_email","Email");
 define("_oscmem_country","Country");
 define("_oscmem_title","Member Directory");
 define("_oscmem_birthday","Birthday");
+define("_oscmem_month","Month");
+define("_oscmem_year","Year");
+define("_oscmem_birthfrom","From");
+define("_oscmem_birthto","To");
 define("_oscmem_gender","Gender");
 define("_oscmem_membershipdate","Membership Date");
 define("_oscmem_memberclass","Classification");
@@ -115,6 +119,8 @@ define("_oscmem_osclist_TITLE_grouptypes","Group Types");
 define("_oscmem_admin_osclist_familyroles","Modify Family Roles");
 
 define("_oscmem_admin_osclist_memberclassification","Modify Member Classifications");
+
+define("_oscmem_noclass","No Classification");
 
 define("_oscmem_admin_osclist_grouptype","Modify Group Types");
 

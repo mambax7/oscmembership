@@ -49,15 +49,15 @@ elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirnam
 //ob_start();
 
 // Get Source and Format from the request object and assign them locally
-$sSource = isset($_POST["Source"]);
-$sSource= strtolower($sSource);
-$sFormat=isset($_POST["Format"]);
-$sFormat = strtolower($sFormat);
+if (isset($_POST['Source'])) $sSource = strtolower($_POST['Source']);
+if (isset($_POST['Format'])) $sFormat = strtolower($_POST['Format']);
 
 $bSkipIncompleteAddr = isset($_POST["SkipIncompleteAddr"]);
 $bSkipNoEnvelope = isset($_POST["SkipNoEnvelope"]);
 $bdropfamily = isset($_POST["dropfamily"]);
 $bfirstlastorder = isset($_POST["firstnamelastorder"]);
+
+if (isset($_POST['gender'])) $gender=$_POST['gender'];
 
 $aClasses=array();
 
@@ -108,6 +108,7 @@ $labelcritiera_handler = &xoops_getmodulehandler('labelcriteria', 'oscmembership
 
 $labelcritiera=$labelcritiera_handler->create();
 
+$labelcritiera->assignVar('gender',$gender);
 $labelcritiera->assignVar('sdirclassifications',$sDirClassifications);
 
 $labelcritiera->assignVar('customfields',$custfieldarr);
@@ -128,6 +129,21 @@ $labelcritiera->assignVar('benvelope',isset($_POST["benvelope"]));
 $labelcritiera->assignVar('brole',isset($_POST["bfamilyrole"]));
 $labelcritiera->assignVar('bfamilyname',isset($_POST["bfamilyname"]));
 $labelcritiera->assignVar('soutputmethod',isset($_POST["soutputmethod"]));
+
+$labelcritiera->assignVar('membershipdatefrom',isset($_POST["memberdatefrom"]));
+$labelcritiera->assignVar('membershipdateto',isset($_POST["memberdateto"]));
+
+$labelcritiera->assignVar('birthdaymonthfrom',isset($_POST["birthdaymonthfrom"]));
+$labelcritiera->assignVar('birthdaymonthto',isset($_POST["birthdaymonthto"]));
+
+$labelcritiera->assignVar('birthdayyearfrom',isset($_POST["birthdayyearfrom"]));
+$labelcritiera->assignVar('birthdayyearto',isset($_POST["birthdayyearto"]));
+
+$labelcritiera->assignVar('anniversaryfrom',isset($_POST["anniversaryfrom"]));
+$labelcritiera->assignVar('anniversaryto',isset($_POST["anniversaryto"]));
+
+$labelcritiera->assignVar('dateenteredfrom',isset($_POST["dateenteredfrom"]));
+$labelcritiera->assignVar('dateenteredto',isset($_POST["dateenteredto"]));
 
 $labels=$label_handler->getexport(false, false, $groups,$labelcritiera);
 

@@ -168,7 +168,7 @@ while($row = $db->fetchArray($familyroles))
 	$i++;
 }
 
-$xoopsTpl->assign('roles_array',$roles_array);
+$xoopsTpl->assign('role_array',$roles_array);
 
 $gender_array=array();
 $gender_array[0]['id']=0;
@@ -201,6 +201,7 @@ while($row = $db->fetchArray($result))
 }
 
 
+$xoopsTpl->assign('groups_array',$groups_array);
 
 $xoopsTpl->assign('oscmem_membershipdate',_oscmem_membershipdate);
 
@@ -211,11 +212,22 @@ $xoopsTpl->assign('memberdatefrom', $membershipdate_from->render());
 $xoopsTpl->assign('memberdateto',$membershipdate_to->render()); 
 
 $xoopsTpl->assign('oscmem_birthday',_oscmem_birthday);
-$birthday_from = new XoopsFormTextDateSelect(_oscmem_filter_from,'birthdayfrom');
-$birthday_to = new XoopsFormTextDateSelect(_oscmem_filter_to,'birthdayto');
+$birthdaymonth_from = new XoopsFormText('','birthdaymonthfrom',2,2);
+$birthdayyear_from=new XoopsFormText('','birthdayyearfrom',4,4);
+$birthdaymonth_to = new XoopsFormText('','birthdaymonthto',2,2);
+$birthdayyear_to = new XoopsFormText('','birthdayyearto',4,4);
 
-$xoopsTpl->assign('birthdayfrom',$birthday_from->render());
-$xoopsTpl->assign('birthdayto',$birthday_to->render());
+$xoopsTpl->assign('oscmem_birthfrom',_oscmem_birthfrom);
+$xoopsTpl->assign('oscmem_birthto',_oscmem_birthto);
+
+$xoopsTpl->assign('birthmonthfrom',_oscmem_month . "&nbsp;&nbsp;" . $birthdaymonth_from->render());
+
+$xoopsTpl->assign('birthyearfrom',_oscmem_year . "&nbsp;&nbsp;" . $birthdayyear_from->render());
+
+$xoopsTpl->assign('birthmonthto',_oscmem_month . "&nbsp;&nbsp;" . $birthdaymonth_to->render());
+
+$xoopsTpl->assign('birthyearto',_oscmem_year . "&nbsp;&nbsp;" . $birthdayyear_to->render());
+
 
 $xoopsTpl->assign('oscmem_anniversary',_oscmem_anniversary);
 

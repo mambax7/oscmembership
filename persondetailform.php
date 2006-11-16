@@ -206,6 +206,7 @@ $option_array=array();
 
 $osclist = $osclist_handler->create();
 
+$option_array[0]=_oscmem_noclass;
 if(isset($optionItems))
 {
 	foreach($optionItems as $osclist)
@@ -254,8 +255,8 @@ $membershipdate_dt= new XoopsFormTextDateSelect(_oscmem_membershipdate,'membersh
 //$membershipdate_text = new XoopsFormText(_oscmem_membershipdate, "membershipdate", 30, 50, $person->getVar('membershipdate'));
 
 $gender_array=array();
-$gender_array[0]=_oscmem_male;
-$gender_array[1]=_oscmem_female;
+$gender_array[1]=_oscmem_male;
+$gender_array[2]=_oscmem_female;
 
 $gender_select = new XoopsFormSelect(_oscmem_gender,'gender',$person->getVar('gender'),1,false, 'gender');
 $gender_select->addOptionArray($gender_array);
