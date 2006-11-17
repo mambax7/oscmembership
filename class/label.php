@@ -284,9 +284,12 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	
 	$sWhereExt=" ";
 	
-
-	if ($labelcriteria->getVar('sdirclassifications')) $sWhereExt = "  and person.clsid in (" . $labelcriteria->getVar('sdirclassifications') . ")";
-	
+/*
+	if (!empty($labelcriteria->getVar('sdirclassifications')))
+	{
+	 $sWhereExt = "  and person.clsid in (" . $labelcriteria->getVar('sdirclassifications') . ")";
+	 }
+*/	
 	if (!empty($sGroupsList))
 	{
 		$sGroupTable = "join " . $this->db->prefix("oscmembership_group_members") . " g on g.person_id = person.id ";
@@ -304,25 +307,30 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 		$sWhereExt .= " AND person.gender=" . $labelcriteria->getVar('gender') ;
 	}
 
-	if(isset($labelcriteria->getVar('membershipdatefrom'))
+	$membershipdatefrom= $labelcriteria->getVar('membershipdatefrom');
+	if (!empty($membershipdatefrom))
 	{
 		$sWhereExt .= " AND person.membershipdate between '" . $labelcriteria->getVar('membershipdatefrom') . "' AND '" . $labelcriteria->getVar('membershipdateto') . "'";
 	}
 
-	if(isset($labelcriteria->getVar('birthdaymonthfrom'))
+	$birthdayfrom=$labelcriteria->getVar('birthdaymonthfrom');
+	
+	if(!empty($birthdayfrom))
 	{
 		$sWhereExt .= " AND person.birthmonth between " . $labelcriteria->getVar('birthmonthfrom') . " AND " . $labelcriteria->getVar('birthmonthto');
 	}
 			
 
-	if(isset($labelcriteria->getVar('birthdayyearfrom'))
+	$birthdayyearfrom=$labelcriteria->getVar('birthdayyearfrom');
+	if(!empty($birthdayyearfrom))
 	{
 		$sWhereExt .= " AND person.birthyear between " . $labelcriteria->getVar('birthyearfrom') . " AND " . $labelcriteria->getVar('birthyearto');
 	}
 
-	if(isset($labelcriteria->getVar('anniversaryfrom'))
+	$anniversaryfrom=$labelcriteria->getVar('anniversaryfrom');
+	if(!empty($anniversaryfrom))
 	{
-		$sWhereExt .= " AND family.person.birthyear between " . $labelcriteria->getVar('birthyearfrom') . " AND " . $labelcriteria->getVar('birthyearto');
+		$sWhereExt .= " AND family.weddingdate between " . $labelcriteria->getVar('anniversaryfrom') . " AND " . $labelcriteria->getVar('anniversaryto');
 	}
 
 			

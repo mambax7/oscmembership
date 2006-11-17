@@ -130,20 +130,45 @@ $labelcritiera->assignVar('brole',isset($_POST["bfamilyrole"]));
 $labelcritiera->assignVar('bfamilyname',isset($_POST["bfamilyname"]));
 $labelcritiera->assignVar('soutputmethod',isset($_POST["soutputmethod"]));
 
-$labelcritiera->assignVar('membershipdatefrom',isset($_POST["memberdatefrom"]));
-$labelcritiera->assignVar('membershipdateto',isset($_POST["memberdateto"]));
+if(isset($_POST["memberdatefrom"])) 
+{
+	if($_POST["memberdatefrom"]!="YYYY/MM/DD")
+	{
+	$labelcritiera->assignVar('membershipdatefrom',$_POST["memberdatefrom"]);
+	$labelcritiera->assignVar('membershipdateto',$_POST["memberdateto"]);
+	}
+}
 
-$labelcritiera->assignVar('birthdaymonthfrom',isset($_POST["birthdaymonthfrom"]));
-$labelcritiera->assignVar('birthdaymonthto',isset($_POST["birthdaymonthto"]));
+if(isset($_POST["birthdaymonthfrom"]))
+{
+	$labelcritiera->assignVar('birthdaymonthfrom',$_POST["birthdaymonthfrom"]);
+	$labelcritiera->assignVar('birthdaymonthto',$_POST["birthdaymonthto"]);
+}
 
-$labelcritiera->assignVar('birthdayyearfrom',isset($_POST["birthdayyearfrom"]));
-$labelcritiera->assignVar('birthdayyearto',isset($_POST["birthdayyearto"]));
+if(isset($_POST["birthdayyearfrom"]))
+{
+	$labelcritiera->assignVar('birthdayyearfrom',$_POST["birthdayyearfrom"]);
+	$labelcritiera->assignVar('birthdayyearto',$_POST["birthdayyearto"]);
+}
 
-$labelcritiera->assignVar('anniversaryfrom',isset($_POST["anniversaryfrom"]));
-$labelcritiera->assignVar('anniversaryto',isset($_POST["anniversaryto"]));
+if(isset($_POST["anniversaryfrom"]))
+{
+	if($_POST["anniversaryfrom"]!="YYYY/MM/DD")
+	{
+	$labelcritiera->assignVar('anniversaryfrom',$_POST["anniversaryfrom"]);
+	$labelcritiera->assignVar('anniversaryto',$_POST["anniversaryto"]);
+	}
+}
 
-$labelcritiera->assignVar('dateenteredfrom',isset($_POST["dateenteredfrom"]));
-$labelcritiera->assignVar('dateenteredto',isset($_POST["dateenteredto"]));
+if(isset($_POST["dateenteredfrom"]))
+{
+	if($_POST["dateenteredfrom"]!="YYYY/MM/DD")
+	{
+	$labelcritiera->assignVar('dateenteredfrom',isset($_POST["dateenteredfrom"]));
+	$labelcritiera->assignVar('dateenteredto',isset($_POST["dateenteredto"]));
+	}
+}
+
 
 $labels=$label_handler->getexport(false, false, $groups,$labelcritiera);
 
