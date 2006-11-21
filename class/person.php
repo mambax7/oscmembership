@@ -676,8 +676,7 @@ function &searchgroupmembers($searcharray, $groupid)
 		. ",birthmonth=" . $person->getVar('birthmonth')
 		. ",birthday=" . $person->getVar('birthday')
 		. ",birthyear=" . $person->getVar('birthyear')
-		. ",membershipdate=" . 	
-		$this->db->quoteString($person->getVar('membershipdate'))
+		. ",membershipdate=" . $this->db->quoteString(date('Y-m-d',strtotime($person->getVar('membershipdate'))))
 		. ",clsid=" . $person->getVar('clsid')
 		. ",gender=" . $person->getVar('gender')
 		. ",fmrid=" . $person->getVar('fmrid');

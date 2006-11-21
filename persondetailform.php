@@ -126,24 +126,15 @@ switch (true)
 
 	if(isset($_POST['memberclass'])) $person->assignVar('clsid',$_POST['memberclass']);
 
-	if(isset($_POST['membershipdate']))
-	{		
-		if(!preg_match('`[0-9]{4}/[01][0-9]/[0123][0-9]`', $_POST['membershipdate'])) 
-		{
-			if($_POST['membershipdate']='YYYY/MM/DD')
-			{
-				//do nothing
-			}
-			else
-			{
-				redirect_header("persondetailform.php?id=" . $personid, 3, _oscmem_incorrectdt_membershipdate."<br />".implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
-				exit;
-			}
-		}
-		else
-		$person->assignVar('membershipdate',$_POST['membershipdate']);
+	$person->assignVar('membershipdate',oscverifyXoopsDate($_POST['membershipdate']));
+	
+	if($person->getVar('membershipdate')=='error')
+	{
+		redirect_header("persondetailform.php?id=" . $personid, 3, _oscmem_incorrectdt_membershipdate."<br />".implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
+		exit;
 	}
-
+	
+	
 
 	$customFields = $persondetail_handler->getcustompersonFields();
 	

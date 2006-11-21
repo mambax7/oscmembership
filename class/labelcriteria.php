@@ -54,12 +54,15 @@ class  Labelcriteria extends XoopsObject
 	$this->initVar('gender',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('membershipdatefrom',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('membershipdateto',XOBJ_DTYPE_TXTBOX);
-	$this->initVar('birthdayfrom',XOBJ_DTYPE_TXTBOX);
-	$this->initVar('birthdayto',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('birthdaymonthfrom',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('birthdayyearfrom',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('birthdaymonthto',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('birthdayyearto',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('anniversaryfrom',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('anniversaryto',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('dateenteredfrom',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('dateenteredto',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('bincompleteaddress',XOBJ_DTYPE_INT);
 
     }
 
@@ -71,6 +74,7 @@ class oscMembershipLabelcriteriaHandler extends XoopsObjectHandler
     
     function &create($isNew = true)
     {
+    
         $labelcriteria = new Labelcriteria ();
         if ($isNew) {
             $labelcriteria->setNew();

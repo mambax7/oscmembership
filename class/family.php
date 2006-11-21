@@ -256,6 +256,8 @@ function &modsearch($searcharray)
      
 	function &update(&$family)
     	{
+	echo $family->getVar('weddingdate');
+	
 		$sql = "UPDATE " . $family->table
 		. " SET "		
 		. "familyname=" . $this->db->quoteString($family->getVar('familyname'))
@@ -279,14 +281,16 @@ function &modsearch($searcharray)
 		$this->db->quoteString($family->getVar('cellphone'))
 		. ",email=" . 	
 		$this->db->quoteString($family->getVar('email'))
-		. ",weddingdate='" . 	
-		date('Y-m-d',strtotime($this->db->quoteString($family->getVar('weddingdate'))));
-		$sql = $sql . "',datelastedited=" .  			
+		. ",weddingdate=" .
+		$this->db->quoteString(date('Y-m-d',strtotime($family->getVar('weddingdate'))));
+		
+//		$this->db->quoteString(date('Y-m-d',strtotime($this->db->quoteString($family->getVar('weddingdate')))));
+		$sql .= ",datelastedited=" .  			
 		$this->db->quoteString($family->getVar('datelastedited'))
 		. ",editedby=" . $this->db->quoteString($family->getVar('editedby')) . 
 		 
 		" where id=" . $family->getVar('id');
-		echo $sql;
+		echo "this" . $sql;
 			
 		if (!$result = $this->db->query($sql)) {
 			echo "<br />oscmembershipHandler::get error::" . $sql;
@@ -297,7 +301,8 @@ function &modsearch($searcharray)
 
 	     
 	function &insert(&$family)
-    	{
+    	
+	{
 
 		$sql = "INSERT into " . $family->table
 		. "(familyname, address1, address2, city, state, zip, " 

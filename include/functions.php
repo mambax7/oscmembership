@@ -687,7 +687,38 @@ function SelectWhichAddress(&$sReturnAddress1, &$sReturnAddress2, $sPersonAddres
 			return 0;
 		}
 	}
+	
 }
+
+
+function oscverifyXoopsDate($passeddate, $exceptiontext=_oscmem_invaliddate)
+{
+
+	if(isset($passeddate))
+	{
+		if($passeddate=='YYYY/MM/DD' or empty($passeddate))
+		{
+			return '';
+		}
+		else
+		{
+			if(!preg_match('`[0-9]{4}/[01][0-9]/[0123][0-9]`', $passeddate)) 
+			{
+				if(!preg_match('`[0-9]{4}-[01][0-9]-[0123][0-9]`', $passeddate))
+				{ 
+					return 'error';
+					exit;
+				}
+				else return $passeddate;	
+			}
+			else
+			{
+				return $passeddate;
+			}
+		}
+	}
+}
+
 
 /******************************************************************************
  * Returns the proper information to use for a field.

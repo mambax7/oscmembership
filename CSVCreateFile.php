@@ -125,10 +125,14 @@ $labelcritiera->assignVar('bdirpersonalcell',isset($_POST["bcellphone"]));
 $labelcritiera->assignVar('bdirpersonalemail',isset($_POST["bemail"]));
 $labelcritiera->assignVar('bdirpersonalworkemail',isset($_POST["otheremail"]));
 
+$labelcritiera->assignVar('bincompleteaddress',isset($_POST["bincompleteaddress"]));
+
 $labelcritiera->assignVar('benvelope',isset($_POST["benvelope"]));
 $labelcritiera->assignVar('brole',isset($_POST["bfamilyrole"]));
 $labelcritiera->assignVar('bfamilyname',isset($_POST["bfamilyname"]));
-$labelcritiera->assignVar('soutputmethod',isset($_POST["soutputmethod"]));
+
+if(isset($_POST["soutputmethod"]))
+	$labelcritiera->assignVar('soutputmethod',$_POST["soutputmethod"]);
 
 if(isset($_POST["memberdatefrom"])) 
 {
@@ -164,8 +168,8 @@ if(isset($_POST["dateenteredfrom"]))
 {
 	if($_POST["dateenteredfrom"]!="YYYY/MM/DD")
 	{
-	$labelcritiera->assignVar('dateenteredfrom',isset($_POST["dateenteredfrom"]));
-	$labelcritiera->assignVar('dateenteredto',isset($_POST["dateenteredto"]));
+	$labelcritiera->assignVar('dateenteredfrom',$_POST["dateenteredfrom"]);
+	$labelcritiera->assignVar('dateenteredto',$_POST["dateenteredto"]);
 	}
 }
 
