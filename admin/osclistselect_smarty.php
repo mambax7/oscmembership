@@ -1,10 +1,15 @@
 <?php
 
-include("../../../mainfile.php");
-
 include '../../../include/cp_header.php';
+include_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
+xoops_cp_header();
 
-include_once XOOPS_ROOT_PATH.'/header.php';
+$xTheme->loadModuleAdminMenu(4);
+
+$module_id = $xoopsModule->getVar('mid');
+
+
+include("../../../mainfile.php");
 
 xoops_cp_header();
 
@@ -56,7 +61,7 @@ case 2: //family roles
 	
 	break;
 
-case 4: //member classification
+case 1: //member classification
 	$xoopsTpl->assign("option_class",_oscmem_addmemberclassification );
 	$xoopsTpl->assign("title",_oscmem_osclist_TITLE_memberclassifications);
 	
@@ -82,13 +87,6 @@ $xoopsTpl->assign("id",$id);
 
 $osclist=new Osclist();
 
-include(XOOPS_ROOT_PATH."/footer.php");
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-
-
-
-
+xoops_cp_footer();
 
 ?>

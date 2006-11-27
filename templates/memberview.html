@@ -28,7 +28,14 @@
 <td width=10><input name="chk<{$person.loopcount}>" value="<{$person.id}>" type="checkbox"></td>
 <td><{$person.lastname}>, <{$person.firstname}></td>
 <td><{$person.city}>, <{$person.state}></td><td><{$person.email}></td>
-<td><a href='persondetailform.php?id=<{$person.id}>'>Edit</a></td>
+<td><{ if $is_perm_view }>
+<a href='persondetailview.php?id=<{$person.id}>'><{$oscmem_view}></a>
+<{/if}>
+&nbsp;&nbsp;&nbsp;
+<{ if $is_perm_modify }>
+<a href='persondetailform.php?id=<{$person.id}>'><{$oscmem_edit}></a>
+<{/if}>
+</td>
 </tr>
 <{/foreach}>
 

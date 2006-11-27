@@ -1,6 +1,33 @@
 <?php
 if ( $xoopsUser )
 {
+	function hasPerm($permission, $user)
+	{
+		$groupPermHandler =& xoops_gethandler('groupperm');
+		$moduleHandler =& xoops_gethandler('module');
+		$module = $moduleHandler->getByDirname('oscmembership');
+
+		$returnval = false;
+		$perm=$groupPermHandler->getItemIds($permission,$user->getGroups(),$module->getVar("mid"));
+		foreach (array_keys($perm) as $i) 
+		{
+			if($perm[$i] )
+			{
+				$returnvalue=true;
+			}
+			else $returnvalue=false;
+		}
+	
+		if($user->isAdmin($module->getVar("mid")))
+		{
+			$returnvalue=true;
+		}
+		
+		return $returnvalue;
+	}
+
+
+
 	if ( $xoopsUser->isAdmin() )
 	{
 		function connecte( $id )

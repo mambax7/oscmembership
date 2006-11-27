@@ -112,17 +112,13 @@ define("_oscmem_optionname","Option Name");
 define("_oscmem_optionsequence","Sequence");
 define("_oscmem_osclist_famrole_TITLE","Family Roles");
 
-define("_oscmem_osclist_TITLE_familyroles","Family Roles");
-define("_oscmem_osclist_TITLE_memberclassifications","Member Classifications");
-define("_oscmem_osclist_TITLE_grouptypes","Group Types");
+//define("_oscmem_osclist_TITLE_familyroles","Family Roles");
+//define("_oscmem_osclist_TITLE_memberclassifications","Member Classifications");
+//define("_oscmem_osclist_TITLE_grouptypes","Group Types");
 
-define("_oscmem_admin_osclist_familyroles","Modify Family Roles");
-
-define("_oscmem_admin_osclist_memberclassification","Modify Member Classifications");
 
 define("_oscmem_noclass","No Classification");
 
-define("_oscmem_admin_osclist_grouptype","Modify Group Types");
 
 define("_oscmem_filter","Filter");
 define("_oscmem_applyfilter","Apply Filter");
@@ -236,4 +232,12 @@ define("_oscmem_csv_outputmethod","Output Method");
 
 define("_oscmem_csv_skipincompleteaddress","Skip Incomplete Mail Addresses");
 define("_oscmem_csv_skipnoenvelope","Skip Records with No Envelope Number<br>(Individual Records Only)");
+
+define("_oscmem_admin_osclist_familyroles","Modify Family Roles");
+define("_oscmem_admin_osclist_memberclassification","Modify Member Classifications");
+define("_oscmem_admin_osclist_grouptype","Modify Group Types");
+define("_oscmem_admin_osclist_permissions","Modify Permissions");
+
+define("_oscmem_view","View");
+
 ?>

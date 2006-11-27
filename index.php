@@ -1,7 +1,6 @@
 <?php
 include("../../mainfile.php");
 //$xoopsOption['pagetype'] = "admin";
-
 $GLOBALS['xoopsOption']['template_main'] ="memberview.html";
 
 //redirect
@@ -12,15 +11,36 @@ if (!$xoopsUser)
 
 
 //verify permission
+/*
 if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
     exit("Access Denied");
 }
+*/
+
+$user=$xoopsUser;
+$perm="View Permissions";
+$userId = ($user) ? $user->getVar('uid') : 0;
+//$permissionPull = $groupPermHandler->getItemIds($perm, $user->groups(), $module->getVar("mid"));
+
+
 
 include XOOPS_ROOT_PATH."/include/cp_functions.php";
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/person.php';
+include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/functions.php';
 
 include(XOOPS_ROOT_PATH."/header.php");
+
+/*
+		echo $xoopsUser->getGroups();
+		echo $module->getVar("mid");
+		
+		$perm=$groupPermHandler->getItemIds("oscmem_view",$xoopsUser->getGroups(),$module->getVar("mid"));
+*/
+
+
+if(hasPerm("oscmembership_view",$xoopsUser)) $ispermview=true;
+if(hasPerm("oscmembership_modify",$xoopsUser)) $ispermmodify=true;
 
 //xoops_cp_header();
 
@@ -111,6 +131,10 @@ $xoopsTpl->assign('oscmem_clearfilter',_oscmem_clearfilter);
 $xoopsTpl->assign('oscmem_addtocart',_oscmem_addtocart);
 $xoopsTpl->assign('oscmem_removefromcart',_oscmem_removefromcart);
 $xoopsTpl->assign('oscmem_addmember',_oscmem_addmember);
+$xoopsTpl->assign('is_perm_view',$ispermview);
+$xoopsTpl->assign('is_perm_modify',$ispermmodify);
+$xoopsTpl->assign('oscmem_view',_oscmem_view);
+$xoopsTpl->assign('oscmem_edit',_oscmem_edit);
 
 $xoopsTpl->assign('persons',$persons);
 

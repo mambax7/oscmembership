@@ -50,16 +50,30 @@ define("_oscmem_itemname","Item Name");
 define("_oscmem_itemsequence","Sequence");
 
 //3
-define("_oscmem_addgrouptype","Add Group Type");
 define("_oscmem_osclist_TITLE_grouptypes","Group Types");
 
 //2
-define("_oscmem_addfamilyrole","Add Family Role");
 define("_oscmem_osclist_TITLE_familyroles","Family Roles");
 
 //4
-define("_oscmem_addmemberclassification","Add Member Classification");
 define("_oscmem_osclist_TITLE_memberclassifications","Member Classifications");
+
+define("_oscmem_admin_osclist_permissions","Permissions");
+
+define("_oscmem_admin_osclist_familyroles","Family Roles");
+
+define("_oscmem_admin_osclist_memberclassification","Member Classifications");
+
+define("_oscmem_admin_osclist_grouptype","Group Types");
+
+define("_oscmem_permissions_view","View Permissions");
+define("_oscmem_permissions_view_desc","View allows the selected groups to view membership data.");
+
+define("_oscmem_permissions_modify","Modify Permissions");
+define("_oscmem_permissions_modify_desc","Modify allows the selected groups to modify membership data.");
+
+define("_oscmem_permissions_admin","Admin Permissions");
+define("_oscmem_permissions_admin_desc","Admin permission grants all permissions to the selected group.");
 
 
 ?>
