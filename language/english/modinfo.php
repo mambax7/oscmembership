@@ -145,6 +145,8 @@ define("_oscmem_no","No");
 define("_oscmem_reporttitle","OSC Membership Reports");
 define("_oscmem_directoryreport","Membership Directory");
 define("_oscmem_reports", "Reports");
+define("_oscmem_nav_reports","Reports/Data");
+define("_oscmem_csvimport","CSV Import");
 
 define("_oscmem_dirreport_selectclass","Select classifications to include:");
 define("_oscmem_usectl","Use Ctrl Key to select multiple");
@@ -240,4 +242,6 @@ define("_oscmem_admin_osclist_permissions","Modify Permissions");
 
 define("_oscmem_view","View");
 
+define("_oscmem_defaultcountry_value",22);
+define("_oscmem_defaultcountry_text"," &nbsp;&nbsp;(Default Country is USA)");
 ?>

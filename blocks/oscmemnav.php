@@ -78,7 +78,7 @@ function oscmemnav_show($options)
 <a href='viewcart.php'>" . _oscmem_view_cart . "</a>
 </small>
 </TD>
-<td>|</td><td align=center><small><a href='reports.php'>" . _oscmem_reports . "</a></small></td>
+<td>|</td><td align=center><small><a href='reports.php'>" . _oscmem_nav_reports . "</a></small></td>
 </tr>
 </table>
 ";

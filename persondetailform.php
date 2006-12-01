@@ -215,7 +215,7 @@ $address2_text = new XoopsFormText('', "address2", 30, 50, $person->getVar('addr
 $city_text = new XoopsFormText(_oscmem_city, "city", 30, 50, $person->getVar('city'));
 $state_text = new XoopsFormText(_oscmem_state, "state", 30, 50, $person->getVar('state'));
 $post_text = new XoopsFormText(_oscmem_post, "post", 30, 50, $person->getVar('zip'));
-$country_text = new XoopsFormText(_oscmem_country, "country", 30, 50, $person->getVar('country'));
+$country_text = new XoopsFormSelectCountry(_oscmem_country, "country", $person->getVar('country'));
 
 $homephone_text = new XoopsFormText(_oscmem_homephone, "homephone", 30, 50, $person->getVar('homephone'));
 
@@ -288,7 +288,10 @@ $editedby_label = new XoopsFormLabel(_oscmem_editedby, $user->getVar('uname'));
 
 $dateentered_label = new XoopsFormLabel(_oscmem_dateentered, $person->getVar('dateentered'));
 
-$user = $member_handler->getUser($person->getVar('enteredby'));
+if($person->getVar('enteredby')<>'')
+{
+	$user = $member_handler->getUser($person->getVar('enteredby'));
+}
 
 $enteredby_label = new XoopsFormLabel(_oscmem_enteredby, $user->getVar('uname'));
 
