@@ -1,19 +1,24 @@
 <?php
 
-include '../../../include/cp_header.php';
-include_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
-xoops_cp_header();
-
-$xTheme->loadModuleAdminMenu(4);
-
-$module_id = $xoopsModule->getVar('mid');
-
 
 include("../../../mainfile.php");
+include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+include_once XOOPS_ROOT_PATH . '/class/template.php';
+$xoopsTpl = new XoopsTpl();
+
+
+$xoopsOption['template_main'] = 'oscmembership_optionlist.html';
+
+include '../../../include/cp_header.php';
+include '../../../class/pagenav.php';
+
+include_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
 
 xoops_cp_header();
 
-$xoopsOption['template_main'] = 'oscmembership_optionlist.html';
+//$xTheme->loadModuleAdminMenu(4);
+
+$module_id = $xoopsModule->getVar('mid');
 
 //redirect
 if (!$xoopsUser)
@@ -27,7 +32,6 @@ if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin(
     exit("Access Denied");
 }
 
-include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/osclist.php';
 
 //determine action
@@ -56,8 +60,8 @@ $osclist->assignVar('id',$id);
 switch ($id)
 {
 case 2: //family roles
-	$xoopsTpl->assign("option_class",_oscmem_addfamilyrole);
-	$xoopsTpl->assign("title",_oscmem_osclist_TITLE_familyroles);
+	$xoopsTpl->assign('option_class',_oscmem_addfamilyrole);
+	$xoopsTpl->assign('title',_oscmem_osclist_TITLE_familyroles);
 	
 	break;
 
@@ -86,6 +90,7 @@ $xoopsTpl->assign("id",$id);
 
 
 $osclist=new Osclist();
+$xoopsTpl->display( 'db:oscmembership_optionlist.html' );
 
 xoops_cp_footer();
 
