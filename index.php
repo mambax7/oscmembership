@@ -67,13 +67,11 @@ if(isset($submit))
 		//do nothing
 		break;
 	case _oscmem_clearfilter:
-		echo $filter;
 		$filter="";
 		break;
 		
 	case _oscmem_addtocart: 
 		//call add cart
-		echo "xxx";
 		for($i=0;$i<$loopcount+1;$i++)
 		{
 			if (isset($_POST['chk' . $i]))
