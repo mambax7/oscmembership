@@ -42,7 +42,7 @@ define("_oscmem_addfamilyrole","Add Family Role");
 define("_oscmem_addmemberclassification","Add Member Classification");
 define("_oscmem_addgrouptype","Add Group Type");
 
-define("_oscmem_familyrole_createsuccess","The Family role has been created successfully.");
+define("_oscmem_createsuccess","The Item has been created successfully.");
 
 define("_oscmem_familyrole_optionname","Name");
 define("_oscmem_option_sort","Sort");
@@ -75,5 +75,6 @@ define("_oscmem_permissions_modify_desc","Modify allows the selected groups to m
 define("_oscmem_permissions_admin","Admin Permissions");
 define("_oscmem_permissions_admin_desc","Admin permission grants all permissions to the selected group.");
 
+define("_oscmem_edit","Edit");
 
 ?>
