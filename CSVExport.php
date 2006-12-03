@@ -26,17 +26,22 @@
 include_once "../../mainfile.php";
 
 if ( !is_object($xoopsUser) || !is_object($xoopsModule))  {
-    exit("Access Denied");
+    exit(_oscmem_access_denied);
 }
+
+
 
 require (XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/ReportConfig.php");
 
 include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/fpdf151/fpdf.php";
 
+include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php";
+
 require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/class_fpdf_labels.php";
 
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/person.php';
 
+if(!hasPerm("oscmembership_modify",$xoopsUser)) exit(_access_denied);
 
 // Set the page title and include HTML header
 //$sPageTitle = gettext("Directory reports");
@@ -52,6 +57,7 @@ include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/g
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/churchdir.php';
 
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
+include_once XOOPS_ROOT_PATH."/class/xoopsform/tableform.php";
 
 $churchdir_handler = &xoops_getmodulehandler('churchdir', 'oscmembership');
 $churchdir= $churchdir_handler->create();

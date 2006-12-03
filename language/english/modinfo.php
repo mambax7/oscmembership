@@ -78,9 +78,6 @@ define("_oscmem_nomembers","No Family Members");
 define("_oscmem_nogroups","No Groups.  To create a group click <a href=>here</a>");
 
 define("_oscmem_persondetail","Members");
-define("_oscmem_customfield","Person Custom Fields");
-define("_oscmem_customfieldName", "Field Name");
-define("_oscmem_customfieldType","Type");
 
 //Groups
 define("_oscmem_groupmember","Group Membership");
@@ -100,9 +97,6 @@ define("_oscmembership_viewgroup","Groups");
 define("_oscmem_addgroup","Add Group");
 define("_oscmem_addgroup_redirect","Redirecting to Add Group");
 
-//customfield
-define("_oscmem_customfieldOrder","Order");
-define("_oscmem_customName","Display Name");
 
 define("_oscmem_familyrole","Family Role");
 
@@ -192,10 +186,6 @@ define("_oscmem_csvexport","CSV Export");
 
 define("_oscmem_cvsexport_infoinclude","Fields to include in Export");
 
-define("_oscmem_customfieldcreate_ack","Redirecting to Create Screen");
-define("_oscmem_customfield_Type","Custom Field Type");
-
-define("_osmem_createcustomfield_success","Custom Field Successfuly Created");
 
 define("_oscmem_season_select","Select a season");
 define("_oscmem_season_spring","Spring");
@@ -239,9 +229,13 @@ define("_oscmem_admin_osclist_familyroles","Modify Family Roles");
 define("_oscmem_admin_osclist_memberclassification","Modify Member Classifications");
 define("_oscmem_admin_osclist_grouptype","Modify Group Types");
 define("_oscmem_admin_osclist_permissions","Modify Permissions");
+define("_oscmem_admin_customfield","Modify Custom Fields");
 
 define("_oscmem_view","View");
 
 define("_oscmem_defaultcountry_value",22);
 define("_oscmem_defaultcountry_text"," &nbsp;&nbsp;(Default Country is USA)");
+
+define("_oscmem_accessdenied","Access Denied");
+
 ?>

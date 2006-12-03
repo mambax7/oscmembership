@@ -74,7 +74,6 @@ function oscmemnav_show($options)
 <a href='customfieldselectform.php'>" . _oscmem_customfield . "</a>
 </small></td><td>|</td>
 <td align=center><small>
-<a href='admin/osclistselect_smarty.php?id=2'>" . _oscmem_osclist_famrole_TITLE . "</a></small></td><td>|</td><td align=center><small>
 <a href='viewcart.php'>" . _oscmem_view_cart . "</a>
 </small>
 </TD>

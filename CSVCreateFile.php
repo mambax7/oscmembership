@@ -24,14 +24,10 @@
  ******************************************************************************/
 include_once "../../mainfile.php";
 
-
-if ( !is_object($xoopsUser) || !is_object($xoopsModule))  {
-    exit("Access Denied");
-}
-
-
 require (XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/ReportConfig.php");
 include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/fpdf151/fpdf.php";
+
+require XOOPS_ROOT_PATH . "/class/xoopsform/tableform.php";
 
 require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/class_fpdf_labels.php";
 
@@ -47,6 +43,15 @@ elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirnam
 }
 // Turn ON output buffering
 //ob_start();
+
+//Check Permissions
+
+if ( !is_object($xoopsUser) || !is_object($xoopsModule))  {
+    exit(_access_denied);
+}
+
+if(!hasPerm("oscmembership_view",$xoopsUser)) exit(_access_denied);
+
 
 // Get Source and Format from the request object and assign them locally
 if (isset($_POST['Source'])) $sSource = strtolower($_POST['Source']);

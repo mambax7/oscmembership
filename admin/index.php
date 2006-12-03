@@ -43,6 +43,6 @@ elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirnam
 
 }
 
-redirect_header(XOOPS_URL. "/modules/" . $xoopsModule->getVar('dirname') . "/admin/churchdetailform.php", 0, '');
+//redirect_header(XOOPS_URL. "/modules/" . $xoopsModule->getVar('dirname') . "/admin/churchdetailform.php", 0, '');
 
 ?>

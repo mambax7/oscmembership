@@ -64,6 +64,7 @@ define("_oscmem_admin_osclist_familyroles","Family Roles");
 
 define("_oscmem_admin_osclist_memberclassification","Member Classifications");
 
+
 define("_oscmem_admin_osclist_grouptype","Group Types");
 
 define("_oscmem_permissions_view","View Permissions");
@@ -76,5 +77,24 @@ define("_oscmem_permissions_admin","Admin Permissions");
 define("_oscmem_permissions_admin_desc","Admin permission grants all permissions to the selected group.");
 
 define("_oscmem_edit","Edit");
+define("_oscmem_admin_access_denied","Access Denied");
+
+define("_oscmem_admin_create","Create");
+define("_oscmem_admin_save","Save");
+define("_oscmem_admin_UPDATESUCCESS","The OSC Membership database has been updated successfully");
+define("_osmem_admin_createcustomfield_success","Custom Field Successfully created.");
+
+//customfield
+define("_oscmem_customfieldOrder","Order");
+define("_oscmem_customName","Display Name");
+
+define("_oscmem_customfield","Person Custom Fields");
+define("_oscmem_customfieldName", "Field Name");
+define("_oscmem_customfieldType","Type");
+
+define("_oscmem_customfieldcreate_ack","Redirecting to Create Screen");
+define("_oscmem_customfield_Type","Custom Field Type");
+
+define("_osmem_createcustomfield_success","Custom Field Successfuly Created");
 
 ?>

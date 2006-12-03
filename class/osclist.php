@@ -113,9 +113,11 @@ class oscMembershipOsclistHandler extends XoopsObjectHandler
 
     function &get($osclist)
     {
+    
         if (intval($osclist->getVar('id')) > 0) 
 	{
 		$sql = "SELECT * FROM " . $osclist->table . " WHERE id = " . intval($osclist->getVar('id')) . " and optionid=" . intval($osclist->getVar('optionid'));
+		
 		
 		if (!$result = $this->db->query($sql)) 
 		{
@@ -134,6 +136,7 @@ class oscMembershipOsclistHandler extends XoopsObjectHandler
     
 	function &update(&$osclist)
 	{
+	echo "made it here";
 		$sql = "UPDATE " . $osclist->table
 		. " SET "
 		. "optionname=" . $this->db->quoteString($osclist->getVar('optionname'))

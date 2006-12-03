@@ -87,7 +87,7 @@ $xoopsTpl->assign("osc_optionsort",_oscmem_option_sort);
 $xoopsTpl->assign("osc_optionname",_oscmem_familyrole_optionname);
 $xoopsTpl->assign("optionitems",$optionItems);
 $xoopsTpl->assign("id",$id);
-
+$xoopsTpl->assign("oscmem_edit",_oscmem_edit);
 
 $osclist=new Osclist();
 $xoopsTpl->display( 'db:oscmembership_optionlist.html' );

@@ -48,8 +48,6 @@ elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirnam
 
 }
 
-include(XOOPS_ROOT_PATH."/header.php");
-
 
 //redirect
 if (!$xoopsUser)
@@ -105,10 +103,10 @@ switch (true)
 	if($op=="create")
 	{
 		$osclist_handler->insert($osclist);
-		$message=_oscmem_familyrole_createsuccess;
+		$message=_oscmem_createsuccess;
 	}
 	    
-	redirect_header("osclistselect.php?id=" . $id, 3, $message);
+	redirect_header("osclistselect_smarty.php?id=" . $id, 3, $message);
     break;
 }
 
