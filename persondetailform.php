@@ -354,6 +354,7 @@ $customData = explode(",",$person->getVar('customfields'));
 $i=1;
 while($row = $db->fetchArray($customFields)) 
 {
+
 	switch($row["type_ID"])
 	{
 	case "1": //True false
@@ -365,6 +366,11 @@ while($row = $db->fetchArray($customFields))
 		case "false":
 			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], 0));
 			break;
+			
+		default:
+			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], null));
+			break;
+		
 		}
 	
 		break;
