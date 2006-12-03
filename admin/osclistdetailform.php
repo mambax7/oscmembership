@@ -58,7 +58,7 @@ if (!$xoopsUser)
 
 //verify permission
 if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
-    exit("Access Denied");
+    exit(_oscmem_admin_accessdenied);
 }
 
 

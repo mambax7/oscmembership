@@ -50,7 +50,7 @@ if ( !is_object($xoopsUser) || !is_object($xoopsModule))  {
     exit(_access_denied);
 }
 
-if(!hasPerm("oscmembership_view",$xoopsUser)) exit(_access_denied);
+if(!hasPerm("oscmembership_view",$xoopsUser)) exit(_oscmem_access_denied);
 
 
 // Get Source and Format from the request object and assign them locally

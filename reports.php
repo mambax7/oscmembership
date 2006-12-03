@@ -9,9 +9,13 @@ if (!$xoopsUser)
 }
 
 //verify permission
-if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
-    exit("Access Denied");
+if ( !is_object($xoopsUser) || !is_object($xoopsModule)) {
+    exit(_oscmem_access_denied);
 }
+
+include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php";
+
+if(!hasPerm("oscmembership_view",$xoopsUser)) exit(_oscmem_access_denied);
 
 include(XOOPS_ROOT_PATH."/header.php");
 

@@ -257,9 +257,20 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 	{
 		$result='';
 		
+		$customFields = $this->getcustompersonFields();
+
+		//build sql field list
+		$sqlfield="";
+		while($row = $this->db->fetchArray($customFields)) 
+		{
 		
+			$sqlfield.= "," .$row["custom_Field"];
+		}
+		
+		$sqlfield=substr($sqlfield,2);
+				
 		// Get the list of custom person fields
-		$sql = "SELECT * FROM " . $this->db->prefix("oscmembership_person_custom") . " WHERE per_ID=" . $personid;
+		$sql = "SELECT per_ID," . $sqlfield . " FROM " . $this->db->prefix("oscmembership_person_custom") . " WHERE per_ID=" . $personid ;
 		if (!$result = $this->db->query($sql)) 
 		{
 			echo "<br />PersonHandler::get error::" . $sql;
@@ -735,6 +746,10 @@ function &searchgroupmembers($searcharray, $groupid)
 							case 0:
 								$sql.= $row['custom_Field'] . "= 'false',";
 								break;
+							default:
+								$sql.= $row['custom_Field'] . "= null,";
+								break;
+								
 							}
 							break;
 						case "2": //Date
@@ -758,7 +773,14 @@ function &searchgroupmembers($searcharray, $groupid)
 							break;
 		
 						case "8": //number
-							$sql.= $row['custom_Field'] . "= " . $customupdate[$i-1] . ",";
+							if(!is_numeric($customupdate[$i-1]))
+							{
+								$sql.= $row['custom_Field'] . "= null,";
+							}
+							else
+							{
+								$sql.= $row['custom_Field'] . "= " . $this->db->quoteString($customupdate[$i-1]) . ",";
+							}
 							break;
 
 						case "7":  //season
@@ -784,7 +806,7 @@ function &searchgroupmembers($searcharray, $groupid)
 				$sql= rtrim($sql,",");
 				$sql.= " WHERE per_ID=" . $person->getVar('id');
 				
-				//echo "customfield" . $sql;
+				echo "customfield" . $sql;
 				if (!$result = $this->db->query($sql)) 
 				{
 					echo "<br />PersonHandler::get error::" . $sql;

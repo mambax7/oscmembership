@@ -2,8 +2,8 @@
 
 
 include("../../../mainfile.php");
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-include_once XOOPS_ROOT_PATH . '/class/template.php';
+include_once  '../../../class/xoopsformloader.php';
+include_once '../../../class/template.php';
 $xoopsTpl = new XoopsTpl();
 
 
@@ -12,7 +12,7 @@ $xoopsOption['template_main'] = 'oscmembership_optionlist.html';
 include '../../../include/cp_header.php';
 include '../../../class/pagenav.php';
 
-include_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
+include_once '../../../class/xoopsform/grouppermform.php';
 
 xoops_cp_header();
 
@@ -29,7 +29,7 @@ if (!$xoopsUser)
 
 //verify permission
 if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
-    exit("Access Denied");
+    exit(_oscmem_admin_access_denied);
 }
 
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/osclist.php';

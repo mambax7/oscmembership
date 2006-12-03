@@ -70,9 +70,7 @@ function oscmemnav_show($options)
 <a href='familylistform.php'> " . _oscmembership_viewfamily . "</a>
 </small></td><td>|</td><td align=center><small>
 <a href='groupselect.php'>" . _oscmembership_viewgroup . "</a></small></td><td>|</td>
-<td align=center><small>
-<a href='customfieldselectform.php'>" . _oscmem_customfield . "</a>
-</small></td><td>|</td>
+
 <td align=center><small>
 <a href='viewcart.php'>" . _oscmem_view_cart . "</a>
 </small>

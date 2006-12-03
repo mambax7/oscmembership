@@ -55,6 +55,9 @@ elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirnam
 
 }
 
+//Check Permissions
+if(!hasPerm("oscmembership_view",$xoopsUser)) exit(_oscmem_access_denied);
+
 // Load the FPDF library
 //LoadLib_FPDF();
 

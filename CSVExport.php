@@ -41,7 +41,7 @@ require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/incl
 
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/person.php';
 
-if(!hasPerm("oscmembership_modify",$xoopsUser)) exit(_access_denied);
+if(!hasPerm("oscmembership_modify",$xoopsUser)) exit(_oscmem_access_denied);
 
 // Set the page title and include HTML header
 //$sPageTitle = gettext("Directory reports");

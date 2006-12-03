@@ -59,6 +59,7 @@ if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin(
     exit("Access Denied");
 }
 
+exit("Broken Page");
 
 //determine action
 $op = '';

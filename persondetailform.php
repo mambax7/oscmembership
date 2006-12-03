@@ -43,16 +43,6 @@ elseif ( file_exists( "../language/english/main.php" ) ) {
     include "../language/english/main.php";
 }
 
-/*
-if (file_exists(XOOPS_ROOT_PATH. "/modules" . 	$xoopsModule->getVar('dirname') .  "/language/" . $xoopsConfig['language'] . "/modinfo.php")) 
-{
-    include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/language/" . $xoopsConfig['language'] . "/modinfo.php";
-}
-elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') ."/language/english/modinfo.php"))
-{ include XOOPS_ROOT_PATH ."/modules/" . $xoopsModule->getVar('dirname') . "/language/english/modinfo.php";
-
-}
-*/
 //redirect
 if (!$xoopsUser)
 {
@@ -61,8 +51,10 @@ if (!$xoopsUser)
 
 //verify permission
 if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
-    exit("Access Denied");
+    exit(_oscmem_access_denied);
 }
+
+if(!hasPerm("oscmembership_modify",$xoopsUser)) exit(_oscmem_access_denied);
 
 //determine action
 $op = '';
@@ -361,16 +353,15 @@ while($row = $db->fetchArray($customFields))
 		switch($customData[$i])
 		{
 		case "true":
-			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], 1));
+			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"],1,_oscmem_yes, _oscmem_no));
 			break;		
 		case "false":
-			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], 0));
+			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], 0,_oscmem_yes, _oscmem_no));
 			break;
 			
 		default:
-			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], null));
+			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], null,_oscmem_yes,_oscmem_no));
 			break;
-		
 		}
 	
 		break;
@@ -391,9 +382,6 @@ while($row = $db->fetchArray($customFields))
 		break;
 		
 	case "6": //year
-	case "8": //number
-		$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 10, 10,$customData[$i]));
-		break;
 
 	case "7":  //season
 	
@@ -407,6 +395,11 @@ while($row = $db->fetchArray($customFields))
 		$season->addOption(_oscmem_season_winter,_oscmem_season_winter);
 		$form->addElement($season);
 		break;
+		
+	case "8": //number
+		$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 10, 10,$customData[$i]));
+		break;
+
 	}
 	
 //	$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 30, 50,$customData[$row["custom_Field"]]));

@@ -37,6 +37,9 @@ require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/incl
 
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/person.php';
 
+include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php";
+
+if(!hasPerm("oscmembership_view",$xoopsUser)) exit(_oscmem_access_denied);
 
 // Set the page title and include HTML header
 //$sPageTitle = gettext("Directory reports");
@@ -87,28 +90,6 @@ foreach($groups as $group)
 	$group_select->addOption($group['id'], $group['group_Name']);
 }
 
-/*
-$osclist = $osclist_handler->create();
-$osclist->assignVar('id','2');
-$role_result = $osclist_handler->getitems($osclist);
-$role_select = new XoopsFormSelect(_oscmem_dirreport_headhouse,'sDirRoleHead',"",5,true, 'role');
-foreach($role_result as $osclist)
-{
-	$role_select->addOption($osclist['optionid'], $osclist['optionname']);
-}
-
-$spouserole_select = new XoopsFormSelect(_oscmem_dirreport_spouse,'sDirRoleSpouse',"",5,true, 'role');
-foreach($role_result as $osclist)
-{
-	$spouserole_select->addOption($osclist['optionid'], $osclist['optionname']);
-}
-
-$childrole_select = new XoopsFormSelect(_oscmem_dirreport_child,'sDirRoleChild',"",5,true, 'role');
-foreach($role_result as $osclist)
-{
-	$childrole_select->addOption($osclist['optionid'], $osclist['optionname']);
-}
-*/
 
 $dirAddress = new XoopsFormCheckBox("","bDirAddress",0);
 $dirAddress->addOption(0,_oscmem_address);

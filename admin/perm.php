@@ -26,6 +26,20 @@
 //  ------------------------------------------------------------------------ //
 include '../../../include/cp_header.php';
 include_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
+
+//redirect
+if (!$xoopsUser)
+{
+    redirect_header(XOOPS_URL."/user.php", 3, _AD_NORIGHT);
+}
+
+
+//verify permission
+if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
+    exit(_oscmem_admin_access_denied);
+}
+
+
 xoops_cp_header();
 
 //$xTheme->loadModuleAdminMenu(4);

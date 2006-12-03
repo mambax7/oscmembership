@@ -45,27 +45,22 @@ elseif ( file_exists( "../language/english/main.php" ) ) {
     include "../language/english/main.php";
 }
 
-/*
-if (file_exists(XOOPS_ROOT_PATH. "/modules" . 	$xoopsModule->getVar('dirname') .  "/language/" . $xoopsConfig['language'] . "/modinfo.php")) {
-    include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/language/" . $xoopsConfig['language'] . "/modinfo.php";
-}
-elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') ."/language/english/modinfo.php"))
-{ include XOOPS_ROOT_PATH ."/modules/" . $xoopsModule->getVar('dirname') . "/language/english/modinfo.php";
-
-}
-*/
-
 //redirect
 if (!$xoopsUser)
 {
     redirect_header(XOOPS_URL."/user.php", 3, _AD_NORIGHT);
 }
 
-
 //verify permission
 if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
-    exit("Access Denied");
+    exit(_oscmem_access_denied);
 }
+
+
+include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php";
+
+if(!hasPerm("oscmembership_modify",$xoopsUser)) exit(_oscmem_access_denied);
+
 
 
 //determine action

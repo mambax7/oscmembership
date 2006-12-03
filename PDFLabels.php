@@ -50,8 +50,12 @@ elseif ( file_exists( "../language/english/main.php" ) ) {
 
 //verify permission
 if ( !is_object($xoopsUser) || !is_object($xoopsModule))  {
-    exit("Access Denied");
+    exit(_oscmem_access_denied);
 }
+
+include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php";
+
+if(!hasPerm("oscmembership_view",$xoopsUser)) exit(_oscmem_access_denied);
 
 //require "../Include/Config.php";
 //require "include/oscleg_Functions.php";

@@ -9,14 +9,6 @@ if (!$xoopsUser)
     redirect_header(XOOPS_URL."/user.php", 3, _AD_NORIGHT);
 }
 
-
-//verify permission
-/*
-if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
-    exit("Access Denied");
-}
-*/
-
 $user=$xoopsUser;
 $perm="View Permissions";
 $userId = ($user) ? $user->getVar('uid') : 0;
@@ -41,8 +33,6 @@ include(XOOPS_ROOT_PATH."/header.php");
 
 if(hasPerm("oscmembership_view",$xoopsUser)) $ispermview=true;
 if(hasPerm("oscmembership_modify",$xoopsUser)) $ispermmodify=true;
-
-//xoops_cp_header();
 
 $sort="";
 $filter="";
