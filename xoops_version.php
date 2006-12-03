@@ -7,7 +7,7 @@ $modversion['author'] = "Steve McAtee";
 $modversion['help'] = "help.html";
 $modversion['license'] = "GPL see LICENSE";
 $modversion['official'] = 1;
-$modversion['image'] = "cs_slogo.gif";
+$modversion['image'] = "images/module_logo.png";
 $modversion['dirname'] = "oscmembership";
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
 $modversion['tables'][0] = "oscmembership_person";
@@ -41,13 +41,9 @@ $modversion['templates'][7]['file'] = 'oscselect.html';
 $modversion['templates'][7]['description'] = 'standard select template';
 
 $modversion['blocks'][1]['file'] = "oscmemnav.php";
-$modversion['blocks'][1]['name'] = 'navigation';
+$modversion['blocks'][1]['name'] = 'OSC Navigation';
 $modversion['blocks'][1]['description'] = "OSC Membership Menu";
 $modversion['blocks'][1]['show_func'] = "oscmemnav_show";
-$modversion['blocks'][2]['file'] = "oscnav.php";
-$modversion['blocks'][2]['name'] = 'OSC Menu';
-$modversion['blocks'][2]['description'] = "OSC Menu";
-$modversion['blocks'][2]['show_func'] = "oscnav_show";
 $modversion['hasSearch'] = 0;
 //$modversion['search']['file']="include/search.inc.php";
 //$modversion['search']['func']="oscmem_search";
@@ -61,6 +57,7 @@ $modversion['hasComments'] = 1;
 $modversion['comments']['pageName'] = 'index.php';
 $modversion['comments']['itemName'] = 'id';
 
+/*
 $i = 1;
 $modversion['sub'][$i]['name'] = _oscmembership_viewperson;
 $modversion['sub'][$i]['url'] = "index.php";
@@ -88,5 +85,5 @@ $modversion['sub'][$i]['url'] = "admin/osclistselect_smarty.php?id=4";
 $i++;
 $modversion['sub'][$i]['name'] = _oscmem_view_cart;
 $modversion['sub'][$i]['url'] = "viewcart.php";
-
+*/
 ?>
