@@ -1,6 +1,6 @@
 <?php
 include("../../mainfile.php");
-//$xoopsOption['template_main'] = 'cs_index.html';
+$GLOBALS['xoopsOption']['template_main'] ="familyview.html";
 
 //redirect
 if (!$xoopsUser)
@@ -19,17 +19,26 @@ include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/incl
 
 if(!hasPerm("oscmembership_view",$xoopsUser)) exit(_oscmem_access_denied);
 
+if(hasPerm("oscmembership_view",$xoopsUser)) $ispermview=true;
+if(hasPerm("oscmembership_modify",$xoopsUser)) $ispermmodify=true;
 
 if (isset($_POST['submit'])) $submit = $_POST['submit'];
 
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/family.php';
 
+if (isset($_POST['sort'])) $sort = $_POST['sort'];
+if (isset($_POST['filter'])) $filter=$_POST['filter'];
+
+
 include(XOOPS_ROOT_PATH."/header.php");
 
 $family_handler = &xoops_getmodulehandler('family', 'oscmembership');
-$searcharray=array();
-$searcharray[0]='';
+if(isset($filter))
+{
+	$searcharray[0]=$filter;
+}
+else $searcharray[0]='';
 
 if(isset($submit))
 {
@@ -44,19 +53,23 @@ if(isset($submit))
 }
 
 
-$results = $family_handler->search($searcharray);
-echo "<h2 class=comTitle>" . _oscmem_family_list. "</h2>";
-echo "<form action='familylistform.php' method=POST>";
-echo "<table class='outer'  >";
-echo "<tr><td><input type=submit name=submit value='" . _oscmembership_addfamily . "'></td></tr>";
-echo "<tr><th>" . _oscmem_familyname . "</th><th>" . _oscmem_address . "</th>";
-echo "<th>" . _oscmem_city . "," . _oscmem_state . "</th>";
-echo "<th>" . _oscmem_email . "</th>";
-echo "<th>&nbsp;</th>";
-echo "</tr>";
+$results = $family_handler->search($searcharray, $sort);
+$xoopsTpl->assign("title",_oscmem_family_list);
 
-echo $results;
-echo "</table></form>";
+$xoopsTpl->assign('oscmem_applyfilter',_oscmem_applyfilter);
+$xoopsTpl->assign('oscmem_familyname',_oscmem_familyname);
+$xoopsTpl->assign('oscmem_address',_oscmem_address);
+$xoopsTpl->assign('oscmem_clearfilter',_oscmem_clearfilter);
+$xoopsTpl->assign('oscmem_addmember',_oscmem_addmember);
+$xoopsTpl->assign('is_perm_view',$ispermview);
+$xoopsTpl->assign('is_perm_modify',$ispermmodify);
+$xoopsTpl->assign('oscmem_view',_oscmem_view);
+$xoopsTpl->assign('oscmem_edit',_oscmem_edit);
+
+$xoopsTpl->assign('families',$results);
+
+$xoopsTpl->assign('loopcount', $persons[0]['totalloopcount']);
+
 
 include(XOOPS_ROOT_PATH."/footer.php");
 

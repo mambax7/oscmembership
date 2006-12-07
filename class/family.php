@@ -92,11 +92,11 @@ class oscMembershipFamilyHandler extends XoopsObjectHandler
         return $family;
     }
 
-    function &search($searcharray)
+    function &search($searcharray, $sort)
     //Search on criteria and return result
     {
 	$result='';
-	$returnresult='';
+	$returnfamilies[]=array();
 	
         if (isset($searcharray)) 
 	{
@@ -105,16 +105,34 @@ class oscMembershipFamilyHandler extends XoopsObjectHandler
 
 		$count = count($searcharray);
 		if ( $count > 0 && is_array($searcharray) ) {
-		$sql .= "(familyname LIKE '%$searcharray[0]%'  or homephone like '%$searcharray[0]%' or workphone like '%$searcharray[0]%' or cellphone like '%$searcharray[0]%')";
+		$sql .= "(familyname LIKE '%$searcharray[0]%'  or homephone like '%$searcharray[0]%' or workphone like '%$searcharray[0]%' or cellphone like '%$searcharray[0]%' or city like '%$searcharray[0]%' or state like '%$searcharray[0]%' )";
 		
 		for ( $i = 1; $i < $count; $i++ ) {
 			$sql .= " OR ";	$family_handler = &xoops_getmodulehandler('family', 'oscmembership');
 	
 		$results = $family_handler->search($queryarray);
 
-		$sql .= "(familyname LIKE '%$searcharray[$i]%' OR homephone LIKE '%$searcharray[$i]%' OR workphone LIKE '%$searcharray[$i]%' OR cellphone LIKE '%$searcharray[$i]%')";
+		$sql .= "(familyname LIKE '%$searcharray[$i]%' OR homephone LIKE '%$searcharray[$i]%' OR workphone LIKE '%$searcharray[$i]%' OR cellphone LIKE '%$searcharray[$i]%' OR city LIKE '%$searcharray[$i]%' OR state LIKE '%$searcharray[$i]%')";
 		}
-		$sql .= ") order by familyname ";
+		
+		$sql .= " ) ";
+		
+		if(isset($sort))
+		{
+			switch($sort)
+			{
+			case "name":
+			$sql .= ") order by familyname";
+			break;
+			case "citystate":
+			$sql .= ") order by city,state ";
+			break;
+						
+			default:
+			$sql .= ") order by familyname ";
+			break;
+			}
+		}
 	}
 		
 		if (!$result = $this->db->query($sql)) 
@@ -122,40 +140,27 @@ class oscMembershipFamilyHandler extends XoopsObjectHandler
 			//echo "<br />NewbbForumHandler::get error::" . $sql;
 			return false;
 		}
-		$oddon=false;
+		$oddrow=false;
 
+		$i=0;
+		$family=new Family ();
 		while($row = $this->db->fetchArray($result)) 
 		{
-			if($oddon) 
-				{
-				$returnresult = $returnresult .  "<tr class=odd><td>";
-				$oddon=false;
-			}
-			else
-			{
-				$returnresult = $returnresult .  "<tr class=even><td>";
-				$oddon=true;
-			}
-						
 			$family->assignVars($row);
+			$returnfamilies[$i]['familyname']=$family->getVar('familyname');
+			$returnfamilies[$i]['oddrow']=$oddrow;
+			$returnfamilies[$i]['id']=$family->getVar('id');
+			$returnfamilies[$i]['city']=$family->getVar('city');
+			$returnfamilies[$i]['state']=$family->getVar('state');
 			
-			$returnresult = $returnresult .  $family->getVar('familyname') . ", " . "</td>";
-			$returnresult = $returnresult . "<td>" .  $family->getVar('address1') . "</td>";
-			//"<br>" . $person->getVar('address2') . "</td>";
-			$returnresult = $returnresult . "<td>";
-			if($family->getVar('city')<>'')
-			{
-				$returnresult=$returnresult . $family->getVar('city') . ", " . $family->getVar('state');
-			}
-			$returnresult = $returnresult . "</td>";
-			//$returnresult = $returnresult . "<td>" . //$person->getVar('zip') . "</td>";
-			$returnresult = $returnresult . "<td>" . $family->getVar('email') . "</td>";
-			$returnresult = $returnresult . "<td><a href='familydetailform.php?id=" . $family->getVar('id') . "'>" . "Edit" . "</a></td>";
-			$returnresult = $returnresult . "</tr>";
-
+			if($oddrow){$oddrow=false;}
+			else {$oddrow=true;}
+			
+			$i++;
+			
 		}
 	}
-	return $returnresult;
+	return $returnfamilies;
     }
 
 function &getmembers(&$family)
@@ -184,7 +189,6 @@ function &getmembers(&$family)
 		$sql = $sql . " set famid=0";
 		$sql = $sql . " where id=" . $personid;     
 
-		echo $sql;
 		if (!$result = $this->db->query($sql)) 
 		{
 			
@@ -256,8 +260,6 @@ function &modsearch($searcharray)
      
 	function &update(&$family)
     	{
-	echo $family->getVar('weddingdate');
-	
 		$sql = "UPDATE " . $family->table
 		. " SET "		
 		. "familyname=" . $this->db->quoteString($family->getVar('familyname'))
@@ -290,7 +292,6 @@ function &modsearch($searcharray)
 		. ",editedby=" . $this->db->quoteString($family->getVar('editedby')) . 
 		 
 		" where id=" . $family->getVar('id');
-		echo "this" . $sql;
 			
 		if (!$result = $this->db->query($sql)) {
 			echo "<br />oscmembershipHandler::get error::" . $sql;

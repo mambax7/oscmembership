@@ -39,6 +39,8 @@ $modversion['templates'][6]['file'] = 'csvexport.html';
 $modversion['templates'][6]['description'] = 'CSV Export Options';
 $modversion['templates'][7]['file'] = 'oscselect.html';
 $modversion['templates'][7]['description'] = 'standard select template';
+$modversion['templates'][8]['file'] = 'familyview.html';
+$modversion['templates'][8]['description'] = 'family view template';
 
 $modversion['blocks'][1]['file'] = "oscmemnav.php";
 $modversion['blocks'][1]['name'] = 'OSC Navigation';

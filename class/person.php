@@ -390,14 +390,14 @@ function &search2($searcharray, $sort)
 
 		$count = count($searcharray);
 		if ( $count > 0 && is_array($searcharray) ) {
-		$sql .= "(lastname LIKE '%$searcharray[0]%' OR firstname LIKE '%$searcharray[0]%' OR homephone like '%$searcharray[0]%' or workphone like '%$searcharray[0]%' or cellphone like '%$searcharray[0]%')";
+		$sql .= "(lastname LIKE '%$searcharray[0]%' OR firstname LIKE '%$searcharray[0]%' OR homephone like '%$searcharray[0]%' or workphone like '%$searcharray[0]%' or cellphone like '%$searcharray[0]%' or city like '%$searcharray[0]%' or state like '%$searcharray[0]%')";
 		
 		for ( $i = 1; $i < $count; $i++ ) {
 			$sql .= " OR ";	$person_handler = &xoops_getmodulehandler('person', 'oscmembership');
 	
 		$results = $person_handler->search($queryarray);
 
-		$sql .= "(lastname LIKE '%$searcharray[$i]%' OR firstname LIKE '%$searcharray[$i]%' or homephone LIKE '%$searcharray[$i]%' OR workphone LIKE '%$searcharray[$i]%' OR cellphone LIKE '%$searcharray[$i]%')";
+		$sql .= "(lastname LIKE '%$searcharray[$i]%' OR firstname LIKE '%$searcharray[$i]%' or homephone LIKE '%$searcharray[$i]%' OR workphone LIKE '%$searcharray[$i]%' OR cellphone LIKE '%$searcharray[$i]%' or city like '%$searcharray[$i]%' or state like '%$searcharray[$i]%')";
 		}
 		if(isset($sort))
 		{
