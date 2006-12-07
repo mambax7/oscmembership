@@ -74,7 +74,7 @@ define("_oscmem_addfamily_redirect","Redirecting to Add Family");
 
 define("_oscmem_UPDATESUCCESS_member","Member(s) added to family.");
 define("_oscmem_REMOVEMEMBERSUCCESS","Family Member Removed.");
-define("_oscmem_nomembers","No Family Members");
+define("_oscmem_nomembers","No Members");
 define("_oscmem_nogroups","No Groups.  To create a group click <a href=>here</a>");
 
 define("_oscmem_persondetail","Members");

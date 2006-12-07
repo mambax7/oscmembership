@@ -29,7 +29,6 @@
 // Project: The XOOPS Project, The Open Source Church project (OSC)
 // ------------------------------------------------------------------------- //
 include("../../mainfile.php");
-$xoopsOption['template_main'] = 'cs_index.html';
 include(XOOPS_ROOT_PATH."/header.php");
 //include("../../../include/cp_header.php");
 include_once(XOOPS_ROOT_PATH . "/class/xoopsformloader.php");
@@ -57,7 +56,6 @@ if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin(
 }
 
 
-include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php";
 
 if(!hasPerm("oscmembership_modify",$xoopsUser)) exit(_oscmem_access_denied);
 
@@ -204,9 +202,14 @@ $editedby_label = new XoopsFormLabel(_oscmem_editedby, $user->getVar('uname'));
 
 $dateentered_label = new XoopsFormLabel(_oscmem_dateentered, $family->getVar('dateentered'));
 
-$user = $member_handler->getUser($family->getVar('enteredby'));
+$user=new XoopsUser();
+if($family->getVar('enteredby')<>'')
+{
+	$user = $member_handler->getUser($family->getVar('enteredby'));
+}
 
-$enteredby_label = new XoopsFormLabel(_oscmem_enteredby, $user->getVar('uname'));
+$enteredby_label = new XoopsFormLabel(_oscmem_enteredby,
+ $user->getVar('uname'));
 
 $id_hidden = new XoopsFormHidden("id",$family->getVar('id'));
 
@@ -259,42 +262,47 @@ $memberresult="<table><th>" . _oscmem_lastname . "</th><th>" . _oscmem_firstname
 $len_memberresult=strlen($memberresult);
 $rowcount=0;
 
-while($row = $db->fetchArray($result)) 
+if($action!="create")
 {
-	$rowcount++;
-	
-	$person->assignVars($row);
-	$memberresult .= "<tr><td>" . $person->getVar('lastname') . "</td>";
-	$memberresult .= "<td>" . $person->getVar('firstname') . "</td>";
-	$memberresult .= "<td>";
-	$remove_button = new XoopsFormButton($person->getVar("id"), "removemember", _oscmem_remove_member, "button", $person->getVar("id"));
-	$remove_button->setExtra("onclick=familydetailform.op.value='remove';familydetailform.removeid.value=" . $person->getVar("id") . ";familydetailform.submit()");
-	
-	$editmember_button=new XoopsFormButton($person->getVar("id"), "editmember", _oscmem_edit_member, "button", $person->getVar("id"));
-	$editmember_button->setExtra("onclick=familydetailform.op.value='edit';familydetailform.removeid.value=" . $person->getVar("id") . ";familydetailform.submit()");
-	
-	$memberresult .= $remove_button->render();
-	$memberresult .= "&nbsp;&nbsp;" . $editmember_button->render() . "</td></tr>";
-	
-}
-if($rowcount==0)
-{
-	$memberresult .= "<tr><td>" . _oscmem_nomembers . "</td></tr></table>" ;
+	while($row = $db->fetchArray($result)) 
+	{
+		$rowcount++;
+		
+		$person->assignVars($row);
+		$memberresult .= "<tr><td>" . $person->getVar('lastname') . "</td>";
+		$memberresult .= "<td>" . $person->getVar('firstname') . "</td>";
+		$memberresult .= "<td>";
+		$remove_button = new XoopsFormButton($person->getVar("id"), "removemember", _oscmem_remove_member, "button", $person->getVar("id"));
+		$remove_button->setExtra("onclick=familydetailform.op.value='remove';familydetailform.removeid.value=" . $person->getVar("id") . ";familydetailform.submit()");
+		
+		$editmember_button=new XoopsFormButton($person->getVar("id"), "editmember", _oscmem_edit_member, "button", $person->getVar("id"));
+		$editmember_button->setExtra("onclick=familydetailform.op.value='edit';familydetailform.removeid.value=" . $person->getVar("id") . ";familydetailform.submit()");
+		
+		$memberresult .= $remove_button->render();
+		$memberresult .= "&nbsp;&nbsp;" . $editmember_button->render() . "</td></tr>";
+		
 	}
-else
-{
-	$memberresult .= "</table>";
+	if($rowcount==0)
+	{
+		$memberresult .= "<tr><td>" . _oscmem_nomembers . "</td></tr></table>" ;
+		}
+	else
+	{
+		$memberresult .= "</table>";
+	}
 }
 
 $addMember_button = new XoopsFormButton("", "addmembersubmit", _osc_addmember, "submit");
 
-$addMember_link=new XoopsFormLabel('',"<a href='personselect.php?type=family&id=" . $familyid . "'>" . _osc_addmember . "</a>");
-$form->addElement($addMember_link);
-$member_label = new XoopsFormLabel(_oscmem_familymember, $memberresult);
-$form->addElement($member_label);
-
-$form->addElement($id_hidden);
-
+if($action!="create")
+{
+	$addMember_link=new XoopsFormLabel('',"<a href='personselect.php?type=family&id=" . $familyid . "'>" . _osc_addmember . "</a>");
+	$form->addElement($addMember_link);
+	$member_label = new XoopsFormLabel(_oscmem_familymember, $memberresult);
+	$form->addElement($member_label);
+	
+	$form->addElement($id_hidden);
+}
 //Upload stuff
 
 $form->addElement($submit_button);

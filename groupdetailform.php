@@ -57,8 +57,6 @@ if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin(
     exit(_oscmem_access_denied);
 }
 
-include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php";
-
 if(!hasPerm("oscmembership_modify",$xoopsUser)) exit(_oscmem_access_denied);
 
 

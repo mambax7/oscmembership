@@ -207,8 +207,6 @@ function &modsearch($searcharray)
 		}
 		$sql .= ") order by group_name ";
 	}
-		
-	
 		if (!$result = $this->db->query($sql)) 
 		{
 			//echo "<br />NewbbForumHandler::get error::" . $sql;
@@ -216,7 +214,37 @@ function &modsearch($searcharray)
 		}
 		else
 		{
-			return $result;
+			$groups=array();
+			
+			$i=1;
+			
+			while($row = $this->db->fetchArray($result)) 
+			{
+				
+				$groupi = new Group ();
+				$groupi->assignVars($row);
+								
+				$groups[$i]=$groupi;
+				
+				$i++;
+				
+
+				
+				
+/*	$this->initVar('id',XOBJ_DTYPE_INT);
+	$this->initVar('group_type',XOBJ_DTYPE_INT);
+	$this->initVar('group_RoleListID',XOBJ_DTYPE_INT);
+	$this->initVar('group_DefaultRole',XOBJ_DTYPE_INT);
+	$this->initVar('group_Name',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('group_Description',XOBJ_DTYPE_TXTAREA);
+	$this->initVar('group_hasSpecialProps',XOBJ_DTYPE_INT);
+*/			
+			
+			}
+
+		
+		
+			return $groups;
 		}
     }
 		

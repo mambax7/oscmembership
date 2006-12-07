@@ -77,25 +77,12 @@ $db = &Database::getInstance();
 $rowcount=0;
 $group=new Group();
 
-while($row = $db->fetchArray($result)) 
+foreach($result as $group)
 {
-	$rowcount++;
-	$group->assignVars($row);
-	
-	$group_label= new XoopsFormLabel("<a href='groupdetailform.php?id=" . $group->getVar('id') . "'>" . _oscmem_edit . "</a>",$group->getVar('group_Name'));
+	$group_label = new XoopsFormLabel("<a href='groupdetailform.php?id=" . $group->getVar('id') . "'>" . _oscmem_edit . "</a>",$group->getVar('group_Name'));
 
-	$form->addElement($group_label);
+	$form->addElement(new XoopsFormLabel("<a href='groupdetailform.php?id=" . $group->getVar('id') . "'>" . _oscmem_edit . "</a>",$group->getVar('group_Name')));
 	
-/*	
-	$memberresult = $memberresult . "<tr>";
-	$memberresult=$memberresult . "<td><input type=checkbox name=" . $rowcount . " value=" . $person->getVar('id') . ">";
-	$memberresult=$memberresult . "<td>";
-	$memberresult=$memberresult . $person->getVar('lastname') . ", " . $person->getVar('firstname') . "</td>";
-	$memberresult=$memberresult . "<td>" . $person->getVar('address1') . "</td>";
-	$memberresult=$memberresult . "<td>" . $person->getVar('city') . ", " . $person->getVar('state') . "</td>";
-	$memberresult=$memberresult . "<td>" . $person->getVar('email') . "</td>";
-	$memberresult = $memberresult . "</tr>";
-*/
 }
 
 if(!isset($group_label))

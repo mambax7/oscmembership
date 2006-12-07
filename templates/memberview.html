@@ -1,7 +1,7 @@
 
 <h2 class=comTitle><{$title}></h2>
 
-<form action='index.php?sort=<{$sort}>' method="POST">
+<form name="listform" action='index.php?sort=<{$sort}>' method="POST">
 <input type=hidden name=sortprior value='<{$sort}>'>
 <table class='outer' >
 <tr><TD colspan="4">
@@ -13,7 +13,9 @@
 &nbsp;&nbsp;<input type="submit" name="submit"  value="<{$oscmem_addtocart}>"> 
 &nbsp;<input type="submit" name="submit" value="<{$oscmem_removefromcart}>">
 </td></tr>
-<tr><th><input name="allbox" id="allbox" onclick="xoopsCheckAll('listform','allbox');" type="checkbox" value="Check All" /></th>
+<tr>
+<th>
+<input name="allbox" id="allbox" onclick="xoopsCheckAll('listform','allbox');" type="checkbox" value="Check All" /></th>
 <th><a href='index.php?sort=lastname' class=sort><{$oscmem_name}></a></th>
 <th><{$oscmem_address}></th><th><{$oscmem_email}></th><th></th>
 </tr>
@@ -24,7 +26,6 @@
 <{ if $person.oddrow == false }>
 <tr class="even">
 <{/if}>
-
 <td width=10><input name="chk<{$person.loopcount}>" value="<{$person.id}>" type="checkbox"></td>
 <td><{$person.lastname}>, <{$person.firstname}></td>
 <td><{$person.city}>, <{$person.state}></td><td><{$person.email}></td>

@@ -806,7 +806,7 @@ function &searchgroupmembers($searcharray, $groupid)
 				$sql= rtrim($sql,",");
 				$sql.= " WHERE per_ID=" . $person->getVar('id');
 				
-				echo "customfield" . $sql;
+//				echo "customfield" . $sql;
 				if (!$result = $this->db->query($sql)) 
 				{
 					echo "<br />PersonHandler::get error::" . $sql;

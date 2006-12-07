@@ -1,6 +1,5 @@
 <?php
 include("../../mainfile.php");
-//$xoopsOption['pagetype'] = "admin";
 $GLOBALS['xoopsOption']['template_main'] ="memberview.html";
 
 //redirect
@@ -75,7 +74,7 @@ if(isset($submit))
 		break;
 	
 	case _oscmem_removefromcart:
-		for($i=1;$i<$loopcount+1;$i++)
+		for($i=0;$i<$loopcount+1;$i++)
 		{
 			if (isset($_POST['chk' . $i]))
 			{
@@ -88,7 +87,7 @@ if(isset($submit))
 		break;
 	
 	case _oscmem_intersectcart:
-		for($i=1;$i<$loopcount+1;$i++)
+		for($i=0;$i<$loopcount+1;$i++)
 		{
 			if (isset($_POST['chk' . $i]))
 			{
