@@ -54,7 +54,7 @@ define("_oscmem_editedby","Editado Por");
 define("_oscmem_dateentered","Fecha Ingresada");
 define("_oscmem_enteredby","Ingresada Por");
 define("_oscmem_birthdayinstructions","&nbsp;&nbsp;Formato de Fecha de Cumplea&ntilde;os(MM/DD/AAAA)");
-define("_oscmem_weddingdate","Wedding Date");
+define("_oscmem_weddingdate","Fecha de Casamiento");
 
 define("_oscmem_familyname","Nombre de Familia");
 
