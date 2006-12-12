@@ -34,7 +34,7 @@ define("_osc_create","建立");
 define("_oscmem_actions","動作");
 define("_osc_addmember","Add Family Member");
 define("_oscmem_addmember","新增會員");
-define("_oscmem_addingmember","Redirecting to Add Member");
+define("_oscmem_addingmember","&#37325;&#26032;&#23566;&#21521;&#33267;&#26032;&#22686;&#26371;&#21729;&#38913;&#38754;");
 
 define("_oscmem_homephone","家中電話");
 define("_oscmem_workphone","公司電話");
@@ -82,8 +82,8 @@ define("_oscmem_persondetail","Members");
 //Groups
 define("_oscmem_groupmember","小組成員");
 define("_osc_addgroupmember","加入小組成員");
-define("_oscmem_UPDATESUCCESS_member_grooup","Member added to Group Successfully");
-define("_oscmem_REMOVEGROUPMEMBERSUCCESS","Group Member Successfully removed.");
+define("_oscmem_UPDATESUCCESS_member_grooup","&#26371;&#21729;&#24050;&#34987;&#21152;&#20837;&#23567;&#32068;");
+define("_oscmem_REMOVEGROUPMEMBERSUCCESS","&#26371;&#21729;&#24050;&#24478;&#23567;&#32068;&#31227;&#38500;");
 
 //Menu
 define("_oscmembership_viewperson","會員列表");
@@ -95,13 +95,11 @@ define("_oscmem_edit_member","編輯成員");
 define("_oscmem_edit","編輯");
 define("_oscmembership_viewgroup","小組列表");
 define("_oscmem_addgroup","新增小組");
-define("_oscmem_addgroup_redirect","Redirecting to Add Group");
+define("_oscmem_addgroup_redirect","&#37325;&#26032;&#23566;&#21521;&#33267;&#26032;&#22686;&#23567;&#32068;&#38913;&#38754;");
 
 
-//define("_oscmem_familyrole","Family Role");
 define("_oscmem_familyrole","家中角色");
 
-//define("_oscmem_unassigned","Unassigned");
 define("_oscmem_unassigned","未指定");
 
 define("_oscmem_optionname","Option Name");
@@ -122,14 +120,14 @@ define("_oscmem_clearfilter","移除篩選");
 define("_oscmem_addtocart","加入工作車");
 define("_oscmem_remove","移除");
 define("_oscmem_emptycart","清空工作車");
-define("_oscmem_emptycarttogroup","Empty Cart to Group");
-define("_oscmem_emptycarttofamily","Empty Cart to Family");
+define("_oscmem_emptycarttogroup","清空工作車並到小組列表");
+define("_oscmem_emptycarttofamily","清空工作車並到家庭列表");
 define("_oscmem_generatelabels","製作標籤");
-define("_oscmem_addedtocart","Members have been added to the cart.");
+define("_oscmem_addedtocart","&#26371;&#21729;&#24050;&#34987;&#21152;&#20837;&#24037;&#20316;&#36554;");
 define("_oscmem_intersectcart","Intersect Cart");
 define("_oscmem_removefromcart","自工作車移除");
 
-define("_oscmem_msg_removedfromcart","Selected Individuals have been successfully removed from the cart");
+define("_oscmem_msg_removedfromcart","&#36984;&#25799;&#30340;&#26371;&#21729;&#24050;&#24478;&#24037;&#20316;&#36554;&#20013;&#31227;&#38500;");
 define("_oscmem_msg_intersectedcart","Selected Individuals have been successfully intersected with the cart");
 
 define("_oscmem_view_cart","工作車");
@@ -138,7 +136,7 @@ define("_oscmem_memberview","會員列表");
 define("_oscmem_yes","是");
 define("_oscmem_no","否");
 
-define("_oscmem_reporttitle","OSC Membership 報表");
+define("_oscmem_reporttitle","OSC 會員報表");
 define("_oscmem_directoryreport","會員目錄");
 define("_oscmem_reports", "Reports");
 define("_oscmem_nav_reports","報表／資料處理");
@@ -150,7 +148,7 @@ define("_oscmem_dirreport_groupmemb","小組");
 define("_oscmem_dirreport_headhouse","Which role is the head of household?");
 define("_oscmem_dirreport_spouserole","Which role is the spouse?");
 define("_oscmem_dirreport_childrole","Which role is a child?");
-define("_oscmem_dirreport_infoinclude","Information to Include:");
+define("_oscmem_dirreport_infoinclude","要包含的資料：");
 
 define("_oscmem_address_label","Address:");
 define("_oscmem_familyhomephone","家庭電話");
@@ -165,8 +163,8 @@ define("_oscmem_personalworkemail","個人公司電子郵件");
 
 define("_oscmem_informationinclude","要包含的資料");
 define("_oscmem_diroptions","目錄選項");
-define("_oscmem_altfamilyname","Dual Listing - Alternate Family Name");
-define("_oscmem_althead","Use only Family Name for listing");
+define("_oscmem_altfamilyname","雙列表 － 另外使用家庭名稱");
+define("_oscmem_althead","只使用家庭名稱來列表");
 define("_oscmem_dirsort","目錄排序");
 define("_oscmem_orderbyfirstname","以名字排序");
 define("_oscmem_directorytitle","Church Directory Options");
@@ -175,7 +173,7 @@ define("_oscmem_titlepagesettings","封面頁設定");
 
 define("_oscmem_usetitlepageyn","使用封面");
 define("_oscmem_churchname_label","教會名稱");
-define("_oscmem_disclaimer","Disclaimer");
+define("_oscmem_disclaimer","免責聲明");
 
 define("_oscmem_directory","Directory");
 define("_oscmem_page","Page");
@@ -183,7 +181,7 @@ define("_oscmem_page","Page");
 define("_oscmem_incorrectdt_membershipdate","Incorrect Membership Date Format");
 define("_oscmem_incorrectdt_weddingdate","Incorrect Wedding Date Format");
 
-define("_oscmem_CREATESUCCESS_group","Group Successfully Created");
+define("_oscmem_CREATESUCCESS_group","&#23567;&#32068;&#24050;&#34987;&#24314;&#31435;");
 define("_oscmem_csvexport","CSV 匯出");
 
 define("_oscmem_cvsexport_infoinclude","要匯出的欄位");
@@ -227,11 +225,11 @@ define("_oscmem_csv_outputmethod","輸出方式");
 define("_oscmem_csv_skipincompleteaddress","略過不完整的郵件地址資料");
 define("_oscmem_csv_skipnoenvelope","Skip Records with No Envelope Number<br>(Individual Records Only)");
 
-define("_oscmem_admin_osclist_familyroles","Modify Family Roles");
-define("_oscmem_admin_osclist_memberclassification","Modify Member Classifications");
-define("_oscmem_admin_osclist_grouptype","Modify Group Types");
-define("_oscmem_admin_osclist_permissions","Modify Permissions");
-define("_oscmem_admin_customfield","Modify Custom Fields");
+define("_oscmem_admin_osclist_familyroles","修改家中角色");
+define("_oscmem_admin_osclist_memberclassification","修改會員類別");
+define("_oscmem_admin_osclist_grouptype","修改小組類別");
+define("_oscmem_admin_osclist_permissions","修改權限");
+define("_oscmem_admin_customfield","修改自訂欄位");
 
 define("_oscmem_view","檢視");
 

@@ -38,25 +38,25 @@ define("_oscmembership_MM_SUBMIT","Submit");
 
 define("_oscmem_noitems","No Items To Display.");
 
-define("_oscmem_addfamilyrole","Add Family Role");
-define("_oscmem_addmemberclassification","Add Member Classification");
-define("_oscmem_addgrouptype","Add Group Type");
+define("_oscmem_addfamilyrole","新增家中角色");
+define("_oscmem_addmemberclassification","新增會員類別");
+define("_oscmem_addgrouptype","新增小組類別");
 
 define("_oscmem_createsuccess","The Item has been created successfully.");
 
-define("_oscmem_familyrole_optionname","Name");
-define("_oscmem_option_sort","Sort");
+define("_oscmem_familyrole_optionname","名稱");
+define("_oscmem_option_sort","次序");
 define("_oscmem_itemname","Item Name");
 define("_oscmem_itemsequence","Sequence");
 
 //3
-define("_oscmem_osclist_TITLE_grouptypes","Group Types");
+define("_oscmem_osclist_TITLE_grouptypes","小組類別");
 
 //2
-define("_oscmem_osclist_TITLE_familyroles","Family Roles");
+define("_oscmem_osclist_TITLE_familyroles","家中角色");
 
 //4
-define("_oscmem_osclist_TITLE_memberclassifications","Member Classifications");
+define("_oscmem_osclist_TITLE_memberclassifications","會員類別");
 
 define("_oscmem_admin_osclist_permissions","Permissions");
 
@@ -67,33 +67,33 @@ define("_oscmem_admin_osclist_memberclassification","Member Classifications");
 
 define("_oscmem_admin_osclist_grouptype","Group Types");
 
-define("_oscmem_permissions_view","View Permissions");
-define("_oscmem_permissions_view_desc","View allows the selected groups to view membership data.");
+define("_oscmem_permissions_view","檢視權限");
+define("_oscmem_permissions_view_desc","檢視權限允許被選擇的使用者群組去檢視會員資料。");
 
-define("_oscmem_permissions_modify","Modify Permissions");
-define("_oscmem_permissions_modify_desc","Modify allows the selected groups to modify membership data.");
+define("_oscmem_permissions_modify","修改權限");
+define("_oscmem_permissions_modify_desc","修改權限允許被選擇的使用者群組去修改會員資料。");
 
-define("_oscmem_permissions_admin","Admin Permissions");
-define("_oscmem_permissions_admin_desc","Admin permission grants all permissions to the selected group.");
+define("_oscmem_permissions_admin","管理權限");
+define("_oscmem_permissions_admin_desc","管理權限使被選擇的使用者群組擁有所有的權限。");
 
 define("_oscmem_edit","Edit");
 define("_oscmem_admin_access_denied","Access Denied");
 
-define("_oscmem_admin_create","Create");
+define("_oscmem_admin_create","新建");
 define("_oscmem_admin_save","Save");
-define("_oscmem_admin_UPDATESUCCESS","The OSC Membership database has been updated successfully");
-define("_osmem_admin_createcustomfield_success","Custom Field Successfully created.");
+define("_oscmem_admin_UPDATESUCCESS","OSC &#26371;&#21729;&#31995;&#32113;&#36039;&#26009;&#24235;&#24050;&#23436;&#25104;&#26356;&#26032;");
+define("_osmem_admin_createcustomfield_success","&#33258;&#35330;&#27396;&#20301;&#24050;&#34987;&#24314;&#31435;");
 
 //customfield
-define("_oscmem_customfieldOrder","Order");
-define("_oscmem_customName","Display Name");
+define("_oscmem_customfieldOrder","次序");
+define("_oscmem_customName","欄位名稱");
 
-define("_oscmem_customfield","Person Custom Fields");
-define("_oscmem_customfieldName", "Field Name");
-define("_oscmem_customfieldType","Type");
+define("_oscmem_customfield","會員資料自訂欄位");
+define("_oscmem_customfieldName", "欄位名稱");
+define("_oscmem_customfieldType","資料型態");
 
-define("_oscmem_customfieldcreate_ack","Redirecting to Create Screen");
-define("_oscmem_customfield_Type","Custom Field Type");
+define("_oscmem_customfieldcreate_ack","&#37325;&#26032;&#23566;&#21521;&#33267;&#33258;&#35330;&#27396;&#20301;&#26032;&#24314;&#38913;&#38754;");
+define("_oscmem_customfield_Type","自訂欄位資料型態");
 
 define("_osmem_createcustomfield_success","Custom Field Successfuly Created");
 
