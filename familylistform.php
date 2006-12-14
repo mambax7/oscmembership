@@ -27,7 +27,9 @@ if (isset($_POST['submit'])) $submit = $_POST['submit'];
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/family.php';
 
-if (isset($_POST['sort'])) $sort = $_POST['sort'];
+$sort="";
+$filter="";
+if (isset($_GET['sort'])) $sort = $_GET['sort'];
 if (isset($_POST['filter'])) $filter=$_POST['filter'];
 
 
@@ -61,14 +63,16 @@ $xoopsTpl->assign('oscmem_familyname',_oscmem_familyname);
 $xoopsTpl->assign('oscmem_address',_oscmem_address);
 $xoopsTpl->assign('oscmem_clearfilter',_oscmem_clearfilter);
 $xoopsTpl->assign('oscmem_addmember',_oscmem_addmember);
+$xoopsTpl->assign('oscmem_email',_oscmem_email);
 $xoopsTpl->assign('is_perm_view',$ispermview);
 $xoopsTpl->assign('is_perm_modify',$ispermmodify);
 $xoopsTpl->assign('oscmem_view',_oscmem_view);
 $xoopsTpl->assign('oscmem_edit',_oscmem_edit);
+$xoopsTpl->assign('oscmembership_addfamily',_oscmembership_addfamily);
 
 $xoopsTpl->assign('families',$results);
 
-$xoopsTpl->assign('loopcount', $persons[0]['totalloopcount']);
+$xoopsTpl->assign('loopcount', $results[0]['totalloopcount']);
 
 
 include(XOOPS_ROOT_PATH."/footer.php");

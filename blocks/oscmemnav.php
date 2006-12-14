@@ -64,18 +64,18 @@ function oscmemnav_show($options)
 	$content_block="
 <table class=navbar >
 <tr><TD align=center ><small>
-<a class=navbar href='". "index.php" . "'>" .  _oscmembership_viewperson . "</a>
+<a class=navbar href='" . XOOPS_URL . "/modules/oscmembership/index.php" . "'>" .  _oscmembership_viewperson . "</a>
 </small></td><td>|</td><td align=center><small>
 
-<a href='familylistform.php'> " . _oscmembership_viewfamily . "</a>
+<a href='" . XOOPS_URL . "/modules/oscmembership/familylistform.php'> " . _oscmembership_viewfamily . "</a>
 </small></td><td>|</td><td align=center><small>
-<a href='groupselect.php'>" . _oscmembership_viewgroup . "</a></small></td><td>|</td>
+<a href='" . XOOPS_URL . "/modules/oscmembership/groupselect.php'>" . _oscmembership_viewgroup . "</a></small></td><td>|</td>
 
 <td align=center><small>
-<a href='viewcart.php'>" . _oscmem_view_cart . "</a>
+<a href='" . XOOPS_URL . "/modules/oscmembership/viewcart.php'>" . _oscmem_view_cart . "</a>
 </small>
 </TD>
-<td>|</td><td align=center><small><a href='reports.php'>" . _oscmem_nav_reports . "</a></small></td>
+<td>|</td><td align=center><small><a href='" . XOOPS_URL . "/modules/oscmembership/reports.php'>" . _oscmem_nav_reports . "</a></small></td>
 </tr>
 </table>
 ";

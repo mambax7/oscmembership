@@ -115,7 +115,7 @@ class oscMembershipFamilyHandler extends XoopsObjectHandler
 		$sql .= "(familyname LIKE '%$searcharray[$i]%' OR homephone LIKE '%$searcharray[$i]%' OR workphone LIKE '%$searcharray[$i]%' OR cellphone LIKE '%$searcharray[$i]%' OR city LIKE '%$searcharray[$i]%' OR state LIKE '%$searcharray[$i]%')";
 		}
 		
-		$sql .= " ) ";
+//		$sql .= " ) ";
 		
 		if(isset($sort))
 		{
@@ -126,6 +126,10 @@ class oscMembershipFamilyHandler extends XoopsObjectHandler
 			break;
 			case "citystate":
 			$sql .= ") order by city,state ";
+			break;
+
+			case "email":
+			$sql .= ") order by email ";
 			break;
 						
 			default:
@@ -152,13 +156,18 @@ class oscMembershipFamilyHandler extends XoopsObjectHandler
 			$returnfamilies[$i]['id']=$family->getVar('id');
 			$returnfamilies[$i]['city']=$family->getVar('city');
 			$returnfamilies[$i]['state']=$family->getVar('state');
+			$returnfamilies[$i]['loopcount']=$i;
+			$returnfamilies[$i]['email']=$family->getVar('email');
 			
 			if($oddrow){$oddrow=false;}
 			else {$oddrow=true;}
-			
+
 			$i++;
 			
+			
 		}
+		$returnfamilies[0]['totalloopcount']=$i;
+		
 	}
 	return $returnfamilies;
     }
