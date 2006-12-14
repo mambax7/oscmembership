@@ -1,0 +1,43 @@
+
+<h2 class=comTitle><{$title}></h2>
+
+<form action='familylistform.php?sort=<{$sort}>' name='listform' method="POST">
+<input type=hidden name=sortprior value='<{$sort}>'>
+<table class='outer' >
+<tr><TD colspan="4">
+
+<input type="text" name="filter">&nbsp; 
+<input type="submit" name="submit" value="<{$oscmem_applyfilter}>">&nbsp;
+<input type="submit" name="submit" value="<{$oscmem_clearfilter}>"></TD><td align="right">
+<input type="submit" name="submit" value="<{$oscmembership_addfamily}>">
+</td></tr>
+<tr><th><input name="allbox" id="allbox" onclick="xoopsCheckAll('listform','allbox');" type="checkbox" value="Check All" /></th>
+<th><a href='familylistform.php?sort=name' class=sort><{$oscmem_familyname}></a></th>
+<th><a href='familylistform.php?sort=citystate' class=sort><{$oscmem_address}></a></th><th><a href='familylistform.php?sort=email' class=sort><{$oscmem_email}></a></th><th></th>
+</tr>
+<{foreach item=family from=$families}>
+<{ if $family.oddrow == true }>
+<tr class="odd">
+<{/if}>
+<{ if $family.oddrow == false }>
+<tr class="even">
+<{/if}>
+
+<td width=10><input name="chk<{$family.loopcount}>" value="<{$family.id}>" type="checkbox"></td>
+<td><{$family.familyname}></td>
+<td><{$family.city}>, <{$family.state}></td><td><{$family.email}></td>
+<td><{ if $is_perm_view }>
+<a href='familydetailview.php?id=<{$family.id}>'><{$oscmem_view}></a>
+<{/if}>
+&nbsp;&nbsp;&nbsp;
+<{ if $is_perm_modify }>
+<a href='familydetailform.php?id=<{$family.id}>'><{$oscmem_edit}></a>
+<{/if}>
+</td>
+</tr>
+<{/foreach}>
+
+</table>
+<input type="hidden" name="loopcount" value="<{$loopcount}>">
+</form>
+
