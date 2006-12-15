@@ -1,9 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<!-- saved from url=(0105)http://osc.svn.sourceforge.net/viewvc/*checkout*/osc/oscmembership/language/english/admin.php?revision=87 -->
-<HTML><HEAD>
-<META http-equiv=Content-Type content="text/html; charset=utf-8">
-<META content="MSHTML 6.00.2900.2995" name=GENERATOR></HEAD>
-<BODY><PRE>&lt;?php
+<?php
 //%%%%%%	Admin Module Name  ChurchSplash	%%%%%
 define("_oscmembership_ADMINTITLE","OSC Membership - Admin");
 //
@@ -102,4 +97,4 @@ define("_oscmem_customfield_Type","Custom Field Type");
 
 define("_osmem_createcustomfield_success","Custom Field Successfuly Created");
 
-?&gt;</PRE></BODY></HTML>
+?>
