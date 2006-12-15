@@ -3,68 +3,68 @@
 //
 define("_oscmem_MOD_NAME","OSC Membership Module");
 define("_oscmem_MOD_DESC","Xoops OSC Module for Membership.");
-define("_oscmem_ADMENU0","OSC Membership Administation");
-define("_oscmem_personselect","Person Select");
+define("_oscmem_ADMENU0","OSC 会员管理");
+define("_oscmem_personselect","个人选项");
 //Field names
-//define("_oscdir_userfile","Church Picture");
+//define("_oscdir_userfile","Church 照片");
 
-define("_oscmem_name","Member Name");
-define("_oscmem_lastname", "Last Name");
-define("_oscmem_firstname", "First Name");
-define("_oscmem_phone","Phone Number");
-define("_oscmem_address","Address");
-define("_oscmem_city","City");
-define("_oscmem_state","State");
-define("_oscmem_post","Zip");
-define("_oscmem_email","Email");
-define("_oscmem_country","Country");
-define("_oscmem_title","Member Directory");
-define("_oscmem_birthday","Birthday");
-define("_oscmem_month","Month");
-define("_oscmem_year","Year");
+define("_oscmem_name","会员姓名");
+define("_oscmem_lastname", "姓氏");
+define("_oscmem_firstname", "名字");
+define("_oscmem_phone","电话号码");
+define("_oscmem_address","地址");
+define("_oscmem_city","城市");
+define("_oscmem_state","州(省)");
+define("_oscmem_post","邮政编码");
+define("_oscmem_email","电子邮件");
+define("_oscmem_country","国家");
+define("_oscmem_title","会员列表 ");
+define("_oscmem_birthday","生日");
+define("_oscmem_month","月");
+define("_oscmem_year","年");
 define("_oscmem_birthfrom","From");
 define("_oscmem_birthto","To");
-define("_oscmem_gender","Gender");
-define("_oscmem_membershipdate","Membership Date");
-define("_oscmem_memberclass","Classification");
-define("_oscmem_submit","Submit");
-define("_osc_save","Save");
-define("_osc_select","Select");
-define("_osc_create","Create");
+define("_oscmem_gender","性别");
+define("_oscmem_membershipdate","加入时间 ");
+define("_oscmem_memberclass","会员类别");
+define("_oscmem_submit","提交");
+define("_osc_save","保存");
+define("_osc_select","选择");
+define("_osc_create","创建");
 define("_oscmem_actions","Actions");
-define("_osc_addmember","Add Family Member");
-define("_oscmem_addmember","Add Member");
+define("_osc_addmember","加入家庭成员");
+define("_oscmem_addmember","添加会员");
 define("_oscmem_addingmember","Redirecting to Add Member");
 
-define("_oscmem_homephone","Home Phone");
-define("_oscmem_workphone","Work Phone");
-define("_oscmem_cellphone","Cell Phone");
+define("_oscmem_homephone","家庭电话");
+define("_oscmem_workphone","办公电话");
+define("_oscmem_cellphone","手机");
 
-define("_oscmem_groupname", "Group Name");
-define("_oscmem_groupdescription","Group Description");
-define("_oscmem_grouptype","Group Type");
+define("_oscmem_groupname", "小组名");
+define("_oscmem_groupdescription","小组简介");
+define("_oscmem_grouptype","小组类型");
 
-define("_oscmem_workemail","Work Email");
+define("_oscmem_workemail","办公电子邮件");
 
-define("_oscmem_male","Male");
-define("_oscmem_female","Female");
+define("_oscmem_male","男性");
+define("_oscmem_female","女性");
 
-define("_oscmem_datelastedited","Date Last Edited");
-define("_oscmem_editedby","Edited By");
-define("_oscmem_dateentered","Date Entered");
-define("_oscmem_enteredby","Entered By");
-define("_oscmem_birthdayinstructions","&nbsp;&nbsp;Birthday Format (MM/DD/YYYY)");
-define("_oscmem_weddingdate","Wedding Date");
+define("_oscmem_datelastedited","最后修改时间");
+define("_oscmem_editedby","修改者");
+define("_oscmem_dateentered","输入日期");
+define("_oscmem_enteredby","输入者");
+define("_oscmem_birthdayinstructions","&nbsp;&nbsp;生日格式 (月/日/年)");
+define("_oscmem_weddingdate","结婚日期");
 
-define("_oscmem_familyname","Family Name");
+define("_oscmem_familyname","家庭名称");
 
-define("_oscmem_persondetail_TITLE","Person Detail Form");
-define("_oscmem_familydetail_TITLE","Family Detail Form");
-define("_oscmem_person_list","Person List");
-define("_oscmem_family_list","Family List");
-define("_oscmem_familymember","Family Members");
-define("_oscmem_groupselect_TITLE","Group List");
-define("_oscmem_groupdetail_TITLE","Group Form");
+define("_oscmem_persondetail_TITLE","个人资料");
+define("_oscmem_familydetail_TITLE","家庭详细信息");
+define("_oscmem_person_list","个人列表");
+define("_oscmem_family_list","家庭列表");
+define("_oscmem_familymember","家庭成员");
+define("_oscmem_groupselect_TITLE","小组列表");
+define("_oscmem_groupdetail_TITLE","小组信息");
 //Messages
 define('_oscmem_UPDATESUCCESS','The OSC Membership database has been updated successfully');
 define('_oscmem_CREATESUCCESS_individual','The Individual has been created in the OSC database.');
