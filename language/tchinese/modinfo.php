@@ -32,7 +32,7 @@ define("_osc_save","儲存");
 define("_osc_select","選擇");
 define("_osc_create","建立");
 define("_oscmem_actions","動作");
-define("_osc_addmember","Add Family Member");
+define("_osc_addmember","新增家庭成員");
 define("_oscmem_addmember","新增會員");
 define("_oscmem_addingmember","&#37325;&#26032;&#23566;&#21521;&#33267;&#26032;&#22686;&#26371;&#21729;&#38913;&#38754;");
 
@@ -59,21 +59,21 @@ define("_oscmem_weddingdate","結婚日期");
 define("_oscmem_familyname","家庭名稱");
 
 define("_oscmem_persondetail_TITLE","個人資料");
-define("_oscmem_familydetail_TITLE","Family Detail Form");
+define("_oscmem_familydetail_TITLE","家庭資料");
 define("_oscmem_person_list","Person List");
 define("_oscmem_family_list","家庭列表");
-define("_oscmem_familymember","Family Members");
+define("_oscmem_familymember","家庭成員");
 define("_oscmem_groupselect_TITLE","小組列表");
 define("_oscmem_groupdetail_TITLE","小組資料");
 //Messages
 define('_oscmem_UPDATESUCCESS','The OSC Membership database has been updated successfully');
-define('_oscmem_CREATESUCCESS_individual','The Individual has been created in the OSC database.');
+define('_oscmem_CREATESUCCESS_individual','&#27492;&#20491;&#20154;&#36039;&#26009;&#24050;&#34987;&#26032;&#22686;&#33267;OSC&#36039;&#26009;&#24235;');
 
-define("_oscmem_CREATESUCCESS_family","The Family has been created in the OSC database.");
-define("_oscmem_addfamily_redirect","Redirecting to Add Family");
+define("_oscmem_CREATESUCCESS_family","&#27492;&#23478;&#24237;&#36039;&#26009;&#24050;&#34987;&#26032;&#22686;&#33267;OSC&#36039;&#26009;&#24235;");
+define("_oscmem_addfamily_redirect","&#37325;&#26032;&#23566;&#21521;&#33267;&#26032;&#22686;&#23478;&#24237;&#38913;&#38754;");
 
-define("_oscmem_UPDATESUCCESS_member","Member(s) added to family.");
-define("_oscmem_REMOVEMEMBERSUCCESS","Family Member Removed.");
+define("_oscmem_UPDATESUCCESS_member","&#36984;&#21462;&#26371;&#21729;&#24050;&#34987;&#21152;&#20837;&#35442;&#23478;&#24237;");
+define("_oscmem_REMOVEMEMBERSUCCESS","&#35442;&#26371;&#21729;&#24050;&#24478;&#27492;&#23478;&#24237;&#20013;&#31227;&#38500;");
 define("_oscmem_nomembers","沒有任何成員");
 define("_oscmem_nogroups","目前沒有任何小組，要新增請按<a href=>此處</a>。");
 
