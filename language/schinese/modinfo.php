@@ -74,51 +74,51 @@ define("_oscmem_addfamily_redirect","Redirecting to Add Family");
 
 define("_oscmem_UPDATESUCCESS_member","Member(s) added to family.");
 define("_oscmem_REMOVEMEMBERSUCCESS","Family Member Removed.");
-define("_oscmem_nomembers","No Members");
-define("_oscmem_nogroups","No Groups.  To create a group click <a href=>here</a>");
+define("_oscmem_nomembers","没有成员");
+define("_oscmem_nogroups","没有小组, 要创建小组请点击<a href=>这里</a>");
 
-define("_oscmem_persondetail","Members");
+define("_oscmem_persondetail","成员");
 
 //Groups
-define("_oscmem_groupmember","Group Membership");
-define("_osc_addgroupmember","Add Group Members");
-define("_oscmem_UPDATESUCCESS_member_grooup","Member added to Group Successfully");
-define("_oscmem_REMOVEGROUPMEMBERSUCCESS","Group Member Successfully removed.");
+define("_oscmem_groupmember","小组成员");
+define("_osc_addgroupmember","添加小组成员");
+define("_oscmem_UPDATESUCCESS_member_grooup","已经成功添加成员到小组");
+define("_oscmem_REMOVEGROUPMEMBERSUCCESS","成功删除小组成员.");
 
 //Menu
-define("_oscmembership_viewperson","Members");
-define("_oscmembership_addperson", "Add Member");
-define("_oscmembership_addfamily","Add Family");
-define("_oscmembership_viewfamily","Family");
-define("_oscmem_remove_member","Remove Member");
-define("_oscmem_edit_member","Edit Member");
-define("_oscmem_edit","Edit");
-define("_oscmembership_viewgroup","Groups");
-define("_oscmem_addgroup","Add Group");
-define("_oscmem_addgroup_redirect","Redirecting to Add Group");
+define("_oscmembership_viewperson","成员");
+define("_oscmembership_addperson", "添加成员");
+define("_oscmembership_addfamily","添加家庭");
+define("_oscmembership_viewfamily","家庭");
+define("_oscmem_remove_member","删除成员");
+define("_oscmem_edit_member","编辑成员");
+define("_oscmem_edit","编辑");
+define("_oscmembership_viewgroup","小组");
+define("_oscmem_addgroup","添加小组");
+define("_oscmem_addgroup_redirect","重定向至添加小组 ");
 
 
-define("_oscmem_familyrole","Family Role");
+define("_oscmem_familyrole","家中角色");
 
-define("_oscmem_unassigned","Unassigned");
+define("_oscmem_unassigned","未指派");
 
-define("_oscmem_optionname","Option Name");
-define("_oscmem_optionsequence","Sequence");
+define("_oscmem_optionname","选项名称");
+define("_oscmem_optionsequence","次序");
 define("_oscmem_osclist_famrole_TITLE","Family Roles");
 
 //define("_oscmem_osclist_TITLE_familyroles","Family Roles");
 //define("_oscmem_osclist_TITLE_memberclassifications","Member Classifications");
-//define("_oscmem_osclist_TITLE_grouptypes","Group Types");
+//define("_oscmem_osclist_TITLE_grouptypes","小组类别");
 
 
-define("_oscmem_noclass","No Classification");
+define("_oscmem_noclass","没有分类");
 
 
-define("_oscmem_filter","Filter");
-define("_oscmem_applyfilter","Apply Filter");
-define("_oscmem_clearfilter","Clear Filter");
+define("_oscmem_filter","筛选");
+define("_oscmem_applyfilter","应用筛选");
+define("_oscmem_clearfilter","清除筛选");
 define("_oscmem_addtocart","Add to Cart");
-define("_oscmem_remove","Remove");
+define("_oscmem_remove","删除");
 define("_oscmem_emptycart","Empty Cart");
 define("_oscmem_emptycarttogroup","Empty Cart to Group");
 define("_oscmem_emptycarttofamily","Empty Cart to Family");
