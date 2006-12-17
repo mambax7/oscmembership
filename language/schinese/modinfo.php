@@ -150,19 +150,19 @@ define("_oscmem_dirreport_spouserole","Which role is the spouse?");
 define("_oscmem_dirreport_childrole","Which role is a child?");
 define("_oscmem_dirreport_infoinclude","Information to Include:");
 
-define("_oscmem_address_label","Address:");
-define("_oscmem_familyhomephone","Family Home Phone");
-define("_oscmem_familyworkphone","Family Work Phone");
-define("_oscmem_familycellphone","Family Cell Phone");
-define("_oscmem_familyemail","Family Email");
-define("_oscmem_personalphone","Individual Phone");
-define("_oscmem_personalworkphone","Individual Work Phone");
-define("_oscmem_personalcell","Individual Cell Phone");
-define("_oscmem_personalemail","Individual Email");
-define("_oscmem_personalworkemail","Individual Work Email");
+define("_oscmem_address_label","地址:");
+define("_oscmem_familyhomephone","该家庭的家中电话");
+define("_oscmem_familyworkphone","该家庭的工作电话");
+define("_oscmem_familycellphone","该家庭的移动电话");
+define("_oscmem_familyemail","该家庭的电子邮件");
+define("_oscmem_personalphone","个人电话");
+define("_oscmem_personalworkphone","个人工作电话");
+define("_oscmem_personalcell","个人移动电话");
+define("_oscmem_personalemail","个人电子");
+define("_oscmem_personalworkemail","个人工作电子邮件");
 
-define("_oscmem_informationinclude","Information to Include:");
-define("_oscmem_diroptions","Directory Options");
+define("_oscmem_informationinclude","要包含的信息:");
+define("_oscmem_diroptions","目录选项");
 define("_oscmem_altfamilyname","Dual Listing - Alternate Family Name");
 define("_oscmem_althead","Use only Family Name for listing");
 define("_oscmem_dirsort","Directory Sort");
@@ -225,13 +225,13 @@ define("_oscmem_csv_outputmethod","Output Method");
 define("_oscmem_csv_skipincompleteaddress","Skip Incomplete Mail Addresses");
 define("_oscmem_csv_skipnoenvelope","Skip Records with No Envelope Number<br>(Individual Records Only)");
 
-define("_oscmem_admin_osclist_familyroles","Modify Family Roles");
-define("_oscmem_admin_osclist_memberclassification","Modify Member Classifications");
-define("_oscmem_admin_osclist_grouptype","Modify Group Types");
-define("_oscmem_admin_osclist_permissions","Modify Permissions");
+define("_oscmem_admin_osclist_familyroles","修改家庭角色");
+define("_oscmem_admin_osclist_memberclassification","修改 成员 类别");
+define("_oscmem_admin_osclist_grouptype","修改小组类别");
+define("_oscmem_admin_osclist_permissions","修改权限");
 define("_oscmem_admin_customfield","Modify Custom Fields");
 
-define("_oscmem_view","View");
+define("_oscmem_view","视图");
 
 define("_oscmem_defaultcountry_value",22);
 define("_oscmem_defaultcountry_text"," &nbsp;&nbsp;(Default Country is USA)");
