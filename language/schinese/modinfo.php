@@ -104,10 +104,10 @@ define("_oscmem_unassigned","未指派");
 
 define("_oscmem_optionname","选项名称");
 define("_oscmem_optionsequence","次序");
-define("_oscmem_osclist_famrole_TITLE","Family Roles");
+define("_oscmem_osclist_famrole_TITLE","家中角色");
 
-//define("_oscmem_osclist_TITLE_familyroles","Family Roles");
-//define("_oscmem_osclist_TITLE_memberclassifications","Member Classifications");
+//define("_oscmem_osclist_TITLE_familyroles","家中角色");
+//define("_oscmem_osclist_TITLE_memberclassifications","成员类别");
 //define("_oscmem_osclist_TITLE_grouptypes","小组类别");
 
 
@@ -148,7 +148,7 @@ define("_oscmem_dirreport_groupmemb","Group Membership:");
 define("_oscmem_dirreport_headhouse","Which role is the head of household?");
 define("_oscmem_dirreport_spouserole","Which role is the spouse?");
 define("_oscmem_dirreport_childrole","Which role is a child?");
-define("_oscmem_dirreport_infoinclude","Information to Include:");
+define("_oscmem_dirreport_infoinclude","包含的信息:");
 
 define("_oscmem_address_label","地址:");
 define("_oscmem_familyhomephone","该家庭的家中电话");
@@ -175,23 +175,23 @@ define("_oscmem_usetitlepageyn","Use Title Page");
 define("_oscmem_churchname_label","Church Name");
 define("_oscmem_disclaimer","Disclaimer");
 
-define("_oscmem_directory","Directory");
-define("_oscmem_page","Page");
+define("_oscmem_directory","目录");
+define("_oscmem_page","页");
 
 define("_oscmem_incorrectdt_membershipdate","Incorrect Membership Date Format");
-define("_oscmem_incorrectdt_weddingdate","Incorrect Wedding Date Format");
+define("_oscmem_incorrectdt_weddingdate","结婚日期格式错误");
 
-define("_oscmem_CREATESUCCESS_group","Group Successfully Created");
+define("_oscmem_CREATESUCCESS_group","小组创建成功");
 define("_oscmem_csvexport","CSV Export");
 
 define("_oscmem_cvsexport_infoinclude","Fields to include in Export");
 
 
-define("_oscmem_season_select","Select a season");
-define("_oscmem_season_spring","Spring");
-define("_oscmem_season_summer","Summer");
-define("_oscmem_season_fall","Fall");
-define("_oscmem_season_winter","Winter");
+define("_oscmem_season_select","选择季节");
+define("_oscmem_season_spring","春季");
+define("_oscmem_season_summer","夏季");
+define("_oscmem_season_fall","秋季");
+define("_oscmem_season_winter","冬季");
 
 define("_oscmem_filters","Filters");
 define("_oscmem_recordstoexport","Records to Export");
@@ -205,15 +205,15 @@ define("_oscmem_rolestoexport","Family Roles to Export");
 
 define("_oscmem_gender_nofilter","Do not filter on Gender");
 
-define("_oscmem_filter_from","From");
-define("_oscmem_filter_to","To");
+define("_oscmem_filter_from","从");
+define("_oscmem_filter_to","至");
 
-define("_oscmem_otheremail","Other Email");
+define("_oscmem_otheremail","其它电子邮件");
 define("_oscmem_envelopenumber","Envelope Number");
 define("_oscmem_csv_birthanniversary","Birth/Anniversary");
-define("_oscmem_csv_ageyearsmarried","Age and Years Married");
-define("_oscmem_csv_familyrole","Family Role");
-define("_oscmem_csv_familyname","Family Name");
+define("_oscmem_csv_ageyearsmarried","结婚日期");
+define("_oscmem_csv_familyrole","家中角色");
+define("_oscmem_csv_familyname","家庭姓名");
 define("_oscmem_csv_ministry","Ministry");
 define("_oscmem_anniversary","Anniversary");
 
