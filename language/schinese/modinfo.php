@@ -6,7 +6,7 @@ define("_oscmem_MOD_DESC","Xoops OSC Module for Membership.");
 define("_oscmem_ADMENU0","OSC 会员管理");
 define("_oscmem_personselect","个人选项");
 //Field names
-//define("_oscdir_userfile","Church 照片");
+//define("_oscdir_userfile","教堂 照片");
 
 define("_oscmem_name","会员姓名");
 define("_oscmem_lastname", "姓氏");
@@ -22,8 +22,8 @@ define("_oscmem_title","会员列表 ");
 define("_oscmem_birthday","生日");
 define("_oscmem_month","月");
 define("_oscmem_year","年");
-define("_oscmem_birthfrom","From");
-define("_oscmem_birthto","To");
+define("_oscmem_birthfrom","从");
+define("_oscmem_birthto","至");
 define("_oscmem_gender","性别");
 define("_oscmem_membershipdate","加入时间 ");
 define("_oscmem_memberclass","会员类别");
@@ -69,11 +69,11 @@ define("_oscmem_groupdetail_TITLE","小组信息");
 define('_oscmem_UPDATESUCCESS','The OSC Membership database has been updated successfully');
 define('_oscmem_CREATESUCCESS_individual','The Individual has been created in the OSC database.');
 
-define("_oscmem_CREATESUCCESS_family","The Family has been created in the OSC database.");
-define("_oscmem_addfamily_redirect","Redirecting to Add Family");
+define("_oscmem_CREATESUCCESS_family","成功在 OSC 数据库里创建家庭。");
+define("_oscmem_addfamily_redirect","正在转向添加家庭");
 
-define("_oscmem_UPDATESUCCESS_member","Member(s) added to family.");
-define("_oscmem_REMOVEMEMBERSUCCESS","Family Member Removed.");
+define("_oscmem_UPDATESUCCESS_member","成员已经被添加到家庭");
+define("_oscmem_REMOVEMEMBERSUCCESS","已经删除家庭成员");
 define("_oscmem_nomembers","没有成员");
 define("_oscmem_nogroups","没有小组, 要创建小组请点击<a href=>这里</a>");
 
@@ -138,12 +138,12 @@ define("_oscmem_no","No");
 
 define("_oscmem_reporttitle","OSC Membership Reports");
 define("_oscmem_directoryreport","Membership Directory");
-define("_oscmem_reports", "Reports");
-define("_oscmem_nav_reports","Reports/Data");
+define("_oscmem_reports", "报告");
+define("_oscmem_nav_reports","报告/数据");
 define("_oscmem_csvimport","CSV Import");
 
-define("_oscmem_dirreport_selectclass","Select classifications to include:");
-define("_oscmem_usectl","Use Ctrl Key to select multiple");
+define("_oscmem_dirreport_selectclass","选择要包括的分类");
+define("_oscmem_usectl","使用CTRL键选择多项");
 define("_oscmem_dirreport_groupmemb","Group Membership:");
 define("_oscmem_dirreport_headhouse","Which role is the head of household?");
 define("_oscmem_dirreport_spouserole","Which role is the spouse?");
@@ -169,11 +169,11 @@ define("_oscmem_dirsort","Directory Sort");
 define("_oscmem_orderbyfirstname","Order Directory by First Name");
 define("_oscmem_directorytitle","Church Directory Options");
 
-define("_oscmem_titlepagesettings","Directory Title Page Settings");
+define("_oscmem_titlepagesettings","目录标题设置");
 
-define("_oscmem_usetitlepageyn","Use Title Page");
-define("_oscmem_churchname_label","Church Name");
-define("_oscmem_disclaimer","Disclaimer");
+define("_oscmem_usetitlepageyn","使用标题");
+define("_oscmem_churchname_label","教会名称");
+define("_oscmem_disclaimer","放弃");
 
 define("_oscmem_directory","目录");
 define("_oscmem_page","页");
@@ -203,7 +203,7 @@ define("_oscmem_fromcart","People in Cart (filters ignored)");
 define("_oscmem_cvsexport_customfields","Custom Fields for Export");
 define("_oscmem_rolestoexport","Family Roles to Export");
 
-define("_oscmem_gender_nofilter","Do not filter on Gender");
+define("_oscmem_gender_nofilter","不要过滤性别");
 
 define("_oscmem_filter_from","从");
 define("_oscmem_filter_to","至");
@@ -215,14 +215,14 @@ define("_oscmem_csv_ageyearsmarried","结婚日期");
 define("_oscmem_csv_familyrole","家中角色");
 define("_oscmem_csv_familyname","家庭姓名");
 define("_oscmem_csv_ministry","Ministry");
-define("_oscmem_anniversary","Anniversary");
+define("_oscmem_anniversary","周年纪念");
 
-define("_oscmem_csv_individual","CSV Individual Records");
-define("_oscmem_csv_combinefamily","CSV Combine Families");
+define("_oscmem_csv_individual","CSV 个人记录");
+define("_oscmem_csv_combinefamily","CSV 联合家庭");
 define("_oscmem_csv_addtocart","Add Individuals to Cart");
-define("_oscmem_csv_outputmethod","Output Method");
+define("_oscmem_csv_outputmethod","输出方式");
 
-define("_oscmem_csv_skipincompleteaddress","Skip Incomplete Mail Addresses");
+define("_oscmem_csv_skipincompleteaddress","跳过不完整的邮件地址");
 define("_oscmem_csv_skipnoenvelope","Skip Records with No Envelope Number<br>(Individual Records Only)");
 
 define("_oscmem_admin_osclist_familyroles","修改家庭角色");
@@ -236,6 +236,6 @@ define("_oscmem_view","视图");
 define("_oscmem_defaultcountry_value",22);
 define("_oscmem_defaultcountry_text"," &nbsp;&nbsp;(Default Country is USA)");
 
-define("_oscmem_accessdenied","Access Denied");
+define("_oscmem_accessdenied","访问被拒绝");
 
 ?>
