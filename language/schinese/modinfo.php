@@ -34,7 +34,7 @@ define("_osc_create","创建");
 define("_oscmem_actions","Actions");
 define("_osc_addmember","加入家庭成员");
 define("_oscmem_addmember","添加会员");
-define("_oscmem_addingmember","Redirecting to Add Member");
+define("_oscmem_addingmember","转向到添加成员");
 
 define("_oscmem_homephone","家庭电话");
 define("_oscmem_workphone","办公电话");
@@ -133,8 +133,8 @@ define("_oscmem_msg_intersectedcart","Selected Individuals have been successfull
 define("_oscmem_view_cart","View Cart");
 define("_oscmem_cartcontents","Cart Contents");
 define("_oscmem_memberview","Membership View");
-define("_oscmem_yes","Yes");
-define("_oscmem_no","No");
+define("_oscmem_yes","是");
+define("_oscmem_no","否");
 
 define("_oscmem_reporttitle","OSC Membership Reports");
 define("_oscmem_directoryreport","Membership Directory");
@@ -167,7 +167,7 @@ define("_oscmem_altfamilyname","Dual Listing - Alternate Family Name");
 define("_oscmem_althead","Use only Family Name for listing");
 define("_oscmem_dirsort","Directory Sort");
 define("_oscmem_orderbyfirstname","Order Directory by First Name");
-define("_oscmem_directorytitle","Church Directory Options");
+define("_oscmem_directorytitle","教堂目录选项");
 
 define("_oscmem_titlepagesettings","目录标题设置");
 
@@ -229,7 +229,7 @@ define("_oscmem_admin_osclist_familyroles","修改家庭角色");
 define("_oscmem_admin_osclist_memberclassification","修改 成员 类别");
 define("_oscmem_admin_osclist_grouptype","修改小组类别");
 define("_oscmem_admin_osclist_permissions","修改权限");
-define("_oscmem_admin_customfield","Modify Custom Fields");
+define("_oscmem_admin_customfield","修改 Custom Fields");
 
 define("_oscmem_view","视图");
 
