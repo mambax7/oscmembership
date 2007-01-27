@@ -1,5 +1,5 @@
 <?php
-// $Id: oscmemnav.php,v 1.1.1.1 2006/08/08 14:57:25 root Exp $
+// $Id: oscdirectoryblock.php,v 1.1.1.1 2006/03/12 14:57:25 root Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -35,7 +35,7 @@
 // * Output  : Returns the links content                                  *//
 // **************************************************************************//
 
-//include_once(XOOPS_ROOT_PATH . "/modules/churchsplash/class/formimage.php");
+include_once(XOOPS_ROOT_PATH . "/modules/churchsplash/class/formimage.php");
 
 // include the default language file for the admin interface
 
@@ -53,30 +53,46 @@ elseif( file_exists(XOOPS_ROOT_PATH . "/modules/churchsplash/language/english/mo
 */
 // include XOOPS_ROOT_PATH ."/modules/churchsplash/language/english/modinfo.php";
 
-//include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-//include_once XOOPS_ROOT_PATH."/class/xoopsform/tableform.php";
+include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
+include_once XOOPS_ROOT_PATH."/class/xoopsform/tableform.php";
+include_once XOOPS_ROOT_PATH . '/modules/churchsplash/class/churchdetail.php';
 
 
 
-function oscgivnav_show($options) 
+function churchsplashblock_show($options) 
 {
-	global $xoopsUser;
-	$content_block="
-<table class=navbar >
-<tr><TD align=center ><small>
-<a class=navbar href='" . XOOPS_URL . "/modules/oscgiving/index.php" . "'>" .  _oscgiv_nav_donationenvelopes . "</a>
-</small></td><td>|</td><td align=center><small>
+    	global $xoopsUser;
+	include_once(XOOPS_ROOT_PATH . "/modules/churchsplash/include/functions.php");
 
-<a href='" . XOOPS_URL . "/modules/oscgiving/donationbatchentry.php'> " . _oscgiv_nav_donationbatchentry . "</a>
-</small></td>
-<td>|</td><td align=center><small><a href='" . XOOPS_URL . "/modules/oscmembership/reports.php'>" . _oscmem_nav_reports . "</a></small></td>
-</tr>
-</table>
-";
+	$churchdetail_handler = &xoops_getmodulehandler('Churchdetail', 'churchsplash');
+
+	$cd = $churchdetail_handler->get(1);  //only one record
+
+	$name_label = new XoopsFormLabel('',$cd->getVar('churchname'));
+	$desc_text = new XoopsFormLabel('',$cd->getVar('description'));
 	
-		
-	$block['title'] = _oscgiv_nav_block_title;
-	$block['content'] = $content_block;
+	$address_text = new XoopsFormLabel('',$cd->getVar('churchaddress') . "<br>" . $cd->getVar('churchcity') . ", " . $cd->getVar('churchstate') . "&nbsp;" . $cd->getVar('churchpost'));
+	$blank_row = new XoopsFormLabel('', '&nbsp;');
+	$church_image=$cd->getVar('churchpicture');
+
+	$churchpicture_href= XOOPS_URL . "/modules/churchsplash/images/uploads/" . $church_image ;
+	
+	$userfile_image = new  XoopsFormImage('',"pic",$churchpicture_href);
+	
+	$id_hidden = new XoopsFormHidden("id",$cd->getVar('id'));
+	
+	$table=new XoopsTableForm('', "churchsplashblock", "", "post", true);
+	
+	$table->addElement($userfile_image);
+	$table->addElement($blank_row);
+	$table->addElement($desc_text);
+	$table->addElement($blank_row);
+	$table->addElement($name_label);
+	$table->addElement($address_text);
+	$table->addElement($id_hidden);
+	
+	$block['title'] = $cd->getVar('churchname');
+	$block['content'] = $table->render();
 
         return $block;
 }
