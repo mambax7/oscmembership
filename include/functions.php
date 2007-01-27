@@ -5,7 +5,7 @@ if ( $xoopsUser )
 	{
 		$groupPermHandler =& xoops_gethandler('groupperm');
 		$moduleHandler =& xoops_gethandler('module');
-		$module = $moduleHandler->getByDirname('oscmembership');
+		$module = $moduleHandler->getByDirname('oscgiving');
 
 		$returnval = false;
 		$perm=$groupPermHandler->getItemIds($permission,$user->getGroups(),$module->getVar("mid"));
@@ -94,5 +94,54 @@ function SelectWhichInfo($sPersonInfo, $sFamilyInfo, $bFormat = false)
 			return "";
 	}
 }
+
+// Returns a string of a person's full name, formatted as specified by $Style
+// $Style = 0  :  "Title FirstName MiddleName LastName, Suffix"
+// $Style = 1  :  "Title FirstName MiddleInitial. LastName, Suffix"
+// $Style = 2  :  "LastName, Title FirstName MiddleName, Suffix"
+// $Style = 3  :  "LastName, Title FirstName MiddleInitial., Suffix"
+//
+function FormatFullName($Title, $FirstName, $MiddleName, $LastName, $Suffix, $Style)
+{
+	$nameString = "";
+
+	switch ($Style) {
+
+	case 0:
+		if ($Title) $nameString .= $Title . " ";
+		$nameString .= $FirstName;
+		if ($MiddleName) $nameString .= " " . $MiddleName;
+		if ($LastName) $nameString .= " " . $LastName;
+		if ($Suffix) $nameString .= ", " . $Suffix;
+		break;
+
+	case 1:
+		if ($Title) $nameString .= $Title . " ";
+		$nameString .= $FirstName;
+		if ($MiddleName) $nameString .= " " . strtoupper($MiddleName{0}) . ".";
+		if ($LastName) $nameString .= " " . $LastName;
+		if ($Suffix) $nameString .= ", " . $Suffix;
+		break;
+
+	case 2:
+		if ($LastName) $nameString .= $LastName . ", ";
+		if ($Title) $nameString .= $Title . " ";
+		$nameString .= $FirstName;
+		if ($MiddleName) $nameString .= " " . $MiddleName;
+		if ($Suffix) $nameString .= ", " . $Suffix;
+		break;
+
+	case 3:
+		if ($LastName) $nameString .= $LastName . ", ";
+		if ($Title) $nameString .= $Title . " ";
+		$nameString .= $FirstName;
+		if ($MiddleName) $nameString .= " " . strtoupper($MiddleName{0}) . ".";
+		if ($Suffix) $nameString .= ", " . $Suffix;
+		break;
+	}
+
+	return $nameString;
+}
+
 
 ?>
