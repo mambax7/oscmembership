@@ -1,6 +1,6 @@
 <?php
 include("../../mainfile.php");
-$GLOBALS['xoopsOption']['template_main'] ="memberview.html";
+$GLOBALS['xoopsOption']['template_main'] ="donationenvelope.html";
 
 //redirect
 if (!$xoopsUser)
@@ -17,8 +17,9 @@ $userId = ($user) ? $user->getVar('uid') : 0;
 
 include XOOPS_ROOT_PATH."/include/cp_functions.php";
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/person.php';
+include_once XOOPS_ROOT_PATH . '/modules/oscmembership/class/person.php';
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/functions.php';
+
 
 include(XOOPS_ROOT_PATH."/header.php");
 
@@ -30,108 +31,26 @@ include(XOOPS_ROOT_PATH."/header.php");
 */
 
 
-if(hasPerm("oscmembership_view",$xoopsUser)) $ispermview=true;
-if(hasPerm("oscmembership_modify",$xoopsUser)) $ispermmodify=true;
+if(hasPerm("oscgiving_view",$xoopsUser)) $ispermview=true;
+if(hasPerm("oscgiving_modify",$xoopsUser)) $ispermmodify=true;
 
-$sort="";
-$filter="";
-if (isset($_POST['sort'])) $sort = $_POST['sort'];
-if (isset($_POST['filter'])) $filter=$_POST['filter'];
-if (isset($_POST['submit'])) $submit = $_POST['submit'];
-if (isset($_POST['loopcount'])) $loopcount = $_POST['loopcount'];
+$giv_handler= &xoops_getmodulehandler('envelope', 'oscgiving');
 
-$person_handler = &xoops_getmodulehandler('person', 'oscmembership');
+$xoopsTpl->assign('title',_oscgiv_donationenvelopemgt); 
+$xoopsTpl->assign('assignedenvelopes',$giv_handler->getcountofassignedenvelopes());
+$xoopsTpl->assign('oscgiv_reassignenvelopeslink',_oscgiv_reassignenvelopeslink);
+$xoopsTpl->assign('oscgiv_activeenvelopes',_oscgiv_activeenvelopes);
+$xoopsTpl->assign('activeenvelopes',$giv_handler->getactiveenvelopecount());
+$xoopsTpl->assign('oscgiv_highestenvelopenumber',_oscgiv_highestenvelopenumber);
+$xoopsTpl->assign('highestenvelope',$giv_handler->gethighestenvelopenumber());
+$xoopsTpl->assign('oscgiv_displaylistassignedenvelopes',_oscgiv_displaylistassignedenvelopes);
+$xoopsTpl->assign('oscgiv_autoassignevelopeslink',_oscgiv_autoassignevelopeslink);
 
-$searcharray=array();
-if(isset($submit))
-{
-	switch($submit)
-	{
-	case _oscmem_addmember:
-		redirect_header("persondetailform.php?action=create", 2, _oscmem_addingmember);
-		break;
-	
-	
-	case _oscmem_applyfilter:
-		//do nothing
-		break;
-	case _oscmem_clearfilter:
-		$filter="";
-		break;
-		
-	case _oscmem_addtocart: 
-		//call add cart
-		for($i=0;$i<$loopcount+1;$i++)
-		{
-			if (isset($_POST['chk' . $i]))
-			{
-				$id=$_POST['chk' . $i];
-				$uid=$xoopsUser->getVar('uid');
-				$person_handler->addtoCart($id, $uid);
-			}
-		}
-		redirect_header("index.php", 2, _oscmem_addedtocart);
-		break;
-	
-	case _oscmem_removefromcart:
-		for($i=0;$i<$loopcount+1;$i++)
-		{
-			if (isset($_POST['chk' . $i]))
-			{
-				$id=$_POST['chk' . $i];
-				$uid=$xoopsUser->getVar('uid');
-				$person_handler->removefromCart($id, $uid);
-			}
-		}
-		redirect_header("index.php", 2, _oscmem_msg_removedfromcart);
-		break;
-	
-	case _oscmem_intersectcart:
-		for($i=0;$i<$loopcount+1;$i++)
-		{
-			if (isset($_POST['chk' . $i]))
-			{
-				$id=$_POST['chk' . $i];
-				$uid=$xoopsUser->getVar('uid');
-				//$person_handler->removefromCart($id, $uid);
-			}
-		}
-		redirect_header("index.php", 2, _oscmem_msg_intersectedcart);
-		break;
-	}
-}
+$xoopsTpl->assign('oscgiv_assignedenvelopes',_oscgiv_assignedenvelopes);
 
-if(isset($filter))
-{
-	$searcharray[0]=$filter;
-}
-else $searcharray[0]='';
+$xoopsTpl->assign('oscgiv_envelopassignconfirm',_oscgiv_envelopassignconfirm);
 
-$persons = $person_handler->search2($searcharray, $sort);
-
-$xoopsTpl->assign('oscmem_applyfilter',_oscmem_applyfilter);
-$xoopsTpl->assign('title',_oscmem_memberview); 
-$xoopsTpl->assign('oscmem_name',_oscmem_name);
-$xoopsTpl->assign('oscmem_address',_oscmem_address);
-$xoopsTpl->assign('oscmem_email',_oscmem_email);
-$xoopsTpl->assign('oscmem_clearfilter',_oscmem_clearfilter);
-$xoopsTpl->assign('oscmem_addtocart',_oscmem_addtocart);
-$xoopsTpl->assign('oscmem_removefromcart',_oscmem_removefromcart);
-$xoopsTpl->assign('oscmem_addmember',_oscmem_addmember);
-$xoopsTpl->assign('is_perm_view',$ispermview);
-$xoopsTpl->assign('is_perm_modify',$ispermmodify);
-$xoopsTpl->assign('oscmem_view',_oscmem_view);
-$xoopsTpl->assign('oscmem_edit',_oscmem_edit);
-
-$xoopsTpl->assign('persons',$persons);
-
-$xoopsTpl->assign('loopcount', $persons[0]['totalloopcount']);
-
-//xoops_cp_footer();
 
 include(XOOPS_ROOT_PATH."/footer.php");
-
-
-
 
 ?>
