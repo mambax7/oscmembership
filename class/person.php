@@ -952,6 +952,39 @@ function &searchgroupmembers($searcharray, $groupid)
 		}
 	
 	}
+	
+	
+	function &getPersonbyenvelope($envelopenum)
+    	{
+		$person =&$this->create(false);
+
+		if ($envelopenum > 0) 
+		{
+			$sql = "SELECT *, '' as text FROM " . 
+			$this->db->prefix("oscmembership_person") . " WHERE envelope = " . intval($envelopenum);
+			if (!$result = $this->db->query($sql)) 
+			{
+				return false;
+			} 
+	
+			if($row = $this->db->fetchArray($result)) 
+			{
+				$person->assignVars($row);
+				//pull custom fields
+				$customresult=$this->getcustompersonData($person->getVar('id'));
+				$customrow=$this->db->fetchArray($customresult);
+				$customfields=implode(",",$customrow);
+	
+				//echo $customfields;			
+				$person->assignVar('customfields',$customfields);
+				
+				
+			}
+			
+		}
+		return $person;
+	}
+
 }
 
 
