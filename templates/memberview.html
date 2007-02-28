@@ -26,7 +26,7 @@
 <{ if $person->getVar('oddrow') == false }>
 <tr class="even">
 <{/if}>
-<td width=10><input name="chk<{$person->getVar('loopcount')}>" value="<{$person->getVar('id')}>" type="checkbox"></td>
+<td width=10><input name="chk<{$person->getVar('loopcount')}>" id="chk<{$person->getVar('loopcount')}>" value="<{$person->getVar('id')}>" type="checkbox"></td>
 <td><{$person->getVar('lastname')}>, <{$person->getVar('firstname')}></td>
 <td><{$person->getVar('city')}>, <{$person->getVar('state')}></td><td><{$person->getVar('email')}></td>
 <td><{ if $is_perm_view }>

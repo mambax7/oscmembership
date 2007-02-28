@@ -65,6 +65,7 @@ if(isset($submit))
 		{
 			if (isset($_POST['chk' . $i]))
 			{
+				echo $_POST['chk' . $i];
 				$id=$_POST['chk' . $i];
 				$uid=$xoopsUser->getVar('uid');
 				$person_handler->addtoCart($id, $uid);

@@ -67,6 +67,7 @@ class  Person extends XoopsObject {
 	$this->initVar('customfields',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('loopcount',XOBJ_DTYPE_INT);
 	$this->initVar('oddrow',XOBJ_DTYPE_INT);
+	$this->initVar('totalloopcount',XOBJ_DTYPE_INT);
 	
 	$this->initVar('addressflag',XOBJ_DTYPE_INT);
 	$this->initVar('emailflag',XOBJ_DTYPE_INT);
@@ -531,7 +532,9 @@ function &search3($searcharray, $sort, $hasenvelope=null)
 			$loopcount++;
 
 		}
-//		$persons[0]['totalloopcount']=$loopcount-1;
+		$person=$persons[0];
+		$person->assignVar('totalloopcount',$loopcount-1);
+		$persons[0]=$person;
 	}
 	return $persons;
     }
