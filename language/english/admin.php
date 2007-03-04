@@ -1,5 +1,4 @@
 <?php
-//%%%%%%	Admin Module Name  ChurchSplash	%%%%%
 define("_oscmembership_ADMINTITLE","OSC Membership - Admin");
 //
 

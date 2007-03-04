@@ -9,21 +9,32 @@ include(XOOPS_ROOT_PATH."/header.php");
 $language = $xoopsConfig['language'] ;
 // include the default language file for the admin interface
 if( ! file_exists( XOOPS_ROOT_PATH . "/modules/system/language/$language/admin/blocksadmin.php") ) $language = 'english' ;
-include_once( XOOPS_ROOT_PATH . "/modules/system/language/$language/admin.php" ) ;
 
-if ( file_exists( "../language/" . $xoopsConfig['language'] . "/main.php" ) ) {
-    include "../language/" . $xoopsConfig['language'] . "/main.php";
+if (file_exists(XOOPS_ROOT_PATH. "/modules" . 	$xoopsModule->getVar('dirname') .  "/language/" . $xoopsConfig['language'] . "/main.php")) {
+    include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/language/" . $xoopsConfig['language'] . "/main.php";
 }
-elseif ( file_exists( "../language/english/main.php" ) ) {
-    include "../language/english/main.php";
+elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') ."/language/english/main.php"))
+{ include XOOPS_ROOT_PATH ."/modules/" . $xoopsModule->getVar('dirname') . "/language/english/main.php";
+
 }
 
-if ( file_exists( "../language/" . $xoopsConfig['language'] . "/modinfo.php" ) ) {
-    include "../language/" . $xoopsConfig['language'] . "/modinfo.php";
+if (file_exists(XOOPS_ROOT_PATH. "/modules" . 	$xoopsModule->getVar('dirname') .  "/language/" . $xoopsConfig['language'] . "/modinfo.php")) {
+    include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/language/" . $xoopsConfig['language'] . "/modinfo.php";
 }
-elseif ( file_exists( "../language/english/modinfo.php" ) ) {
-    include "../language/english/modinfo.php";
+elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') ."/language/english/modinfo.php"))
+{ include XOOPS_ROOT_PATH ."/modules/" . $xoopsModule->getVar('dirname') . "/language/english/modinfo.php";
+
 }
+
+if (file_exists(XOOPS_ROOT_PATH. "/modules" . 	$xoopsModule->getVar('dirname') .  "/language/" . $xoopsConfig['language'] . "/admin.php")) {
+    include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/language/" . $xoopsConfig['language'] . "/admin.php";
+}
+elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') ."/language/english/admin.php"))
+{ include XOOPS_ROOT_PATH ."/modules/" . $xoopsModule->getVar('dirname') . "/language/english/admin.php";
+
+}
+
+
 
 $xoopsOption['template_main'] = 'cs_index.html';
 
