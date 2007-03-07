@@ -153,6 +153,28 @@ CREATE TABLE `oscmembership_cart` (
   `person_id` mediumint(9) NOT NULL
   ) TYPE=MyISAM; 
 
+ CREATE TABLE `oscmembership_churchdetail` (
+  `id` mediumint(9) NOT NULL ,
+  `churchname` varchar(50) default NULL,
+  `address1` varchar(255) default NULL,
+  `address2` varchar(255) default NULL,
+  `city` varchar(50) default NULL,
+  `state` varchar(50) default NULL,
+  `zip` varchar(50) default NULL,
+  `country` varchar(50) default NULL,
+  `phone` varchar(30) default NULL,
+  `fax` varchar(30) default NULL,
+  `email` varchar(100) default NULL,
+  `website` varchar(100) default NULL,
+  `dateentered` datetime NOT NULL default '0000-00-00 00:00:00',
+  `datelastedited` datetime default NULL,
+  `enteredby` smallint(5) unsigned NOT NULL default '0',
+  `editedby` smallint(5) unsigned default '0',
+  PRIMARY KEY  (`id`),
+  KEY `settingsid` (`id`)
+)
+  
+  
 
 # Sample data for member classifications
 INSERT INTO oscmembership_list VALUES (1, 1, 1, 'Member');
@@ -190,3 +212,8 @@ INSERT INTO oscmembership_list VALUES (4, 12, 12, 'Custom Drop-Down List');
 
 # insert church Directory info
 insert into oscmembership_churchdir(id,church_name,church_address,church_city,church_state,church_post,church_phone, disclaimer) values(0,'Your Church Name','Your Church Address','Your Church City','Your Church State','Your Church Zip Code','Your Church Phone #','Enter your disclaimer here');
+
+# Default Church Detail
+insert into oscmembership_churchdetail(id,churchname,dateentered,datelastedited,
+enteredby,editedby)
+values(1,'Your Church Name',Now(),Now(),1,1)

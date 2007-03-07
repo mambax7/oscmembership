@@ -39,6 +39,7 @@ if ( !is_object($xoopsUser) || !is_object($xoopsModule))  {
     exit("Access Denied");
 }
 
+//require (XOOPS_ROOT_PATH . "/Frameworks/fpdf/fpdf.php";
 require (XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/ReportConfig.php");
 include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/fpdf151/fpdf.php";
 

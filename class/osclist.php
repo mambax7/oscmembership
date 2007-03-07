@@ -136,7 +136,6 @@ class oscMembershipOsclistHandler extends XoopsObjectHandler
     
 	function &update(&$osclist)
 	{
-	echo "made it here";
 		$sql = "UPDATE " . $osclist->table
 		. " SET "
 		. "optionname=" . $this->db->quoteString($osclist->getVar('optionname'))

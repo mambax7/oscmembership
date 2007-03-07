@@ -230,12 +230,12 @@ define("_oscmem_admin_osclist_memberclassification","Modify Member Classificatio
 define("_oscmem_admin_osclist_grouptype","Modify Group Types");
 define("_oscmem_admin_osclist_permissions","Modify Permissions");
 define("_oscmem_admin_customfield","Modify Custom Fields");
-
+define("_oscmem_admin_churchdetail","Modify Church Detail");
 define("_oscmem_view","View");
 
 define("_oscmem_defaultcountry_value",22);
 define("_oscmem_defaultcountry_text"," &nbsp;&nbsp;(Default Country is USA)");
 
 define("_oscmem_accessdenied","Access Denied");
-
+define("_oscmem_fax","Fax");
 ?>

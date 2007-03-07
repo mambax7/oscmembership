@@ -17,6 +17,10 @@ $adminmenu[$admini]['title'] = _oscmem_admin_osclist_grouptype;
 $adminmenu[$admini]['link'] = "admin/osclistselect_smarty.php?id=3";
 
 $admini++;
+$adminmenu[$admini]['title'] = _oscmem_admin_churchdetail;
+$adminmenu[$admini]['link'] = "admin/churchdetailform.php";
+
+$admini++;
 $adminmenu[$admini]['title'] = _oscmem_admin_osclist_permissions;
 $adminmenu[$admini]['link'] = "admin/perm.php?id=4";
 
