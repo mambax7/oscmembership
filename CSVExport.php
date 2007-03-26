@@ -46,22 +46,25 @@ if(!hasPerm("oscmembership_modify",$xoopsUser)) exit(_oscmem_access_denied);
 // Set the page title and include HTML header
 //$sPageTitle = gettext("Directory reports");
 //require "Include/Header.php";
+$GLOBALS['xoopsOption']['template_main'] ="csvexport.html";
+
 include(XOOPS_ROOT_PATH."/header.php");
 
-$GLOBALS['xoopsOption']['template_main'] ="csvexport.html";
 
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/osclist.php';
 
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/group.php';
 
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/churchdir.php';
+//include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/churchdir.php';
 
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 include_once XOOPS_ROOT_PATH."/class/xoopsform/tableform.php";
 
+/*
 $churchdir_handler = &xoops_getmodulehandler('churchdir', 'oscmembership');
 $churchdir= $churchdir_handler->create();
 $churchdir = $churchdir_handler->get($churchdir);
+*/
 
 $osclist_handler = &xoops_getmodulehandler('osclist', 'oscmembership');
 $osclist = $osclist_handler->create();
@@ -91,11 +94,14 @@ $group_handler = &xoops_getmodulehandler('group', 'oscmembership');
 $groups = $group_handler->getarray();
 
 $group_select = new XoopsFormSelect(_oscmem_dirreport_groupmemb,'GroupID',"",5,true, 'group');
-foreach($groups as $group)
-{
-	$group_select->addOption($group['id'], $group['group_Name']);
-}
 
+if(isset($groups[0]['id']))
+{
+	foreach($groups as $group)
+	{
+		$group_select->addOption($group['id'], $group['group_Name']);
+	}
+}
 
 $xoopsTpl->assign('oscmem_lastname',_oscmem_lastname);
 $xoopsTpl->assign('oscmem_membername',_oscmem_name);

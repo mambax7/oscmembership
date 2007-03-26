@@ -124,9 +124,19 @@ $xoopsTpl->assign('is_perm_modify',$ispermmodify);
 $xoopsTpl->assign('oscmem_view',_oscmem_view);
 $xoopsTpl->assign('oscmem_edit',_oscmem_edit);
 
-$xoopsTpl->assign('persons',$persons);
 
-$xoopsTpl->assign('loopcount', $persons[0]->getVar('totalloopcount'));
+if($persons[0]->getVar('totalloopcount')>0)
+{
+	$xoopsTpl->assign('persons',$persons);
+	$xoopsTpl->assign('loopcount', $persons[0]->getVar('totalloopcount'));
+}
+else
+{
+	$person=array();
+	$xoopsTpl->assign('persons',$persons);
+	$xoopsTpl->assign('loopcount', '0');
+}	
+	
 
 //xoops_cp_footer();
 include(XOOPS_ROOT_PATH."/footer.php");

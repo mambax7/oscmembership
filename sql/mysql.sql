@@ -136,7 +136,7 @@ CREATE TABLE `oscmembership_churchdir` (
  , PRIMARY KEY (`church_name`)
  ) TYPE=MyISAM;
 
-# 
+ 
 CREATE TABLE `oscmembership_person_custom_master` (
   `custom_Order` smallint(6) NOT NULL default '0',
   `custom_Field` varchar(5) NOT NULL default '',
@@ -146,7 +146,7 @@ CREATE TABLE `oscmembership_person_custom_master` (
   `type_ID` tinyint(4) NOT NULL default '0'
 ) TYPE=MyISAM; 
 
-# 
+
 CREATE TABLE `oscmembership_cart` (
   `xoops_uid` mediumint(8) NOT NULL,
   `cart_timestamp` timestamp NOT NULL,
@@ -170,10 +170,8 @@ CREATE TABLE `oscmembership_cart` (
   `datelastedited` datetime default NULL,
   `enteredby` smallint(5) unsigned NOT NULL default '0',
   `editedby` smallint(5) unsigned default '0',
-  PRIMARY KEY  (`id`),
-  KEY `settingsid` (`id`)
-)
-  
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;  
   
 
 # Sample data for member classifications

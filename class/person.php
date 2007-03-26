@@ -497,45 +497,27 @@ function &search3($searcharray, $sort, $hasenvelope=null)
 			
 				$persons[$i]=$person;
 				
-				/*
-				$persons[$i]['oddrow']=$oddrow;
-				$persons[$i]['lastname']=$person->getVar('lastname');
-				$persons[$i]['firstname']=$person->getVar('firstname');
-				$persons[$i]['address1']=$person->getVar('address1');
-				$persons[$i]['address2']=$person->getVar('address2');
-				$persons[$i]['city']=$person->getVar('city');
-				$persons[$i]['state']=$person->getVar('state');
-				$persons[$i]['zip']=$person->getVar('zip');
-				$persons[$i]['country']=$person->getVar('country');
-				$persons[$i]['email']=$person->getVar('email');
-				
-				if($person->getVar('address1') !=null)
-				{$persons[$i]['addressflag']=_oscmem_yes;}
-				else 
-				{$persons[$i]['addressflag']=_oscmem_no;}
-				
-				if($person->getVar('email') != null)
-				{$persons[$i]['emailflag']=_oscmem_yes;}
-				else { $persons[$i]['emailflag']=_oscmem_no;}
-				
-				$persons[$i]['envelope']=$person->getVar('envelope');
-				
-				$persons[$i]['id']=$person->getVar('id');
-				$persons[$i]['loopcount']=$i;
-				
-				if($oddrow){$oddrow=false;}
-				else {$oddrow=true;}
-				*/
 				
 			}
 			$i++;
 			$loopcount++;
 
 		}
-		$person=$persons[0];
-		$person->assignVar('totalloopcount',$loopcount-1);
-		$persons[0]=$person;
+		if($i>0)
+		{
+			$person=$persons[0];
+			$person->assignVar('totalloopcount',$loopcount-1);
+			$persons[0]=$person;
+			
+		}
+		else
+		{
+			$person = new Person();
+			$person->assignVar('totalloopcount',0);
+			$persons[0]=$person;
+		}
 	}
+			
 	return $persons;
     }
 
