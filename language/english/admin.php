@@ -66,7 +66,7 @@ define("_oscmem_osclist_TITLE_memberclassifications","Member Classifications");
 
 //define("_oscmem_admin_osclist_grouptype","Group Types");
 
-//define("_oscmem_permissions_view","View Permissions");
+define("_oscmem_permissions_view","View Permissions");
 define("_oscmem_permissions_view_desc","View allows the selected groups to view membership data.");
 
 define("_oscmem_permissions_modify","Modify Permissions");
