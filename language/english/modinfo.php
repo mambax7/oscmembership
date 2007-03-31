@@ -240,4 +240,5 @@ define("_oscmem_accessdenied","Access Denied");
 define("_oscmem_fax","Fax");
 define("_oscmembership_directorydisclaimer","Directory Disclaimer");
 define("_oscmembership_csvuploaderror","ERROR: the uploaded CSV file no longer exists!");
+define("_oscmem_invaliddate","Invalid Date");
 ?>

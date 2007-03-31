@@ -226,6 +226,7 @@ if(isset($action))
 		$submit_button = new XoopsFormButton("", "familydetailsubmit", _osc_create, "submit");
 	}
 }
+else $action="";
 
 $form = new XoopsThemeForm(_oscmem_familydetail_TITLE, "familydetailform", "familydetailform.php", "post", true);
 $form->addElement($familyname_text);

@@ -72,7 +72,9 @@ $xoopsTpl->assign('oscmembership_addfamily',_oscmembership_addfamily);
 
 $xoopsTpl->assign('families',$results);
 
-$totalloopcount=$results[0]['totalloopcount'];
+$family=$results[0];
+
+$totalloopcount=$family->getVar('totalloopcount');
 $xoopsTpl->assign('loopcount', $totalloopcount);
 
 
