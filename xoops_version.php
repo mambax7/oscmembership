@@ -20,8 +20,7 @@ $modversion['tables'][6] = "oscmembership_group_members";
 $modversion['tables'][7] = "oscmembership_person_custom";
 $modversion['tables'][8] = "oscmembership_person_custom_master";
 $modversion['tables'][9] = "oscmembership_cart";
-$modversion['tables'][10] = "oscmembership_churchdir";
-$modversion['tables'][11] = "oscmembership_churchdetail";
+$modversion['tables'][10] = "oscmembership_churchdetail";
 
 // Templates
 $modversion['templates'][0]['file'] = 'simple.html';
