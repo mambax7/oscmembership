@@ -72,7 +72,8 @@ $xoopsTpl->assign('oscmembership_addfamily',_oscmembership_addfamily);
 
 $xoopsTpl->assign('families',$results);
 
-$xoopsTpl->assign('loopcount', $results[0]['totalloopcount']);
+$totalloopcount=$results[0]['totalloopcount'];
+$xoopsTpl->assign('loopcount', $totalloopcount);
 
 
 include(XOOPS_ROOT_PATH."/footer.php");
