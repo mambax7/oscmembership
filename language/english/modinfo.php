@@ -239,4 +239,5 @@ define("_oscmem_defaultcountry_text"," &nbsp;&nbsp;(Default Country is USA)");
 define("_oscmem_accessdenied","Access Denied");
 define("_oscmem_fax","Fax");
 define("_oscmembership_directorydisclaimer","Directory Disclaimer");
+define("_oscmembership_csvuploaderror","ERROR: the uploaded CSV file no longer exists!");
 ?>

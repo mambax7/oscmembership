@@ -481,7 +481,7 @@ $sSQL = "INSERT INTO " . $db->prefix("oscmembership_person_custom") . " (id) VAL
 		$iStage = 3;
 	}
 	else
-		echo gettext("ERROR: the uploaded CSV file no longer exists!");
+		echo _oscmembership_csvuploaderror;
 }
 
 if ($iStage == 1)
