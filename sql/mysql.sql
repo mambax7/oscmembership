@@ -197,8 +197,6 @@ INSERT INTO oscmembership_list VALUES (4, 10, 10, 'Money');
 INSERT INTO oscmembership_list VALUES (4, 11, 11, 'Phone Number');
 INSERT INTO oscmembership_list VALUES (4, 12, 12, 'Custom Drop-Down List');
 
-# insert church Directory info
-insert into oscmembership_churchdir(id,church_name,church_address,church_city,church_state,church_post,church_phone, disclaimer) values(0,'Your Church Name','Your Church Address','Your Church City','Your Church State','Your Church Zip Code','Your Church Phone #','Enter your disclaimer here');
 
 # Default Church Detail
 insert into oscmembership_churchdetail(id,churchname,dateentered,datelastedited,
