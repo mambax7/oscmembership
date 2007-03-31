@@ -230,7 +230,7 @@ define("_oscmem_admin_osclist_memberclassification","修改會員類別");
 define("_oscmem_admin_osclist_grouptype","修改小組類別");
 define("_oscmem_admin_osclist_permissions","修改權限");
 define("_oscmem_admin_customfield","修改自訂欄位");
-
+define("_oscmem_admin_churchdetail","修改教會資料");
 define("_oscmem_view","檢視");
 
 define("_oscmem_defaultcountry_value",22);

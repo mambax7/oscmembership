@@ -1,5 +1,4 @@
 <?php
-//%%%%%%	Admin Module Name  ChurchSplash	%%%%%
 define("_oscmembership_ADMINTITLE","OSC Membership - Admin");
 //
 
@@ -58,14 +57,14 @@ define("_oscmem_osclist_TITLE_familyroles","家中角色");
 //4
 define("_oscmem_osclist_TITLE_memberclassifications","會員類別");
 
-define("_oscmem_admin_osclist_permissions","Permissions");
+//define("_oscmem_admin_osclist_permissions","Permissions");
 
-define("_oscmem_admin_osclist_familyroles","Family Roles");
+//define("_oscmem_admin_osclist_familyroles","Family Roles");
 
-define("_oscmem_admin_osclist_memberclassification","Member Classifications");
+//define("_oscmem_admin_osclist_memberclassification","Member Classifications");
 
 
-define("_oscmem_admin_osclist_grouptype","Group Types");
+//define("_oscmem_admin_osclist_grouptype","Group Types");
 
 define("_oscmem_permissions_view","檢視權限");
 define("_oscmem_permissions_view_desc","檢視權限允許被選擇的使用者群組去檢視會員資料。");
@@ -76,7 +75,7 @@ define("_oscmem_permissions_modify_desc","修改權限允許被選擇的使用者群組去修改會
 define("_oscmem_permissions_admin","管理權限");
 define("_oscmem_permissions_admin_desc","管理權限使被選擇的使用者群組擁有所有的權限。");
 
-define("_oscmem_edit","Edit");
+define("_oscmem_edit","編輯");
 define("_oscmem_admin_access_denied","Access Denied");
 
 define("_oscmem_admin_create","新建");
@@ -97,4 +96,9 @@ define("_oscmem_customfield_Type","自訂欄位資料型態");
 
 define("_osmem_createcustomfield_success","Custom Field Successfuly Created");
 
+
+define("_oscmem_churchname","教會名稱");
+
+define("_oscmem_setting_TITLE","教會資料");
+define("_oscmem_website","網站");
 ?>
