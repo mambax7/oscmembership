@@ -58,9 +58,9 @@ include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/c
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 
 
-$churchdir_handler = &xoops_getmodulehandler('churchdir', 'oscmembership');
-$churchdir= $churchdir_handler->create();
-$churchdir = $churchdir_handler->get($churchdir);
+$churchdetail_handler = &xoops_getmodulehandler('churchdetail', 'oscmembership');
+$churchdetail= $churchdetail_handler->create();
+$churchdetail = $churchdetail_handler->get($churchdetail);
 
 $osclist_handler = &xoops_getmodulehandler('osclist', 'oscmembership');
 $osclist = $osclist_handler->create();
@@ -139,20 +139,20 @@ $information_tray4 = new XoopsFormElementTray(_oscmem_titlepagesettings, '&nbsp;
 $diruseTitlePage = new XoopsFormCheckBox("","bDirUseTitlePage",0);
 $diruseTitlePage->addOption(0,_oscmem_usetitlepageyn);
 
-$churchname_text = new XoopsFormText(_oscmem_churchname_label, "sChurchName", 30, 50, $churchdir->getVar('church_name'));
+$churchname_text = new XoopsFormText(_oscmem_churchname_label, "sChurchName", 30, 50, $churchdetail->getVar('churchname'));
 
-$churchaddress_text = new XoopsFormText(_oscmem_address, "sChurchAddress", 30, 50, $churchdir->getVar('church_address'));
+$churchaddress_text = new XoopsFormText(_oscmem_address, "sChurchAddress", 30, 50, $churchdetail->getVar('address1'));
 
-$churchcity_text = new XoopsFormText(_oscmem_city, "sChurchCity", 30, 50, $churchdir->getVar('church_city'));
+$churchcity_text = new XoopsFormText(_oscmem_city, "sChurchCity", 30, 50, $churchdetail->getVar('city'));
 
-$churchstate_text = new XoopsFormText(_oscmem_state, "sChurchState", 30, 50, $churchdir->getVar('church_state'));
+$churchstate_text = new XoopsFormText(_oscmem_state, "sChurchState", 30, 50, $churchdetail->getVar('state'));
 
-$churchpost_text = new XoopsFormText(_oscmem_post, "sChurchZip", 30, 50, $churchdir->getVar('church_post'));
+$churchpost_text = new XoopsFormText(_oscmem_post, "sChurchZip", 30, 50, $churchdetail->getVar('zip'));
 
-$churchphone_text = new XoopsFormText(_oscmem_phone, "sChurchPhone", 30, 50, $churchdir->getVar('church_phone'));
+$churchphone_text = new XoopsFormText(_oscmem_phone, "sChurchPhone", 30, 50, $churchdetail->getVar('phone'));
 
 
-$disclaimer_textarea= new XoopsFormTextArea(_oscmem_disclaimer,"sDirectoryDisclaimer",$churchdir->getVar('disclaimer'));
+$disclaimer_textarea= new XoopsFormTextArea(_oscmem_disclaimer,"sDirectoryDisclaimer",$churchdetail->getVar('directorydisclaimer'));
 
 $form->addElement($class_select);
 $form->setRequired($class_select);

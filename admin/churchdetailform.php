@@ -74,6 +74,7 @@ if (isset($_GET['optionid'])) $optionid=$_GET['optionid'];
 if (isset($_POST['optionid'])) $optionid=$_POST['optionid'];
 if (isset($_GET['id'])) $id=$_GET['id'];
 if (isset($_POST['id'])) $id=$_POST['id'];
+if (isset($_POST['directorydisclaimer'])) $directorydisclaimer=$_POST['directorydisclaimer'];
 
 
 $myts = &MyTextSanitizer::getInstance();
@@ -105,6 +106,8 @@ switch (true)
 	if(isset($_POST['email'])) $churchdetail->assignVar('email',$_POST['email']);
 	
 	if(isset($_POST['website'])) $churchdetail->assignVar('website',$_POST['website']);
+	
+	if(isset($_POST['directorydisclaimer'])) $churchdetail->assignVar('directorydisclaimer',$_POST['directorydisclaimer']);
 	
 
 	$churchdetail->assignVar('datelastedited',date('y-m-d g:i:s'));
@@ -139,6 +142,14 @@ $phone=new XoopsFormText(_oscmem_phone,"phone",50,50,$churchdetail->getVar('phon
 
 $email=new XoopsFormText(_oscmem_email,"email",50,50,$churchdetail->getVar('email'));
 
+$caption=_oscmembership_directorydisclaimer;
+$name="directorydisclaimer";
+$value=$churchdetail->getVar('directorydisclaimer');
+$supplemental="";
+
+$editor = new XoopsFormDhtmlTextArea($caption, $name, $value, 10, 50, $supplemental);
+
+
 $id_hidden = new XoopsFormHidden("id",$churchdetail->getVar('id'));
 
 $op_hidden = new XoopsFormHidden("op", "save");  //save operation
@@ -157,6 +168,7 @@ $form->addElement($country);
 $form->addElement($phone);
 $form->addElement($fax);
 $form->addElement($website);
+$form->addElement($editor);
 $form->addElement($id_hidden);
 $form->addElement($op_hidden);
 $form->addElement($submit_button);

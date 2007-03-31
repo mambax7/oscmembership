@@ -124,18 +124,6 @@ CREATE TABLE `oscmembership_person_custom` (
   ,PRIMARY KEY  (`per_ID`)
 ) TYPE=MyISAM; 
 
-CREATE TABLE `oscmembership_churchdir` (
-`id` int not null,
- `church_name` varchar(255) null
- ,`church_address` varchar(255) null
- ,`church_city` varchar(255) null
- ,`church_state` varchar(255) null
- , `church_post` varchar(255) null
- , `church_phone` varchar(255) null
- ,`disclaimer` text
- , PRIMARY KEY (`church_name`)
- ) TYPE=MyISAM;
-
  
 CREATE TABLE `oscmembership_person_custom_master` (
   `custom_Order` smallint(6) NOT NULL default '0',
@@ -170,6 +158,7 @@ CREATE TABLE `oscmembership_cart` (
   `datelastedited` datetime default NULL,
   `enteredby` smallint(5) unsigned NOT NULL default '0',
   `editedby` smallint(5) unsigned default '0',
+  `directorydisclaimer` text default NULL,
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;  
   

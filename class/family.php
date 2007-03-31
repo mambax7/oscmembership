@@ -152,6 +152,7 @@ class oscMembershipFamilyHandler extends XoopsObjectHandler
 
 		$i=0;
 		$family=new Family ();
+		$returnfamilies[0]=$family;
 		while($row = $this->db->fetchArray($result)) 
 		{
 			$family->assignVars($row);

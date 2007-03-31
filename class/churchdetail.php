@@ -51,6 +51,7 @@ class Churchdetail extends XoopsObject {
 	$this->initVar('datelastedited',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('enteredby',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('editedby',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('directorydisclaimer',XOBJ_DTYPE_TXTBOX);
     }
 
 }    
@@ -108,7 +109,8 @@ class oscMembershipChurchdetailHandler extends XoopsObjectHandler
 		. ",city=" . $this->db->quoteString($churchdetail->getVar('city'))
 		. ",state=" . $this->db->quoteString($churchdetail->getVar('state'))
 		. ",zip=" . $this->db->quoteString($churchdetail->getVar('zip'))
-		 . ",country=" . $this->db->quoteString($churchdetail->getVar('country')) . ",phone=" . $this->db->quoteString($churchdetail->getVar('phone')) . ",fax=" . $this->db->quoteString($churchdetail->getVar('fax')) . ", email=" . $this->db->quoteString($churchdetail->getVar('email')) . ",website=" . $this->db->quoteString($churchdetail->getVar('website')) . ",dateentered=" . $this->db->quoteString($churchdetail->getVar('dateentered')) . ",datelastedited=" . $this->db->quoteString($churchdetail->getVar('datelastedited')) . ",enteredby=" . $this->db->quoteString($churchdetail->getVar('enteredby')) . ",editedby=" . $this->db->quoteString($churchdetail->getVar('editedby'));
+		 . ",country=" . $this->db->quoteString($churchdetail->getVar('country')) . ",phone=" . $this->db->quoteString($churchdetail->getVar('phone')) . ",fax=" . $this->db->quoteString($churchdetail->getVar('fax')) . ", email=" . $this->db->quoteString($churchdetail->getVar('email')) . ",website=" . $this->db->quoteString($churchdetail->getVar('website')) . ",dateentered=" . $this->db->quoteString($churchdetail->getVar('dateentered')) . ",datelastedited=" . $this->db->quoteString($churchdetail->getVar('datelastedited')) . ",enteredby=" . $this->db->quoteString($churchdetail->getVar('enteredby')) . ",editedby=" . $this->db->quoteString($churchdetail->getVar('editedby'))
+		 . ",directorydisclaimer=" . $this->db->quoteString($churchdetail->getVar('directorydisclaimer'));
 			
 		$result = $this->db->query($sql);
 	}
