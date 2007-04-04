@@ -215,12 +215,16 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 			$person->assignVars($row);
 			//pull custom fields
 			$customresult=$this->getcustompersonData($id);
-			$customrow=$this->db->fetchArray($customresult);
-			$customfields=implode(",",$customrow);
-
-			//echo $customfields;			
-			$person->assignVar('customfields',$customfields);
 			
+			$customrow=$this->db->fetchArray($customresult);
+			if(isset($customrow[0]))
+			{
+				$customfields=implode(",",$customrow);
+				//echo $customfields;			
+				$person->assignVar('customfields',$customfields);
+				
+			}
+			else $person->assignVar('customfields',null);
 			
 		}
 		
@@ -691,6 +695,16 @@ function &searchgroupmembers($searcharray, $groupid)
 	     
 	function &update(&$person)
     	{
+		//compute membership date
+		
+		if($person->getVar('membershipdate')>0)
+		{
+		$membershipdate_conv=date('Y-m-d',strtotime($person->getVar('membershipdate')));
+		}
+		else
+			$membershipdate_conv="";
+		
+		
 		$sql = "UPDATE " . $person->table
 		. " SET "
 		. "title=" . $this->db->quoteString($person->getVar('title'))
@@ -727,7 +741,7 @@ function &searchgroupmembers($searcharray, $groupid)
 		. ",birthmonth=" . $person->getVar('birthmonth')
 		. ",birthday=" . $person->getVar('birthday')
 		. ",birthyear=" . $person->getVar('birthyear')
-		. ",membershipdate=" . $this->db->quoteString(date('Y-m-d',strtotime($person->getVar('membershipdate'))))
+		. ",membershipdate=" . $this->db->quoteString($membershipdate_conv)
 		. ",clsid=" . $person->getVar('clsid')
 		. ",gender=" . $person->getVar('gender')
 		. ",fmrid=" . $person->getVar('fmrid');

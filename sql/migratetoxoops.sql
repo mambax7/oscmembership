@@ -41,8 +41,8 @@ select
 	,per_Envelope
 	,per_DateLastEdited
 	,per_DateEntered
-	,per_EnteredBy
-	,per_EditedBy
+	,1
+	,1
 from osc.person_per;
 
 insert into xoops2016.xoops_oscmembership_person_custom_master(
@@ -93,8 +93,8 @@ select
 	,fam_WeddingDate
 	,fam_DateEntered
 	,fam_DateLastEdited
-	,fam_EnteredBy
-	,fam_EditedBy
+	,1
+	,1
 	,fam_altFamilyname
 from osc.family_fam;
 
