@@ -972,12 +972,14 @@ function &searchgroupmembers($searcharray, $groupid)
 				//pull custom fields
 				$customresult=$this->getcustompersonData($person->getVar('id'));
 				$customrow=$this->db->fetchArray($customresult);
-				$customfields=implode(",",$customrow);
+				if(strpos($customrow,",")>0)
+				{
+					$customfields=implode(",",$customrow);
+				}
+				else $customfields=array();
 	
 				//echo $customfields;			
 				$person->assignVar('customfields',$customfields);
-				
-				
 			}
 			
 		}
