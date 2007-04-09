@@ -204,7 +204,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 		{
 			if(! isset($families[$i]['label']))
 			$families[$i]['label']="";
-			
+			$person = $persondetail_handler->create(true);  //only one record	
 			$person->assignVars($row);
 			$families[$i]['familyid']=$person->getVar("famid");
 			$families[$i]['label'].=$person->getVar("lastname") . ", " . $person->getVar("firstname");
@@ -242,6 +242,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	{
 		if(isset($row))
 		{
+			$label=new Label();
 			$label->assignVars($row);
 			$labels[$i]['recipient']=$label->getVar('recipient');
 			//echo $labelcriteria->getVar('bdiraddress');

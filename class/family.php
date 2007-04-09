@@ -155,19 +155,11 @@ class oscMembershipFamilyHandler extends XoopsObjectHandler
 		$returnfamilies[0]=$family;
 		while($row = $this->db->fetchArray($result)) 
 		{
+			$family =&$this->create(false);
 			$family->assignVars($row);
 			$family->assignVar('oddrow',$oddrow);
 			
 			$returnfamilies[$i]=$family;
-			/*
-			$returnfamilies[$i]['familyname']=$family->getVar('familyname');
-			$returnfamilies[$i]['oddrow']=$oddrow;
-			$returnfamilies[$i]['id']=$family->getVar('id');
-			$returnfamilies[$i]['city']=$family->getVar('city');
-			$returnfamilies[$i]['state']=$family->getVar('state');
-			$returnfamilies[$i]['loopcount']=$i;
-			$returnfamilies[$i]['email']=$family->getVar('email');
-			*/
 			
 			if($oddrow){$oddrow=false;}
 			else {$oddrow=true;}

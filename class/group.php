@@ -221,7 +221,7 @@ function &modsearch($searcharray)
 			while($row = $this->db->fetchArray($result)) 
 			{
 				
-				$groupi = new Group ();
+				$groupi=&$this->create(false);
 				$groupi->assignVars($row);
 								
 				$groups[$i]=$groupi;
@@ -270,23 +270,11 @@ function &modsearch($searcharray)
 		{
 			if(isset($row))
 			{
+				$group =&$this->create(false);
 				$group->assignVars($row);
 				$groupitems[$i]['oddrow']=$oddrow;
 				$oddrow=$oddrow * -1;
 				$groupitems[$i]['group']=$group;
-				/*
-				$groupitems[$i]['id']=$group->getVar('id');
-				$groupitems[$i]['group_type']=$group->getVar('group_type');
-				$groupitems[$i]['group_RoleListID']=$group->getVar('group_RoleListID');
-				$groupitems[$i]['group_DefaultRole']=$group->getVar('group_DefaultRole');
-				$groupitems[$i]['group_Description']=$group->getVar('group_Description');
-					
-				$groupitems[$i]['group_Name']=$group->getVar('group_Name');
-			
-				$groupitems[$i]['group_hasSpecialProps']=$group->getVar('group_hasSpecialProps');
-	
-				$groupitems[$i]['loopcount']=$i;
-				*/				
 			}
 			$i++; //start counter
 		}

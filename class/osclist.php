@@ -69,6 +69,7 @@ class oscMembershipOsclistHandler extends XoopsObjectHandler
 			{
 				if(isset($row))
 				{
+					$osclist=&$this->create(false);
 					$osclist->assignVars($row);
 					$oscitems[$i]['oddrow']=$oddrow;
 					$oscitems[$i]['id']=$osclist->getVar('id');

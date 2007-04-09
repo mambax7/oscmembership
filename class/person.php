@@ -481,6 +481,7 @@ function &search3($searcharray, $sort, $hasenvelope=null)
 		{
 			if(isset($row))
 			{
+				$person=&$this->create(false);
 				$person->assignVars($row);
 				
 				if($person->getVar('address1') !=null)
