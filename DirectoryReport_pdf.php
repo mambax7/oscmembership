@@ -288,6 +288,7 @@ if(isset($_POST["sChurchState"])) $sChurchState = $_POST["sChurchState"];
 if(isset($_POST["sChurchZip"]))  $sChurchZip = $_POST["sChurchZip"];
 if(isset($_POST["sChurchPhone"])) $sChurchPhone = $_POST["sChurchPhone"] ;
 
+/*
 $churchdir_handler = &xoops_getmodulehandler('churchdir', 'oscmembership');
 $churchdir= $churchdir_handler->create();
 $churchdir->assignVar('church_name',$sChurchName);
@@ -299,6 +300,7 @@ $churchdir->assignVar('church_post',$sChurchZip);
 $churchdir->assignVar('church_phone',$sChurchPhone);
 
 $churchdir = $churchdir_handler->update($churchdir);
+*/
 
 $labels=$label_handler->getlabels(false, false, $groups,"",$labelcritiera);
 
