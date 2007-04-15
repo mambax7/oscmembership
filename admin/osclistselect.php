@@ -3,13 +3,14 @@
 include("../../../mainfile.php");
 include '../../../include/cp_header.php';
 
-include(XOOPS_ROOT_PATH."/header.php");
+//include(XOOPS_ROOT_PATH."/header.php");
 // language files
 
 $language = $xoopsConfig['language'] ;
 // include the default language file for the admin interface
 if( ! file_exists( XOOPS_ROOT_PATH . "/modules/system/language/$language/admin/blocksadmin.php") ) $language = 'english' ;
 
+/*
 if (file_exists(XOOPS_ROOT_PATH. "/modules" . 	$xoopsModule->getVar('dirname') .  "/language/" . $xoopsConfig['language'] . "/main.php")) {
     include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/language/" . $xoopsConfig['language'] . "/main.php";
 }
@@ -25,7 +26,7 @@ elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirnam
 { include XOOPS_ROOT_PATH ."/modules/" . $xoopsModule->getVar('dirname') . "/language/english/modinfo.php";
 
 }
-
+*/
 if (file_exists(XOOPS_ROOT_PATH. "/modules" . 	$xoopsModule->getVar('dirname') .  "/language/" . $xoopsConfig['language'] . "/admin.php")) {
     include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/language/" . $xoopsConfig['language'] . "/admin.php";
 }
@@ -36,7 +37,7 @@ elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirnam
 
 
 
-$xoopsOption['template_main'] = 'cs_index.html';
+//$xoopsOption['template_main'] = 'cs_index.html';
 
 //redirect
 if (!$xoopsUser)
@@ -98,7 +99,7 @@ case 3: //member classification
 
 $form = new XoopsThemeForm($title, "osclistselectform", "osclistselect.php", "post", false);
 
-$submit_button = new XoopsFormButton("", "osclistselectsubmit", _osc_select, "submit");
+//$submit_button = new XoopsFormButton("", "osclistselectsubmit", _osc_select, "submit");
 
 //echo "<h2 class=comTitle>" . _oscmem_personselect . "</h2>";
 $inner_table="<table class='outer'  >";
@@ -106,7 +107,7 @@ $inner_table = $inner_table . "<tr><th>&nbsp;</th><th>" . _oscmem_itemname . "</
 $inner_table = $inner_table . "<th>" . _oscmem_itemsequence . "</th>";
 $inner_table = $inner_table . "</tr>";
 
-$db = &Database::getInstance();
+//$db = &Database::getInstance();
 
 $osclist=new Osclist();
 
@@ -150,7 +151,7 @@ else
 	echo $inner_table .  $rowsintable . "</table>"; 
 }
 
-
-include(XOOPS_ROOT_PATH."/footer.php");
+xoops_cp_footer();
+//include(XOOPS_ROOT_PATH."/footer.php");
 
 ?>
