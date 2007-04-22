@@ -41,7 +41,7 @@ define("_oscmem_addfamilyrole","新增家中角色");
 define("_oscmem_addmemberclassification","新增會員類別");
 define("_oscmem_addgrouptype","新增小組類別");
 
-define("_oscmem_createsuccess","The Item has been created successfully.");
+define("_oscmem_createsuccess","&#26032;&#38917;&#30446;&#24050;&#34987;&#24314;&#31435;");
 
 define("_oscmem_familyrole_optionname","名稱");
 define("_oscmem_option_sort","次序");

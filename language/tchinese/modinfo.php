@@ -66,7 +66,7 @@ define("_oscmem_familymember","家庭成員");
 define("_oscmem_groupselect_TITLE","小組列表");
 define("_oscmem_groupdetail_TITLE","小組資料");
 //Messages
-define('_oscmem_UPDATESUCCESS','The OSC Membership database has been updated successfully');
+define('_oscmem_UPDATESUCCESS','&#36039;&#26009;&#24050;&#25104;&#21151;&#26356;&#26032;');
 define('_oscmem_CREATESUCCESS_individual','&#27492;&#20491;&#20154;&#36039;&#26009;&#24050;&#34987;&#26032;&#22686;&#33267;OSC&#36039;&#26009;&#24235;');
 
 define("_oscmem_CREATESUCCESS_family","&#27492;&#23478;&#24237;&#36039;&#26009;&#24050;&#34987;&#26032;&#22686;&#33267;OSC&#36039;&#26009;&#24235;");
@@ -238,7 +238,7 @@ define("_oscmem_defaultcountry_text"," &nbsp;&nbsp;(Default Country is USA)");
 
 define("_oscmem_accessdenied","Access Denied");
 define("_oscmem_fax","傳真");
-define("_oscmembership_directorydisclaimer","Directory Disclaimer");
+define("_oscmembership_directorydisclaimer","免責聲明");
 define("_oscmembership_csvuploaderror","ERROR: the uploaded CSV file no longer exists!");
 define("_oscmem_invaliddate","Invalid Date");
 ?>
