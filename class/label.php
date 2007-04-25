@@ -100,7 +100,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	$familyprefix="";
 
 	//$sSQL=" drop table `tmplabel`;
-	$sSQL= "CREATE /*temporary*/ TABLE  `tmplabel` (
+	$sSQL= "CREATE temporary TABLE  `tmplabel` (
 	`recipient` varchar(255) default NULL,
 	`AddressLine1` varchar(255) default NULL,
 	`AddressLine2` varchar(255) default NULL,
@@ -113,7 +113,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	`body` text )";
 	
 //	$sSQL= "truncate table tmplabel";
-//	$this->db->query($sSQL);
+	$this->db->query($sSQL);
 
 	$address="'','','','','',''";
 	$fambody="''";
@@ -131,7 +131,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	If($labelcriteria->getVar('bdiraddress'))
 	{
 		$famaddress="fam.address1, fam.address2,fam.city,fam.state,fam.zip";
-		$address="address1, address2,  ,'',city,state,zip";
+		$address="address1, address2,'',city,state,zip";
 	}	
 	
 	If($labelcriteria->getVar('bdirwedding'))
@@ -266,7 +266,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 			$labels[$i]['body']=$label->getVar('body');
 		}		
 	
-		//echo $labels[$i]['addresslabel'];	
+	//echo $labels[$i]['addresslabel'];	
 		$i++;	
 	}
 

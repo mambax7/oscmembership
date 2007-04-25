@@ -247,18 +247,23 @@ $aClasses=array();
 
 $count = 0;
 $strCls="";
-foreach ($_POST["sDirClassifications"] as $strCls)
+if(isset($_POST["sDirClassifications"]))
 {
-	$aClasses[$count++] = $strCls; //FilterInput($Cls,'int');
+	foreach ($_POST["sDirClassifications"] as $strCls)
+	{
+		$aClasses[$count++] = $strCls; //FilterInput($Cls,'int');
+	}
 }
 $sDirClassifications = implode(",",$aClasses);
 
 $count = 0;
 $strCls="";
-
-foreach ($_POST["GroupID"] AS $strCls)
+if(isset($_POST["GroupID"]))
 {
-	$aClasses[$count++] = $strCls; //FilterInput($Cls,'int');
+	foreach ($_POST["GroupID"] AS $strCls)
+	{
+		$aClasses[$count++] = $strCls; //FilterInput($Cls,'int');
+	}
 }
 $groups= implode(",",$aClasses);
 
@@ -373,10 +378,13 @@ header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cachhe");
-
+$pdf->Output();	
 //exit;
+/*
 if ($iPDFOutputType == 1)
 	$pdf->Output("Directory-" . date("Ymd-Gis") . ".pdf", true);
 else
+
 	$pdf->Output();	
+*/
 ?>
