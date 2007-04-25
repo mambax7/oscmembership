@@ -258,14 +258,15 @@ $sDirClassifications = implode(",",$aClasses);
 
 $count = 0;
 $strCls="";
+$groups="";
 if(isset($_POST["GroupID"]))
 {
 	foreach ($_POST["GroupID"] AS $strCls)
 	{
 		$aClasses[$count++] = $strCls; //FilterInput($Cls,'int');
 	}
+	$groups= implode(",",$aClasses);
 }
-$groups= implode(",",$aClasses);
 
 $label_handler = &xoops_getmodulehandler('label', 'oscmembership');
 $labelcritiera_handler = &xoops_getmodulehandler('labelcriteria', 'oscmembership');
