@@ -57,14 +57,9 @@ elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirnam
 //redirect
 if (!$xoopsUser)
 {
-    redirect_header(XOOPS_URL."/user.php", 3, _AD_NORIGHT);
+    redirect_header(XOOPS_URL."/user.php", 3, _oscmem_accessdenied);
 }
 
-
-//verify permission
-if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
-    exit("Access Denied");
-}
 
 
 //determine action

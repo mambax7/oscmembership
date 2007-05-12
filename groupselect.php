@@ -5,18 +5,13 @@ include("../../mainfile.php");
 //redirect
 if (!$xoopsUser)
 {
-    redirect_header(XOOPS_URL."/user.php", 3, _AD_NORIGHT);
+    redirect_header(XOOPS_URL."/user.php", 3, _oscmem_accessdenied);
 }
 
-
-//verify permission
-if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
-    exit(_oscmem_access_denied);
-}
 
 include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php";
 
-if(!hasPerm("oscmembership_view",$xoopsUser)) exit(_oscmem_access_denied);
+if(!hasPerm("oscmembership_view",$xoopsUser))     redirect_header(XOOPS_URL."/modules/" . $xoopsModule->getVar('dirname'), 3, _oscmem_accessdenied);
 
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/group.php';

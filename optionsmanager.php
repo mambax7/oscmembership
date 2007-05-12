@@ -50,14 +50,10 @@ elseif ( file_exists( "../language/english/main.php" ) ) {
 //redirect
 if (!$xoopsUser)
 {
-    redirect_header(XOOPS_URL."/user.php", 3, _AD_NORIGHT);
+    redirect_header(XOOPS_URL."/user.php", 3, _oscmem_accessdenied);
 }
 
 
-//verify permission
-if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
-    exit("Access Denied");
-}
 
 exit("Broken Page");
 

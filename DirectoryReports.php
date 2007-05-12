@@ -25,8 +25,10 @@
  ******************************************************************************/
 include_once "../../mainfile.php";
 
-if ( !is_object($xoopsUser) || !is_object($xoopsModule))  {
-    exit("Access Denied");
+//redirect
+if (!$xoopsUser)
+{
+    redirect_header(XOOPS_URL."/user.php", 3, _oscmem_accessdenied);
 }
 
 require (XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/ReportConfig.php");

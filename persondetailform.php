@@ -46,15 +46,11 @@ elseif ( file_exists( "../language/english/main.php" ) ) {
 //redirect
 if (!$xoopsUser)
 {
-    redirect_header(XOOPS_URL."/user.php", 3, _AD_NORIGHT);
+    redirect_header(XOOPS_URL."/user.php", 3, _oscmem_accessdenied);
 }
 
-//verify permission
-if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
-    exit(_oscmem_access_denied);
-}
 
-if(!hasPerm("oscmembership_modify",$xoopsUser)) exit(_oscmem_access_denied);
+if(!hasPerm("oscmembership_modify",$xoopsUser))     redirect_header(XOOPS_URL, 3, _oscmem_accessdenied);
 
 //determine action
 $op = '';

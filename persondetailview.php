@@ -46,13 +46,9 @@ elseif ( file_exists( "../language/english/main.php" ) ) {
 //redirect
 if (!$xoopsUser)
 {
-    redirect_header(XOOPS_URL."/user.php", 3, _AD_NORIGHT);
+    redirect_header(XOOPS_URL."/user.php", 3, _oscmem_accessdenied);
 }
 
-//verify permission
-if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid()) || !hasPerm("oscmembership_view",$xoopsUser)) {
-    redirect_header(XOOPS_URL."/user.php", 3, _AD_NORIGHT);
-}
 
 $personid = (isset($_GET['id'])) ? intval($_GET['id']) : 0;
 

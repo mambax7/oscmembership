@@ -5,22 +5,20 @@ $GLOBALS['xoopsOption']['template_main'] ="cartview.html";
 //redirect
 if (!$xoopsUser)
 {
-    redirect_header(XOOPS_URL."/user.php", 3, _AD_NORIGHT);
-}
-
-//verify permission
-if ( !is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
-    exit(_oscmem_access_denied);
+    redirect_header(XOOPS_URL."/user.php", 3, _oscmem_accessdenied);
 }
 
 include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php";
 
-if(!hasPerm("oscmembership_view",$xoopsUser) || !hasPerm("oscmembership_modify",$xoopsUser)) exit(_oscmem_access_denied);
 
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/person.php';
 
+
 include(XOOPS_ROOT_PATH."/header.php");
+
+
+if(!hasPerm("oscmembership_view",$xoopsUser) && !hasPerm("oscmembership_modify",$xoopsUser))     redirect_header(XOOPS_URL, 3, _oscmem_accessdenied);
 
 $sort="";
 $filter="";

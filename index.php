@@ -2,25 +2,26 @@
 include("../../mainfile.php");
 $GLOBALS['xoopsOption']['template_main'] ="memberview.html";
 
-//redirect
-if (!$xoopsUser)
-{
-    redirect_header(XOOPS_URL."/user.php", 3, _AD_NORIGHT);
-}
 
 $user=$xoopsUser;
-$perm="View Permissions";
+//$perm="View Permissions";
 $userId = ($user) ? $user->getVar('uid') : 0;
 //$permissionPull = $groupPermHandler->getItemIds($perm, $user->groups(), $module->getVar("mid"));
-
 
 
 include XOOPS_ROOT_PATH."/include/cp_functions.php";
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/person.php';
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/oscmembership/include/functions.php';
+
 
 include(XOOPS_ROOT_PATH."/header.php");
+
+//redirect
+if (!$xoopsUser)
+{
+    redirect_header(XOOPS_URL."/user.php", 3, _oscmem_accessdenied);
+}
 
 /*
 		echo $xoopsUser->getGroups();
@@ -32,7 +33,6 @@ include(XOOPS_ROOT_PATH."/header.php");
 
 if(hasPerm("oscmembership_view",$xoopsUser)) $ispermview=true;
 if(hasPerm("oscmembership_modify",$xoopsUser)) $ispermmodify=true;
-
 $sort="";
 $filter="";
 if (isset($_POST['sort'])) $sort = $_POST['sort'];

@@ -32,7 +32,6 @@ include_once "../../mainfile.php";
 //$xoopsOption['template_main'] = 'cs_index.html';
 
 
-
 include_once(XOOPS_ROOT_PATH . "/class/xoopsformloader.php");
 include_once(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/class/person.php");
 
@@ -48,9 +47,10 @@ elseif ( file_exists( "../language/english/main.php" ) ) {
 
 //require_once XOOPS_ROOT_PATH.'/kernel/object.php';
 
-//verify permission
-if ( !is_object($xoopsUser) || !is_object($xoopsModule))  {
-    exit(_oscmem_access_denied);
+//redirect
+if (!$xoopsUser)
+{
+    redirect_header(XOOPS_URL."/user.php", 3, _oscmem_accessdenied);
 }
 
 include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php";

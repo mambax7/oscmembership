@@ -33,10 +33,10 @@ require "../Include/ReportConfig.php";
 require "../Include/ReportFunctions.php";
 */
 
-
-//verify permission
-if ( !is_object($xoopsUser) || !is_object($xoopsModule))  {
-    exit("Access Denied");
+//redirect
+if (!$xoopsUser)
+{
+    redirect_header(XOOPS_URL."/user.php", 3, _oscmem_accessdenied);
 }
 
 //require (XOOPS_ROOT_PATH . "/Frameworks/fpdf/fpdf.php";
