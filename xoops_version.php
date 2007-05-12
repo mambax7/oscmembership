@@ -1,12 +1,12 @@
 <?php
 $modversion['name'] = _oscmem_MOD_NAME;
-$modversion['version'] = "3.00";
+$modversion['version'] = "3.01";
 $modversion['description'] = _oscmem_MOD_DESC;
 $modversion['credits'] = "Open Source Church Project - http://sourceforge.net/osc";
 $modversion['author'] = "Steve McAtee";
 $modversion['help'] = "help.html";
 $modversion['license'] = "GPL see LICENSE";
-$modversion['official'] = 3;
+$modversion['official'] = "3.01";
 $modversion['image'] = "images/module_logo.png";
 $modversion['dirname'] = "oscmembership";
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
@@ -59,33 +59,4 @@ $modversion['hasComments'] = 1;
 $modversion['comments']['pageName'] = 'index.php';
 $modversion['comments']['itemName'] = 'id';
 
-/*
-$i = 1;
-$modversion['sub'][$i]['name'] = _oscmembership_viewperson;
-$modversion['sub'][$i]['url'] = "index.php";
-$i++;
-$modversion['sub'][$i]['name'] = _oscmembership_addperson;
-$modversion['sub'][$i]['url'] = "persondetailform.php?action=create";
-$i++;
-$modversion['sub'][$i]['name'] = _oscmembership_addfamily;
-$modversion['sub'][$i]['url'] = "familydetailform.php?action=create";
-$i++;
-$modversion['sub'][$i]['name'] = _oscmembership_viewfamily;
-$modversion['sub'][$i]['url'] = "familylistform.php";
-$i++;
-$modversion['sub'][$i]['name'] = _oscmembership_viewgroup;
-$modversion['sub'][$i]['url'] = "groupselect.php";
-$i++;
-$modversion['sub'][$i]['name'] = _oscmem_addgroup;
-$modversion['sub'][$i]['url'] = "groupdetailform.php?action=create";
-$i++;
-$modversion['sub'][$i]['name'] = _oscmem_customfield;
-$modversion['sub'][$i]['url'] = "customfieldselectform.php";
-$i++;
-$modversion['sub'][$i]['name'] = _oscmem_osclist_famrole_TITLE;
-$modversion['sub'][$i]['url'] = "admin/osclistselect_smarty.php?id=4";
-$i++;
-$modversion['sub'][$i]['name'] = _oscmem_view_cart;
-$modversion['sub'][$i]['url'] = "viewcart.php";
-*/
 ?>
