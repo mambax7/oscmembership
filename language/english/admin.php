@@ -75,7 +75,7 @@ define("_oscmem_permissions_modify_desc","Modify allows the selected groups to m
 define("_oscmem_permissions_admin","Admin Permissions");
 define("_oscmem_permissions_admin_desc","Admin permission grants all permissions to the selected group.");
 
-//define("_oscmem_edit","Edit");
+define("_oscmem_edit","Edit");
 define("_oscmem_admin_access_denied","Access Denied");
 
 define("_oscmem_admin_create","Create");

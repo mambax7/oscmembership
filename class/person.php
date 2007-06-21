@@ -160,6 +160,38 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 		else return $result;
     }
 
+    function &getCartc($xoopsuid, $pullnoenvelope=false)
+    {
+    	$persons[]=array();
+	
+	$sql = "select p.* from " . $this->db->prefix("oscmembership_cart") . " c join " . $this->db->prefix("oscmembership_person") . " p on c.person_id = p.id where c.xoops_uid=" . $xoopsuid ;
+
+	if($pullnoenvelope)
+	{
+		$sql .= " and envelope is null or envelope=0 ";
+	}
+		
+	if (!$result = $this->db->query($sql)) 
+	{
+		return false;
+	}
+	else
+	{
+		$i=0;
+		while($row = $this->db->fetchArray($result)) 
+		{
+			$person =&$this->create(false);
+			$person->assignVars($row);
+			$persons[$i]=$person;
+			$i++;
+		}
+	}
+		 
+	return $persons;
+}
+    
+    
+    
     function removefromFamily($personid )
     {
 		$sql = "Update  " .
