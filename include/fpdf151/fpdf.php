@@ -1519,6 +1519,7 @@ function _parsepng($file)
 	return array('w'=>$w,'h'=>$h,'cs'=>$colspace,'bpc'=>$bpc,'f'=>'FlateDecode','parms'=>$parms,'pal'=>$pal,'trns'=>$trns,'data'=>$data);
 }
 
+
 function _freadint($f)
 {
 	//Read a 4-byte integer from file
