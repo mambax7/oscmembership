@@ -230,20 +230,19 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 
     function &get($id)
     {
-        $person =&$this->create(false);
-	
         if ($id > 0) 
 	{
 		$sql = "SELECT *, '' as text FROM " . 
 		$this->db->prefix("oscmembership_person") . " WHERE id = " . intval($id);
 		if (!$result = $this->db->query($sql)) 
 		{
-			echo "<br />PersonHandler::get error::" . $sql;
 			return false;
 		} 
 
 		if($row = $this->db->fetchArray($result)) 
 		{
+        		$person =&$this->create(false);
+		
 			$person->assignVars($row);
 			//pull custom fields
 			$customresult=$this->getcustompersonData($id);
@@ -258,10 +257,12 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 			}
 			else $person->assignVar('customfields',null);
 			
+			return $person;
+
+			
 		}
 		
         }
-        return $person;
     }
     
     

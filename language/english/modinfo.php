@@ -241,4 +241,7 @@ define("_oscmem_fax","Fax");
 define("_oscmembership_directorydisclaimer","Directory Disclaimer");
 define("_oscmembership_csvuploaderror","ERROR: the uploaded CSV file no longer exists!");
 define("_oscmem_invaliddate","Invalid Date");
+define("_oscmem_membershipcard","Membership Cards (PDF) - Generated from Cart Contents");
+
+define("_oscmem_website","Website");
 ?>
