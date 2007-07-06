@@ -41,23 +41,6 @@
 
 
 
-/*
-if (file_exists(XOOPS_ROOT_PATH. "/modules/churchsplash/language/" . $xoopsConfig['language'] . "/modinfo.php")) {
-    include XOOPS_ROOT_PATH . "/modules/churchsplash/language/" . $xoopsConfig['language'] . "/modinfo.php";
-}
-elseif( file_exists(XOOPS_ROOT_PATH . "/modules/churchsplash/language/english/modinfo.php"))
-{
- include XOOPS_ROOT_PATH ."/modules/churchsplash/language/english/modinfo.php";
-
-}
-*/
-// include XOOPS_ROOT_PATH ."/modules/churchsplash/language/english/modinfo.php";
-
-//include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-//include_once XOOPS_ROOT_PATH."/class/xoopsform/tableform.php";
-
-
-
 function oscmemnav_show($options) 
 {
 	global $xoopsUser;

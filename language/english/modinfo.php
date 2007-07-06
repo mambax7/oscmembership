@@ -241,7 +241,10 @@ define("_oscmem_fax","Fax");
 define("_oscmembership_directorydisclaimer","Directory Disclaimer");
 define("_oscmembership_csvuploaderror","ERROR: the uploaded CSV file no longer exists!");
 define("_oscmem_invaliddate","Invalid Date");
-define("_oscmem_membershipcard","Membership Cards (PDF) - Generated from Cart Contents");
+define("_oscmem_membershipcard","Membership Cards (PDF) - Generated from Cart Contents - Uses Business Card Layout - Avery #8371");
+define("_oscmem_childcard","Child Check-In ID Cards (PDF) - Generated from Cart Contents - Uses Business Card Layout - Avery #8371");
 
 define("_oscmem_website","Website");
+define("_oscmem_child","Child");
+define("_oscmem_parent","Parent");
 ?>

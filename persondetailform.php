@@ -56,7 +56,6 @@ if(!hasPerm("oscmembership_modify",$xoopsUser))     redirect_header(XOOPS_URL, 3
 $op = '';
 $action='';
 $confirm = '';
-$personid = (isset($_GET['id'])) ? intval($_GET['id']) : 0;
 
 if (isset($_GET['op'])) $op = $_GET['op'];
 if (isset($_POST['op'])) $op = $_POST['op'];
@@ -73,10 +72,19 @@ $persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');
 $member_handler =& xoops_gethandler('member');
 $acttotal = $member_handler->getUserCount(new Criteria('level', 0, '>'));
 
-$person = $persondetail_handler->get($personid);  //only one record
-
 switch (true) 
 {
+
+    case ($action=="create"):
+    	$person=$persondetail_handler->create();
+	break;    
+
+    case ($op=="save"):
+    	$person=$persondetail_handler->get($personid);
+	
+    case ($op=="create"):
+    	$person=$persondetail_handler->create();
+    
     case ($op=="save" || $op=="create"):
     	if(isset($_POST['lastname'])) $person->assignVar('lastname',$_POST['lastname']);
 
@@ -170,7 +178,7 @@ switch (true)
 		$message=_oscmem_CREATESUCCESS_individual;
 	}
 	    
-	redirect_header("persondetailform.php?id=" . $personid, 3, $message);
+	redirect_header("index.php", 3, $message);
     break;
 }
 

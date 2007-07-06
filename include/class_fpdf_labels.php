@@ -23,6 +23,8 @@
 //                5160, 5161, 5162, 5163,5164 : thanx to Al Canton : acanton@adams-blake.com
 //                8600                         : thanx to Kunal Walia : kunal@u.washington.edu
 //          + : Added 3mm to the position of labels to avoid errors
+// 1.2  : Added 8371 - Business Card
+
 ////////////////////////////////////////////////////
 
 /**
@@ -69,7 +71,8 @@ class PDF_Label extends FPDF
 		'5163'=>array('name'=>'5163', 'paper-size'=>'letter', 'metric'=>'mm', 'marginLeft'=>1.762, 'marginTop'=>10.7, 'NX'=>2, 'NY'=>5, 'SpaceX'=>3.175, 'SpaceY'=>0, 'width'=>101.6, 'height'=>50.8, 'font-size'=>8),
 		'5164'=>array('name'=>'5164', 'paper-size'=>'letter', 'metric'=>'in', 'marginLeft'=>0.148, 'marginTop'=>0.5, 'NX'=>2, 'NY'=>3, 'SpaceX'=>0.2031, 'SpaceY'=>0, 'width'=>4.0, 'height'=>3.33, 'font-size'=>12),
 		'8600'=>array('name'=>'8600', 'paper-size'=>'letter', 'metric'=>'mm', 'marginLeft'=>7.1, 'marginTop'=>19, 'NX'=>3, 'NY'=>10, 'SpaceX'=>9.5, 'SpaceY'=>3.1, 'width'=>66.6, 'height'=>25.4, 'font-size'=>8),
-		'L7163'=>array('name'=>'L7163', 'paper-size'=>'A4', 'metric'=>'mm', 'marginLeft'=>5, 'marginTop'=>15, 'NX'=>2, 'NY'=>7, 'SpaceX'=>25, 'SpaceY'=>0, 'width'=>99.1, 'height'=>38.1, 'font-size'=>10)
+		'L7163'=>array('name'=>'L7163', 'paper-size'=>'A4', 'metric'=>'mm', 'marginLeft'=>5, 'marginTop'=>15, 'NX'=>2, 'NY'=>7, 'SpaceX'=>25, 'SpaceY'=>0, 'width'=>99.1, 'height'=>38.1, 'font-size'=>10),
+		'8371'=>array('name'=>'8371', 'paper-size'=>'letter', 'metric'=>'mm', 'marginLeft'=>19.05, 'marginTop'=>12.07, 'NX'=>2, 'NY'=>5, 'SpaceX'=>0, 'SpaceY'=>0, 'width'=>88.9, 'height'=>50.8, 'font-size'=>10)
 	);
 
 	// convert units (in to mm, mm to in)
@@ -167,6 +170,85 @@ class PDF_Label extends FPDF
 			$this->_COUNTX=0;
 			$this->_COUNTY=0;
 		}
+	}
+
+	// Print a label
+	function Add_PDF_Label2($texte, $image) {
+		// We are in a new page, then we must add a page
+		if (($this->_COUNTX==0) and ($this->_COUNTY==0)) {
+			$this->AddPage();
+		}
+
+		$_PosX = $this->_Margin_Left+($this->_COUNTX*($this->_Width+$this->_X_Space));
+		$_PosY = $this->_Margin_Top+($this->_COUNTY*($this->_Height+$this->_Y_Space));
+		$this->SetXY($_PosX+3, $_PosY+3);
+		$this->MultiCell($this->_Width, $this->_Line_Height, $texte);
+		$this->_COUNTY++;
+
+		if ($this->_COUNTY == $this->_Y_Number) {
+			// End of column reached, we start a new one
+			$this->_COUNTX++;
+			$this->_COUNTY=0;
+		}
+
+		if ($this->_COUNTX == $this->_X_Number) {
+			// Page full, we start a new one
+			$this->_COUNTX=0;
+			$this->_COUNTY=0;
+		}
+		
+		if(isset($image)) 
+		{
+			$this->Image($image,$_PosX + 4,$this->y,25,$type='png');
+		}
+
+		
+	}
+
+	function Add_PDF_LabelSidebySide($textleft, $textright, $image) {
+		// We are in a new page, then we must add a page
+		if (($this->_COUNTX==0) and ($this->_COUNTY==0)) {
+			$this->AddPage();
+		}
+
+		//Print Left side
+		$_PosX = $this->_Margin_Left+($this->_COUNTX*($this->_Width+$this->_X_Space));
+		$_PosY = $this->_Margin_Top+($this->_COUNTY*($this->_Height+$this->_Y_Space));
+		$this->SetXY($_PosX+3, $_PosY+3);
+		$this->MultiCell($this->_Width, $this->_Line_Height, $textleft);
+
+		if(isset($image)) 
+		{
+			$this->Image($image,$_PosX + 4,$this->y,25,$type='png');
+		}
+
+
+		//Move to right side
+		$this->_COUNTX++;
+				
+		//Print Right Side		
+		$_PosX = $this->_Margin_Left+($this->_COUNTX*($this->_Width+$this->_X_Space));
+		$_PosY = $this->_Margin_Top+($this->_COUNTY*($this->_Height+$this->_Y_Space));
+		$this->SetXY($_PosX+3, $_PosY+3);
+		$this->MultiCell($this->_Width, $this->_Line_Height, $textright);
+
+		if(isset($image)) 
+		{
+			$this->Image($image,$_PosX + 4,$this->y,25,$type='png');
+		}
+
+		$this->_COUNTY++;
+		$this->_COUNTX--;
+
+		
+				
+		if ($this->_COUNTX == $this->_X_Number) {
+			// Page full, we start a new one
+			$this->_COUNTX=0;
+			$this->_COUNTY=0;
+		}
+		
+		
 	}
 
 }
