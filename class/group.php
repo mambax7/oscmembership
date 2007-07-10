@@ -36,11 +36,15 @@ class Group extends XoopsObject {
 	$this->membershiptable = $this->db->prefix("oscmembership_group_members");
 	$this->initVar('id',XOBJ_DTYPE_INT);
 	$this->initVar('group_type',XOBJ_DTYPE_INT);
+	$this->initVar('group_typeName',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('group_RoleListID',XOBJ_DTYPE_INT);
 	$this->initVar('group_DefaultRole',XOBJ_DTYPE_INT);
 	$this->initVar('group_Name',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('group_Description',XOBJ_DTYPE_TXTAREA);
 	$this->initVar('group_hasSpecialProps',XOBJ_DTYPE_INT);
+	$this->initVar('loopcount',XOBJ_DTYPE_INT);
+	$this->initVar('oddrow',XOBJ_DTYPE_INT);
+	$this->initVar('totalloopcount',XOBJ_DTYPE_INT);
     }
 
 }    
@@ -69,6 +73,18 @@ class oscMembershipGroupHandler extends XoopsObjectHandler
 	}
 
 
+
+    function &addtoCart(&$groupid, $uid)
+    {
+		$sql="Insert into " . $this->db->prefix("oscmembership_cart");
+		$sql.= "(xoops_uid,person_id) select " . $uid . ", gm.person_id from " . $this->db->prefix("oscmembership_group_members") . " gm left join " . $this->db->prefix("oscmembership_cart") . " c on c.person_id=gm.person_id and c.xoops_uid=" . $uid . " where group_id=" . $groupid . " and c.xoops_uid is null";
+
+
+		if (!$result = $this->db->query($sql)) 
+		{
+			return false;
+		}
+   }
 
     function &addtoGroup(&$group)
     {
@@ -126,7 +142,15 @@ class oscMembershipGroupHandler extends XoopsObjectHandler
 			$group->assignVars($row);
 		}
 
-		
+		// Get Group Types for the drop-down
+		$sql = "SELECT optionname FROM " . $this->db->prefix("oscmembership_list") . " WHERE id= 3 and optionid=" . $group->getVar('group_type') . " ORDER BY optionsequence";
+
+		$result=$this->db->query($sql);
+
+		while($row = $this->db->fetchArray($result)) 
+		{
+			$group->assignVar('group_typeName',$row['optionname']);
+		}
         }
         return $group;
     }

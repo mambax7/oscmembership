@@ -64,7 +64,7 @@ define("_oscmem_person_list","Person List");
 define("_oscmem_family_list","Family List");
 define("_oscmem_familymember","Family Members");
 define("_oscmem_groupselect_TITLE","Group List");
-define("_oscmem_groupdetail_TITLE","Group Form");
+define("_oscmem_groupdetail_TITLE","Group Detail");
 //Messages
 define('_oscmem_UPDATESUCCESS','The OSC Membership database has been updated successfully');
 define('_oscmem_CREATESUCCESS_individual','The Individual has been created in the OSC database.');
@@ -247,4 +247,6 @@ define("_oscmem_childcard","Child Check-In ID Cards (PDF) - Generated from Cart 
 define("_oscmem_website","Website");
 define("_oscmem_child","Child");
 define("_oscmem_parent","Parent");
+define("_oscmem_addtocart_redirect","Group added to cart");
+define("_oscmem_groupview","Group View");
 ?>

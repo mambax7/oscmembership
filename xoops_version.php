@@ -41,6 +41,8 @@ $modversion['templates'][7]['file'] = 'oscselect.html';
 $modversion['templates'][7]['description'] = 'standard select template';
 $modversion['templates'][8]['file'] = 'familyview.html';
 $modversion['templates'][8]['description'] = 'family view template';
+$modversion['templates'][9]['file'] = 'groupview.html';
+$modversion['templates'][9]['description'] = 'group view template';
 
 $modversion['blocks'][1]['file'] = "oscmemnav.php";
 $modversion['blocks'][1]['name'] = 'OSC Navigation';
