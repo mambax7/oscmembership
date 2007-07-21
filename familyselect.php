@@ -1,6 +1,6 @@
 <?php
 include("../../mainfile.php");
-$GLOBALS['xoopsOption']['template_main'] ="familyview.html";
+$GLOBALS['xoopsOption']['template_main'] ="familyselect.html";
 
 //redirect
 if (!$xoopsUser)
@@ -16,8 +16,6 @@ if(!hasPerm("oscmembership_view",$xoopsUser))     redirect_header(XOOPS_URL, 3, 
 if(hasPerm("oscmembership_view",$xoopsUser)) $ispermview=true;
 if(hasPerm("oscmembership_modify",$xoopsUser)) $ispermmodify=true;
 
-if (isset($_POST['submit'])) $submit = $_POST['submit'];
-
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/family.php';
 
@@ -25,23 +23,46 @@ $sort="";
 $filter="";
 if (isset($_GET['sort'])) $sort = $_GET['sort'];
 if (isset($_POST['filter'])) $filter=$_POST['filter'];
+if (isset($_POST['submit'])) $submit=$_POST['submit'];
 
 
 include(XOOPS_ROOT_PATH."/header.php");
 
+$person_handler = &xoops_getmodulehandler('person', 'oscmembership');
+
 $family_handler = &xoops_getmodulehandler('family', 'oscmembership');
+
 if(isset($filter))
 {
 	$searcharray[0]=$filter;
 }
 else $searcharray[0]='';
 
+//Check to see if items returned were selected
+
 if(isset($submit))
 {
 	switch($submit)
 	{
-	case _oscmembership_addfamily:
-		redirect_header("familydetailform.php?action=create", 2, _oscmem_addfamily_redirect);
+	case _oscmembership_addcarttofamily:
+		//redirect_header("familydetailform.php?action=create", 2, _oscmem_addfamily_redirect);
+
+		if(isset($_POST['totalloopcount']))
+		{
+			$topid=$_POST['totalloopcount'];
+		
+			for($i=0;$i<$topid;$i++)
+			{
+				//add cart to family
+				if($_POST["chk" . $i]>0)
+				{
+					$uid=$xoopsUser->getVar('uid');
+					$person_handler->addCarttoFamily($uid,$_POST["chk" . $i]);
+				break;
+				}
+			}
+			
+		}
 		
 		//do nothing
 		break;
@@ -50,7 +71,7 @@ if(isset($submit))
 
 
 $results = $family_handler->search($searcharray, $sort);
-$xoopsTpl->assign("title",_oscmem_family_list);
+$xoopsTpl->assign("title",_oscmem_family_select);
 
 $xoopsTpl->assign('oscmem_applyfilter',_oscmem_applyfilter);
 $xoopsTpl->assign('oscmem_familyname',_oscmem_familyname);
@@ -62,7 +83,6 @@ $xoopsTpl->assign('is_perm_view',$ispermview);
 $xoopsTpl->assign('is_perm_modify',$ispermmodify);
 $xoopsTpl->assign('oscmem_view',_oscmem_view);
 $xoopsTpl->assign('oscmem_edit',_oscmem_edit);
-$xoopsTpl->assign('oscmembership_addfamily',_oscmembership_addfamily);
 $xoopsTpl->assign('oscmembership_addcarttofamily',_oscmembership_addcarttofamily);
 
 $xoopsTpl->assign('families',$results);
@@ -70,7 +90,7 @@ $xoopsTpl->assign('families',$results);
 $family=$results[0];
 
 $totalloopcount=$family->getVar('totalloopcount');
-$xoopsTpl->assign('loopcount', $totalloopcount);
+$xoopsTpl->assign('totalloopcount', $totalloopcount);
 
 
 include(XOOPS_ROOT_PATH."/footer.php");

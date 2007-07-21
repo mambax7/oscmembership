@@ -91,6 +91,18 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 		}
     }
 
+    function &addCarttoFamily($uid,$familyid)
+    {
+		$sql = "Update  " . $this->db->prefix("oscmembership_person");
+		$sql = $sql . " set famid=" . $familyid;
+		$sql = $sql . " where id=" . $personid;     
+
+		if (!$result = $this->db->query($sql)) 
+		{
+			return false;
+		}
+    }
+
     function &addtoGroup($personid, $groupid)
     {
 		$sql = "Insert " . $this->db->prefix("oscmembership_group_members");
@@ -188,7 +200,7 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 	}
 		 
 	return $persons;
-}
+    }
     
     
     
@@ -802,6 +814,7 @@ function &searchgroupmembers($searcharray, $groupid)
 		 
 		" where id=" . $person->getVar('id');
 	
+
 		if (!$result = $this->db->query($sql)) {
 			return false;
 			}

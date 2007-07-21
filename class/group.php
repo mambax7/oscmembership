@@ -80,43 +80,46 @@ class oscMembershipGroupHandler extends XoopsObjectHandler
 		$sql.= "(xoops_uid,person_id) select " . $uid . ", gm.person_id from " . $this->db->prefix("oscmembership_group_members") . " gm left join " . $this->db->prefix("oscmembership_cart") . " c on c.person_id=gm.person_id and c.xoops_uid=" . $uid . " where group_id=" . $groupid . " and c.xoops_uid is null";
 
 
+		$returnvalue=false;
+
 		if (!$result = $this->db->query($sql)) 
 		{
-			return false;
+			$returnvalue=false;
 		}
+		else $returnvalue=true;
+
+		return $returnvalue;
    }
 
-    function &addtoGroup(&$group)
+    function &removefromCart(&$groupid, $uid)
     {
-    
-/*
-		$sql = "Update  " . $this->db->prefix("oscmembership_group");
-		$sql = $sql . " set famid=" . $familyid;
-		$sql = $sql . " where id=" . $groupid;     
+	$sql="delete from " . $this->db->prefix("oscmembership_cart") . " where xoops_uid = " . $uid . " and person_id in (select gm.person_id from " . $this->db->prefix("oscmembership_group_members") . " gm where group_id=" . $groupid ;
 
-		if (!$result = $this->db->query($sql)) 
-		{
-			return false;
-		}
-*/
+	$returnvalue=false;
+
+	if (!$result = $this->db->query($sql)) 
+	{
+		$returnvalue=false;
+	}
+	else $returnvalue=true;
+
+	return $returnvalue;
    }
 
-    function removefromGroup($personid,$groupid )
+    function &emptyCarttoGroup(&$groupid, $uid)
     {
-    /*
-		$sql = "Update  " .
-		$this->db->prefix("oscmembership_person");
-		$sql = $sql . " set famid=0";
-		$sql = $sql . " where id=" . $personid;     
-	
-		if (!$result = $this->db->query($sql)) 
-		{
-			return false;
-		}
-*/
-    }
 
-    
+	$sql = "Insert " . $this->db->prefix("oscmembership_group_members");
+	$sql.= "(group_id, person_id) Select " . $groupid . ",c.person_id from " . $this->db->prefix("oscmembership_cart") . " c left join " . $this->db->prefix("oscmembership_group_members") . " gm on c.person_id = gm.person_id where gm.id is null and c.xoops_uid = " . $uid;
+
+	if (!$result = $this->db->query($sql)) 
+	{
+		return false;
+	}
+
+   }
+
+
     function &create($isNew = true)
     {
     	$group = new Group();
@@ -240,13 +243,14 @@ function &modsearch($searcharray)
 		{
 			$groups=array();
 			
-			$i=1;
+			$i=0;
 			
 			while($row = $this->db->fetchArray($result)) 
 			{
 				
 				$groupi=&$this->create(false);
 				$groupi->assignVars($row);
+				$groupi->assignVar('loopcount',$i);
 								
 				$groups[$i]=$groupi;
 				
@@ -267,6 +271,9 @@ function &modsearch($searcharray)
 			}
 
 		
+			$group=$groups[0];
+			$group->assignVar('totalloopcount',$i);
+			$groups[0]=$group;
 		
 			return $groups;
 		}

@@ -47,7 +47,7 @@ if(isset($submit))
 			}
 		
 			redirect_header("viewcart.php", 2, _oscmem_msg_removedfromcart);
-		break;
+			break;
 		
 		case _oscmem_emptycart:
 			$uid=$xoopsUser->getVar('uid');
@@ -55,16 +55,24 @@ if(isset($submit))
 
 			redirect_header("viewcart.php", 2, _oscmem_msg_removedfromcart);
 		
-		break;
+			break;
 		
 		case _oscmem_generatelabels:
 			redirect_header("PDFLabels.php",2,"");
-		break;
+			break;
+
+		case _oscmem_generateemails:
+			redirect_header("cartemail.php",2,"");
+			break;
 		
 		case _oscmem_emptycarttogroup:
 			redirect_header("groupselect.php",2,"");
 			
-		break;
+			break;
+
+		case _oscmem_emptycarttofamily:
+			redirect_header("familyselect.php",2,"");
+			break;
 	}
 }
 
@@ -79,6 +87,7 @@ $xoopsTpl->assign('oscmem_remove',_oscmem_remove);
 $xoopsTpl->assign('oscmem_emptycarttogroup',_oscmem_emptycarttogroup);
 $xoopsTpl->assign('oscmem_emptycarttofamily',_oscmem_emptycarttofamily);
 $xoopsTpl->assign('oscmem_generatelabels',_oscmem_generatelabels);
+$xoopsTpl->assign('oscmem_generateemails',_oscmem_generateemails);
 
 if (isset($results))
 {

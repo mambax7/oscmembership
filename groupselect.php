@@ -29,6 +29,7 @@ include(XOOPS_ROOT_PATH."/header.php");
 if (isset($_POST['sort'])) $sort = $_POST['sort'];
 if (isset($_POST['filter'])) $filter=$_POST['filter'];
 if (isset($_POST['submit'])) $submit = $_POST['submit'];
+if (isset($_POST['loopcount'])) $loopcount= $_POST['loopcount'];
 
 $group_handler = &xoops_getmodulehandler('group', 'oscmembership');
 
@@ -36,6 +37,7 @@ $group_handler = &xoops_getmodulehandler('group', 'oscmembership');
 if(hasPerm("oscmembership_view",$xoopsUser)) $ispermview=true;
 if(hasPerm("oscmembership_modify",$xoopsUser)) $ispermmodify=true;
 
+$filter="";
 
 if(isset($submit))
 {
@@ -43,6 +45,20 @@ if(isset($submit))
 	{
 	case _oscmem_addgroup:
 		redirect_header("groupdetailform.php?action=create", 2, _oscmem_addgroup_redirect);
+		break;
+
+	case _oscmem_emptycarttogroup:
+		//
+		$uid=$xoopsUser->getVar('uid');
+		for($i=0;$i<$loopcount+1;$i++)
+		{
+			if (isset($_POST['chk' . $i]))
+			{
+				$id=$_POST['chk' . $i];
+				$group_handler->emptyCarttoGroup($id, $uid);
+			}
+		}
+
 		break;
 
 	case _oscmem_addtocart: 
@@ -61,6 +77,7 @@ if(isset($submit))
 		break;
 
 	case _oscmem_removefromcart:
+		$uid=$xoopsUser->getVar('uid');
 		for($i=0;$i<$loopcount+1;$i++)
 		{
 			if (isset($_POST['chk' . $i]))
@@ -69,22 +86,10 @@ if(isset($submit))
 				$group_handler->removefromCart($id, $uid);
 			}
 		}
-		redirect_header("groupselect.php", 2, _oscmem_msg_removedfromcart);
+		redirect_header("groupselect.php", 5, _oscmem_msg_removedfromcart);
 		break;
-	
-	case _oscmem_intersectcart:
-		for($i=0;$i<$loopcount+1;$i++)
-		{
-			if (isset($_POST['chk' . $i]))
-			{
-				$id=$_POST['chk' . $i];
-				$uid=$xoopsUser->getVar('uid');
-				$group_handler->intersectCart($id, $uid);
-			}
-		}
-		redirect_header("groupselect.php", 2, _oscmem_msg_intersectedcart);
-		break;
-	}
+
+	}	
 }
 
 	
@@ -92,32 +97,13 @@ $searcharray=array();
 $searcharray[0]=$filter;
 $result = $group_handler->search($searcharray);
 
-//<a href='groupdetailform.php?action=create'>" . _oscmembership_addgroup . "</a>
-
-
-//echo "<form action='groupselect.php' method=post>";
-//echo "<input type=submit name=submit value='" . _oscmem_addgroup . "'>";
-//echo "</form>";
-
-//echo "<h2 class=comTitle>" . _oscmem_personselect . "</h2>";
-/*
-$inner_table="<table class='outer'  >";
-$inner_table = $inner_table . "<tr><th>&nbsp;</th><th>" . _oscmem_groupname . "</th>";
-$inner_table = $inner_table . "<th>" . _oscdir_city . "," . _oscdir_state . "</th>";
-$inner_table = $inner_table . "<th>" . _oscdir_email . "</th>";
-$inner_table = $inner_table . "<th>&nbsp;</th>";
-$inner_table = $inner_table . "</tr>";
-
-*/
 $db = &Database::getInstance();
 $rowcount=0;
-$group=new Group();
+$totalloopcount=$result[0]->getVar('totalloopcount');
 
 foreach($result as $group)
 {
 	$group_label = new XoopsFormLabel("<a href='groupdetailform.php?id=" . $group->getVar('id') . "'>" . _oscmem_edit . "</a>&nbsp;&nbsp;&nbsp;<a href='groupselect.php?id=" . $group->getVar('id') . "&submit=addtocart'>" . _oscmem_addtocart . "</a>" ,$group->getVar('group_Name'));
-
-//	$form->addElement($group_label);
 
 	
 }
@@ -136,6 +122,8 @@ $xoopsTpl->assign('is_perm_modify',$ispermmodify);
 $xoopsTpl->assign('oscmem_view',_oscmem_view);
 $xoopsTpl->assign('oscmem_edit',_oscmem_edit);
 $xoopsTpl->assign('groups',$result);
+$xoopsTpl->assign('oscmem_emptycarttogroup',_oscmem_emptycarttogroup);
+$xoopsTpl->assign('loopcount', $totalloopcount);
 
 /*
 if(!isset($group_label))
@@ -150,6 +138,5 @@ if(!isset($group_label))
 //$form->display();
 
 include(XOOPS_ROOT_PATH."/footer.php");
-
 
 ?>

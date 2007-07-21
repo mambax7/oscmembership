@@ -68,7 +68,14 @@ $db = &Database::getInstance();
 
 $myts = &MyTextSanitizer::getInstance();
 $persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');
-    
+
+$person=$persondetail_handler->create();
+if(isset($personid) && is_numeric($personid)) 
+{
+	$person=$persondetail_handler->get($personid);
+}
+
+
 $member_handler =& xoops_gethandler('member');
 $acttotal = $member_handler->getUserCount(new Criteria('level', 0, '>'));
 
@@ -76,16 +83,12 @@ switch (true)
 {
 
     case ($action=="create"):
-    	$person=$persondetail_handler->create();
 	break;    
 
-    case ($op=="save"):
-    	$person=$persondetail_handler->get($personid);
-	
-    case ($op=="create"):
     	$person=$persondetail_handler->create();
-    
     case ($op=="save" || $op=="create"):
+
+echo $person->getVar('lastname');	
     	if(isset($_POST['lastname'])) $person->assignVar('lastname',$_POST['lastname']);
 
 	if(isset($_POST['firstname'])) $person->assignVar('firstname',$_POST['firstname']);
@@ -121,6 +124,7 @@ switch (true)
 	if(isset($_POST['birthyear'])) $person->assignVar('birthyear',$_POST['birthyear']);
 
 	if(isset($_POST['memberclass'])) $person->assignVar('clsid',$_POST['memberclass']);
+
 
 	$person->assignVar('membershipdate',oscverifyXoopsDate($_POST['membershipdate']));
 	
@@ -167,6 +171,7 @@ switch (true)
 	
 	if($op=="save")
 	{
+
 		$persondetail_handler->update($person);
 		$message=_oscmem_UPDATESUCCESS;
 	}

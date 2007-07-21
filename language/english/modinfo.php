@@ -249,4 +249,11 @@ define("_oscmem_child","Child");
 define("_oscmem_parent","Parent");
 define("_oscmem_addtocart_redirect","Group added to cart");
 define("_oscmem_groupview","Group View");
+define("_oscmem_generateemails","Generate Emails");
+define("_oscmem_cartgenerateemail_TITLE","Generate Email");
+define("_oscmem_emailsubject","Subject");
+define("_oscmem_emailbody_label","Body of Email");
+define("_oscmem_emailto_label","Recipients");
+define("_oscmem_family_select","Select Families");
+define("_oscmembership_addcarttofamily","Add Cart to Selected Family");
 ?>

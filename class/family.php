@@ -54,6 +54,7 @@ class Family extends XoopsObject {
 	$this->initVar('datelastedited', XOBJ_DTYPE_TXTBOX);
 	$this->initVar('enteredby', XOBJ_DTYPE_INT);
 	$this->initVar('editedby', XOBJ_DTYPE_INT);
+	$this->initVar('loopcount',XOBJ_DTYPE_INT);
     
     	$this->initVar('oddrow', XOBJ_DTYPE_INT);
     	$this->initVar('totalloopcount', XOBJ_DTYPE_INT);
@@ -158,6 +159,7 @@ class oscMembershipFamilyHandler extends XoopsObjectHandler
 			$family =&$this->create(false);
 			$family->assignVars($row);
 			$family->assignVar('oddrow',$oddrow);
+			$family->assignVar('loopcount',$i);
 			
 			$returnfamilies[$i]=$family;
 			
