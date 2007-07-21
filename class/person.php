@@ -119,11 +119,13 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 		$sql = "Insert into " . $this->db->prefix("oscmembership_cart");
 		$sql = $sql . "(xoops_uid, person_id) select " . $xoopsuid . "," . $personid . " from " . $this->db->prefix("oscmembership_person") . " p left join  " . $this->db->prefix("oscmembership_cart") . " c on p.id=c.person_id where c.person_id is null and p.id=" . $personid;     
 
-//echo $sql;		
+		$return=true;
 		if (!$result = $this->db->query($sql)) 
 		{
-			return false;
+			$return=false;
 		}
+
+		return $return;
     }
 
     function &removefromCart(&$personid, &$xoopsuid)
