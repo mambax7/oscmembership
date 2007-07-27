@@ -184,10 +184,12 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 	{
 		$sql .= " and envelope is null or envelope=0 ";
 	}
+
+	$returnfalse=false;
 		
 	if (!$result = $this->db->query($sql)) 
 	{
-		return false;
+		return $returnfalse;
 	}
 	else
 	{
@@ -199,7 +201,15 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 			$persons[$i]=$person;
 			$i++;
 		}
+
+		
+		if($i==0)
+		{
+			return $returnfalse;
+		}
+
 	}
+
 		 
 	return $persons;
     }
