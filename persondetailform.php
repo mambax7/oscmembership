@@ -88,7 +88,6 @@ switch (true)
     	$person=$persondetail_handler->create();
     case ($op=="save" || $op=="create"):
 
-echo $person->getVar('lastname');	
     	if(isset($_POST['lastname'])) $person->assignVar('lastname',$_POST['lastname']);
 
 	if(isset($_POST['firstname'])) $person->assignVar('firstname',$_POST['firstname']);
@@ -171,7 +170,6 @@ echo $person->getVar('lastname');
 	
 	if($op=="save")
 	{
-
 		$persondetail_handler->update($person);
 		$message=_oscmem_UPDATESUCCESS;
 	}
@@ -365,10 +363,10 @@ while($row = $db->fetchArray($customFields))
 	case "1": //True false
 		switch($customData[$i])
 		{
-		case "true":
+		case true:
 			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"],1,_oscmem_yes, _oscmem_no));
 			break;		
-		case "false":
+		case false:
 			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], 0,_oscmem_yes, _oscmem_no));
 			break;
 			
@@ -397,8 +395,8 @@ while($row = $db->fetchArray($customFields))
 	case "6": //year
 
 	case "7":  //season
-	
-		$season=new XoopsFormSelect($row["custom_Name"],$row["custom_Field"], $customData[$i],1,false, $row["custom_Field"] );
+
+		$season=new XoopsFormSelect($row["custom_Name"],$row["custom_Field"], $customData[$i],1,false);
 		
 		$season->addOption(_oscmem_season_select,0);
 		$season->addOption("-------------",0);

@@ -155,7 +155,7 @@ class oscMembershipCustomfieldHandler extends XoopsObjectHandler
   				break;
   			case 6:$sql .= "YEAR";
   				break;
-  			case 7:$sql .= "ENUM('" . _oscmem_season_winter . "', '" . _oscmem_season_spring . "', '" . _oscmem_season_summer . "', '" . _oscmem_season_fall . "')";
+  			case 7:$sql .= "TEXT";
   				break;
   			case 8:$sql .= "INT";
   				break;

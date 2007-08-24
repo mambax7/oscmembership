@@ -270,16 +270,10 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 			$person->assignVars($row);
 			//pull custom fields
 			$customresult=$this->getcustompersonData($id);
-			
-			$customrow=$this->db->fetchArray($customresult);
-			if(isset($customrow[0]))
-			{
-				$customfields=implode(",",$customrow);
-				//echo $customfields;			
+
+			$customrow=$this->db->fetchArray($customresult);				$customfields=implode(",",$customrow);
 				$person->assignVar('customfields',$customfields);
-				
-			}
-			else $person->assignVar('customfields',null);
+//	else $person->assignVar('customfields',null);
 			
 			return $person;
 
@@ -302,7 +296,6 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 
 		if (!$result = $this->db->query($sql)) 
 		{
-			//echo "<br />NewbbForumHandler::get error::" . $sql;
 			return false;
 		}
 		return $result;
@@ -342,7 +335,7 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 			$sqlfield.= "," .$row["custom_Field"];
 		}
 		
-		$sqlfield=substr($sqlfield,2);
+//		$sqlfield=substr($sqlfield,0,-1);
 				
 		// Get the list of custom person fields
 		$sql = "SELECT per_ID " . $sqlfield . " FROM " . $this->db->prefix("oscmembership_person_custom") . " WHERE per_ID=" . $personid ;
@@ -351,6 +344,7 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 			echo "<br />PersonHandler::get error::" . $sql;
 			return false;
 		}
+
 		return $result;
 	}
     
@@ -837,8 +831,7 @@ function &searchgroupmembers($searcharray, $groupid)
 
 				//update custom fields
 				$customFields = $this->getcustompersonFields();
-
-				if($customFields=false)  //false = no custom fields
+				if($customFields!=false)  //false = no custom fields
 				{
 					$sql="Update " . $this->db->prefix("oscmembership_person_custom");
 					$sql.= " set ";
@@ -918,7 +911,6 @@ function &searchgroupmembers($searcharray, $groupid)
 					$sql= rtrim($sql,",");
 					$sql.= " WHERE per_ID=" . $person->getVar('id');
 					
-	//				echo "customfield" . $sql;
 					if (!$result = $this->db->query($sql)) 
 					{
 						return false;
@@ -926,6 +918,8 @@ function &searchgroupmembers($searcharray, $groupid)
 				}
 			}
 			
+		$return=true;
+		return $return;
 	
 	}
 

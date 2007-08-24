@@ -172,6 +172,8 @@ $sSQL = "SELECT * FROM " . $db->prefix("oscmembership_list") . " WHERE id= 2 and
 
 $familyroles=$db->query($sSQL);
 
+$familyrole_name="";
+
 while($row = $db->fetchArray($familyroles)) 
 {
 	$familyrole_name=$row['optionname'];
@@ -195,6 +197,7 @@ $id_hidden = new XoopsFormHidden("id",$person->getVar('id'));
 
 $op_hidden = new XoopsFormHidden("op", "save");  //save operation
 $submit_button = new XoopsFormButton("", "persondetailsubmit", _osc_save, "submit");
+$action="";
 
 if($action=="create")
 {
@@ -235,7 +238,7 @@ $form->addElement($id_hidden);
 
 //Upload stuff
 
-$form->addElement($submit_button);
+//$form->addElement($submit_button);
 
 //$form->addElement($customfields);
 
@@ -264,36 +267,34 @@ while($row = $db->fetchArray($customFields))
 	
 		break;
 	case "2": //Date
-		$form->addElement(new XoopsFormTextDateSelect($row["custom_Name"],$row["custom_Field"], 10,$customData[$i]));
+		$date_label = new XoopsFormLabel($row["custom_Name"], $customData[$i]);
+		$form->addElement($date_label);
 		break;
 			
 	case "3":
-		$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 50, 50,$customData[$i]));
+		$label_3 = new XoopsFormLabel($row["custom_Name"], $customData[$i]);
+		$form->addElement($label_3);
 		break;
 
 	case "4":
-		$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 100, 100,$customData[$i]));
+		$label_4 = new XoopsFormLabel($row["custom_Name"], $customData[$i]);
+		$form->addElement($label_4);
 		break;
 		
 	case "5":
-		$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 200, 200,$customData[$i]));
+		$label_5 = new XoopsFormLabel($row["custom_Name"], $customData[$i]);
+		$form->addElement($label_5);
 		break;
 		
 	case "6": //year
 	case "8": //number
-		$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 10, 10,$customData[$i]));
+		$label_8 = new XoopsFormLabel($row["custom_Name"], $customData[$i]);
 		break;
 
 	case "7":  //season
 	
-		$season=new XoopsFormSelect($row["custom_Name"],$row["custom_Field"], $customData[$i],1,false, $row["custom_Field"] );
-		
-		$season->addOption(_oscmem_season_select,0);
-		$season->addOption("-------------",0);
-		$season->addOption(_oscmem_season_spring,_oscmem_season_spring);
-		$season->addOption(_oscmem_season_summer,_oscmem_season_summer);
-		$season->addOption(_oscmem_season_fall,_oscmem_season_fall);
-		$season->addOption(_oscmem_season_winter,_oscmem_season_winter);
+		$season = new XoopsFormLabel(_oscmem_season_select, $customData[$i]);
+
 		$form->addElement($season);
 		break;
 	}
