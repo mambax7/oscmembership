@@ -34,6 +34,8 @@ if (!$xoopsUser)
 
 require (XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/ReportConfig.php");
 
+require (XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php");
+
 // Include the function library
 //require "Include/Config.php";
 //require "Include/Functions.php";
@@ -52,11 +54,6 @@ include(XOOPS_ROOT_PATH."/header.php");
 
 //$GLOBALS['xoopsOption']['template_main'] ="csvexport.html";
 
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/osclist.php';
-
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/group.php';
-
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/churchdir.php';
 
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 

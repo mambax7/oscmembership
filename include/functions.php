@@ -144,4 +144,47 @@ function FormatFullName($Title, $FirstName, $MiddleName, $LastName, $Suffix, $St
 }
 
 
+// Collapses a formatted phone number as long as the Country is known
+// Eg. for United States:  555-555-1212 Ext. 123 ==> 5555551212e123
+//
+// Need to add other countries besides the US...
+//
+function CollapsePhoneNumber($sPhoneNumber,$sPhoneCountry)
+{
+	switch ($sPhoneCountry)	{
+
+	case "United States":
+		$sCollapsedPhoneNumber = "";
+		$bHasExtension = false;
+
+		// Loop through the input string
+		for ($iCount = 0; $iCount <= strlen($sPhoneNumber); $iCount++) {
+
+			// Take one character...
+			$sThisCharacter = substr($sPhoneNumber, $iCount, 1);
+
+			// Is it a number?
+			if (Ord($sThisCharacter) >= 48 && Ord($sThisCharacter) <= 57) {
+				// Yes, add it to the returned value.
+				$sCollapsedPhoneNumber .= $sThisCharacter;
+			}
+			// Is the user trying to add an extension?
+			else if (!$bHasExtension && ($sThisCharacter == "e" || $sThisCharacter == "E")) {
+				// Yes, add the extension identifier 'e' to the stored string.
+				$sCollapsedPhoneNumber .= "e";
+				// From now on, ignore other non-digits and process normally
+				$bHasExtension = true;
+			}
+		}
+		break;
+
+	default:
+		$sCollapsedPhoneNumber = $sPhoneNumber;
+		break;
+	}
+
+	return $sCollapsedPhoneNumber;
+}
+
+
 ?>
