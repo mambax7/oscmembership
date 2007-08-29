@@ -160,6 +160,8 @@ $datelastedited_label = new XoopsFormLabel(_oscmem_datelastedited, $person->getV
 
 $user=new XoopsUser();
 
+if($person->getVar('editedby')==0) $person->assignVar('editedby',$person->getVar('enteredby'));
+
 if($person->getVar('editedby')<>'')
 {
 	$user = $member_handler->getUser($person->getVar('editedby'));

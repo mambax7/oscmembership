@@ -259,10 +259,12 @@ $datelastedited_label = new XoopsFormLabel(_oscmem_datelastedited, $person->getV
 
 $user=new XoopsUser();
 
-if($person->getVar('editedby')<>'')
+if($person->getVar('editedby')==0) $person->assignVar('editedby',$person->getVar('enteredby'));
+if($person->getVar('editedby')<>''|| $person->getVar('editedby')<>0)
 {
 	$user = $member_handler->getUser($person->getVar('editedby'));
 }
+
 
 $familyrole_select = new XoopsFormSelect(_oscmem_familyrole,"fmrid",$person->getVar('fmrid'),1,false,'fmrid');
 
