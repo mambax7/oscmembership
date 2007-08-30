@@ -23,13 +23,6 @@ if (!$xoopsUser)
     redirect_header(XOOPS_URL."/user.php", 3, _oscmem_accessdenied);
 }
 
-/*
-		echo $xoopsUser->getGroups();
-		echo $module->getVar("mid");
-		
-		$perm=$groupPermHandler->getItemIds("oscmem_view",$xoopsUser->getGroups(),$module->getVar("mid"));
-*/
-
 
 if(hasPerm("oscmembership_view",$xoopsUser)) $ispermview=true;
 if(hasPerm("oscmembership_modify",$xoopsUser)) $ispermmodify=true;
@@ -49,6 +42,25 @@ if(isset($submit))
 	{
 	case _oscmem_addmember:
 		redirect_header("persondetailform.php?action=create", 2, _oscmem_addingmember);
+		break;
+
+	case _oscmem_deletemember:
+		$deletelist="";
+		if($ispermmodify==true)
+		{
+			for($i=0;$i<$loopcount+1;$i++)
+			{
+				if (isset($_POST['chk' . $i]))
+				{
+					$id=$_POST['chk' . $i];
+					$uid=$xoopsUser->getVar('uid');
+					$person_handler->delete($id);
+				}
+			}
+			redirect_header("index.php", 2, _oscmem_deleted);
+		}
+		else redirect_header(XOOPS_URL."/user.php", 3, _oscmem_accessdenied);
+
 		break;
 	
 	
@@ -122,6 +134,8 @@ $xoopsTpl->assign('is_perm_view',$ispermview);
 $xoopsTpl->assign('is_perm_modify',$ispermmodify);
 $xoopsTpl->assign('oscmem_view',_oscmem_view);
 $xoopsTpl->assign('oscmem_edit',_oscmem_edit);
+$xoopsTpl->assign('oscmem_confirmdelete',_oscmem_confirmdelete);
+$xoopsTpl->assign('oscmem_deletemember',_oscmem_deletemember);
 
 
 if($persons[0]->getVar('totalloopcount')>0)

@@ -256,4 +256,7 @@ define("_oscmem_emailbody_label","Body of Email");
 define("_oscmem_emailto_label","Recipients");
 define("_oscmem_family_select","Select Families");
 define("_oscmembership_addcarttofamily","Add Cart to Selected Family");
+define("_oscmem_confirmdelete","Please confirm you want these members deleted.  The delete will be permanent.");
+define("_oscmem_deletemember","Delete Member");
+define("_oscmem_deleted","Members have been deleted");
 ?>

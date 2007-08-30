@@ -10,7 +10,9 @@
 <input type="submit" name="submit" value="<{$oscmem_applyfilter}>">&nbsp;
 <input type="submit" name="submit" value="<{$oscmem_clearfilter}>"></TD><td align="right">
 <input type="submit" name="submit" value="<{$oscmem_addmember}>">
-&nbsp;&nbsp;<input type="submit" name="submit"  value="<{$oscmem_addtocart}>"> 
+&nbsp;&nbsp;
+<input type="submit" name="submit" onclick="return confirm('<{$oscmem_confirmdelete}>');" value="<{$oscmem_deletemember}>">
+<input type="submit" name="submit"  value="<{$oscmem_addtocart}>"> 
 &nbsp;<input type="submit" name="submit" value="<{$oscmem_removefromcart}>">
 </td></tr>
 <tr>

@@ -271,8 +271,10 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 			//pull custom fields
 			$customresult=$this->getcustompersonData($id);
 
-			$customrow=$this->db->fetchArray($customresult);				$customfields=implode(",",$customrow);
-				$person->assignVar('customfields',$customfields);
+			$customrow=$this->db->fetchArray($customresult);
+
+			$customfields=implode(",",$customrow);
+			$person->assignVar('customfields',$customfields);
 //	else $person->assignVar('customfields',null);
 			
 			return $person;
@@ -791,9 +793,14 @@ function &searchgroupmembers($searcharray, $groupid)
 		. ",workemail=" . 	
 		$this->db->quoteString($person->getVar('workemail'))
 		. ",birthmonth=" . $person->getVar('birthmonth')
-		. ",birthday=" . $person->getVar('birthday')
-		. ",birthyear=" . $person->getVar('birthyear')
-		. ",membershipdate=" . $this->db->quoteString($membershipdate_conv)
+		. ",birthday=" . $person->getVar('birthday');
+
+		if($person->getVar('birthyear')!='')
+		{
+			$sql.= ",birthyear=" . $person->getVar('birthyear');
+		}
+
+		$sql.=",membershipdate=" . $this->db->quoteString($membershipdate_conv)
 		. ",clsid=" . $person->getVar('clsid')
 		. ",gender=" . $person->getVar('gender')
 		. ",fmrid=" . $person->getVar('fmrid');
@@ -1003,6 +1010,17 @@ function &searchgroupmembers($searcharray, $groupid)
 			return $personid;
 		}
 	
+	}
+
+	function &delete(&$id)
+    	{
+		$person=$this->create(false);
+
+		$sql="delete from " . $person->table . " where id=" . $id;
+		$this->db->query($sql);
+
+		//delete from families
+		
 	}
 	
 	

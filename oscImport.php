@@ -285,7 +285,7 @@ if (isset($_POST["DoImport"]))
 
 			$sSQLpersonFields = "INSERT INTO " . $db->prefix("oscmembership_person") . " (";
 			$sSQLpersonData = " VALUES (";
-			$sSQLcustom = "UPDATE " . $db->prefix("oscmembership_person") . " SET ";
+			$sSQLcustom = "UPDATE " . $db->prefix("oscmembership_person_custom") . " SET ";
 
 			// Build the person_per SQL first.
 			// We do this in case we can get a country, which will allow phone number parsing later
@@ -412,16 +412,17 @@ if (isset($_POST["DoImport"]))
 			$db->query($sSQLperson);
 			//echo "<br>" . $sSQLperson . "<br>";
 
+			// Get the last inserted person ID and insert a dummy row in the person_custom table
+			$sSQL = "SELECT MAX(id) AS iPersonID FROM " . $db->prefix("oscmembership_person");
+			$rsPersonID =  $db->query($sSQL);
+			
+			extract(mysql_fetch_array($rsPersonID));
+			$sSQL = "INSERT INTO " . $db->prefix("oscmembership_person_custom") . " (per_ID) VALUES ('" . $iPersonID . "')";
+			
+			$db->query($sSQL);
+				//echo "<br>" . $sSQL . "<br>";
 			if ($bHasCustom)
 			{
-				// Get the last inserted person ID and insert a dummy row in the person_custom table
-				$sSQL = "SELECT MAX(id) AS iPersonID FROM " . $db->prefix("oscmembership_person");
-				$rsPersonID =  $db->query($sSQL);
-				
-				extract(mysql_fetch_array($rsPersonID));
-$sSQL = "INSERT INTO " . $db->prefix("oscmembership_person_custom") . " (id) VALUES ('" . $iPersonID . "')";
-				$db->query($sSQL);
-				//echo "<br>" . $sSQL . "<br>";
 
 				// Build the person_custom SQL
 				for ($col = 0; $col < $numCol; $col++)

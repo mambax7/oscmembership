@@ -181,7 +181,7 @@ switch (true)
 		$message=_oscmem_CREATESUCCESS_individual;
 	}
 	    
-	redirect_header("index.php", 3, $message);
+	redirect_header("index.php", 40, $message);
     break;
 }
 
@@ -355,26 +355,24 @@ $form->setRequired($firstname_text);
 
 $customFields = $persondetail_handler->getcustompersonFields();
 $customData = explode(",",$person->getVar('customfields'));
-
 $i=1;
 while($row = $db->fetchArray($customFields)) 
 {
-
 	switch($row["type_ID"])
 	{
 	case "1": //True false
-		switch($customData[$i])
+
+		if($customData[$i]=="true")
 		{
-		case true:
 			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"],1,_oscmem_yes, _oscmem_no));
-			break;		
-		case false:
+		}
+		elseif($customData[$i]=="false")
+		{
 			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], 0,_oscmem_yes, _oscmem_no));
-			break;
-			
-		default:
+		}
+		else
+		{
 			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], null,_oscmem_yes,_oscmem_no));
-			break;
 		}
 	
 		break;

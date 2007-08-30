@@ -61,11 +61,15 @@ include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/g
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 include_once XOOPS_ROOT_PATH."/class/xoopsform/tableform.php";
 
-/*
-$churchdir_handler = &xoops_getmodulehandler('churchdir', 'oscmembership');
-$churchdir= $churchdir_handler->create();
-$churchdir = $churchdir_handler->get($churchdir);
-*/
+if (file_exists(XOOPS_ROOT_PATH. "/modules/" . 	$xoopsModule->getVar('dirname') .  "/language/" . $xoopsConfig['language'] . "/modinfo.php")) 
+{
+    include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/language/" . $xoopsConfig['language'] . "/modinfo.php";
+}
+elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') ."/language/english/modinfo.php"))
+{ include XOOPS_ROOT_PATH ."/modules/" . $xoopsModule->getVar('dirname') . "/language/english/modinfo.php";
+
+}
+
 
 $osclist_handler = &xoops_getmodulehandler('osclist', 'oscmembership');
 $osclist = $osclist_handler->create();
@@ -147,7 +151,7 @@ $xoopsTpl->assign('custfieldarr',$custfieldarr);
 
 $xoopsTpl->assign('oscmem_recordstoexport',_oscmem_recordstoexport);
 $xoopsTpl->assign('oscmem_fromfilterbelow',_oscmem_fromfilterbelow);
-$xoopsTpl->assign('oscmem_fromcart','_oscmem_fromcart');
+$xoopsTpl->assign('oscmem_fromcart',_oscmem_fromcart);
 
 $xoopsTpl->assign('oscmem_classificationstoexport',_oscmem_classificationstoexport);
 

@@ -244,6 +244,9 @@ function &modsearch($searcharray)
 			$groups=array();
 			
 			$i=0;
+
+			$groupi=&$this->create(false);
+			$groups[0]=$groupi;
 			
 			while($row = $this->db->fetchArray($result)) 
 			{
@@ -255,19 +258,7 @@ function &modsearch($searcharray)
 				$groups[$i]=$groupi;
 				
 				$i++;
-				
-
-				
-				
-/*	$this->initVar('id',XOBJ_DTYPE_INT);
-	$this->initVar('group_type',XOBJ_DTYPE_INT);
-	$this->initVar('group_RoleListID',XOBJ_DTYPE_INT);
-	$this->initVar('group_DefaultRole',XOBJ_DTYPE_INT);
-	$this->initVar('group_Name',XOBJ_DTYPE_TXTBOX);
-	$this->initVar('group_Description',XOBJ_DTYPE_TXTAREA);
-	$this->initVar('group_hasSpecialProps',XOBJ_DTYPE_INT);
-*/			
-			
+							
 			}
 
 		
