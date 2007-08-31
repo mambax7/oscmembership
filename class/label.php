@@ -358,6 +358,8 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 
 //	$sSQL=" drop table `tmplabel`;
 
+//$sSQL="truncate table tmplabel";
+
 $sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
 	`recipient` varchar(255) default NULL,
 	`AddressLine1` varchar(255) default NULL,
@@ -390,8 +392,8 @@ $sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
 	If($labelcriteria->getVar('bdiraddress'))
 	{
 		$headersql .= ",address1,address2,city,state,zip";
-		$indivbodysql .= ",',',person.address1,',',person.address2,',',person.city,',',person.state,',',person.zip";
-		$familybodysql .= ",',',family.address1,',',family.address2,',',family.city,',',family.state,',',family.zip";
+		$indivbodysql .= ",',',coalesce(person.address1,''),',',coalesce(person.address2,''),',',coalesce(person.city,''),',',coalesce(person.state,''),',',coalesce(person.zip,'')";
+		$familybodysql .= ",',',coalesce(family.address1,''),',',coalesce(family.address2,''),',',coalesce(family.city,''),',',coalesce(family.state,''),',',coalesce(family.zip,'')";
 	}	
 	
 	If($labelcriteria->getVar('bdirwedding'))
@@ -412,16 +414,16 @@ $sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
 
 	if($labelcriteria->getVar('bphone'))
 	{ 
-	 	$indivbodysql .= ",',',person.homephone";
-	 	$familybodysql .= ",',',family.homephone";
+	 	$indivbodysql .= ",',',coalesce(person.homephone,'')";
+	 	$familybodysql .= ",',',coalesce(family.homephone,'')";
 	 	$headersql .=",homephone";
 
-	 	$indivbodysql .= ",',',person.workphone";
-	 	$familybodysql .= ",',',family.workphone";
+	 	$indivbodysql .= ",',',coalesce(person.workphone,'')";
+	 	$familybodysql .= ",',',coalesce(family.workphone,'')";
 	 	$headersql .= ",workphone";
 
-		$indivbodysql .=",',',person.cellphone";
-		$familybodysql .=",',',family.cellphone";
+		$indivbodysql .=",',',coalesce(person.cellphone,'')";
+		$familybodysql .=",',',coalesce(family.cellphone,'')";
 		$headersql .= ",cellphone";
 		
 	}
@@ -429,8 +431,8 @@ $sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
 	
 	if($labelcriteria->getVar('bemail'))
 	{ 
-		$indivbodysql .= ",',',person.email";
-		$familybodysql .= ",',',person.email";
+		$indivbodysql .= ",',',coalesce(person.email,'')";
+		$familybodysql .= ",',',coalesce(person.email,'')";
 		$headersql.= ",email";
 	}
 
@@ -455,8 +457,9 @@ $sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
 	
 	$recipientplus.=",$cr";
 	$fambody.=",$cr";
-		
-	$sSQL = "insert into tmplabel(familyid, sortMe,addressLabel, AddressLine1, AddressLine2, City, State, Zip, body) Select 0,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid=0" . $sWhereExt;
+
+
+	$sSQL = "insert into tmplabel(familyid,recipient, sortMe,addressLabel, AddressLine1, AddressLine2, City, State, Zip, body) Select 0,$sortMe,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid=0" . $sWhereExt;
 	
 	$this->db->query($sSQL); 
 
@@ -486,7 +489,6 @@ $sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
 		default:
 		
 		$sSQL = "insert into tmplabel(familyid, sortMe, addresslabel, AddressLine1, AddressLine2, City, State, Zip, body) Select 0,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid!=0" . $sWhereExt;
-
 		$this->db->query($sSQL); 
 		break;
 
@@ -503,7 +505,7 @@ $sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
 	}
 	
 	$sSQL="select * from tmplabel order by sortme";
-	
+
 	$result=$this->db->query($sSQL);
 		
 	$i=0;

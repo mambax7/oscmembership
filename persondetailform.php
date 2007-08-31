@@ -181,7 +181,7 @@ switch (true)
 		$message=_oscmem_CREATESUCCESS_individual;
 	}
 	    
-	redirect_header("index.php", 40, $message);
+	redirect_header("index.php", 3, $message);
     break;
 }
 

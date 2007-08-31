@@ -82,7 +82,7 @@ if(isset($submit))
 				$person_handler->addtoCart($id, $uid);
 			}
 		}
-		redirect_header("index.php", 2, _oscmem_addedtocart);
+		redirect_header("index.php", 3, _oscmem_addedtocart);
 		break;
 	
 	case _oscmem_removefromcart:

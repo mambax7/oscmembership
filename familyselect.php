@@ -63,6 +63,8 @@ if(isset($submit))
 			}
 			
 		}
+
+		redirect_header("index.php", 3, "");
 		
 		//do nothing
 		break;

@@ -95,7 +95,7 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
     {
 		$sql = "Update  " . $this->db->prefix("oscmembership_person");
 		$sql = $sql . " set famid=" . $familyid;
-		$sql = $sql . " where id=" . $personid;     
+		$sql = $sql . " where id in (select person_id from " . $this->db->prefix("oscmembership_cart") . " where xoops_uid=" . $uid . ")";
 
 		if (!$result = $this->db->query($sql)) 
 		{
@@ -117,7 +117,7 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
     function &addtoCart(&$personid, &$xoopsuid)
     {
 		$sql = "Insert into " . $this->db->prefix("oscmembership_cart");
-		$sql = $sql . "(xoops_uid, person_id) select " . $xoopsuid . "," . $personid . " from " . $this->db->prefix("oscmembership_person") . " p left join  " . $this->db->prefix("oscmembership_cart") . " c on p.id=c.person_id where c.person_id is null and p.id=" . $personid;     
+		$sql = $sql . "(xoops_uid, person_id) select " . $xoopsuid . "," . $personid . " from " . $this->db->prefix("oscmembership_person") . " p left join  " . $this->db->prefix("oscmembership_cart") . " c on p.id=c.person_id " . " and c.xoops_uid=" . $xoopsuid . " where c.person_id is null and p.id=" . $personid ;
 
 		$return=true;
 		if (!$result = $this->db->query($sql)) 
