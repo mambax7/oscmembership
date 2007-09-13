@@ -133,7 +133,10 @@ $labelcritiera->assignVar('brole',isset($_POST["bfamilyrole"]));
 $labelcritiera->assignVar('bfamilyname',isset($_POST["bfamilyname"]));
 
 if(isset($_POST["soutputmethod"]))
+{
+	$outputmethod=$_POST["soutputmethod"];
 	$labelcritiera->assignVar('soutputmethod',$_POST["soutputmethod"]);
+}
 
 if(isset($_POST["memberdatefrom"])) 
 {
@@ -174,17 +177,39 @@ if(isset($_POST["dateenteredfrom"]))
 	}
 }
 
+if(isset($_POST["sfilters"])) $filter=$_POST["sfilters"];
+//determine if source is to be from cart
+if($filter==_oscmem_fromcart)
+{
+	$labels=$label_handler->getexportfromcart(false, false, $groups,$labelcritiera);
+}
+else
+{
+	$labels=$label_handler->getexport(false, false, $groups,$labelcritiera);
+}
 
-$labels=$label_handler->getexport(false, false, $groups,$labelcritiera);
-
-header("Content-type: text/x-csv");
-header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
-
+if($outputmethod==_oscmem_csv_addtocart)
+{
+	$xoopsuid=$xoopsUser->getVar("uid");
+	//Add labels to cart
 	foreach($labels as $label)
 	{
-		echo $label['body'] . chr(13);
+		$persondetail_handler->addtoCart($label["person_id"],$xoopsuid);
 	}
+	redirect_header("index.php", 3, _oscmem_addedtocart);
 
+}
+else
+{
+//Create Dump file
+	header("Content-type: text/x-csv");
+	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
+	
+		foreach($labels as $label)
+		{
+			echo $label['body'] . chr(13);
+		}
+}
 
 // Turn OFF output buffering
 //ob_end_flush();
