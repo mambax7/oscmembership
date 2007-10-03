@@ -257,6 +257,7 @@ $memberclass_select->addOptionArray($option_array);
 
 $datelastedited_label = new XoopsFormLabel(_oscmem_datelastedited, $person->getVar('datelastedited'));
 
+
 $user=new XoopsUser();
 
 if($person->getVar('editedby')==0) $person->assignVar('editedby',$person->getVar('enteredby'));
@@ -310,6 +311,17 @@ if($action=="create")
 	$submit_button = new XoopsFormButton("", "persondetailsubmit", _osc_create, "submit");
 }
 
+include_once(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/class/phoogle.php");
+$map=new PhoogleMap();
+$address="735 22nd street, Rock Island Illinois 61201";
+$map->setAPIKey("ABQIAAAAuVPEwZqDPpfs7H-3ArZlHBQRKU4IYsiOVwah-NfmgZKlOjbdIBQvWo_PiyeuXIDxEx_guCAThDhoHw");
+$map->addAddress($address);
+//$map->showMap();
+$map->showInvalidPoints("table");
+$map->showValidPoints("table");
+$map_label = new XoopsFormLabel(_oscmem_map, $map->renderMap());
+
+
 $form = new XoopsThemeForm(_oscmem_persondetail_TITLE, "persondetailform", "persondetailform.php", "post", true);
 $form->addElement($firstname_text);
 $form->addElement($lastname_text);
@@ -320,6 +332,7 @@ $form->addElement($state_text);
 $form->addElement($post_text);
 
 $form->addElement($country_text);
+$form->addElement($map_label);
 $form->addElement($familyrole_select);
 $form->addElement($homephone_text);
 $form->addElement($workphone_text);

@@ -58,7 +58,7 @@ if(isset($submit))
 				$group_handler->emptyCarttoGroup($id, $uid);
 			}
 		}
-
+//		redirect_header("groupselect.php", 3, _oscmem_cartemptiedtogroup_redirect);
 		break;
 
 	case _oscmem_addtocart: 

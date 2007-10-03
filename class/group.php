@@ -110,7 +110,7 @@ class oscMembershipGroupHandler extends XoopsObjectHandler
     {
 
 	$sql = "Insert " . $this->db->prefix("oscmembership_group_members");
-	$sql.= "(group_id, person_id) Select " . $groupid . ",c.person_id from " . $this->db->prefix("oscmembership_cart") . " c left join " . $this->db->prefix("oscmembership_group_members") . " gm on c.person_id = gm.person_id where gm.id is null and c.xoops_uid = " . $uid;
+	$sql.= "(group_id, person_id) Select " . $groupid . ",c.person_id from " . $this->db->prefix("oscmembership_cart") . " c left join " . $this->db->prefix("oscmembership_group_members") . " gm on c.person_id = gm.person_id and gm.group_id=" . $groupid . " where gm.group_id is null and c.xoops_uid = " . $uid;
 
 	if (!$result = $this->db->query($sql)) 
 	{
