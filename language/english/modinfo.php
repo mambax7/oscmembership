@@ -259,4 +259,7 @@ define("_oscmembership_addcarttofamily","Add Cart to Selected Family");
 define("_oscmem_confirmdelete","Please confirm you want these members deleted.  The delete will be permanent.");
 define("_oscmem_deletemember","Delete Member");
 define("_oscmem_deleted","Members have been deleted");
+
+define("_oscmem_picloc","Picture Location");
+define("_oscmem_familypicture","Family Picture");
 ?>

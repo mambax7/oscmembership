@@ -53,7 +53,8 @@ class Family extends XoopsObject {
 	$this->initVar('dateentered', XOBJ_DTYPE_TXTBOX);
 	$this->initVar('datelastedited', XOBJ_DTYPE_TXTBOX);
 	$this->initVar('enteredby', XOBJ_DTYPE_INT);
-	$this->initVar('editedby', XOBJ_DTYPE_INT);
+	$this->initVar('editedby', XOBJ_DTYPE_INT);		
+	$this->initVar('picloc',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('loopcount',XOBJ_DTYPE_INT);
     
     	$this->initVar('oddrow', XOBJ_DTYPE_INT);
@@ -303,7 +304,7 @@ function &modsearch($searcharray)
 		$sql .= ",datelastedited=" .  			
 		$this->db->quoteString($family->getVar('datelastedited'))
 		. ",editedby=" . $this->db->quoteString($family->getVar('editedby')) . 
-		 
+		",picloc=" . $this->db->quoteString($family->getVar('picloc')) . 
 		" where id=" . $family->getVar('id');
 			
 		if (!$result = $this->db->query($sql)) {
@@ -322,7 +323,7 @@ function &modsearch($searcharray)
 		. "(familyname, address1, address2, city, state, zip, " 
 		. "country, homephone, workphone, cellphone, email, "
 		. "weddingdate,"
-		. "dateentered, datelastedited, editedby , enteredby) ";
+		. "dateentered, datelastedited, editedby , enteredby, picloc) ";
 	
 		$sql = $sql . "values(" . $this->db->quoteString($family->getVar('familyname'))
 		. "," . 
@@ -354,7 +355,8 @@ function &modsearch($searcharray)
 		. "," .
 		$this->db->quoteString($family->getVar('editedby'))
 		. "," .
-		$this->db->quoteString($family->getVar('enteredby')) . ")";
+		$this->db->quoteString($family->getVar('enteredby')) 
+		. "," . $this->db->quoteString($family->getVar('picloc')) . ")";
 		
 		if (!$result = $this->db->query($sql)) {
 			echo "<br />oscmembershipHandler::get error::" . $sql;

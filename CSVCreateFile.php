@@ -179,9 +179,11 @@ if(isset($_POST["dateenteredfrom"]))
 
 if(isset($_POST["sfilters"])) $filter=$_POST["sfilters"];
 //determine if source is to be from cart
+$xoopsuid=$xoopsUser->getVar("uid");
+
 if($filter==_oscmem_fromcart)
 {
-	$labels=$label_handler->getexportfromcart(false, false, $groups,$labelcritiera);
+	$labels=$label_handler->getexportfromcart(false, false, $groups,$labelcritiera, $xoopsuid);
 }
 else
 {
@@ -190,7 +192,6 @@ else
 
 if($outputmethod==_oscmem_csv_addtocart)
 {
-	$xoopsuid=$xoopsUser->getVar("uid");
 	//Add labels to cart
 	foreach($labels as $label)
 	{

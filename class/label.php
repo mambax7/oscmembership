@@ -555,7 +555,7 @@ $sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
  	return $labels;   
     }    
     
-    function &getexportfromcart($bSortFirstName, $baltFamilyName, $sGroupsList, $labelcriteria)
+    function &getexportfromcart($bSortFirstName, $baltFamilyName, $sGroupsList, $labelcriteria, $uid)
     {
 	$labels[]=array();
     
@@ -696,7 +696,7 @@ $sSQL= "CREATE temporary TABLE `tmplabel` (
 	$fambody.=",$cr";
 
 
-	$sSQL = "insert into tmplabel(person_id,familyid,recipient, sortMe,addressLabel, AddressLine1, AddressLine2, City, State, Zip, body) Select person.id, 0,$sortMe,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_cart") . " c join " . $this->db->prefix("oscmembership_person") . " person on c.person_id=person.id left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id where famid=0" . $sWhereExt;
+	$sSQL = "insert into tmplabel(person_id,familyid,recipient, sortMe,addressLabel, AddressLine1, AddressLine2, City, State, Zip, body) Select person.id, 0,$sortMe,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_cart") . " c join " . $this->db->prefix("oscmembership_person") . " person on c.person_id=person.id and c.xoops_uid= " . $uid . " left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id where famid=0" . $sWhereExt;
 	
 	$this->db->query($sSQL); 
 
@@ -706,7 +706,7 @@ $sSQL= "CREATE temporary TABLE `tmplabel` (
 	{	
 		case _oscmem_csv_combinefamily :
 		
-		$sSQL = "insert into tmplabel(familyid) Select distinct family.id from " . $this->db->prefix("oscmembership_family") . " family join " . $this->db->prefix("oscmembership_person") . " person  on family_id=person.famid join " . $this->db->prefix("oscmembership_cart") . " c on person.id=c.person_id where person.famid>0 and  family.id=person.famid " . $sWhereExt;
+		$sSQL = "insert into tmplabel(familyid) Select distinct family.id from " . $this->db->prefix("oscmembership_family") . " family join " . $this->db->prefix("oscmembership_person") . " person  on family_id=person.famid join " . $this->db->prefix("oscmembership_cart") . " c on person.id=c.person_id and c.xoops_uid=" . $uid . " where person.famid>0 and  family.id=person.famid " . $sWhereExt;
 		$this->db->query($sSQL); 
 		
 		$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " family set 
@@ -725,7 +725,7 @@ $sSQL= "CREATE temporary TABLE `tmplabel` (
 		
 		default:
 		
-		$sSQL = "insert into tmplabel(person_id,familyid, sortMe, addresslabel, AddressLine1, AddressLine2, City, State, Zip, body) Select person.id, 0,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id join " . $this->db->prefix("oscmembership_cart") . " c on person.id = c.person_id where famid!=0" . $sWhereExt;
+		$sSQL = "insert into tmplabel(person_id,familyid, sortMe, addresslabel, AddressLine1, AddressLine2, City, State, Zip, body) Select person.id, 0,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id join " . $this->db->prefix("oscmembership_cart") . " c on person.id = c.person_id and c.xoops_uid=" . $uid . " where famid!=0" . $sWhereExt;
 		$this->db->query($sSQL); 
 		break;
 
@@ -737,7 +737,7 @@ $sSQL= "CREATE temporary TABLE `tmplabel` (
 
 	if($labelcriteria->getVar('bincompleteaddress'))
 	{
-		$sSQL="delete from tmplabel where length(AddressLine1)=0 or length(AddressLine2)=0 or length(city)=0 or length(state)=0 or length(zip)=0";
+		$sSQL="delete from tmplabel where length(AddressLine1)=0 or length(city)=0 or length(state)=0 or length(zip)=0";
 		$this->db->query($sSQL);	
 	}
 	

@@ -109,6 +109,9 @@ $familydetail_handler = &xoops_getmodulehandler('family', 'oscmembership');
 	if(isset($_POST['email'])) $family->assignVar('email',$_POST['email']);
 
 	$family->assignVar('weddingdate',oscverifyXoopsDate($_POST['weddingdate']));
+
+	if(isset($_POST['picloc']))
+		$family->assignVar('picloc',$_POST['picloc']);
 	
 	if($family->getVar('weddingdate')=='error')
 	{
@@ -196,6 +199,18 @@ $editedby_label = new XoopsFormLabel(_oscmem_editedby, $user->getVar('uname'));
 
 $dateentered_label = new XoopsFormLabel(_oscmem_dateentered, $family->getVar('dateentered'));
 
+
+$picloc = new XoopsFormText("", "picloc", 75, 300, $family->getVar('picloc'));
+
+$familypicture=new XoopsFormLabel(_oscmem_familypicture,$myts->displayTArea($family->getVar('picloc')));
+
+$pictray=new XoopsFormElementTray(_oscmem_picloc);
+$pictray->addElement($picloc);
+
+$picbutton= new XoopsFormLabel('',"<img onmouseover='style.cursor=\"hand\"' onclick='javascript:openWithSelfMain(\"".XOOPS_URL."/imagemanager.php?target=picloc\",\"imgmanager\",400,430);' src='".XOOPS_URL."/images/image.gif' alt='image' />");
+
+$pictray->addElement($picbutton);
+
 $user=new XoopsUser();
 if($family->getVar('enteredby')<>'')
 {
@@ -224,6 +239,9 @@ else $action="";
 
 $form = new XoopsThemeForm(_oscmem_familydetail_TITLE, "familydetailform", "familydetailform.php", "post", true);
 $form->addElement($familyname_text);
+$form->addElement($familypicture);
+$form->addElement($pictray);
+//$form->addElement($picloc2);
 $form->addElement($address1_text);
 $form->addElement($address2_text);
 $form->addElement($city_text);
