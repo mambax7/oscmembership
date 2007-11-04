@@ -124,6 +124,7 @@ switch (true)
 
 	if(isset($_POST['memberclass'])) $person->assignVar('clsid',$_POST['memberclass']);
 
+	if(isset($_POST['picloc'])) $person->assignVar('picloc',$_POST['picloc']);
 
 	$person->assignVar('membershipdate',oscverifyXoopsDate($_POST['membershipdate']));
 	
@@ -266,6 +267,17 @@ if($person->getVar('editedby')<>''|| $person->getVar('editedby')<>0)
 	$user = $member_handler->getUser($person->getVar('editedby'));
 }
 
+$picloc = new XoopsFormText("", "picloc", 75, 300, $person->getVar('picloc'));
+
+$personpicture=new XoopsFormLabel(_oscmem_personpicture,$myts->displayTArea($person->getVar('picloc')));
+
+$pictray=new XoopsFormElementTray(_oscmem_picloc);
+$pictray->addElement($picloc);
+
+$picbutton= new XoopsFormLabel('',"<img onmouseover='style.cursor=\"hand\"' onclick='javascript:openWithSelfMain(\"".XOOPS_URL."/imagemanager.php?target=picloc\",\"imgmanager\",400,430);' src='".XOOPS_URL."/images/image.gif' alt='image' />");
+
+$pictray->addElement($picbutton);
+
 
 $familyrole_select = new XoopsFormSelect(_oscmem_familyrole,"fmrid",$person->getVar('fmrid'),1,false,'fmrid');
 
@@ -325,6 +337,8 @@ $map_label = new XoopsFormLabel(_oscmem_map, $map->renderMap());
 $form = new XoopsThemeForm(_oscmem_persondetail_TITLE, "persondetailform", "persondetailform.php", "post", true);
 $form->addElement($firstname_text);
 $form->addElement($lastname_text);
+$form->addElement($personpicture);
+$form->addElement($pictray);
 $form->addElement($address1_text);
 $form->addElement($address2_text);
 $form->addElement($city_text);

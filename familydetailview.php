@@ -124,6 +124,8 @@ if($family->getVar('enteredby')<>'')
 $enteredby_label = new XoopsFormLabel(_oscmem_enteredby,
  $user->getVar('uname'));
 
+$personpicture=new XoopsFormLabel(_oscmem_personpicture,$myts->displayTArea($family->getVar('picloc')));
+
 $id_hidden = new XoopsFormHidden("id",$family->getVar('id'));
 
 $removeid_hidden = new XoopsFormHidden("removeid",'');
@@ -132,6 +134,7 @@ $op_hidden = new XoopsFormHidden("op", "save");  //save operation
 
 $form = new XoopsThemeForm(_oscmem_familydetail_TITLE, "familydetailform", "familydetailform.php", "post", true);
 $form->addElement($familyname_text);
+$form->addElement($personpicture);
 $form->addElement($address1_text);
 $form->addElement($address2_text);
 $form->addElement($city_text);

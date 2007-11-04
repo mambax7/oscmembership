@@ -64,6 +64,8 @@ class  Person extends XoopsObject {
 	$this->initVar('dateentered', XOBJ_DTYPE_TXTBOX);
 	$this->initVar('enteredby', XOBJ_DTYPE_INT);
 	$this->initVar('editedby', XOBJ_DTYPE_INT);
+
+	$this->initVar('picloc',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('customfields',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('loopcount',XOBJ_DTYPE_INT);
 	$this->initVar('oddrow',XOBJ_DTYPE_INT);
@@ -823,7 +825,7 @@ function &searchgroupmembers($searcharray, $groupid)
 		}
 		$sql = $sql . ",datelastedited=" .  			
 		$this->db->quoteString($person->getVar('datelastedited'))
-		. ",editedby=" . $this->db->quoteString($person->getVar('editedby')) . 
+		. ",editedby=" . $this->db->quoteString($person->getVar('editedby')) . ",picloc=" . $this->db->quoteString($person->getVar('picloc')) . 
 		 
 		" where id=" . $person->getVar('id');
 	
@@ -940,7 +942,7 @@ function &searchgroupmembers($searcharray, $groupid)
 		. "country, homephone, workphone, cellphone, email, "
 		. "workemail, birthmonth, birthday, birthyear, "
 		. "membershipdate, gender, famid, envelope, "
-		. "datelastedited, editedby, dateentered, enteredby) ";
+		. "datelastedited, editedby, dateentered, enteredby, picloc) ";
 	
 		$sql = $sql . "values(" . $this->db->quoteString($person->getVar('title'))
 		. "," . 
@@ -994,7 +996,7 @@ function &searchgroupmembers($searcharray, $groupid)
 		. "," .
 		$this->db->quoteString($person->getVar('dateentered'))
 		. "," .
-		$this->db->quoteString($person->getVar('enteredby')) . ")";
+		$this->db->quoteString($person->getVar('enteredby')) . "," . $this->db->quoteString($person->getVar('picloc')) . ")";
 		
 		if (!$result = $this->db->query($sql)) {
 			echo "<br />oscmembershipHandler::get error::" . $sql;

@@ -262,4 +262,5 @@ define("_oscmem_deleted","Members have been deleted");
 
 define("_oscmem_picloc","Picture Location");
 define("_oscmem_familypicture","Family Picture");
+define("_oscmem_personpicture","Person Picture");
 ?>

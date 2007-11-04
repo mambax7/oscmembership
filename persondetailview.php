@@ -193,6 +193,8 @@ $user = $member_handler->getUser($person->getVar('enteredby'));
 
 $enteredby_label = new XoopsFormLabel(_oscmem_enteredby, $user->getVar('uname'));
 
+$personpicture=new XoopsFormLabel(_oscmem_personpicture,$myts->displayTArea($person->getVar('picloc')));
+
 $envelope_label=new XoopsFormLabel(_oscmem_envelopenumber,$person->getVar('envelope'));
 
 $id_hidden = new XoopsFormHidden("id",$person->getVar('id'));
@@ -210,6 +212,7 @@ if($action=="create")
 $form = new XoopsThemeForm(_oscmem_persondetail_TITLE, "persondetailform", "persondetailform.php", "post", true);
 $form->addElement($firstname_text);
 $form->addElement($lastname_text);
+$form->addElement($personpicture);
 $form->addElement($address1_text);
 $form->addElement($address2_text);
 $form->addElement($city_text);
