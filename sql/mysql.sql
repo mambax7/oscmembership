@@ -30,6 +30,7 @@ CREATE TABLE `oscmembership_person` (
   `dateentered` datetime NOT NULL default '0000-00-00 00:00:00',
   `enteredby` smallint(5) unsigned NOT NULL default '0',
   `editedby` smallint(5) unsigned default '0',
+  `picloc` TEXT,
   PRIMARY KEY  (`id`),
   KEY `id` (`id`)
 ) ;
@@ -54,6 +55,7 @@ CREATE TABLE `oscmembership_family` (
   `datelastedited` datetime default NULL,
   `enteredby` smallint(5) unsigned NOT NULL default '0',
   `editedby` smallint(5) unsigned default '0',
+  `picloc` TEXT,
   PRIMARY KEY  (`id`),
   KEY `familyid` (`id`)
 ) ;
