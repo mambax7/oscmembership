@@ -263,4 +263,13 @@ define("_oscmem_deleted","Members have been deleted");
 define("_oscmem_picloc","Picture Location");
 define("_oscmem_familypicture","Family Picture");
 define("_oscmem_personpicture","Person Picture");
+
+define("_oscmem_filetoupload","File to Upload");
+define("_oscmem_cvsimport_family_step1","Import Family - Step 1&nbsp;&nbsp;<font color=lightgray>Step 2</font>");
+
+define("_oscmem_cvsimport_family_step2","Import Family - <font color=lightgray>Step 1</font>&nbsp;&nbsp;Step 2");
+
+define("_oscmem_uploadfile","Upload File");
+
+define("_oscmem_column","Column");
 ?>

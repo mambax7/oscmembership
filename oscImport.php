@@ -47,7 +47,7 @@ include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/o
 
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/group.php';
 
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/churchdir.php';
+//include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/churchdir.php';
 
 
 include(XOOPS_ROOT_PATH."/header.php");
@@ -56,8 +56,6 @@ include(XOOPS_ROOT_PATH."/header.php");
 
 
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-
-
 
 $iStage = 1;
 $db = &Database::getInstance();
@@ -195,7 +193,6 @@ if (isset($_POST["UploadCSV"]))
 		<select name="Classification">
 			<option value="0"><?php echo gettext("Unassigned"); ?></option>
 			<option value="0">-----------------------</option>
-
 			<?php
 				foreach($optionItems as $osclist)
 				{
@@ -263,7 +260,6 @@ if (isset($_POST["DoImport"]))
 				$aCustomTypes[$custom_Field] = $type_ID;
 			}
 		}
-
 		//
 		// Need to lock the person_custom and person_per tables!!
 		//

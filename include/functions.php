@@ -186,5 +186,44 @@ function CollapsePhoneNumber($sPhoneNumber,$sPhoneCountry)
 	return $sCollapsedPhoneNumber;
 }
 
+//Filter object properties.  Called by array_filter function
+function FilterProps($svalue)
+{
+	$returnvalue=true;
+	switch ($svalue)
+	{		
+		case "loopcount":
+			$returnvalue=false;
+			break;
+
+		case "totalloopcount":
+			$returnvalue=false;
+			break;
+
+		case "dateentered":
+			$returnvalue=false;
+			break;
+
+		case "datelastedited":
+			$returnvalue=false;
+			break;
+
+		case "enteredby":
+			$returnvalue=false;
+			break;
+
+		case "editedby":
+			$returnvalue=false;
+			break;
+
+		case "oddrow":
+			$returnvalue=false;
+			break;
+	}
+
+	if(stripos($svalue,"id")>-1) $returnvalue=false;
+
+	return $returnvalue;
+}
 
 ?>

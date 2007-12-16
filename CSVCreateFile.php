@@ -208,7 +208,7 @@ else
 	
 		foreach($labels as $label)
 		{
-			echo $label['body'] . chr(13);
+			echo $label['body'] . chr(10) . chr(13);
 		}
 }
 
