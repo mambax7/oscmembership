@@ -49,7 +49,6 @@ include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/g
 
 //include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/churchdir.php';
 
-
 include(XOOPS_ROOT_PATH."/header.php");
 
 //$GLOBALS['xoopsOption']['template_main'] ="csvexport.html";

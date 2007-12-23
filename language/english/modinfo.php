@@ -265,11 +265,20 @@ define("_oscmem_familypicture","Family Picture");
 define("_oscmem_personpicture","Person Picture");
 
 define("_oscmem_filetoupload","File to Upload");
-define("_oscmem_cvsimport_family_step1","Import Family - Step 1&nbsp;&nbsp;<font color=lightgray>Step 2</font>");
+define("_oscmem_cvsimport_family_step1","Import Family - Step 1&nbsp;&nbsp;<font color=lightgray>Step 2</font>&nbsp;&nbsp;<font color=lightgray>Step 3</font>");
 
-define("_oscmem_cvsimport_family_step2","Import Family - <font color=lightgray>Step 1</font>&nbsp;&nbsp;Step 2");
+define("_oscmem_cvsimport_family_step2","Import Family - <font color=lightgray>Step 1</font>&nbsp;&nbsp;Step 2&nbsp;&nbsp;<font color=lightgray>Step3</font>");
+
+define("_oscmem_cvsimport_family_step3","Import Family - <font color=lightgray>Step 1</font>&nbsp;&nbsp;<font color=lightgray>Step 2</font>&nbsp;&nbsp;Step 3");
 
 define("_oscmem_uploadfile","Upload File");
 
 define("_oscmem_column","Column");
+
+define("_oscmem_importfile","Import File");
+define("_oscmem_ignore","Ignore");
+define("_oscmem_ignorefirstrow","Ignore First Row");
+define("_oscmem_import_family","Import Family");
+define("_oscmem_success","Success");
+define("_oscmem_recordsimported","Records Imported");
 ?>

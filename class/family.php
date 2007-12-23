@@ -357,7 +357,9 @@ function &modsearch($searcharray)
 		. "," .
 		$this->db->quoteString($family->getVar('enteredby')) 
 		. "," . $this->db->quoteString($family->getVar('picloc')) . ")";
-		
+
+echo "<br>sql" .  $sql;	
+/*	
 		if (!$result = $this->db->query($sql)) {
 			echo "<br />oscmembershipHandler::get error::" . $sql;
 			return false;
@@ -366,9 +368,9 @@ function &modsearch($searcharray)
 			{
 			return  $this->db->getInsertId();
 			}
+*/
 	
 	}
-
 	
 	
 	
