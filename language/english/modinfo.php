@@ -140,7 +140,7 @@ define("_oscmem_reporttitle","OSC Membership Reports");
 define("_oscmem_directoryreport","Membership Directory");
 define("_oscmem_reports", "Reports");
 define("_oscmem_nav_reports","Reports/Data");
-define("_oscmem_csvimport","CSV Import");
+define("_oscmem_csvimport_individual","CSV Import Individuals");
 
 define("_oscmem_dirreport_selectclass","Select classifications to include:");
 define("_oscmem_usectl","Use Ctrl Key to select multiple");
@@ -182,7 +182,7 @@ define("_oscmem_incorrectdt_membershipdate","Incorrect Membership Date Format");
 define("_oscmem_incorrectdt_weddingdate","Incorrect Wedding Date Format");
 
 define("_oscmem_CREATESUCCESS_group","Group Successfully Created");
-define("_oscmem_csvexport","CSV Export");
+define("_oscmem_csvexport_individual","CSV Export Individuals");
 
 define("_oscmem_cvsexport_infoinclude","Fields to include in Export");
 
@@ -271,14 +271,21 @@ define("_oscmem_cvsimport_family_step2","Import Family - <font color=lightgray>S
 
 define("_oscmem_cvsimport_family_step3","Import Family - <font color=lightgray>Step 1</font>&nbsp;&nbsp;<font color=lightgray>Step 2</font>&nbsp;&nbsp;Step 3");
 
+define("_oscmem_importfile","Import File");
+
 define("_oscmem_uploadfile","Upload File");
 
 define("_oscmem_column","Column");
 
-define("_oscmem_importfile","Import File");
+define("_oscmem_importfile_individual","Import Individuals File");
 define("_oscmem_ignore","Ignore");
 define("_oscmem_ignorefirstrow","Ignore First Row");
-define("_oscmem_import_family","Import Family");
+define("_oscmem_csvimport_family","CSV Import Family");
 define("_oscmem_success","Success");
 define("_oscmem_recordsimported","Records Imported");
+
+define("_oscmem_csvdelimiter","CSV Delimiter");
+define("_oscmem_tab","Tab");
+define("_oscmem_comma","Comma");
+define("_oscmem_import_family","Family Import");
 ?>

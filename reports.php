@@ -17,9 +17,9 @@ include(XOOPS_ROOT_PATH."/header.php");
 
 $xoopsTpl->assign('title',_oscmem_reporttitle); 
 $xoopsTpl->assign('OSCMEM_directoryreport',_oscmem_directoryreport); 
-$xoopsTpl->assign('OSCMEM_csvexport',_oscmem_csvexport);
-$xoopsTpl->assign('oscmem_csvimport',_oscmem_csvimport);
-$xoopsTpl->assign('oscmem_csvimport_familly',_oscmem_csvimport_family);
+$xoopsTpl->assign('OSCMEM_csvexport_individual',_oscmem_csvexport_individual);
+$xoopsTpl->assign('oscmem_csvimport_individual',_oscmem_csvimport_individual);
+$xoopsTpl->assign('oscmem_csvimport_family',_oscmem_csvimport_family);
 $xoopsTpl->assign('oscmem_membershipcard',_oscmem_membershipcard);
 $xoopsTpl->assign('oscmem_childcard',_oscmem_childcard);
 
