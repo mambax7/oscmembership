@@ -22,6 +22,7 @@ $xoopsTpl->assign('oscmem_csvimport_individual',_oscmem_csvimport_individual);
 $xoopsTpl->assign('oscmem_csvimport_family',_oscmem_csvimport_family);
 $xoopsTpl->assign('oscmem_membershipcard',_oscmem_membershipcard);
 $xoopsTpl->assign('oscmem_childcard',_oscmem_childcard);
+$xoopsTpl->assign('oscmem_menu_orphanmatchup',_oscmem_menu_orphanmatchup);
 
 include(XOOPS_ROOT_PATH."/footer.php");
 ?>

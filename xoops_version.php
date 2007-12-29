@@ -47,6 +47,8 @@ $modversion['templates'][10]['file']='cartemail.html';
 $modversion['templates'][10]['description']='cart generate email template';
 $modversion['templates'][11]['file']='familyselect.html';
 $modversion['templates'][11]['description']='family select template';
+$modversion['templates'][12]['file']='orphanselect.html';
+$modversion['templates'][12]['description']='orphan select template';
 
 $modversion['blocks'][1]['file'] = "oscmemnav.php";
 $modversion['blocks'][1]['name'] = 'OSC Navigation';

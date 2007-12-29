@@ -288,4 +288,11 @@ define("_oscmem_csvdelimiter","CSV Delimiter");
 define("_oscmem_tab","Tab");
 define("_oscmem_comma","Comma");
 define("_oscmem_import_family","Family Import");
+
+define("_oscmem_menu_orphanmatchup","Orphan Matchup -- Match Individuals to Families");
+
+define("_oscmem_orphanmatchup","Orphan Matchup");
+define("_oscmem_matchuporphans","Matchup Selected Orphans");
+define("_oscmem_orphanselect","Orphan Select");
+define("_oscmem_matchedfamilyname","Matched<br>Family Name");
 ?>

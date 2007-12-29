@@ -65,6 +65,8 @@ class  Person extends XoopsObject {
 	$this->initVar('enteredby', XOBJ_DTYPE_INT);
 	$this->initVar('editedby', XOBJ_DTYPE_INT);
 
+	$this->initVar('familyname', XOBJ_DTYPE_TXTBOX);
+
 	$this->initVar('picloc',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('customfields',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('loopcount',XOBJ_DTYPE_INT);
@@ -1058,6 +1060,128 @@ function &searchgroupmembers($searcharray, $groupid)
 		}
 		return $person;
 	}
+
+function &getorphans($searcharray, $sort, $hasenvelope=null)
+    //Search on criteria and return result
+    {
+	$result='';
+	$returnresult='';
+	$persons[]=array();
+	
+        if (isset($searcharray)) 
+	{
+	        $person= &$this->create(false);
+		$sql = "select f.familyname, f.id `familyid`, p.* FROM " . $this->db->prefix("oscmembership_person") . " p join " . $this->db->prefix("oscmembership_family") . " f on p.address1=f.address1 and p.city=f.city where p.famid=0";
+
+		$count = count($searcharray);
+		if ( $count > 0 && is_array($searcharray) ) 
+		{
+		$sql .= " and (p.lastname LIKE '%$searcharray[0]%' OR p.firstname LIKE '%$searcharray[0]%' OR p.homephone like '%$searcharray[0]%' or p.workphone like '%$searcharray[0]%' or p.cellphone like '%$searcharray[0]%' or p.city like '%$searcharray[0]%' or p.state like '%$searcharray[0]%')";
+		}
+
+		if(!is_null($hasenvelope))
+		{
+			if($hasenvelope=true)
+			{
+				$sql .= " AND envelope>0";
+			}
+		}
+		
+		for ( $i = 1; $i < $count; $i++ ) 
+		{
+			$sql .= " OR ";	$person_handler = &xoops_getmodulehandler('person', 'oscmembership');
+	
+		$results = $person_handler->search($queryarray);
+
+		$sql .= "(lastname LIKE '%$searcharray[$i]%' OR firstname LIKE '%$searcharray[$i]%' or homephone LIKE '%$searcharray[$i]%' OR workphone LIKE '%$searcharray[$i]%' OR cellphone LIKE '%$searcharray[$i]%' or city like '%$searcharray[$i]%' or state like '%$searcharray[$i]%')";
+		}
+		if(isset($sort))
+		{
+			switch($sort)
+			{
+			case "name":
+			$sql .= ") order by lastname, firstname ";
+			break;
+			case "city":
+			$sql .= ") order by city ";
+			break;
+			case "zip":
+			$sql .= ") order by zip ";
+			break;
+			case "state":
+			$sql .= ") order by state ";
+			break;
+			case "citystate":
+			$sql .= ") order by city,state ";
+			break;
+						
+			default:
+			$sql .= ") order by lastname, firstname ";
+			break;
+			}
+		}
+		
+		if (!$result = $this->db->query($sql)) 
+		{
+			//echo "<br />NewbbForumHandler::get error::" . $sql;
+			return false;
+		}
+		$oddon=false;
+
+		$loopcount = 0;
+
+		
+		$oddrow=false;
+		$person = new Person();
+		$i=0; //start counter
+		while($row = $this->db->fetchArray($result)) 
+		{
+			if(isset($row))
+			{
+				$person=&$this->create(false);
+				$person->assignVars($row);
+				
+				if($person->getVar('address1') !=null)
+				{$person->assignVar('addressflag',_oscmem_yes);}
+				else 
+				{$person->assignVar('addressflag',_oscmem_no);}
+				
+				if($person->getVar('email') != null)
+				{$person->assignVar('emailflag',_oscmem_yes);}
+				else { $person->assignVar('emailflag',_oscmem_no);}
+
+				$person->assignVar('oddrow',$oddrow);
+
+				$person->assignVar('loopcount',$i);
+				
+				if($oddrow){$oddrow=false;}
+				else {$oddrow=true;}
+			
+				$persons[$i]=$person;
+				
+				
+			}
+			$i++;
+			$loopcount++;
+
+		}
+		if($i>0)
+		{
+			$person=$persons[0];
+			$person->assignVar('totalloopcount',$loopcount-1);
+			$persons[0]=$person;
+			
+		}
+		else
+		{
+			$person = new Person();
+			$person->assignVar('totalloopcount',0);
+			$persons[0]=$person;
+		}
+	}
+			
+	return $persons;
+    }
 
 }
 
