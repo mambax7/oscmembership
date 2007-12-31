@@ -295,4 +295,6 @@ define("_oscmem_orphanmatchup","Orphan Matchup");
 define("_oscmem_matchuporphans","Matchup Selected Orphans");
 define("_oscmem_orphanselect","Orphan Select");
 define("_oscmem_matchedfamilyname","Matched<br>Family Name");
+define("_oscmem_orphansmatched","The orphan(s) have been matched.");
+define("_oscmem_noorphans","No orphans found.");
 ?>

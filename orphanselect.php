@@ -65,7 +65,7 @@ $filter="";
 if (isset($_POST['sort'])) $sort = $_POST['sort'];
 if (isset($_POST['filter'])) $filter=$_POST['filter'];
 if (isset($_POST['submit'])) $submit = $_POST['submit'];
-if (isset($_POST['loopcount'])) $loopcount = $_POST['loopcount'];
+if (isset($_POST['totalloopcount'])) $totalloopcount = $_POST['totalloopcount'];
 
 
 include(XOOPS_ROOT_PATH."/header.php");
@@ -83,10 +83,25 @@ if(isset($submit))
 	case _oscmem_clearfilter:
 		$filter="";
 		break;
+
+	case _oscmem_matchuporphans:
+		//call match orphan
+		for($i=0;$i<$totalloopcount+1;$i++)
+		{
+			if (isset($_POST['chk' . $i]))
+			{
+				$id=$_POST['chk' . $i];
+				$familyid=$_POST['family' . $i];
+				$person_handler->addtoFamily($id,$familyid);
+			}
+		}
+		redirect_header("orphanselect.php", 3, _oscmem_orphansmatched);
+		break;
+
 		
 	case _oscmem_addtocart: 
 		//call add cart
-		for($i=0;$i<$loopcount+1;$i++)
+		for($i=0;$i<$totalloopcount+1;$i++)
 		{
 			if (isset($_POST['chk' . $i]))
 			{
@@ -99,7 +114,7 @@ if(isset($submit))
 		break;
 	
 	case _oscmem_removefromcart:
-		for($i=0;$i<$loopcount+1;$i++)
+		for($i=0;$i<$totalloopcount+1;$i++)
 		{
 			if (isset($_POST['chk' . $i]))
 			{
@@ -112,7 +127,7 @@ if(isset($submit))
 		break;
 	
 	case _oscmem_intersectcart:
-		for($i=0;$i<$loopcount+1;$i++)
+		for($i=0;$i<$totalloopcount+1;$i++)
 		{
 			if (isset($_POST['chk' . $i]))
 			{
@@ -151,6 +166,8 @@ $xoopsTpl->assign('oscmem_confirmdelete',_oscmem_confirmdelete);
 $xoopsTpl->assign('oscmem_deletemember',_oscmem_deletemember);
 $xoopsTpl->assign('oscmem_matchuporphans',_oscmem_matchuporphans);
 $xoopsTpl->assign('persons',$persons);
+$xoopsTpl->assign("oscmem_noorphans",_oscmem_noorphans);
+$xoopsTpl->assign("totalloopcount",$persons[0]->getVar("totalloopcount"));
 
 //$form = new XoopsThemeForm(_oscmem_cvsimport_family_step1, "importstep1form", "oscImport_family_step2.php", "post", true);
 

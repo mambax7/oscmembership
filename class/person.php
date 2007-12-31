@@ -1071,7 +1071,7 @@ function &getorphans($searcharray, $sort, $hasenvelope=null)
         if (isset($searcharray)) 
 	{
 	        $person= &$this->create(false);
-		$sql = "select f.familyname, f.id `familyid`, p.* FROM " . $this->db->prefix("oscmembership_person") . " p join " . $this->db->prefix("oscmembership_family") . " f on p.address1=f.address1 and p.city=f.city where p.famid=0";
+		$sql = "select p.id, f.familyname, f.id `famid`, p.firstname, p.lastname, p.email, p.address1, p.address2, p.city, p.state, p.zip FROM " . $this->db->prefix("oscmembership_person") . " p join " . $this->db->prefix("oscmembership_family") . " f on p.address1=f.address1 and p.city=f.city where p.famid=0";
 
 		$count = count($searcharray);
 		if ( $count > 0 && is_array($searcharray) ) 

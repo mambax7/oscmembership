@@ -121,6 +121,11 @@ while (($aData = fgetcsv($pFile, 2048,$delimiter)))
 			$family_new->assignVar($keys[$_POST['mapname' . $col]],$aData[$col]);
 		}
 		//update 
+		$family_new->assignVar('dateentered',date('y-m-d g:i:s'));
+		$family_new->assignVar('enteredby',$xoopsUser->getVar('uid'));		
+		$family_new->assignVar('datelastedited',date('y-m-d g:i:s'));
+		$family_new->assignVar('editedby',$xoopsUser->getVar('uid'));
+
 	}
 	$family_handler->insert($family_new);
 
