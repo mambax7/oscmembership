@@ -182,7 +182,7 @@ switch (true)
 		$message=_oscmem_CREATESUCCESS_individual;
 	}
 	    
-	redirect_header("index.php", 3, $message);
+//	redirect_header("index.php", 3, $message);
     break;
 }
 
@@ -382,18 +382,19 @@ $form->setRequired($firstname_text);
 
 $customFields = $persondetail_handler->getcustompersonFields();
 $customData = explode(",",$person->getVar('customfields'));
-$i=1;
+
+$i=0;
 while($row = $db->fetchArray($customFields)) 
 {
 	switch($row["type_ID"])
 	{
 	case "1": //True false
 
-		if($customData[$i]=="true")
+		if($customData[$i]==1)
 		{
 			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"],1,_oscmem_yes, _oscmem_no));
 		}
-		elseif($customData[$i]=="false")
+		elseif($customData[$i]==0)
 		{
 			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], 0,_oscmem_yes, _oscmem_no));
 		}
@@ -420,6 +421,8 @@ while($row = $db->fetchArray($customFields))
 		break;
 		
 	case "6": //year
+		$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 10, 10,$customData[$i]));
+		break;
 
 	case "7":  //season
 

@@ -850,6 +850,7 @@ function &searchgroupmembers($searcharray, $groupid)
 					$i=1;
 					while($row = $this->db->fetchArray($customFields)) 
 					{
+
 						switch($row["type_ID"])
 						{
 							case "1": //True false
@@ -888,18 +889,9 @@ function &searchgroupmembers($searcharray, $groupid)
 								$sql.= $row['custom_Field'] . "= " . $customupdate[$i-1] . ",";
 								break;
 			
-							case "8": //number
-								if(!is_numeric($customupdate[$i-1]))
-								{
-									$sql.= $row['custom_Field'] . "= null,";
-								}
-								else
-								{
-									$sql.= $row['custom_Field'] . "= " . $this->db->quoteString($customupdate[$i-1]) . ",";
-								}
-								break;
 	
 							case "7":  //season
+
 								switch($customupdate[$i-1])
 								{
 								case  _oscmem_season_select :
@@ -914,7 +906,19 @@ function &searchgroupmembers($searcharray, $groupid)
 									$sql.= $row['custom_Field'] . "= " . $this->db->quoteString($customupdate[$i-1]) . ",";
 									break;
 								}
-	
+								break;
+
+							case "8": //number
+								if(!is_numeric($customupdate[$i-1]))
+								{
+									$sql.= $row['custom_Field'] . "= null,";
+								}
+								else
+								{
+									$sql.= $row['custom_Field'] . "= " . $this->db->quoteString($customupdate[$i-1]) . ",";
+								}
+								break;
+
 						}
 						$i++;					
 					}

@@ -260,13 +260,21 @@ while($row = $db->fetchArray($customFields))
 	switch($row["type_ID"])
 	{
 	case "1": //True false
+
 		switch($customData[$i])
 		{
-		case "true":
-			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], 1));
+		case 1:
+
+			$TF_label = new XoopsFormLabel($row["custom_Name"], _oscmem_yes);
+			$form->addElement($TF_label);
 			break;		
-		case "false":
-			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], 0));
+		case 0:
+			$TF_label = new XoopsFormLabel($row["custom_Name"], _oscmem_no);
+			$form->addElement($TF_label);
+			break;
+		default:
+			$TF_label = new XoopsFormLabel($row["custom_Name"], _oscmem_no);
+			$form->addElement($TF_label);
 			break;
 		}
 	
@@ -292,8 +300,8 @@ while($row = $db->fetchArray($customFields))
 		break;
 		
 	case "6": //year
-	case "8": //number
-		$label_8 = new XoopsFormLabel($row["custom_Name"], $customData[$i]);
+		$year_label = new XoopsFormLabel($row["custom_Name"], $customData[$i]);
+		$form->addElement($year_label);
 		break;
 
 	case "7":  //season
@@ -301,6 +309,9 @@ while($row = $db->fetchArray($customFields))
 		$season = new XoopsFormLabel(_oscmem_season_select, $customData[$i]);
 
 		$form->addElement($season);
+		break;
+	case "8": //number
+		$label_8 = new XoopsFormLabel($row["custom_Name"], $customData[$i]);
 		break;
 	}
 	
