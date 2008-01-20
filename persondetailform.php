@@ -382,6 +382,7 @@ $form->setRequired($firstname_text);
 
 $customFields = $persondetail_handler->getcustompersonFields();
 $customData = explode(",",$person->getVar('customfields'));
+$fields=Array(count($customData));
 
 $i=0;
 while($row = $db->fetchArray($customFields)) 
@@ -426,15 +427,15 @@ while($row = $db->fetchArray($customFields))
 
 	case "7":  //season
 
-		$season=new XoopsFormSelect($row["custom_Name"],$row["custom_Field"], $customData[$i],1,false);
+		$fields[$i]=new XoopsFormSelect($row["custom_Name"],$row["custom_Field"], $customData[$i],1,false);
 		
-		$season->addOption(_oscmem_season_select,0);
-		$season->addOption("-------------",0);
-		$season->addOption(_oscmem_season_spring,_oscmem_season_spring);
-		$season->addOption(_oscmem_season_summer,_oscmem_season_summer);
-		$season->addOption(_oscmem_season_fall,_oscmem_season_fall);
-		$season->addOption(_oscmem_season_winter,_oscmem_season_winter);
-		$form->addElement($season);
+		$fields[$i]->addOption(_oscmem_season_select,0);
+		$fields[$i]->addOption("-------------",0);
+		$fields[$i]->addOption(_oscmem_season_spring,_oscmem_season_spring);
+		$fields[$i]->addOption(_oscmem_season_summer,_oscmem_season_summer);
+		$fields[$i]->addOption(_oscmem_season_fall,_oscmem_season_fall);
+		$fields[$i]->addOption(_oscmem_season_winter,_oscmem_season_winter);
+		$fields[$i]->addElement($season);
 		break;
 		
 	case "8": //number

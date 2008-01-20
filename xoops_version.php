@@ -1,6 +1,6 @@
 <?php
 $modversion['name'] = _oscmem_MOD_NAME;
-$modversion['version'] = "3.9";
+$modversion['version'] = "4.0";
 $modversion['description'] = _oscmem_MOD_DESC;
 $modversion['credits'] = "Open Source Church Project - http://sourceforge.net/osc";
 $modversion['author'] = "Steve McAtee";

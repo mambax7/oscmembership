@@ -254,6 +254,9 @@ $form->addElement($id_hidden);
 $customFields = $persondetail_handler->getcustompersonFields();
 $customData = explode(",",$person->getVar('customfields'));
 
+
+$fields=Array(count($customData));
+
 $i=1;
 while($row = $db->fetchArray($customFields)) 
 {
@@ -265,53 +268,54 @@ while($row = $db->fetchArray($customFields))
 		{
 		case 1:
 
-			$TF_label = new XoopsFormLabel($row["custom_Name"], _oscmem_yes);
-			$form->addElement($TF_label);
+			$fields[$i]= new XoopsFormLabel($row["custom_Name"], _oscmem_yes);
+			$form->addElement($fields[$i]);
 			break;		
 		case 0:
-			$TF_label = new XoopsFormLabel($row["custom_Name"], _oscmem_no);
-			$form->addElement($TF_label);
+			$fields[$i]= new XoopsFormLabel($row["custom_Name"], _oscmem_no);
+			$form->addElement($fields[$i]);
 			break;
 		default:
-			$TF_label = new XoopsFormLabel($row["custom_Name"], _oscmem_no);
-			$form->addElement($TF_label);
+			$fields[$i]= new XoopsFormLabel($row["custom_Name"], _oscmem_no);
+			$form->addElement($fields[$i]);
 			break;
 		}
-	
+
 		break;
+	
 	case "2": //Date
-		$date_label = new XoopsFormLabel($row["custom_Name"], $customData[$i]);
-		$form->addElement($date_label);
+		$fields[$i]= new XoopsFormLabel($row["custom_Name"], $customData[$i]);
+		$form->addElement($fields[$i]);
 		break;
 			
 	case "3":
-		$label_3 = new XoopsFormLabel($row["custom_Name"], $customData[$i]);
-		$form->addElement($label_3);
+		$fields[$i]= new XoopsFormLabel($row["custom_Name"], $customData[$i]);
+		$form->addElement($fields[$i]);
 		break;
 
 	case "4":
-		$label_4 = new XoopsFormLabel($row["custom_Name"], $customData[$i]);
-		$form->addElement($label_4);
+		$fields[$i]= new XoopsFormLabel($row["custom_Name"], $customData[$i]);
+		$form->addElement($fields[$i]);
 		break;
 		
 	case "5":
-		$label_5 = new XoopsFormLabel($row["custom_Name"], $customData[$i]);
-		$form->addElement($label_5);
+		$fields[$i]= new XoopsFormLabel($row["custom_Name"], $customData[$i]);
+		$form->addElement($fields[$i]);
 		break;
 		
 	case "6": //year
-		$year_label = new XoopsFormLabel($row["custom_Name"], $customData[$i]);
-		$form->addElement($year_label);
+		$fields[$i]= new XoopsFormLabel($row["custom_Name"], $customData[$i]);
+		$form->addElement($fields[$i]);
 		break;
 
 	case "7":  //season
 	
-		$season = new XoopsFormLabel(_oscmem_season_select, $customData[$i]);
+		$fields[$i]= new XoopsFormLabel(_oscmem_season_select, $customData[$i]);
 
-		$form->addElement($season);
+		$form->addElement($fields[$i]);
 		break;
 	case "8": //number
-		$label_8 = new XoopsFormLabel($row["custom_Name"], $customData[$i]);
+		$fields[$i]= new XoopsFormLabel($row["custom_Name"], $customData[$i]);
 		break;
 	}
 	
