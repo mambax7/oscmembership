@@ -154,7 +154,7 @@ $form->addElement($hidden_passdelim);
 $map_tray=Array();
 $labels=Array();
 //loop thru columns
-for($i=1;$i<$col;$i++)
+for($i=0;$i<$col;$i++)
 {
 	$map_tray[$i]=new XoopsFormElementTray(_oscmem_column . " " . $i , '&nbsp;');
 
