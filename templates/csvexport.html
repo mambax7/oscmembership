@@ -1,48 +1,54 @@
 <h2><{$title}></h2>
 <!--<table class="outer" border="1" >-->
 <form action="CSVCreateFile.php" method="POST">
-<table class="outer" >
+<{$submit}>
+<table border=1 >
 <!--<tr><TD colspan="2"><hr></TD></tr>-->
 <tr><td>
-<table border='0' width='100%'>
-<tr valign='top' align='left'><td></td><td><{$oscmem_cvsexport_infoinclude}>
-</td></tr>
+<table class="outer" border='0' width='100%'>
+<tr  valign='top' height=60 align='left'><th><{$oscmem_cvsexport_infoinclude}>
+</th></tr>
 <tr><TD>&nbsp;</TD></tr>
-<tr valign='top' align='left'><td></td><td><input type='checkbox' id='bmembername' name='bmembername' value='0' checked='checked' /><{$oscmem_membername}>
+<tr class="even" valign='top' align='left'><td><input type='checkbox' id='bmembername' name='bmembername' value='0' checked='checked' /><{$oscmem_membername}>
 </td></tr>
-<tr valign='top' align='left'><td></td><td><input type='checkbox' id='baddress' name='baddress' value='0' checked='checked' /><{$oscmem_address}>
+<tr class="odd" valign='top' align='left'><td><input type='checkbox' id='baddress' name='baddress' value='0' checked='checked' /><{$oscmem_address}>
 </td></tr>
-<tr valign='top' align='left'><td></td><td><input type='checkbox' id='bphone' name='bphone' value='0' checked='checked'/>
+<tr class="even" valign='top' align='left'><td><input type='checkbox' id='bphone' name='bphone' value='0' checked='checked'/>
 <{$oscmem_phone}>
 </td></tr>
-<tr valign='top' align='left'><td></td><td><input type='checkbox' id='bemail' name='bemail' value='0' checked='checked' />
+<tr class="odd" valign='top' align='left'><td><input type='checkbox' id='bemail' name='bemail' value='0' checked='checked' />
 <{$oscmem_email}>
 </td></tr>
-<tr valign='top' align='left'><td></td><td><input type='checkbox' id='benvelope' name='benvelope' value='0' checked='checked' />
+<tr class="even" valign='top' align='left'><td><input type='checkbox' id='benvelope' name='benvelope' value='0' checked='checked' />
 <{$oscmem_envelopenumber}>
 </td></tr>
-<tr valign='top' align='left'><td></td><td><input type='checkbox' id='bmembershipdate' name='bmembershipdate' value='0' checked='checked' />
+<tr class="odd" valign='top' align='left'><td><input type='checkbox' id='bmembershipdate' name='bmembershipdate' value='0' checked='checked' />
 <{$oscmem_membershipdate}>
 </td></tr>
-<tr valign='top' align='left'><td></td><td><input type='checkbox' id='bbirthanniversary' name='bbirthanniversary' value='0' checked='checked' />
+<tr class="even" valign='top' align='left'><td><input type='checkbox' id='bbirthanniversary' name='bbirthanniversary' value='0' checked='checked' />
 <{$oscmem_csv_birthanniversary}>
 </td></tr>
-<tr valign='top' align='left'><td></td><td><input type='checkbox' id='bagemarried' name='bagemarried' value='0' checked='checked' />
+<tr class="odd" valign='top' align='left'><td><input type='checkbox' id='bagemarried' name='bagemarried' value='0' checked='checked' />
 <{$oscmem_csv_ageyearsmarried}>
 </td></tr>
-<tr valign='top' align='left'><td></td><td><input type='checkbox' id='bfamilyrole' name='bfamilyrole' value='0' checked='checked' />
+<tr class="even" valign='top' align='left'><td><input type='checkbox' id='bfamilyrole' name='bfamilyrole' value='0' checked='checked' />
 <{$oscmem_csv_familyrole}>
 </td></tr>
-<tr valign='top' align='left'><td></td><td><input type='checkbox' id='bfamilyname' name='bfamilyname' value='0' checked='checked' />
+<tr class="odd" valign='top' align='left'><td><input type='checkbox' id='bfamilyname' name='bfamilyname' value='0' checked='checked' />
 <{$oscmem_csv_familyname}>
 </td></tr>
 </table>
 </td>
 <td>
-<table class="outer"><TR><td><{$oscmem_cvsexport_customfields}></td></TR>
+<table class="outer"><TR valign='top' height=60><th><{$oscmem_cvsexport_customfields}></th></TR>
 <tr><TD>&nbsp;</TD></tr>
 <{foreach item=customfield from=$custfieldarr}>
-<tr valign="top">
+<{ if $customfield.odd == true }>
+<tr class="odd">
+<{/if}>
+<{ if $customfield.odd == false }>
+<tr class="even">
+<{/if}>
 <td ><input type="checkbox" id="<{$customfield.id}>" name="<{$customfield.name}>" value="<{$customfield.value}>"/>
 <{$customfield.field_name}>
 </td>
@@ -50,9 +56,12 @@
 <{/foreach}>
 </table>
 </td>
-<td>
+</tr>
+</table>
+</div>
+
 <table>
-<tr><TD>&nbsp;</TD></tr>
+<tr valign="top" height=60><Th colspan="2" align="center"><{$oscmem_filter}></TD></tr>
 <tr><TD>&nbsp;</TD></tr>
 <tr valign='top' align='left'>
 <td><{$oscmem_filters}></td>
@@ -114,6 +123,21 @@
 <{$dateentered_from}>
 <{$dateentered_to}>
 </td></tr>
+<{foreach item=customfield from=$custfieldarr}>
+<{ if $customfield.odd == true }>
+<tr class="odd">
+<{/if}>
+<{ if $customfield.odd == false }>
+<tr class="even">
+<{/if}>
+
+<td><{$customfield.field_name}></td>
+<td><{$customfield.criteriahtml}>
+</td>
+</tr>
+<{/foreach}>
+
+
 <tr valign='top' align='left'>
 <td><{$oscmem_csv_outputmethod}></td>
 <td><{$outputmethod}>
@@ -127,8 +151,6 @@
 <td></td>
 </tr>
 </table>
-</td>
-</tr>
-<tr><TD><{$submit}></TD></tr>
-</table>
+<{$submit}>
+
 </form>

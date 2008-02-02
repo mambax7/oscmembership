@@ -25,7 +25,7 @@ $sort="";
 $filter="";
 if (isset($_GET['sort'])) $sort = $_GET['sort'];
 if (isset($_POST['filter'])) $filter=$_POST['filter'];
-
+if (isset($_POST['loopcount'])) $loopcount=$_POST['loopcount'];
 
 include(XOOPS_ROOT_PATH."/header.php");
 
@@ -45,7 +45,28 @@ if(isset($submit))
 		
 		//do nothing
 		break;
+
+	case _oscmem_deletefamily:
+		$deletelist="";
+		if($ispermmodify==true)
+		{
+			for($i=0;$i<$loopcount+1;$i++)
+			{
+				if (isset($_POST['chk' . $i]))
+				{
+					$id=$_POST['chk' . $i];
+					$uid=$xoopsUser->getVar('uid');
+					$family_handler->delete($id);
+				}
+			}
+	//		redirect_header("familylistform.php", 2, _oscmem_deleted);
+		}
+		else redirect_header(XOOPS_URL."/user.php", 3, _oscmem_accessdenied);
+
+		break;
 	}
+
+
 }
 
 
@@ -57,6 +78,7 @@ $xoopsTpl->assign('oscmem_familyname',_oscmem_familyname);
 $xoopsTpl->assign('oscmem_address',_oscmem_address);
 $xoopsTpl->assign('oscmem_clearfilter',_oscmem_clearfilter);
 $xoopsTpl->assign('oscmem_addmember',_oscmem_addmember);
+$xoopsTpl->assign('oscmem_deletefamily',_oscmem_deletefamily);
 $xoopsTpl->assign('oscmem_email',_oscmem_email);
 $xoopsTpl->assign('is_perm_view',$ispermview);
 $xoopsTpl->assign('is_perm_modify',$ispermmodify);

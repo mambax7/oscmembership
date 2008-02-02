@@ -369,6 +369,20 @@ function &modsearch($searcharray)
 	
 	}
 	
+	function &delete(&$id)
+    	{
+		$family=$this->create(false);
+
+		$sql="update " . $family->membershiptable . " set famid=null where famid=" . $id;
+		$this->db->query($sql);
+
+
+		$sql="delete from " . $family->table . " where id=" . $id;
+		$this->db->query($sql);
+
+		//delete from families
+		
+	}
 	
 	
 }

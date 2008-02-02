@@ -108,6 +108,7 @@ if(isset($groups[0]['id']))
 	}
 }
 
+$xoopsTpl->assign('title',_oscmem_csvexport_title);
 $xoopsTpl->assign('oscmem_lastname',_oscmem_lastname);
 $xoopsTpl->assign('oscmem_membername',_oscmem_name);
 $xoopsTpl->assign('oscmem_address',_oscmem_address);
@@ -124,6 +125,7 @@ $xoopsTpl->assign('oscmem_cvsexport_infoinclude',_oscmem_cvsexport_infoinclude);
 
 $xoopsTpl->assign('oscmem_cvsexport_customfields',_oscmem_cvsexport_customfields);
 $xoopsTpl->assign('oscmem_filters',_oscmem_filters);
+$xoopsTpl->assign('oscmem_filter',_oscmem_filter);
 
 //$form->addElement($element_tray);
 
@@ -137,18 +139,62 @@ $customFields = $persondetail_handler->getcustompersonFields();
 
 $i=0;
 $custfieldarr=array();
-
+$oddon=false;
 while($row = $db->fetchArray($customFields)) 
 {
 	$custfieldarr[$i]["id"]=$row["custom_Field"];
 	$custfieldarr[$i]["name"]=$row["custom_Field"];
 	$custfieldarr[$i]["value"]=0;
 	$custfieldarr[$i]["field_name"]=$row["custom_Name"];
+	$custfieldarr[$i]["odd"]=$oddon;
+
+	if($oddon){ $oddon=false; }
+	else { $oddon=true; } 
+
+	switch($row["type_ID"])
+	{
+	case "1": //True false
+		$custfieldarr[$i]["criteriaobj"]=new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], null,_oscmem_yes,_oscmem_no);
+
+		$custfieldarr[$i]["criteriahtml"]=$custfieldarr[$i]["criteriaobj"]->render();
+	
+		break;
+
+	case "2": //Date
+		$custfieldarr[$i]["criteriaobj"]=new XoopsFormTextDateSelect($row["custom_Name"],$row["custom_Field"], 10);
+
+		$custfieldarr[$i]["criteriahtml"]=$custfieldarr[$i]["criteriaobj"]->render();
+
+		break;
+
+	case "3":
+		$custfieldarr[$i]["criteriaobj"]=new XoopsFormText($row["custom_Name"],$row["custom_Field"], 50, 50,null);
+
+		$custfieldarr[$i]["criteriahtml"]=$custfieldarr[$i]["criteriaobj"]->render();
+		break;
+
+	case "4":
+		$custfieldarr[$i]["criteriaobj"]=new XoopsFormText($row["custom_Name"],$row["custom_Field"], 100, 100,null);
+
+		$custfieldarr[$i]["criteriahtml"]=$custfieldarr[$i]["criteriaobj"]->render();
+		break;
+
+	case "5":
+		$custfieldarr[$i]["criteriaobj"]=new XoopsFormText($row["custom_Name"],$row["custom_Field"], 200, 200,null);
+
+		$custfieldarr[$i]["criteriahtml"]=$custfieldarr[$i]["criteriaobj"]->render();
+		break;
+
+
+
+	}
+
 	$i++;
 }
 
-$xoopsTpl->assign('custfieldarr',$custfieldarr);
 
+
+$xoopsTpl->assign('custfieldarr',$custfieldarr);
 $xoopsTpl->assign('oscmem_recordstoexport',_oscmem_recordstoexport);
 $xoopsTpl->assign('oscmem_fromfilterbelow',_oscmem_fromfilterbelow);
 $xoopsTpl->assign('oscmem_fromcart',_oscmem_fromcart);

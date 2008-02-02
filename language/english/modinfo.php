@@ -200,7 +200,7 @@ define("_oscmem_classificationstoexport","Classifications to Export");
 define("_oscmem_fromfilterbelow","Based on Filters Below...");
 define("_oscmem_fromcart","People in Cart (filters ignored)");
 
-define("_oscmem_cvsexport_customfields","Custom Fields for Export");
+define("_oscmem_cvsexport_customfields","Custom Fields To Include In Export");
 define("_oscmem_rolestoexport","Family Roles to Export");
 
 define("_oscmem_gender_nofilter","Do not filter on Gender");
@@ -258,6 +258,7 @@ define("_oscmem_family_select","Select Families");
 define("_oscmembership_addcarttofamily","Add Cart to Selected Family");
 define("_oscmem_confirmdelete","Please confirm you want these members deleted.  The delete will be permanent.");
 define("_oscmem_deletemember","Delete Member");
+define("_oscmem_deletefamily","Delete Family");
 define("_oscmem_deleted","Members have been deleted");
 
 define("_oscmem_picloc","Picture Location");
@@ -297,4 +298,5 @@ define("_oscmem_orphanselect","Orphan Select");
 define("_oscmem_matchedfamilyname","Matched<br>Family Name");
 define("_oscmem_orphansmatched","The orphan(s) have been matched.");
 define("_oscmem_noorphans","No orphans found.");
+define("_oscmem_csvexport_title","Member Export");
 ?>
