@@ -886,7 +886,7 @@ function &searchgroupmembers($searcharray, $groupid)
 							break;
 			
 							case "6": //year
-								$sql.= $row['custom_Field'] . "= " . $customupdate[$i-1] . ",";
+								$sql.= $row['custom_Field'] . "='" . $customupdate[$i-1] . "',";
 								break;
 			
 	

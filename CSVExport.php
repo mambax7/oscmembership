@@ -154,33 +154,33 @@ while($row = $db->fetchArray($customFields))
 	switch($row["type_ID"])
 	{
 	case "1": //True false
-		$custfieldarr[$i]["criteriaobj"]=new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], null,_oscmem_yes,_oscmem_no);
+		$custfieldarr[$i]["criteriaobj"]=new XoopsFormRadioYN( $row["custom_Name"],"crit" . $row["custom_Field"], null,_oscmem_yes,_oscmem_no);
 
 		$custfieldarr[$i]["criteriahtml"]=$custfieldarr[$i]["criteriaobj"]->render();
 	
 		break;
 
 	case "2": //Date
-		$custfieldarr[$i]["criteriaobj"]=new XoopsFormTextDateSelect($row["custom_Name"],$row["custom_Field"], 10);
+		$custfieldarr[$i]["criteriaobj"]=new XoopsFormTextDateSelect( $row["custom_Name"],"crit" . $row["custom_Field"], 10);
 
 		$custfieldarr[$i]["criteriahtml"]=$custfieldarr[$i]["criteriaobj"]->render();
 
 		break;
 
 	case "3":
-		$custfieldarr[$i]["criteriaobj"]=new XoopsFormText($row["custom_Name"],$row["custom_Field"], 50, 50,null);
+		$custfieldarr[$i]["criteriaobj"]=new XoopsFormText($row["custom_Name"],"crit" . $row["custom_Field"], 50, 50,null);
 
 		$custfieldarr[$i]["criteriahtml"]=$custfieldarr[$i]["criteriaobj"]->render();
 		break;
 
 	case "4":
-		$custfieldarr[$i]["criteriaobj"]=new XoopsFormText($row["custom_Name"],$row["custom_Field"], 100, 100,null);
+		$custfieldarr[$i]["criteriaobj"]=new XoopsFormText($row["custom_Name"],"crit" . $row["custom_Field"], 100, 100,null);
 
 		$custfieldarr[$i]["criteriahtml"]=$custfieldarr[$i]["criteriaobj"]->render();
 		break;
 
 	case "5":
-		$custfieldarr[$i]["criteriaobj"]=new XoopsFormText($row["custom_Name"],$row["custom_Field"], 200, 200,null);
+		$custfieldarr[$i]["criteriaobj"]=new XoopsFormText($row["custom_Name"],"crit" . $row["custom_Field"], 200, 200,null);
 
 		$custfieldarr[$i]["criteriahtml"]=$custfieldarr[$i]["criteriaobj"]->render();
 		break;

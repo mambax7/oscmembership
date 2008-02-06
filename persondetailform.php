@@ -134,8 +134,6 @@ switch (true)
 		exit;
 	}
 	
-	
-
 	$customFields = $persondetail_handler->getcustompersonFields();
 	
 	$customfieldata_post="";
@@ -181,10 +179,12 @@ switch (true)
 		$personid = $persondetail_handler->insert($person);	
 		$message=_oscmem_CREATESUCCESS_individual;
 	}
-	    
-//	redirect_header("index.php", 3, $message);
+
+	redirect_header("index.php", 15, $message);
     break;
 }
+
+$person=$persondetail_handler->get($personid);
 
 $osclist_handler = &xoops_getmodulehandler('osclist', 'oscmembership');
 
@@ -384,18 +384,20 @@ $customFields = $persondetail_handler->getcustompersonFields();
 $customData = explode(",",$person->getVar('customfields'));
 $fields=Array(count($customData));
 
-$i=0;
+$i=1;
 while($row = $db->fetchArray($customFields)) 
 {
 	switch($row["type_ID"])
 	{
 	case "1": //True false
 
-		if($customData[$i]==1)
+		if($customData[$i]=="true")
 		{
-			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"],1,_oscmem_yes, _oscmem_no));
+
+			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], 1, _oscmem_yes, _oscmem_no));
+
 		}
-		elseif($customData[$i]==0)
+		elseif($customData[$i]=="false")
 		{
 			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], 0,_oscmem_yes, _oscmem_no));
 		}
@@ -403,7 +405,6 @@ while($row = $db->fetchArray($customFields))
 		{
 			$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], null,_oscmem_yes,_oscmem_no));
 		}
-	
 		break;
 	case "2": //Date
 		$form->addElement(new XoopsFormTextDateSelect($row["custom_Name"],$row["custom_Field"], 10,$customData[$i]));
@@ -427,7 +428,7 @@ while($row = $db->fetchArray($customFields))
 
 	case "7":  //season
 
-		$fields[$i]=new XoopsFormSelect($row["custom_Name"],$row["custom_Field"], $customData[$i],1,false);
+		$fields[$i]=new XoopsFormSelect($row["custom_Name"],$db->quoteString($row["custom_Field"]), $customData[$i],1,false);
 		
 		$fields[$i]->addOption(_oscmem_season_select,0);
 		$fields[$i]->addOption("-------------",0);
@@ -439,7 +440,7 @@ while($row = $db->fetchArray($customFields))
 		break;
 		
 	case "8": //number
-		$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 10, 10,$customData[$i]));
+		$form->addElement(new XoopsFormText($row["custom_Name"],$db->quoteString($row["custom_Field"]), 10, 10,$customData[$i]));
 		break;
 
 	}
