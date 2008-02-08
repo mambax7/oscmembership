@@ -36,6 +36,7 @@ require (XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/inc
 
 require (XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php");
 
+
 // Include the function library
 //require "Include/Config.php";
 //require "Include/Functions.php";
@@ -251,7 +252,7 @@ if (isset($_POST["DoImport"]))
 		if ($bHasCustom)
 		{
 			$sSQL = "SELECT * FROM " . $db->prefix("oscmembership_person_custom_master");
-			$rsCustomFields = RunQuery($sSQL);
+			$rsCustomFields = $db->query($sSQL);
 
 			while ($aRow = mysql_fetch_array($rsCustomFields))
 			{
@@ -325,7 +326,8 @@ if (isset($_POST["DoImport"]))
 						case 7:
 							$iEnv = FilterInput($aData[$col],'int');
 							$sSQL = "SELECT '' FROM " . $db->prefix("oscmembership_person") . " WHERE envelope = " . $iEnv ;
-							$rsTemp = RunQuery($sSQL);
+
+							$rsTemp = $db->query($sSQL);
 							if (mysql_num_rows($rsTemp) == 0)
 								$sSQLpersonData .= $iEnv . ", ";
 							else
@@ -438,7 +440,7 @@ if (isset($_POST["DoImport"]))
 						elseif ($currentType == 1)
 						{
 							if (strlen($currentFieldData))
-								$currentFieldData = ConvertToBoolean($currentFieldData) + 1;
+								$currentFieldData = ConvertToBoolean($currentFieldData);
 						}
 						else
 							$currentFieldData = addslashes($currentFieldData);
@@ -450,7 +452,7 @@ if (isset($_POST["DoImport"]))
 
 				// Finalize and run the update for the person_custom table.
 				$sSQLcustom = substr($sSQLcustom,0,-2);
-				$sSQLcustom .= " WHERE id = " . $iPersonID;
+				$sSQLcustom .= " WHERE per_ID = " . $iPersonID;
 				$db->query($sSQLcustom);
 				//echo "<br>" . $sSQLcustom . "<br>";
 			}

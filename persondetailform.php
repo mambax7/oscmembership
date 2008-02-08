@@ -180,11 +180,14 @@ switch (true)
 		$message=_oscmem_CREATESUCCESS_individual;
 	}
 
-	redirect_header("index.php", 15, $message);
+	redirect_header("index.php", 3, $message);
     break;
 }
 
-$person=$persondetail_handler->get($personid);
+if(isset($personid) && is_numeric($personid)) 
+{
+	$person=$persondetail_handler->get($personid);
+}
 
 $osclist_handler = &xoops_getmodulehandler('osclist', 'oscmembership');
 

@@ -264,22 +264,20 @@ while($row = $db->fetchArray($customFields))
 	{
 	case "1": //True false
 
-		switch($customData[$i])
+		if($customData[$i]=="true")
 		{
-		case 1:
-
 			$fields[$i]= new XoopsFormLabel($row["custom_Name"], _oscmem_yes);
-			$form->addElement($fields[$i]);
-			break;		
-		case 0:
-			$fields[$i]= new XoopsFormLabel($row["custom_Name"], _oscmem_no);
-			$form->addElement($fields[$i]);
-			break;
-		default:
-			$fields[$i]= new XoopsFormLabel($row["custom_Name"], _oscmem_no);
-			$form->addElement($fields[$i]);
-			break;
 		}
+		elseif($customData[$i]=="false")
+		{
+			$fields[$i]= new XoopsFormLabel($row["custom_Name"], _oscmem_no);
+		}
+		else
+		{
+			$fields[$i]= new XoopsFormLabel($row["custom_Name"], _oscmem_no);
+		}
+			
+		$form->addElement($fields[$i]);
 
 		break;
 	

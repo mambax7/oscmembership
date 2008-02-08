@@ -226,4 +226,136 @@ function FilterProps($svalue)
 	return $returnvalue;
 }
 
+function ConvertToBoolean($sInput)
+{
+	if (empty($sInput)) {
+		return False;
+	} else {
+		if (is_numeric($sInput)) {
+			if ($sInput == 1) {
+				return "true";
+			} else {
+				return "false";
+			}
+		}
+		else
+		{
+			$sInput = strtolower($sInput);
+			if (in_array($sInput,array("true","yes","si","t"))) {
+				return "true";
+			} else {
+				return "false";
+			}
+		}
+	}
+}
+
+// Generates SQL for custom field update
+//
+// $special is currently only used for the phone country
+//
+function sqlCustomField(&$sSQL, $type, $data, $col_Name, $special)
+{
+	switch($type)
+	{
+		// boolean
+		case 1:
+			switch ($data) {
+				case "false":
+					$data = "'false'";
+					break;
+				case "true":
+					$data = "'true'";
+					break;
+				default:
+					$data = "NULL";
+					break;
+			}
+
+			$sSQL .= $col_Name . " = " . $data . ", ";
+			break;
+
+		// date
+		case 2:
+			if (strlen($data) > 0) {
+				$sSQL .= $col_Name . " = \"" . $data . "\", ";
+			}
+			else {
+				$sSQL .= $col_Name . " = NULL, ";
+			}
+			break;
+
+		// year
+		case 6:
+			if (strlen($data) > 0) {
+				$sSQL .= $col_Name . " = '" . $data . "', ";
+			}
+			else {
+				$sSQL .= $col_Name . " = NULL, ";
+			}
+			break;
+
+		// season
+		case 7:
+			if ($data != 'none') {
+				$sSQL .= $col_Name . " = '" . $data . "', ";
+			}
+			else {
+				$sSQL .= $col_Name . " = NULL, ";
+			}
+			break;
+
+		// integer, money
+		case 8:
+		case 10:
+			if (strlen($data) > 0) {
+				$sSQL .= $col_Name . " = '" . $data . "', ";
+			}
+			else {
+				$sSQL .= $col_Name . " = NULL, ";
+			}
+			break;
+
+		// list selects
+		case 9:
+		case 12:
+			if ($data != 0) {
+				$sSQL .= $col_Name . " = '" . $data . "', ";
+			}
+			else {
+				$sSQL .= $col_Name . " = NULL, ";
+			}
+			break;
+
+		// strings
+		case 3:
+		case 4:
+		case 5:
+			if (strlen($data) > 0) {
+				$sSQL .= $col_Name . " = '" . $data . "', ";
+			}
+			else {
+				$sSQL .= $col_Name . " = NULL, ";
+			}
+			break;
+
+		// phone
+		case 11:
+			if (strlen($data) > 0) {
+				if (!isset($_POST[$col_Name . "noformat"]))
+					$sSQL .= $col_Name . " = '" . CollapsePhoneNumber($data,$special) . "', ";
+				else
+					$sSQL .= $col_Name . " = '" . $data . "', ";
+			}
+			else {
+				$sSQL .= $col_Name . " = NULL, ";
+			}
+			break;
+
+		default:
+			$sSQL .= $col_Name . " = '" . $data . "', ";
+			break;
+	}
+}
+
 ?>
