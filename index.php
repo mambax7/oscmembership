@@ -1,5 +1,6 @@
 <?php
 include("../../mainfile.php");
+
 $GLOBALS['xoopsOption']['template_main'] ="memberview.html";
 
 

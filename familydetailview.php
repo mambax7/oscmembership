@@ -67,6 +67,10 @@ if (isset($_GET['action'])) $action=$_GET['action'];
 if (isset($_POST['removemember'])) $op="remove";
 if (isset($_POST['removeid'])) $removeid=$_POST['removeid'];
 
+$myts = &MyTextSanitizer::getInstance();
+$familydetail_handler = &xoops_getmodulehandler('family', 'oscmembership');
+
+
 if($op=="remove")
 {
 	$familydetail_handler->removeMember($removeid);

@@ -1071,7 +1071,9 @@ function &getorphans($searcharray, $sort, $hasenvelope=null)
 	$result='';
 	$returnresult='';
 	$persons[]=array();
-	
+
+	$i=0;
+
         if (isset($searcharray)) 
 	{
 	        $person= &$this->create(false);
@@ -1093,97 +1095,95 @@ function &getorphans($searcharray, $sort, $hasenvelope=null)
 		
 		for ( $i = 1; $i < $count; $i++ ) 
 		{
-			$sql .= " OR ";	$person_handler = &xoops_getmodulehandler('person', 'oscmembership');
-	
-		$results = $person_handler->search($queryarray);
+		
+		$sql .= " OR ";	
+
+		$results = $this->search($queryarray);
 
 		$sql .= "(lastname LIKE '%$searcharray[$i]%' OR firstname LIKE '%$searcharray[$i]%' or homephone LIKE '%$searcharray[$i]%' OR workphone LIKE '%$searcharray[$i]%' OR cellphone LIKE '%$searcharray[$i]%' or city like '%$searcharray[$i]%' or state like '%$searcharray[$i]%')";
 		}
+
 		if(isset($sort))
 		{
 			switch($sort)
 			{
 			case "name":
-			$sql .= ") order by lastname, firstname ";
+			$sql .= " order by lastname, firstname ";
 			break;
 			case "city":
-			$sql .= ") order by city ";
+			$sql .= " order by city ";
 			break;
 			case "zip":
-			$sql .= ") order by zip ";
+			$sql .= " order by zip ";
 			break;
 			case "state":
-			$sql .= ") order by state ";
+			$sql .= " order by state ";
 			break;
 			case "citystate":
-			$sql .= ") order by city,state ";
+			$sql .= " order by city,state ";
 			break;
 						
 			default:
-			$sql .= ") order by lastname, firstname ";
+			$sql .= " order by lastname, firstname ";
 			break;
 			}
 		}
-		
+
 		if (!$result = $this->db->query($sql)) 
 		{
 			//echo "<br />NewbbForumHandler::get error::" . $sql;
-			return false;
+			//return false;
 		}
 		$oddon=false;
 
-		$loopcount = 0;
-
-		
 		$oddrow=false;
-		$person = new Person();
 		$i=0; //start counter
+
 		while($row = $this->db->fetchArray($result)) 
 		{
 			if(isset($row))
 			{
-				$person=&$this->create(false);
-				$person->assignVars($row);
-				
-				if($person->getVar('address1') !=null)
-				{$person->assignVar('addressflag',_oscmem_yes);}
+				$rowperson=$this->create(false);
+				$rowperson->assignVars($row);
+
+				if($rowperson->getVar('address1') !=null)
+				{$rowperson->assignVar('addressflag',_oscmem_yes);}
 				else 
-				{$person->assignVar('addressflag',_oscmem_no);}
+				{$rowperson->assignVar('addressflag',_oscmem_no);}
 				
-				if($person->getVar('email') != null)
-				{$person->assignVar('emailflag',_oscmem_yes);}
-				else { $person->assignVar('emailflag',_oscmem_no);}
+				if($rowperson->getVar('email') != null)
+				{$rowperson->assignVar('emailflag',_oscmem_yes);}
+				else { $rowperson->assignVar('emailflag',_oscmem_no);}
 
-				$person->assignVar('oddrow',$oddrow);
+				$rowperson->assignVar('oddrow',$oddrow);
 
-				$person->assignVar('loopcount',$i);
+				$rowperson->assignVar('loopcount',$i);
 				
 				if($oddrow){$oddrow=false;}
 				else {$oddrow=true;}
-			
-				$persons[$i]=$person;
-				
+
+				$persons[$i]=$rowperson;
 				
 			}
 			$i++;
-			$loopcount++;
-
 		}
+
 		if($i>0)
 		{
-			$person=$persons[0];
-			$person->assignVar('totalloopcount',$loopcount-1);
-			$persons[0]=$person;
+			$totalperson=new Person();
+			$totalperson=$persons[0];
+			$totalperson->assignVar('totalloopcount',$loopcount-1);
+			$persons[0]=$totalperson;
 			
 		}
 		else
 		{
-			$person = new Person();
-			$person->assignVar('totalloopcount',0);
-			$persons[0]=$person;
+			$noperson= new Person();
+			$noperson->assignVar('totalloopcount',0);
+			$persons[0]=$noperson;
 		}
 	}
-			
+
 	return $persons;
     }
 

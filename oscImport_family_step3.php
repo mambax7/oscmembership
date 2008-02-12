@@ -20,6 +20,7 @@
  ******************************************************************************/
 
 include_once "../../mainfile.php";
+ini_set("memory_limit","100M");
 
 //redirect
 if (!$xoopsUser)

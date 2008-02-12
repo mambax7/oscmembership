@@ -13,8 +13,10 @@
  *
  *  Copyright 2008 Steve McAtee
  ******************************************************************************/
+ini_set("memory_limit","100M");
+include("../../mainfile.php");
+$GLOBALS['xoopsOption']['template_main'] ="orphanselect.html";
 
-include_once "../../mainfile.php";
 
 //redirect
 if (!$xoopsUser)
@@ -22,7 +24,8 @@ if (!$xoopsUser)
     redirect_header(XOOPS_URL."/user.php", 3, _oscmem_accessdenied);
 }
 
-require (XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/ReportConfig.php");
+
+//require (XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/ReportConfig.php");
 
 require (XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php");
 
@@ -41,21 +44,13 @@ include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/g
 include_once(XOOPS_ROOT_PATH . "/class/xoopsformloader.php");
 
 
-include(XOOPS_ROOT_PATH."/header.php");
-$GLOBALS['xoopsOption']['template_main'] ="orphanselect.html";
-
 $iStage = 1;
 $db = &Database::getInstance();
 
-//$GLOBALS['xoopsOption']['template_main'] ="oscimport_family_step1.html";
-
-//redirect
-if (!$xoopsUser)
-{
-    redirect_header(XOOPS_URL."/user.php", 3, _oscmem_accessdenied);
-}
 
 if(!hasPerm("oscmembership_modify",$xoopsUser)) exit(_oscmem_access_denied);
+//if(hasPerm("oscmembership_view",$xoopsUser)) $ispermview=true;
+//if(hasPerm("oscmembership_modify",$xoopsUser)) $ispermmodify=true;
 
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/person.php';
@@ -67,11 +62,9 @@ if (isset($_POST['filter'])) $filter=$_POST['filter'];
 if (isset($_POST['submit'])) $submit = $_POST['submit'];
 if (isset($_POST['totalloopcount'])) $totalloopcount = $_POST['totalloopcount'];
 
-
 include(XOOPS_ROOT_PATH."/header.php");
 
 $person_handler = &xoops_getmodulehandler('person', 'oscmembership');
-
 
 if(isset($submit))
 {
@@ -146,7 +139,7 @@ if(isset($filter))
 }
 else $searcharray[0]='';
 
-$persons = $person_handler->getorphans($searcharray);
+$persons = $person_handler->getorphans($searcharray,$sort);
 
 $xoopsTpl->assign('oscmem_applyfilter',_oscmem_applyfilter);
 $xoopsTpl->assign('title',_oscmem_orphanselect); 
@@ -168,10 +161,6 @@ $xoopsTpl->assign('oscmem_matchuporphans',_oscmem_matchuporphans);
 $xoopsTpl->assign('persons',$persons);
 $xoopsTpl->assign("oscmem_noorphans",_oscmem_noorphans);
 $xoopsTpl->assign("totalloopcount",$persons[0]->getVar("totalloopcount"));
-
-//$form = new XoopsThemeForm(_oscmem_cvsimport_family_step1, "importstep1form", "oscImport_family_step2.php", "post", true);
-
-
 
 include(XOOPS_ROOT_PATH."/footer.php");
 ?>
