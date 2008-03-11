@@ -1172,7 +1172,7 @@ function &getorphans($searcharray, $sort, $hasenvelope=null)
 		{
 			$totalperson=new Person();
 			$totalperson=$persons[0];
-			$totalperson->assignVar('totalloopcount',$loopcount-1);
+			$totalperson->assignVar('totalloopcount',$i-1);
 			$persons[0]=$totalperson;
 			
 		}

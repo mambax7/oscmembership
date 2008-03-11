@@ -23,7 +23,7 @@
  *  copyright   : 2006 Steve McAtee
  ******************************************************************************/
 include_once "../../mainfile.php";
-ini_set("memory_limit","100M");
+ini_set("memory_limit","400M");
 
 //redirect
 if (!$xoopsUser)
@@ -93,6 +93,7 @@ $customFields = $persondetail_handler->getcustompersonFields();
 
 $i=0;
 $custfieldarr=array();
+$critarr=array();
 
 while($row = $db->fetchArray($customFields)) 
 {
@@ -101,12 +102,20 @@ while($row = $db->fetchArray($customFields))
 		$custfieldarr[$i]['custom_Field']=$row["custom_Field"];
 		$custfieldarr[$i]['custom_Name']=$row["custom_Name"];
 	}
+
+	if(isset($_POST["crit" . $row['custom_Field']]))
+	{
+		$critarr[$i]['type_ID']=$row["type_ID"];
+		$critarr[$i]['custom_Field']=$row["custom_Field"];
+		$critarr[$i]['custom_Value']=$_POST["crit" . $row["custom_Field"]];
+
+	}
 	$i++;
 }
 
-
 $label_handler = &xoops_getmodulehandler('label', 'oscmembership');
 $labelcritiera_handler = &xoops_getmodulehandler('labelcriteria', 'oscmembership');
+
 
 $labelcritiera=$labelcritiera_handler->create();
 
@@ -114,6 +123,8 @@ $labelcritiera->assignVar('gender',$gender);
 $labelcritiera->assignVar('sdirclassifications',$sDirClassifications);
 
 $labelcritiera->assignVar('customfields',$custfieldarr);
+$labelcritiera->assignVar('customcriteria',$critarr);
+
 $labelcritiera->assignVar('bdiraddress',isset($_POST["baddress"]));
 $labelcritiera->assignVar('bdirwedding',isset($_POST["bagemarried"]));
 $labelcritiera->assignVar('bdirbirthday',isset($_POST["bbirthanniversary"]));
@@ -204,6 +215,7 @@ if($outputmethod==_oscmem_csv_addtocart)
 else
 {
 //Create Dump file
+
 	header("Content-type: text/x-csv");
 	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
 	
@@ -211,6 +223,7 @@ else
 		{
 			echo $label['body'] . chr(10) . chr(13);
 		}
+
 }
 
 // Turn OFF output buffering

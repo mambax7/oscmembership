@@ -60,7 +60,8 @@ class  Labelcriteria extends XoopsObject
         $this->initVar('bfamilyname', XOBJ_DTYPE_INT);
 	$this->initVar('soutputmethod',XOBJ_DTYPE_TXTBOX);
 		
-	$this->initVar('customfields',XOBJ_DTYPE_ARRAY);
+	$this->initVar('customfields',XOBJ_DTYPE_OTHER);
+	$this->initVar('customcriteria',XOBJ_DTYPE_OTHER);
 	$this->initVar('gender',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('membershipdatefrom',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('membershipdateto',XOBJ_DTYPE_TXTBOX);

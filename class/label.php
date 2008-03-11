@@ -69,7 +69,6 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
     function &getlabels($bSortFirstName, $baltFamilyName, $sGroupsList, $sDirClassifications,$labelcriteria)
     {
 	$labels[]=array();
-    
 	$i=0;
 
 	$cr="'<br>'";
@@ -287,6 +286,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 
 	$headersql="lastname, firstname";
 	$indivbodysql="lastname,',',firstname";
+	$customwhere="";
 	$familybodysql="familyname,',',''";
 	$cr="'<br>'";
 	$blank="''";		
@@ -347,7 +347,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	$dateenteredfrom=$labelcriteria->getVar('dateenteredfrom');
 	if(!empty($dateenteredfrom))
 	{
-		$sWhereExt .= " AND person.dateentered between " . $this->db->quoteString($labelcriteria->getVar('dateenteredfrom')) . " AND " . $this->db->quoteString($labelcriteria->getVar('dateenteredto'));
+		$sWhereExt .= " AND person.dateentered between " . $this->db->quoteString($labelcriteria->getVar('dateenteredfrom')) . " AND " . $this->db->quoteString($labelcriteria->getVar('dateenterefto'));
 	}
 	
 				
@@ -362,8 +362,8 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 //	$sSQL=" drop table `tmplabel`;
 
 //$sSQL="truncate table tmplabel";
-
-$sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
+/*
+$sSQL= "CREATE TABLE `tmplabel` (
 	`person_id` int default NULL,	
 	`recipient` varchar(255) default NULL,
 	`AddressLine1` varchar(255) default NULL,
@@ -375,8 +375,22 @@ $sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
 	`sortme` varchar(255) default NULL,
 	`familyid` int default null,
 	`body` text )";
-	
-//	$sSQL= "truncate table tmplabel";
+*/
+
+/*$sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
+	`person_id` int default NULL,	
+	`recipient` varchar(255) default NULL,
+	`AddressLine1` varchar(255) default NULL,
+	`AddressLine2` varchar(255) default NULL,
+	`addresslabel` text null,
+	`City` varchar(255) default NULL,
+	`State` varchar(255) default NULL,
+	`Zip` varchar(255) default NULL,
+	`sortme` varchar(255) default NULL,
+	`familyid` int default null,
+	`body` text )";
+*/	
+	$sSQL= "truncate table tmplabel";
 	$this->db->query($sSQL);
 
 	$address="'','','','','',''";
@@ -456,15 +470,73 @@ $sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
 			$indivbodysql .=",',',coalesce(" . $customfld['custom_Field'] . ",'')";
 			$familybodysql .=",',',coalesce(" . $customfld['custom_Field'] . ",'')";
 			$headersql.="," . $customfld['custom_Name'];
+
+			if(isset($custfld['custom_Value']))
+			{
+				$customwhere .= "x" . $customfld['custom_Value']; //$customfld['custom_Field'];
+// . "=" $customfld['custom_Value'];
+			}
 		}
 	}
-	
+
+	$customfieldcriterias=$labelcriteria->getVar('customcriteria');
+
+	if(!empty($customfieldcriterias))
+	{	
+		foreach($customfieldcriterias as $cfc)
+		{
+			if(isset($cfc['custom_Value']))
+			{
+				switch($cfc["type_ID"])
+				{
+				case "1": //True false
+					$customwhere .= "custom." . $cfc['custom_Field'] . "="; 
+					if($cfc['custom_Value']==1)
+					{
+						$customwhere .= $this->db->quoteString("true") . " and "; //$customfld['custom_Field'];
+					}
+					else
+					{
+						$customwhere .= $this->db->quoteString("false") . " and "; //$customfld['custom_Field'];
+					}
+// . "=" $customfld['custom_Value'];
+				break;
+
+				case "2": //Date
+					if($cfc["custom_Value"]!="")
+					{
+					$customwhere .= "custom." . $cfc['custom_Field'] . "="; 
+					$customwhere .= $this->db->quoteString($cfc['custom_Value']) . " and ";
+					}
+					break;
+						
+				case "3": //Text 50
+				case "4": //Text 100
+				case "5": //Text 200
+					$customwhere .= "custom." .$cfc['custom_Field'] . "="; 
+
+					$customwhere .= $this->db->quoteString($cfc['custom_Value']) . " and ";
+				break;
+				}
+
+			}
+		}
+	}
+
+	$customwhere=substr($customwhere,0,strlen($customwhere)-4);
+
+	if(strlen($customwhere)>0)
+	{
+		$customwhere= " and " . $customwhere;
+	}
+
 	$recipientplus.=",$cr";
 	$fambody.=",$cr";
 
-
-	$sSQL = "insert into tmplabel(person_id,familyid,recipient, sortMe,addressLabel, AddressLine1, AddressLine2, City, State, Zip, body) Select person.id,0,$sortMe,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid=0" . $sWhereExt;
+	$sSQL = "insert into tmplabel(person_id,familyid,recipient, sortMe,addressLabel, AddressLine1, AddressLine2, City, State, Zip, body) Select person.id,0,$sortMe,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid=0" . $sWhereExt . $customwhere;
 	
+//echo $sSQL;
+
 	$this->db->query($sSQL); 
 
 	$sortMe="familyname";	
@@ -492,7 +564,7 @@ $sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
 		
 		default:
 		
-		$sSQL = "insert into tmplabel(person_id,familyid, sortMe, addresslabel, AddressLine1, AddressLine2, City, State, Zip, body) Select person.id,0,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid!=0" . $sWhereExt;
+		$sSQL = "insert into tmplabel(person_id,familyid, sortMe, addresslabel, AddressLine1, AddressLine2, City, State, Zip, body) Select person.id,0,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid!=0" . $sWhereExt . $customwhere;
 		$this->db->query($sSQL); 
 		break;
 
