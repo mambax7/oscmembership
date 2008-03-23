@@ -216,8 +216,8 @@ else
 {
 //Create Dump file
 
-	header("Content-type: text/x-csv");
-	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
+//	header("Content-type: text/x-csv");
+//	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
 	
 		foreach($labels as $label)
 		{

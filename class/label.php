@@ -377,7 +377,7 @@ $sSQL= "CREATE TABLE `tmplabel` (
 	`body` text )";
 */
 
-/*$sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
+$sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
 	`person_id` int default NULL,	
 	`recipient` varchar(255) default NULL,
 	`AddressLine1` varchar(255) default NULL,
@@ -389,8 +389,8 @@ $sSQL= "CREATE TABLE `tmplabel` (
 	`sortme` varchar(255) default NULL,
 	`familyid` int default null,
 	`body` text )";
-*/	
-	$sSQL= "truncate table tmplabel";
+
+//	$sSQL= "truncate table tmplabel";
 	$this->db->query($sSQL);
 
 	$address="'','','','','',''";
