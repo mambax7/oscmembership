@@ -100,7 +100,8 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	$familyprefix="";
 
 	//$sSQL=" drop table `tmplabel`;
-	$sSQL= "CREATE temporary TABLE  `tmplabel` (
+//	$sSQL= "CREATE temporary TABLE  `tmplabel` (
+/*	$sSQL= "CREATE TABLE  `tmplabel` (
 	`person_id` int default null,	
 	`recipient` varchar(255) default NULL,
 	`AddressLine1` varchar(255) default NULL,
@@ -112,8 +113,8 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	`sortme` varchar(255) default NULL,
 	`familyid` int default null,
 	`body` text )";
-	
-//	$sSQL= "truncate table tmplabel";
+*/	
+	$sSQL= "truncate table tmplabel";
 	$this->db->query($sSQL);
 
 	$address="'','','','','',''";
@@ -193,7 +194,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	
 	
 	$sSQL="select person.* from " . $this->db->prefix("oscmembership_person") . " person join tmplabel t on person.famid = t.familyid where person.famid>0";
-	
+
 	$result=$this->db->query($sSQL);
 
 	$i=0;		
@@ -203,11 +204,12 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	{
 		if(isset($row))
 		{
-			if(! isset($families[$i]['label']))
-			$families[$i]['label']="";
+//			if(! isset($families[$i]['label']))
+//			$families[$i]['label']="";
 			$person = $persondetail_handler->create(true);  //only one record	
 			$person->assignVars($row);
-			$families[$i]['personid']=$person->getVar('id');
+			$i=$person->getVar('famid');
+//			$families[$i]['personid']=$person->getVar('id');
 			$families[$i]['familyid']=$person->getVar("famid");
 			$families[$i]['label'].=$person->getVar("lastname") . ", " . $person->getVar("firstname");
 			
@@ -219,14 +221,18 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	
 			$families[$i]['label'].="<br>";
 		}		
-		$i++;
+//		$i++;
 	}	
 	
 	foreach($families as $family)
 	{
-		$sSQL = "Update tmplabel set body=concat(body, '<br>" . $family['label'] . "'), person_id=" . $family['person_id'] . " where familyid=" . $family['familyid'];
+		$sSQL = "Update tmplabel set body=concat(body, '<br>" . $family['label'] . "'), person_id=0" . " where familyid=" . $family['familyid'];
 		$this->db->query($sSQL); 
+
+//echo $sSQL;
+
 	}
+
 	
 // $sSQL = "insert into tmplabel Select concat('$familyprefix', " . $famrecipient . ")," . $address . ", $sortMe, id, concat($fambody) from " . $this->db->prefix("oscmembership_family") ;
 

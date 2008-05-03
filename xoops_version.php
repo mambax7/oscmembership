@@ -1,12 +1,12 @@
 <?php
 $modversion['name'] = _oscmem_MOD_NAME;
-$modversion['version'] = "4.6";
+$modversion['version'] = "4.7";
 $modversion['description'] = _oscmem_MOD_DESC;
 $modversion['credits'] = "Open Source Church Project - http://sourceforge.net/osc";
 $modversion['author'] = "Steve McAtee";
 $modversion['help'] = "help.html";
 $modversion['license'] = "GPL see LICENSE";
-$modversion['official'] = "4.6";
+$modversion['official'] = "4.7";
 $modversion['image'] = "images/module_logo.png";
 $modversion['dirname'] = "oscmembership";
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
@@ -49,6 +49,7 @@ $modversion['templates'][11]['file']='familyselect.html';
 $modversion['templates'][11]['description']='family select template';
 $modversion['templates'][12]['file']='orphanselect.html';
 $modversion['templates'][12]['description']='orphan select template';
+
 
 $modversion['blocks'][1]['file'] = "oscmemnav.php";
 $modversion['blocks'][1]['name'] = 'OSC Navigation';

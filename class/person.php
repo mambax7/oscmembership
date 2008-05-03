@@ -528,7 +528,7 @@ function &search3($searcharray, $sort, $hasenvelope=null)
 		}
 		$oddon=false;
 
-		$loopcount = 0;
+		$loopcount = 1;
 
 		
 		$oddrow=false;
@@ -578,6 +578,11 @@ function &search3($searcharray, $sort, $hasenvelope=null)
 			$person->assignVar('totalloopcount',0);
 			$persons[0]=$person;
 		}
+	}
+	else
+	{
+	        $person= &$this->create(false);
+		$persons[0]=$person;
 	}
 			
 	return $persons;

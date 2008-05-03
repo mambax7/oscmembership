@@ -332,7 +332,14 @@ foreach($labels as $label)
 	$pdf->sRecordName = preg_replace("/\(0\/0\)/","",$label['recipient']);
 //	$pdf->sLastName = $pdf->sRecordName;
 
-	$body = $label['addresslabel'] . "\n" . $label['body'];		
+	if(isset($label['addresslabel']))
+	{
+		$body = $label['addresslabel'] . "\n" . $label['body'];
+	}
+	else
+	{
+		$body=$label['body'];
+	}		
 
 //echo $body;
 //Strip out empty lines
@@ -380,6 +387,7 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cachhe");
 $pdf->Output();	
+
 //exit;
 /*
 if ($iPDFOutputType == 1)
