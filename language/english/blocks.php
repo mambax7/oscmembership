@@ -7,6 +7,5 @@ define("_oscmembership_viewgroup_menu","Groups");
 define("_oscmem_view_cart_menu","View Cart");
 define("_oscmem_nav_reports_menu","Reports/Data");
 
-
 //
 ?>
