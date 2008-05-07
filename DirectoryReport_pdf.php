@@ -308,15 +308,19 @@ $churchdir->assignVar('church_phone',$sChurchPhone);
 $churchdir = $churchdir_handler->update($churchdir);
 */
 
-$labels=$label_handler->getlabels(false, false, $groups,"",$labelcritiera);
-
 $bDirUseTitlePage = isset($_POST["bDirUseTitlePage"]);
+
+$baltFamilyNamedupe = isset($_POST["baltFamilyNamedupe"]);
 
 $baltFamilyName = isset($_POST["baltFamilyName"]);
 $baltHeader = isset($_POST["baltHeader"]);
 
 $bSortFirstName=0;
 $bSortFirstName = isset($_POST["bSortFirstName"]);
+
+$labels=$label_handler->getlabels($bSortFirstName, $baltFamilyName, $groups,$baltFamilyName,$labelcritiera, $baltFamilyNamedupe);
+
+
 
 if($baltFamilyName)
 $baltHeader=true;

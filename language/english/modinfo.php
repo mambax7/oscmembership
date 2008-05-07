@@ -57,7 +57,8 @@ define("_oscmem_birthdayinstructions","&nbsp;&nbsp;Birthday Format (MM/DD/YYYY)"
 define("_oscmem_weddingdate","Wedding Date");
 
 define("_oscmem_familyname","Family Name");
-
+define("_oscmem_altfamilyname","Alternate Family Name");
+define("_oscmem_altfamilynamedupe","Create duplicate entry using Alternate Family Name");
 define("_oscmem_persondetail_TITLE","Person Detail Form");
 define("_oscmem_familydetail_TITLE","Family Detail Form");
 define("_oscmem_person_list","Person List");

@@ -39,6 +39,7 @@ class Family extends XoopsObject {
 	$this->initVar('id', XOBJ_DTYPE_TXTBOX);
 	$this->initVar('churchid', XOBJ_DTYPE_INT);
         $this->initVar('familyname', XOBJ_DTYPE_TXTBOX);
+        $this->initVar('altfamilyname', XOBJ_DTYPE_TXTBOX);
         $this->initVar('address1', XOBJ_DTYPE_TXTBOX);
         $this->initVar('address2', XOBJ_DTYPE_TXTBOX);
         $this->initVar('city', XOBJ_DTYPE_TXTBOX);
@@ -277,6 +278,8 @@ function &modsearch($searcharray)
 		$sql = "UPDATE " . $family->table
 		. " SET "		
 		. "familyname=" . $this->db->quoteString($family->getVar('familyname'))
+		. ",altfamilyname=" . 	
+		$this->db->quoteString($family->getVar('altfamilyname'))
 		. ",address1=" . 	
 		$this->db->quoteString($family->getVar('address1'))
 		. ",address2=" . 	
@@ -320,12 +323,14 @@ function &modsearch($searcharray)
 	{
 
 		$sql = "INSERT into " . $family->table
-		. "(familyname, address1, address2, city, state, zip, " 
+		. "(familyname, altfamilyname, address1, address2, city, state, zip, " 
 		. "country, homephone, workphone, cellphone, email, "
 		. "weddingdate,"
 		. "dateentered, datelastedited, editedby , enteredby, picloc) ";
 	
 		$sql = $sql . "values(" . $this->db->quoteString($family->getVar('familyname'))
+		. "," . 
+		$this->db->quoteString($family->getVar('altfamilyname'))
 		. "," . 
 		$this->db->quoteString($family->getVar('address1'))
 		. "," .

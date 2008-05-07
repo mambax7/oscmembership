@@ -85,6 +85,8 @@ $familydetail_handler = &xoops_getmodulehandler('family', 'oscmembership');
 
 	if(isset($_POST['familyname'])) $family->assignVar('familyname',$_POST['familyname']);
 	
+	if(isset($_POST['altfamilyname'])) $family->assignVar('altfamilyname',$_POST['altfamilyname']);
+
 	if(isset($_POST['address1']))
 	$family->assignVar('address1',$_POST['address1']);
 	
@@ -168,6 +170,8 @@ switch (true)
 
 $familyname_text = new XoopsFormText(_oscmem_familyname, "familyname", 30, 50, $family->getVar('familyname'));
 
+$altfamilyname_text = new XoopsFormText(_oscmem_altfamilyname, "altfamilyname", 30, 50, $family->getVar('altfamilyname'));
+
 $address1_text = new XoopsFormText(_oscmem_address, "address1", 30, 50, $family->getVar('address1'));
 $address2_text = new XoopsFormText('', "address2", 30, 50, $family->getVar('address2'));
 $city_text = new XoopsFormText(_oscmem_city, "city", 30, 50, $family->getVar('city'));
@@ -238,6 +242,7 @@ else $action="";
 
 $form = new XoopsThemeForm(_oscmem_familydetail_TITLE, "familydetailform", "familydetailform.php", "post", true);
 $form->addElement($familyname_text);
+$form->addElement($altfamilyname_text);
 $form->addElement($familypicture);
 $form->addElement($pictray);
 //$form->addElement($picloc2);

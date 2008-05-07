@@ -128,6 +128,10 @@ $information_tray2 = new XoopsFormElementTray(_oscmem_diroptions, '&nbsp;');
 
 $diraltFamilyName = new XoopsFormCheckBox("","baltFamilyName",0);
 $diraltFamilyName->addOption(0,_oscmem_altfamilyname);
+
+$diraltFamilyNamedupe = new XoopsFormCheckBox("","baltFamilyNamedupe",0);
+$diraltFamilyNamedupe->addOption(0,_oscmem_altfamilynamedupe);
+
 $diraltHeader = new XoopsFormCheckBox("","baltHeader",0);
 $diraltHeader->addOption(0,_oscmem_althead);
 
@@ -180,7 +184,7 @@ $form->addElement($dirPersonalEmail);
 $form->addElement($dirPersonalWorkEmail);
 $form->addElement($information_tray2);
 $form->addElement($diraltFamilyName);
-$form->addElement($diraltHeader);
+$form->addElement($diraltFamilyNamedupe);
 $form->addElement($information_tray3);
 $form->addElement($dirSortFirstName);
 
