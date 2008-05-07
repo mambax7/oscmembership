@@ -122,16 +122,6 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 //Build column clause
 	$familyprefix="";
 	$recipientplus="''";
-	if($baltFamilyName)
-	{
-		$famrecipient="altfamilyname";
-		$sortMe="altfamilyname";
-	}
-	else
-	{
-		$famrecipient="familyname";
-		$sortMe="familyname";
-	}
 //	echo $labelcriteria->getVar('bdiraddress');
 	
 	If($labelcriteria->getVar('bdiraddress'))
@@ -187,6 +177,17 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 
 	$sSQL = "insert into tmplabel(familyid) Select distinct fam.id from " . $this->db->prefix("oscmembership_family") . " fam , " . $this->db->prefix("oscmembership_person") . " person  " . $sGroupTable . " where person.famid>0 and  fam.id=person.famid " . $sWhereExt;
 	$this->db->query($sSQL); 
+
+	if($baltFamilyName)
+	{
+		$famrecipient="altfamilyname";
+		$sortMe="altfamilyname";
+	}
+	else
+	{
+		$famrecipient="familyname";
+		$sortMe="familyname";
+	}
 
 	$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " fam set recipient=concat('$familyprefix', " . $famrecipient . "), AddressLine1=fam.address1, AddressLine2=fam.address2, tmplabel.City=fam.city, tmplabel.state=fam.state, tmplabel.zip=fam.zip, sortme=$sortMe, body=concat($fambody) where tmplabel.familyid=fam.id";
 	$this->db->query($sSQL); 

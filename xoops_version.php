@@ -1,12 +1,12 @@
 <?php
 $modversion['name'] = _oscmem_MOD_NAME;
-$modversion['version'] = "5.0";
+$modversion['version'] = "5.1";
 $modversion['description'] = _oscmem_MOD_DESC;
 $modversion['credits'] = "Open Source Church Project - http://sourceforge.net/osc";
 $modversion['author'] = "Steve McAtee";
 $modversion['help'] = "help.html";
 $modversion['license'] = "GPL see LICENSE";
-$modversion['official'] = "5.0";
+$modversion['official'] = "5.1";
 $modversion['image'] = "images/module_logo.png";
 $modversion['dirname'] = "oscmembership";
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
