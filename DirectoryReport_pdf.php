@@ -224,6 +224,23 @@ class PDF_Directory extends FPDF {
 	}
 
 	// Number of lines is only for the $text parameter
+/* Old code
+	function Add_Record($sName, $text, $numlines)
+	{
+		$numlines++; // add an extra blank line after record
+		$this->Check_Lines($numlines);
+
+		$this->Print_Name($sName);
+
+		$_PosX = $this->_Margin_Left+($this->_Column*108);
+		$_PosY = $this->_Margin_Top+($this->_CurLine*5);
+		$this->SetXY($_PosX, $_PosY);
+		$this->MultiCell(108, 5, $text);
+		$this->_CurLine += $numlines;
+	}
+*/
+
+	// Number of lines is only for the $text parameter
 	function Add_Record($sName, $text, $numlines)
 	{
 		$numlines++; // add an extra blank line after record

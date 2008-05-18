@@ -141,6 +141,9 @@ switch (true)
 	while($row = $db->fetchArray($customFields)) 
 	{
 		if(isset($_POST[$row['custom_Field']])) $customfieldata_post.= $_POST[$row['custom_Field']] . ",";
+		else
+		$customfieldata_post.= "null,";
+		
 	}
 	
 	//Strip off end comma;
@@ -244,7 +247,16 @@ $birth_tray->addElement($birthday_text);
 $birth_tray->addElement($birthyear_text);
 $birth_tray->addElement($birthday_instructions);
 
-$membershipdate_dt= new XoopsFormTextDateSelect(_oscmem_membershipdate,'membershipdate', 15, $person->getVar('membershipdate'));
+//echo 'dadate' . date('Y m d',$person->getVar('membershipdate'));
+
+if($person->getVar('membershipdate')!="")
+	$membershipdate_int=strtotime($person->getVar('membershipdate'));
+else
+	$membershipdate_int=null;
+
+$membershipdate_dt= new XoopsFormTextDateSelect(_oscmem_membershipdate,'membershipdate', 15,  $membershipdate_int);
+
+
 	
 //$membershipdate_text = new XoopsFormText(_oscmem_membershipdate, "membershipdate", 30, 50, $person->getVar('membershipdate'));
 
@@ -410,7 +422,13 @@ while($row = $db->fetchArray($customFields))
 		}
 		break;
 	case "2": //Date
-		$form->addElement(new XoopsFormTextDateSelect($row["custom_Name"],$row["custom_Field"], 10,$customData[$i]));
+
+		if($customData[$i]!="")
+			$customdate_int=strtotime($customData[$i]);
+		else
+			$customdate_int=null;
+
+		$form->addElement(new XoopsFormTextDateSelect($row["custom_Name"],$row["custom_Field"], 10,$customdate_int));
 		break;
 			
 	case "3":
