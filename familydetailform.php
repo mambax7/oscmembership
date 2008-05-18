@@ -187,7 +187,12 @@ $cellphone_text = new XoopsFormText(_oscmem_cellphone, "cellphone", 30, 50, $fam
 
 $email_text = new XoopsFormText(_oscmem_email, "email", 30, 50, $family->getVar('email'));
 
-$weddingdate_dt= new XoopsFormTextDateSelect(_oscmem_weddingdate,'weddingdate', 15, $family->getVar('weddingdate'));
+if($family->getVar('weddingdate')!="")
+	$weddingdate_int=strtotime($family->getVar('weddingdate'));
+else
+	$weddingdate_int=null;
+
+$weddingdate_dt= new XoopsFormTextDateSelect(_oscmem_weddingdate,'weddingdate', 15, $weddingdate_int);
 
 $datelastedited_label = new XoopsFormLabel(_oscmem_datelastedited, $family->getVar('datelastedited'));
 
