@@ -252,6 +252,11 @@ class PDF_Directory extends FPDF {
 		$_PosY = $this->_Margin_Top+($this->_CurLine*5);
 		$this->SetXY($_PosX, $_PosY);
 		$this->MultiCell(108, 5, $text);
+		$dirimage="http://localhost/xoops2016/uploads/img472cbf2879daa.png";
+//		$this->Image($dirimage,$_PosX + 50, $_PosY,40,40);
+
+//function Image($file,$x,$y,$w,$h=0,$type='',$link='')
+
 		$this->_CurLine += $numlines;
 	}
 }
@@ -326,7 +331,7 @@ $churchdir = $churchdir_handler->update($churchdir);
 */
 
 $bDirUseTitlePage = isset($_POST["bDirUseTitlePage"]);
-
+$baltIndividualOnly = isset($_POST["baltIndividualOnly"]);
 $baltFamilyNamedupe = isset($_POST["baltFamilyNamedupe"]);
 
 $baltFamilyName = isset($_POST["baltFamilyName"]);
@@ -335,7 +340,7 @@ $baltHeader = isset($_POST["baltHeader"]);
 $bSortFirstName=0;
 $bSortFirstName = isset($_POST["bSortFirstName"]);
 
-$labels=$label_handler->getlabels($bSortFirstName, $baltFamilyName, $groups,$baltFamilyName,$labelcritiera, $baltFamilyNamedupe);
+$labels=$label_handler->getlabels($bSortFirstName, $baltFamilyName, $groups,$baltFamilyName,$labelcritiera, $baltFamilyNamedupe, $baltIndividualOnly);
 
 
 
@@ -408,6 +413,7 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cachhe");
 $pdf->Output();	
+
 //exit;
 /*
 if ($iPDFOutputType == 1)

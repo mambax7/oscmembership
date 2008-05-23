@@ -300,4 +300,6 @@ define("_oscmem_orphansmatched","The orphan(s) have been matched.");
 define("_oscmem_noorphans","No orphans found.");
 define("_oscmem_csvexport_title","Member Export");
 
+define("_oscmem_altindividualonly","Do not Print Families, Only Individuals");
+
 ?>

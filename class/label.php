@@ -66,7 +66,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
     }
 
 
-    function &getlabels($bSortFirstName, $baltFamilyName, $sGroupsList, $sDirClassifications,$labelcriteria, $baltFamilyNamedup)
+    function &getlabels($bSortFirstName, $baltFamilyName, $sGroupsList, $sDirClassifications,$labelcriteria, $baltFamilyNamedup, $baltIndividualOnly)
     {
 	$labels[]=array();
 	$i=0;
@@ -175,77 +175,90 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	$sSQL = "insert into tmplabel Select person.id, concat(lastname, ', ', firstname,$bdate)," . $address . ", $sortMe,0, concat($recipientplus) from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid=0" . $sWhereExt;
 	$this->db->query($sSQL); 
 
-	$sSQL = "insert into tmplabel(familyid) Select distinct fam.id from " . $this->db->prefix("oscmembership_family") . " fam , " . $this->db->prefix("oscmembership_person") . " person  " . $sGroupTable . " where person.famid>0 and  fam.id=person.famid " . $sWhereExt;
-	$this->db->query($sSQL); 
-
-	if($baltFamilyName)
+//echo $baltIndividualOnly;
+	if(($baltIndividualOnly)!=1)
 	{
-		$famrecipient="altfamilyname";
-		$sortMe="altfamilyname";
+		$sSQL = "insert into tmplabel(familyid) Select distinct fam.id from " . $this->db->prefix("oscmembership_family") . " fam , " . $this->db->prefix("oscmembership_person") . " person  " . $sGroupTable . " where person.famid>0 and  fam.id=person.famid " . $sWhereExt;
 	}
+	//Pull all family individuals
 	else
 	{
-		$famrecipient="familyname";
-		$sortMe="familyname";
+		$sSQL = "insert into tmplabel Select person.id, concat(lastname, ', ', firstname,$bdate)," . $address . ", $sortMe,0, concat($recipientplus) from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid<>0" . $sWhereExt;
 	}
-
-	$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " fam set recipient=concat('$familyprefix', " . $famrecipient . "), AddressLine1=fam.address1, AddressLine2=fam.address2, tmplabel.City=fam.city, tmplabel.state=fam.state, tmplabel.zip=fam.zip, sortme=$sortMe, body=concat($fambody) where tmplabel.familyid=fam.id";
 	$this->db->query($sSQL); 
 
-	if($baltFamilyNamedup)
+	if($baltIndividualOnly==0) //do not do if individual only
 	{
-		$sortMe='altfamilyname';
-
-		$sSQL = "insert into tmplabel(familyid) Select distinct fam.id from " . $this->db->prefix("oscmembership_family") . " fam , " . $this->db->prefix("oscmembership_person") . " person  " . $sGroupTable . " where person.famid>0 and  fam.id=person.famid and fam.altfamilyname is not null " . $sWhereExt;
-		$this->db->query($sSQL); 
-	
-		$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " fam set recipient=concat('$familyprefix', altfamilyname), AddressLine1=fam.address1, AddressLine2=fam.address2, tmplabel.City=fam.city, tmplabel.state=fam.state, tmplabel.zip=fam.zip, sortme=$sortMe, body=concat($fambody) where tmplabel.familyid=fam.id and recipient is null";
-		$this->db->query($sSQL); 
-	}
-
-		
-	$persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');    
-	$person = $persondetail_handler->create(true);  //only one record
-	
-	
-	$sSQL="select distinct person.* from " . $this->db->prefix("oscmembership_person") . " person join tmplabel t on person.famid = t.familyid where person.famid>0";
-
-	$result=$this->db->query($sSQL);
-
-	$i=0;		
-	$families=array();
-	
-	while($row = $this->db->fetchArray($result)) 
-	{
-		if(isset($row))
+		if($baltFamilyName)
 		{
-//			if(! isset($families[$i]['label']))
-//			$families[$i]['label']="";
-			$person = $persondetail_handler->create(true);  //only one record	
-			$person->assignVars($row);
-			$i=$person->getVar('famid');
-//			$families[$i]['personid']=$person->getVar('id');
-			$families[$i]['familyid']=$person->getVar("famid");
-			$families[$i]['label'].=$person->getVar("lastname") . ", " . $person->getVar("firstname");
-			
-			if($labelcriteria->getVar('bdirbirthday'))
-			{
-				if($person->getVar('birthmonth')<>0)
-				$families[$i]['label'].= " (" . $person->getVar('birthmonth') . "/" . $person->getVar('birthday') . ")";				
-			}
+			$famrecipient="altfamilyname";
+			$sortMe="altfamilyname";
+		}
+		else
+		{
+			$famrecipient="familyname";
+			$sortMe="familyname";
+		}
+
 	
-			$families[$i]['label'].="<br>";
-		}		
-//		$i++;
-	}	
-	
-	foreach($families as $family)
-	{
-		$sSQL = "Update tmplabel set body=concat(body, '<br>" . $family['label'] . "'), person_id=0" . " where familyid=" . $family['familyid'];
+		$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " fam set recipient=concat('$familyprefix', " . $famrecipient . "), AddressLine1=fam.address1, AddressLine2=fam.address2, tmplabel.City=fam.city, tmplabel.state=fam.state, tmplabel.zip=fam.zip, sortme=$sortMe, body=concat($fambody) where tmplabel.familyid=fam.id";
 		$this->db->query($sSQL); 
-
-//echo $sSQL;
-
+	
+		if($baltFamilyNamedup)
+		{
+			$sortMe='altfamilyname';
+	
+			$sSQL = "insert into tmplabel(familyid) Select distinct fam.id from " . $this->db->prefix("oscmembership_family") . " fam , " . $this->db->prefix("oscmembership_person") . " person  " . $sGroupTable . " where person.famid>0 and  fam.id=person.famid and fam.altfamilyname is not null " . $sWhereExt;
+			$this->db->query($sSQL); 
+		
+			$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " fam set recipient=concat('$familyprefix', altfamilyname), AddressLine1=fam.address1, AddressLine2=fam.address2, tmplabel.City=fam.city, tmplabel.state=fam.state, tmplabel.zip=fam.zip, sortme=$sortMe, body=concat($fambody) where tmplabel.familyid=fam.id and recipient is null";
+			$this->db->query($sSQL); 
+		}
+	
+			
+		$persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');    
+		$person = $persondetail_handler->create(true);  //only one record
+		
+		
+		$sSQL="select distinct person.* from " . $this->db->prefix("oscmembership_person") . " person join tmplabel t on person.famid = t.familyid where person.famid>0";
+	
+		$result=$this->db->query($sSQL);
+	
+		$i=0;		
+		$families=array();
+		
+		while($row = $this->db->fetchArray($result)) 
+		{
+			if(isset($row))
+			{
+	//			if(! isset($families[$i]['label']))
+	//			$families[$i]['label']="";
+				$person = $persondetail_handler->create(true);  //only one record	
+				$person->assignVars($row);
+				$i=$person->getVar('famid');
+	//			$families[$i]['personid']=$person->getVar('id');
+				$families[$i]['familyid']=$person->getVar("famid");
+				$families[$i]['label'].=$person->getVar("lastname") . ", " . $person->getVar("firstname");
+				
+				if($labelcriteria->getVar('bdirbirthday'))
+				{
+					if($person->getVar('birthmonth')<>0)
+					$families[$i]['label'].= " (" . $person->getVar('birthmonth') . "/" . $person->getVar('birthday') . ")";				
+				}
+		
+				$families[$i]['label'].="<br>";
+			}		
+	//		$i++;
+		}	
+		
+		foreach($families as $family)
+		{
+			$sSQL = "Update tmplabel set body=concat(body, '<br>" . $family['label'] . "'), person_id=0" . " where familyid=" . $family['familyid'];
+			$this->db->query($sSQL); 
+	
+	//echo $sSQL;
+	
+		}
 	}
 
 	
