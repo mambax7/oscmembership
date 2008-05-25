@@ -241,7 +241,7 @@ class PDF_Directory extends FPDF {
 */
 
 	// Number of lines is only for the $text parameter
-	function Add_Record($sName, $text, $numlines)
+	function Add_Record($sName, $text, $numlines, $picloc=null)
 	{
 		$numlines++; // add an extra blank line after record
 		$this->Check_Lines($numlines);
@@ -252,10 +252,17 @@ class PDF_Directory extends FPDF {
 		$_PosY = $this->_Margin_Top+($this->_CurLine*5);
 		$this->SetXY($_PosX, $_PosY);
 		$this->MultiCell(108, 5, $text);
-		$dirimage="http://localhost/xoops2016/uploads/img472cbf2879daa.png";
-//		$this->Image($dirimage,$_PosX + 50, $_PosY,40,40);
+
+		if(isset($picloc) && $picloc!="")
+		{
+			$this->Image($picloc,$_PosX + 55, $_PosY-5,22,22);
+		}
 
 //function Image($file,$x,$y,$w,$h=0,$type='',$link='')
+
+		$piclines=5;
+
+		if($numlines<$piclines) $numlines=($piclines-$numlines) + $numlines;
 
 		$this->_CurLine += $numlines;
 	}
@@ -401,19 +408,20 @@ foreach($labels as $label)
 			$sLastLetter = strtoupper(substr($pdf->sRecordName,0,1));
 			$pdf->Add_Header($sLastLetter);
 		}
+		$picloc=str_replace("[img]","",$label['picloc']);
+		$picloc=str_replace("[/img]","",$picloc);
+
 //		echo $body;
-		$pdf->Add_Record($pdf->sRecordName, $body, $numlines);  // 
+		$pdf->Add_Record($pdf->sRecordName, $body, $numlines, $picloc);  // 
 	}
 	
 }
-
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cachhe");
 $pdf->Output();	
-
 //exit;
 /*
 if ($iPDFOutputType == 1)

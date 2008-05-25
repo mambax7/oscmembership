@@ -48,6 +48,7 @@ class  Label extends XoopsObject {
 	$this->initVar('sortme',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('body',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('person_id',XOBJ_DTYPE_INT);
+	$this->initVar('picloc',XOBJ_DTYPE_TXTBOX);
     }
 }    
 
@@ -100,7 +101,8 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	$familyprefix="";
 
 //$sSQL=" drop table `tmplabel`;
-	$sSQL= "CREATE temporary TABLE  `tmplabel` (
+/*
+	$sSQL= "CREATE TABLE  `tmplabel` (
 	`person_id` int default null,	
 	`recipient` varchar(255) default NULL,
 	`AddressLine1` varchar(255) default NULL,
@@ -111,9 +113,10 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	`Zip` varchar(255) default NULL,
 	`sortme` varchar(255) default NULL,
 	`familyid` int default null,
-	`body` text )";
-
-//	$sSQL= "truncate table tmplabel";
+	`body` text,
+	`picloc` text )";
+*/
+	$sSQL= "truncate table tmplabel";
 	$this->db->query($sSQL);
 
 	$address="'','','','','',''";
@@ -172,7 +175,8 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	$fambody.=",$cr";
 	
 		
-	$sSQL = "insert into tmplabel Select person.id, concat(lastname, ', ', firstname,$bdate)," . $address . ", $sortMe,0, concat($recipientplus) from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid=0" . $sWhereExt;
+	$sSQL = "insert into tmplabel Select person.id, concat(lastname, ', ', firstname,$bdate)," . $address . ", $sortMe,0, concat($recipientplus), picloc from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid=0" . $sWhereExt;
+
 	$this->db->query($sSQL); 
 
 //echo $baltIndividualOnly;
@@ -183,7 +187,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	//Pull all family individuals
 	else
 	{
-		$sSQL = "insert into tmplabel Select person.id, concat(lastname, ', ', firstname,$bdate)," . $address . ", $sortMe,0, concat($recipientplus) from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid<>0" . $sWhereExt;
+		$sSQL = "insert into tmplabel Select person.id, concat(lastname, ', ', firstname,$bdate)," . $address . ", $sortMe,0, concat($recipientplus), picloc from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid<>0" . $sWhereExt;
 	}
 	$this->db->query($sSQL); 
 
@@ -300,6 +304,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 			$labels[$i]['country']=$label->getVar('country');
 			$labels[$i]['sortme']=$label->getVar('sortme');
 			$labels[$i]['body']=$label->getVar('body');
+			$labels[$i]['picloc']=$label->getVar('picloc');
 		}		
 	
 	//echo $labels[$i]['addresslabel'];	
