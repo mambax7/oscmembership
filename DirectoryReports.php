@@ -126,6 +126,9 @@ $information_tray = new XoopsFormElementTray(_oscmem_dirreport_infoinclude, '&nb
 
 $information_tray2 = new XoopsFormElementTray(_oscmem_diroptions, '&nbsp;');
 
+$dirIncludePictures = new XoopsFormCheckBox("","bIncludePictures",0);
+$dirIncludePictures->addOption(1,_oscmem_dirincludepictures);
+
 $diraltIndividualOnly = new XoopsFormCheckBox("","baltIndividualOnly",0);
 $diraltIndividualOnly->addOption(1,_oscmem_altindividualonly);
 
@@ -186,6 +189,7 @@ $form->addElement($dirPersonalCell);
 $form->addElement($dirPersonalEmail);
 $form->addElement($dirPersonalWorkEmail);
 $form->addElement($information_tray2);
+$form->addElement($dirIncludePictures);
 $form->addElement($diraltIndividualOnly);
 $form->addElement($diraltFamilyName);
 $form->addElement($diraltFamilyNamedupe);

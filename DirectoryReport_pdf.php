@@ -340,6 +340,7 @@ $churchdir = $churchdir_handler->update($churchdir);
 $bDirUseTitlePage = isset($_POST["bDirUseTitlePage"]);
 $baltIndividualOnly = isset($_POST["baltIndividualOnly"]);
 $baltFamilyNamedupe = isset($_POST["baltFamilyNamedupe"]);
+$bIncludePicture = isset($_POST["bIncludePictures"]);
 
 $baltFamilyName = isset($_POST["baltFamilyName"]);
 $baltHeader = isset($_POST["baltHeader"]);
@@ -408,8 +409,13 @@ foreach($labels as $label)
 			$sLastLetter = strtoupper(substr($pdf->sRecordName,0,1));
 			$pdf->Add_Header($sLastLetter);
 		}
-		$picloc=str_replace("[img]","",$label['picloc']);
-		$picloc=str_replace("[/img]","",$picloc);
+
+		if($bIncludePicture)
+		{
+			$picloc=str_replace("[img]","",$label['picloc']);
+			$picloc=str_replace("[/img]","",$picloc);
+		}
+		else $picloc=null;  //No Picture
 
 //		echo $body;
 		$pdf->Add_Record($pdf->sRecordName, $body, $numlines, $picloc);  // 
