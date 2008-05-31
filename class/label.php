@@ -205,7 +205,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 		}
 
 	
-		$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " fam set recipient=concat('$familyprefix', " . $famrecipient . "), AddressLine1=fam.address1, AddressLine2=fam.address2, tmplabel.City=fam.city, tmplabel.state=fam.state, tmplabel.zip=fam.zip, sortme=$sortMe, body=concat($fambody) where tmplabel.familyid=fam.id";
+		$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " fam set recipient=concat('$familyprefix', " . $famrecipient . "), AddressLine1=fam.address1, AddressLine2=fam.address2, tmplabel.City=fam.city, tmplabel.state=fam.state, tmplabel.zip=fam.zip, tmplabel.picloc=fam.picloc, sortme=$sortMe, body=concat($fambody) where tmplabel.familyid=fam.id";
 		$this->db->query($sSQL); 
 	
 		if($baltFamilyNamedup)
@@ -215,7 +215,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 			$sSQL = "insert into tmplabel(familyid) Select distinct fam.id from " . $this->db->prefix("oscmembership_family") . " fam , " . $this->db->prefix("oscmembership_person") . " person  " . $sGroupTable . " where person.famid>0 and  fam.id=person.famid and fam.altfamilyname is not null " . $sWhereExt;
 			$this->db->query($sSQL); 
 		
-			$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " fam set recipient=concat('$familyprefix', altfamilyname), AddressLine1=fam.address1, AddressLine2=fam.address2, tmplabel.City=fam.city, tmplabel.state=fam.state, tmplabel.zip=fam.zip, sortme=$sortMe, body=concat($fambody) where tmplabel.familyid=fam.id and recipient is null";
+			$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " fam set recipient=concat('$familyprefix', altfamilyname), AddressLine1=fam.address1, AddressLine2=fam.address2, tmplabel.City=fam.city, tmplabel.state=fam.state, tmplabel.zip=fam.zip, tmplabel.picloc=fam.picloc sortme=$sortMe, body=concat($fambody) where tmplabel.familyid=fam.id and recipient is null";
 			$this->db->query($sSQL); 
 		}
 	

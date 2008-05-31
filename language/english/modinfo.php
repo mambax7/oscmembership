@@ -302,4 +302,5 @@ define("_oscmem_csvexport_title","Member Export");
 
 define("_oscmem_altindividualonly","Do not Print Families, Only Individuals");
 
+define("_oscmem_dirincludepictures","Include Pictures in Directory");
 ?>
