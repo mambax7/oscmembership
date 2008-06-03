@@ -255,7 +255,9 @@ class PDF_Directory extends FPDF {
 
 		if(isset($picloc) && $picloc!="")
 		{
-			$this->Image($picloc,$_PosX + 55, $_PosY-5,22,22);
+			//strip uploads location
+			$pic=XOOPS_ROOT_PATH . "/uploads/" . basename($picloc);
+			$this->Image($pic,$_PosX + 55, $_PosY-5,22,22);
 		}
 
 //function Image($file,$x,$y,$w,$h=0,$type='',$link='')
@@ -422,6 +424,7 @@ foreach($labels as $label)
 	}
 	
 }
+
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate");
