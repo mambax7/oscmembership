@@ -142,6 +142,7 @@ define("_oscmem_directoryreport","Membership Directory");
 define("_oscmem_reports", "Reports");
 define("_oscmem_nav_reports","Reports/Data");
 define("_oscmem_csvimport_individual","CSV Import Individuals");
+define("_oscmem_vcardimport_individual","VCard Import Individuals");
 
 define("_oscmem_dirreport_selectclass","Select classifications to include:");
 define("_oscmem_usectl","Use Ctrl Key to select multiple");
@@ -303,4 +304,6 @@ define("_oscmem_csvexport_title","Member Export");
 define("_oscmem_altindividualonly","Do not Print Families, Only Individuals");
 
 define("_oscmem_dirincludepictures","Include Pictures in Directory");
+
+define("_oscmem_vcardimport_step1","Import VCard &nbsp;&nbsp;Step 1&nbsp;-&nbsp;<font color=lightgray>Step 2</font>");
 ?>
