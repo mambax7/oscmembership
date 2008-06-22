@@ -71,9 +71,6 @@ $persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');
 
 $person=$_POST['person_hidden'];
 
-var_dump($person);
-
-
 $person=$persondetail_handler->create();
 if(isset($personid) && is_numeric($personid)) 
 {
