@@ -49,6 +49,7 @@ if (!$xoopsUser)
     redirect_header(XOOPS_URL."/user.php", 3, _oscmem_accessdenied);
 }
 
+if(!hasPerm("oscmembership_view",$xoopsUser))     redirect_header(XOOPS_URL, 3, _oscmem_accessdenied);
 
 $personid = (isset($_GET['id'])) ? intval($_GET['id']) : 0;
 
@@ -199,17 +200,16 @@ $envelope_label=new XoopsFormLabel(_oscmem_envelopenumber,$person->getVar('envel
 
 $id_hidden = new XoopsFormHidden("id",$person->getVar('id'));
 
-$op_hidden = new XoopsFormHidden("op", "save");  //save operation
 $submit_button = new XoopsFormButton("", "persondetailsubmit", _osc_save, "submit");
 $action="";
 
-if($action=="create")
-{
-	$op_hidden = new XoopsFormHidden("op", "create");  //save operation
-	$submit_button = new XoopsFormButton("", "persondetailsubmit", _osc_create, "submit");
-}
+//$form = new XoopsThemeForm(_oscmem_persondetail_TITLE, "persondetailform", "persondetailform.php", "post", true);
+$form = new XoopsThemeForm(_oscmem_persondetail_TITLE, "persondetailform", "vcardexport.php", "post", true);
 
-$form = new XoopsThemeForm(_oscmem_persondetail_TITLE, "persondetailform", "persondetailform.php", "post", true);
+$vcard_button = new XoopsFormButton("", "personviewsubmit", _oscmem_createvcard, "submit");
+
+$form->addElement($vcard_button);
+
 $form->addElement($firstname_text);
 $form->addElement($lastname_text);
 $form->addElement($personpicture);
@@ -238,14 +238,9 @@ $form->addElement($enteredby_label);
 $form->addElement($envelope_label);
 
 
-$form->addElement($op_hidden);
 $form->addElement($id_hidden);
 
 //Upload stuff
-
-//$form->addElement($submit_button);
-
-//$form->addElement($customfields);
 
 
 //Retrieve custom fields

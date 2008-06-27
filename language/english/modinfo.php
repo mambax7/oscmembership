@@ -307,4 +307,7 @@ define("_oscmem_dirincludepictures","Include Pictures in Directory");
 
 define("_oscmem_vcardimport_step1","Import VCard &nbsp;&nbsp;Step 1&nbsp;-&nbsp;<font color=lightgray>Step 2</font>");
 define("_oscmem_vcardimport_step2","Import VCard &nbsp;<font color=lightgray>Step 1</font>&nbsp;-&nbsp;Step2");
+
+define("_oscmem_csv_exporttovcard","Export to VCard");
+define("_oscmem_createvcard","Create VCard");
 ?>

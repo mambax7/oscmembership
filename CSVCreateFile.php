@@ -39,6 +39,8 @@ require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/incl
 
 require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php";
 
+require_once 'Contact_Vcard_Build.php';   //PEAR MODULE
+
 if (file_exists(XOOPS_ROOT_PATH. "/modules/" . 	$xoopsModule->getVar('dirname') .  "/language/" . $xoopsConfig['language'] . "/modinfo.php")) 
 {
     include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/language/" . $xoopsConfig['language'] . "/modinfo.php";
@@ -202,7 +204,9 @@ else
 	$labels=$label_handler->getexport(false, false, $groups,$labelcritiera);
 }
 
-if($outputmethod==_oscmem_csv_addtocart)
+switch($outputmethod)
+{
+case _oscmem_csv_addtocart:
 {
 	//Add labels to cart
 	foreach($labels as $label)
@@ -212,21 +216,63 @@ if($outputmethod==_oscmem_csv_addtocart)
 	redirect_header("index.php", 3, _oscmem_addedtocart);
 
 }
-else
+case _oscmem_csv_individual:
 {
-//Create Dump file
+	header("Content-type: text/x-csv");
+	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
 
-//	header("Content-type: text/x-csv");
-//	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
-	
 		foreach($labels as $label)
 		{
 			echo $label['body'] . chr(10) . chr(13);
 		}
 
-}
-
 // Turn OFF output buffering
-//ob_end_flush();
+ob_end_flush();
+
+}
+case _oscmem_csv_exporttovcard:
+{
+	header("Content-type: text/x-vcard");
+	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".vcf");
+
+
+
+	foreach($labels as $label)
+	{
+		if(isset($label["person_id"]))
+		{
+
+			$vcard =& new Contact_Vcard_Build();
+
+			$person=$persondetail_handler->get($label["person_id"]);
+			$vcard->setName($person->getVar("lastname"),$person->getVar("firstname"),"","","");
+			$vcard->setFormattedName($label["recipient"]);
+	
+			$vcard->addEmail($person->getVar("email"));
+			$vcard->addTelephone($person->getVar("homephone"));
+			$workphone=$person->getVar("workphone");
+			if($workphone!="")
+				$vcard->addTelephone($workphone);
+
+
+			$pob="";
+			$extend="";
+			$street=$person->getVar("address1");
+			$locality=$person->getVar("city");
+			$region=$person->getVar("state");
+			$country=$person->getVar("country");
+			$postcode=$person->getVar("zip");
+
+			$vcard->addAddress($pob, $extend,$street,$locality, $region, $postcode, $country);
+
+			$text=$vcard->fetch();
+			
+			echo $text;
+		}
+	}
+
+	ob_end_flush();
+}
+}
 
 ?>

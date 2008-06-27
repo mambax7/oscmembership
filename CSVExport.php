@@ -312,6 +312,7 @@ $outputmethod = new XoopsFormSelect(_oscmem_csv_outputmethod,'soutputmethod',"",
 $outputmethod->addOption(_oscmem_csv_individual, _oscmem_csv_individual);
 $outputmethod->addOption(_oscmem_csv_combinefamily, _oscmem_csv_combinefamily);
 $outputmethod->addOption(_oscmem_csv_addtocart,_oscmem_csv_addtocart);
+$outputmethod->addOption(_oscmem_csv_exporttovcard,_oscmem_csv_exporttovcard);
 
 $xoopsTpl->assign('oscmem_csv_outputmethod',_oscmem_csv_outputmethod);
 $xoopsTpl->assign('outputmethod',$outputmethod->render());
