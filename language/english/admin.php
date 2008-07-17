@@ -2,6 +2,7 @@
 define("_oscmembership_ADMINTITLE","OSC Membership - Admin");
 //
 
+
 //
 define("_oscmembership_DB_CREATED","Table created!");
 /* FILEMANAGEMENT*/
