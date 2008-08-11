@@ -49,6 +49,18 @@ class  Label extends XoopsObject {
 	$this->initVar('body',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('person_id',XOBJ_DTYPE_INT);
 	$this->initVar('picloc',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('homephone',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('workphone',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('cellphone',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('email',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('workemail',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('birthday',XOBJ_DTYPE_TXTBOX);
+	$this->initvar('birthmonth',XOBJ_DTYPE_TXTBOX);
+	$this->initvar('birthyear',XOBJ_DTYPE_TXTBOX);
+	$this->initvar('membershipdate',XOBJ_DTYPE_TXTBOX);
+	$this->initvar('gender',XOBJ_DTYPE_TXTBOX);
+
+
     }
 }    
 
@@ -415,8 +427,11 @@ $sSQL= "CREATE TABLE `tmplabel` (
 	`body` text )";
 */
 
-$sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
-	`person_id` int default NULL,	
+/*
+$sSQL= "CREATE  TABLE `tmplabel` (
+	`person_id` int default NULL,
+	`lastname` varchar(255) default NULL,
+	`firstname` varchar(255) default NULL,
 	`recipient` varchar(255) default NULL,
 	`AddressLine1` varchar(255) default NULL,
 	`AddressLine2` varchar(255) default NULL,
@@ -426,9 +441,20 @@ $sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
 	`Zip` varchar(255) default NULL,
 	`sortme` varchar(255) default NULL,
 	`familyid` int default null,
+  `homephone` varchar(30) default NULL,
+  `workphone` varchar(30) default NULL,
+  `cellphone` varchar(30) default NULL,
+  `email` varchar(50) default NULL,
+  `workemail` varchar(50) default NULL,
+  `birthday` tinyint(3) unsigned NOT NULL default '0',
+  `birthmonth` tinyint(3) unsigned NOT NULL default '0',
+  `birthyear` year(4) default NULL,
+  `membershipdate` date default NULL,
+  `gender` tinyint(1) unsigned NOT NULL default '0',
 	`body` text )";
 
-//	$sSQL= "truncate table tmplabel";
+*/
+	$sSQL= "truncate table tmplabel";
 	$this->db->query($sSQL);
 
 	$address="'','','','','',''";
@@ -571,7 +597,9 @@ $sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
 	$recipientplus.=",$cr";
 	$fambody.=",$cr";
 
-	$sSQL = "insert into tmplabel(person_id,familyid,recipient, sortMe,addressLabel, AddressLine1, AddressLine2, City, State, Zip, body) Select person.id,0,$sortMe,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid=0" . $sWhereExt . $customwhere;
+
+
+	$sSQL = "insert into tmplabel(person_id,lastname, firstname,familyid,recipient, sortMe,addressLabel, AddressLine1, AddressLine2, City, State, Zip, homephone,workphone,cellphone,email,workemail,birthday,birthmonth,birthyear,membershipdate,gender, body) Select person.id,lastname,firstname,0,$sortMe,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, person.homephone,person.workphone,person.cellphone,person.email, person.workemail,person.birthday, person.birthmonth, person.birthyear, person.membershipdate, person.gender, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid=0" . $sWhereExt . $customwhere;
 	
 //echo $sSQL;
 
@@ -624,7 +652,14 @@ $sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
 		
 	$i=0;
 	$label=new Label();
-	$labels[$i]['body']=$headersql;
+	$labels[$i]['lastname']='lastname';
+	$labels[$i]['firstname']='firstname';
+	$labels[$i]['person_id']='person_id';
+	$labels[$i]['address1']='address1';
+
+
+//add if individual output, not spreadsheet
+//	$labels[$i]['body']=$headersql;
 	$i++;
 	
 	while($row = $this->db->fetchArray($result)) 
@@ -644,8 +679,9 @@ $sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
 				$labels[$i]['addresslabel'].= "\n" . $label->getVar('AddressLine2');
 				$labels[$i]['addresslabel'].= "\n" . $label->getVar('City') . ", " . $label->getVar('State') . "  " . $label->getVar('Zip');
 			}
-
 			$labels[$i]['person_id']=$label->getVar('person_id');
+
+			$labels[$i]['lastname']=$label->getVar('lastname');
 			$labels[$i]['address1']=$label->getVar('AddressLine1');
 			$labels[$i]['address2']=$label->getVar('AddressLine2');
 			$labels[$i]['city']=$label->getVar('City');
@@ -653,13 +689,24 @@ $sSQL= "CREATE TEMPORARY TABLE `tmplabel` (
 			$labels[$i]['zip']=$label->getVar('Zip');
 			$labels[$i]['country']=$label->getVar('country');
 			$labels[$i]['sortme']=$label->getVar('sortme');
-			$labels[$i]['body']=$label->getVar('body');
+//add if not spreadsheet output
+			//$labels[$i]['body']=$label->getVar('body');
+
+			$labels[$i]['homephone']=$label->getVar('homephone');
+			$labels[$i]['workphone']=$label->getVar('workphone');
+			$labels[$i]['cellphone']=$label->getVar('cellphone');
+			$labels[$i]['email']=$label->getVar('email');
+			$labels[$i]['workemail']=$label->getVar('workemail');
+			$labels[$i]['birthday']=$label->getVar('birthday');
+			$labels[$i]['birthmonth']=$label->getVar('birthmonth');
+			$labels[$i]['birthyear']=$label->getVar('birthyear');
+			$labels[$i]['membershipdate']=$label->getVar('membershipdate');
+			$labels[$i]['gender']=$label->getVar('gender');
 		}		
 	
 		//echo $labels[$i]['addresslabel'];	
 		$i++;	
 	}
-
 
 
  	return $labels;   
@@ -718,6 +765,16 @@ $sSQL= "CREATE temporary TABLE `tmplabel` (
 	`Zip` varchar(255) default NULL,
 	`sortme` varchar(255) default NULL,
 	`familyid` int default null,
+  `homephone` varchar(30) default NULL,
+  `workphone` varchar(30) default NULL,
+  `cellphone` varchar(30) default NULL,
+  `email` varchar(50) default NULL,
+  `workemail` varchar(50) default NULL,
+  `birthday` tinyint(3) unsigned NOT NULL default '0',
+  `birthmonth` tinyint(3) unsigned NOT NULL default '0',
+  `birthyear` year(4) default NULL,
+  `membershipdate` date default NULL,
+  `gender` tinyint(1) unsigned NOT NULL default '0',
 	`body` text )";
 //	$sSQL= "truncate table tmplabel";
 	$this->db->query($sSQL);

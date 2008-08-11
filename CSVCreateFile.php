@@ -130,15 +130,15 @@ $labelcritiera->assignVar('customcriteria',$critarr);
 $labelcritiera->assignVar('bdiraddress',isset($_POST["baddress"]));
 $labelcritiera->assignVar('bdirwedding',isset($_POST["bagemarried"]));
 $labelcritiera->assignVar('bdirbirthday',isset($_POST["bbirthanniversary"]));
-$labelcritiera->assignVar('bdirfamilyphone',isset($_POST["bhomephone"]));
-$labelcritiera->assignVar('bdirfamilywork',isset($_POST["bworkphone"]));
-$labelcritiera->assignVar('bdirfamilycell',isset($_POST["bcellphone"]));
+$labelcritiera->assignVar('bdirfamilyphone',isset($_POST["bphone"]));
+$labelcritiera->assignVar('bdirfamilywork',isset($_POST["bphone"]));
+$labelcritiera->assignVar('bdirfamilycell',isset($_POST["bphone"]));
 $labelcritiera->assignVar('bdirfamilyemail',isset($_POST["bemail"]));
-$labelcritiera->assignVar('bdirpersonalphone',isset($_POST["bhomephone"]));
-$labelcritiera->assignVar('bdirpersonalwork',isset($_POST["bworkphone"]));
-$labelcritiera->assignVar('bdirpersonalcell',isset($_POST["bcellphone"]));
+$labelcritiera->assignVar('bdirpersonalphone',isset($_POST["bphone"]));
+$labelcritiera->assignVar('bdirpersonalwork',isset($_POST["bphone"]));
+$labelcritiera->assignVar('bdirpersonalcell',isset($_POST["bphone"]));
 $labelcritiera->assignVar('bdirpersonalemail',isset($_POST["bemail"]));
-$labelcritiera->assignVar('bdirpersonalworkemail',isset($_POST["otheremail"]));
+$labelcritiera->assignVar('bdirpersonalworkemail',isset($_POST["bemail"]));
 
 $labelcritiera->assignVar('bincompleteaddress',isset($_POST["bincompleteaddress"]));
 
@@ -214,6 +214,8 @@ case _oscmem_csv_addtocart:
 		$persondetail_handler->addtoCart($label["person_id"],$xoopsuid);
 	}
 	redirect_header("index.php", 3, _oscmem_addedtocart);
+	
+	break;
 
 }
 case _oscmem_csv_individual:
@@ -221,15 +223,35 @@ case _oscmem_csv_individual:
 	header("Content-type: text/x-csv");
 	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
 
-		foreach($labels as $label)
-		{
-			echo $label['body'] . chr(10) . chr(13);
-		}
+	foreach($labels as $label)
+	{
+		echo $label['body'] . chr(10) . chr(13);
+	}
 
-// Turn OFF output buffering
-ob_end_flush();
+	// Turn OFF output buffering
+	ob_end_flush();
+	break;
 
 }
+
+case _oscmem_csv_spreadsheet:
+{
+//	header("Content-type: text/x-csv");
+//	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
+	foreach($labels as $label)
+
+
+	{
+echo "row";
+		echo   "'" . implode("','",$label) . "'";
+	}
+
+	// Turn OFF output buffering
+	ob_end_flush();
+	break;
+
+}
+
 case _oscmem_csv_exporttovcard:
 {
 	header("Content-type: text/x-vcard");
@@ -272,6 +294,9 @@ case _oscmem_csv_exporttovcard:
 	}
 
 	ob_end_flush();
+
+	break;
+
 }
 }
 
