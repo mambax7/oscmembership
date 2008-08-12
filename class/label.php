@@ -330,7 +330,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
     
     function &getexport($bSortFirstName, $baltFamilyName, $sGroupsList, $labelcriteria)
     {
-	$labels[]=array();
+	$labels=array();
     
 	$i=0;
 
@@ -651,12 +651,33 @@ $sSQL= "CREATE  TABLE `tmplabel` (
 	$result=$this->db->query($sSQL);
 		
 	$i=0;
-	$label=new Label();
+
+/*
 	$labels[$i]['lastname']='lastname';
 	$labels[$i]['firstname']='firstname';
 	$labels[$i]['person_id']='person_id';
+	$labels[$i]['addresslabel']="addresslabel";
 	$labels[$i]['address1']='address1';
+	$labels[$i]['address2']="address2";
+	$labels[$i]['city']="city";
+	$labels[$i]['state']="state";
+	$labels[$i]['zip']="zip";
+	$labels[$i]['country']="country";
+	$labels[$i]['sortme']="sortme";
 
+	$labels[$i]['homephone']="homephone";
+	$labels[$i]['workphone']="workphone";
+	$labels[$i]['cellphone']="cellphone";
+	$labels[$i]['email']="email";
+	$labels[$i]['workemail']="workemail";
+	$labels[$i]['birthday']="birthday";
+	$labels[$i]['birthmonth']="birthmonth";
+	$labels[$i]['birthyear']="birthyear";
+	$labels[$i]['membershipdate']="membershipdate";
+	$labels[$i]['gender']="gender";
+	$labels[$i]['recipient']="recipient";
+*/
+//a
 
 //add if individual output, not spreadsheet
 //	$labels[$i]['body']=$headersql;
@@ -666,7 +687,15 @@ $sSQL= "CREATE  TABLE `tmplabel` (
 	{
 		if(isset($row))
 		{
+			$label=&$this->create(false);
 			$label->assignVars($row);
+
+			$labels[$i]=$label;
+/*
+
+			$labels[$i]['lastname']=$label->getVar('lastname');
+			$labels[$i]['firstname']=$label->getVar('firstname');
+			$labels[$i]['person_id']=$label->getVar('person_id');
 			$labels[$i]['recipient']=$label->getVar('recipient');
 			//echo $labelcriteria->getVar('bdiraddress');
 			
@@ -679,9 +708,8 @@ $sSQL= "CREATE  TABLE `tmplabel` (
 				$labels[$i]['addresslabel'].= "\n" . $label->getVar('AddressLine2');
 				$labels[$i]['addresslabel'].= "\n" . $label->getVar('City') . ", " . $label->getVar('State') . "  " . $label->getVar('Zip');
 			}
-			$labels[$i]['person_id']=$label->getVar('person_id');
+			else $labels[$i]['addresslabel']="";
 
-			$labels[$i]['lastname']=$label->getVar('lastname');
 			$labels[$i]['address1']=$label->getVar('AddressLine1');
 			$labels[$i]['address2']=$label->getVar('AddressLine2');
 			$labels[$i]['city']=$label->getVar('City');
@@ -702,6 +730,7 @@ $sSQL= "CREATE  TABLE `tmplabel` (
 			$labels[$i]['birthyear']=$label->getVar('birthyear');
 			$labels[$i]['membershipdate']=$label->getVar('membershipdate');
 			$labels[$i]['gender']=$label->getVar('gender');
+*/
 		}		
 	
 		//echo $labels[$i]['addresslabel'];	

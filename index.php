@@ -15,6 +15,12 @@ include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/person.php';
 include_once XOOPS_ROOT_PATH . '/modules/oscmembership/include/functions.php';
 
+if (file_exists("language/".$xoopsConfig['language']."/modinfo.php")) {
+	include("language/".$xoopsConfig['language']."/modinfo.php");
+} else {
+	include("language/english/modinfo.php");
+}
+
 
 include(XOOPS_ROOT_PATH."/header.php");
 
