@@ -236,40 +236,29 @@ case _oscmem_csv_individual:
 
 case _oscmem_csv_spreadsheet:
 {
-//	header("Content-type: text/x-csv");
-//	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
+	header("Content-type: text/x-csv");
+	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
 
 	//Pull out header
-
-	$l=new Label();
-
-	$vars2=$l->getValues();
-	foreach($vars2 as $key => $value)
-	{
-		echo $key . " ";
-	}
-
 	$vars=$labels[1]->getValues();
 	echo "'";
 	foreach ($vars as $key => $value)
 	{
 		echo $key . "','";
 	}
-	echo "<br>";
+	echo "'" . chr(13);
 //loop thru everything
 	reset($labels);
 	foreach($labels as $label)
 	{
+		echo "'";
 		$vars=$label->getValues();
 		foreach($vars as $key => $value)
 		{
 			echo $value . "','";
 		}
-		echo "<br>";
+		echo "'" .  chr(13);
 
-//			$testlabel->assignVars($label);
-//echo implode("','",$testlabel);
-//		echo   "'" . implode("','",$label) . "'" . chr(13);
 	}
 	// Turn OFF output buffering
 	ob_end_flush();
