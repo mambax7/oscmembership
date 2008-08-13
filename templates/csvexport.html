@@ -9,34 +9,19 @@
 <tr  valign='top' height=60 align='left'><th><{$oscmem_cvsexport_infoinclude}>
 </th></tr>
 <tr><TD>&nbsp;</TD></tr>
-<tr class="even" valign='top' align='left'><td><input type='checkbox' id='bmembername' name='bmembername' value='0' checked='checked' /><{$oscmem_membername}>
-</td></tr>
-<tr class="odd" valign='top' align='left'><td><input type='checkbox' id='baddress' name='baddress' value='0' checked='checked' /><{$oscmem_address}>
-</td></tr>
-<tr class="even" valign='top' align='left'><td><input type='checkbox' id='bphone' name='bphone' value='0' checked='checked'/>
-<{$oscmem_phone}>
-</td></tr>
-<tr class="odd" valign='top' align='left'><td><input type='checkbox' id='bemail' name='bemail' value='0' checked='checked' />
-<{$oscmem_email}>
-</td></tr>
-<tr class="even" valign='top' align='left'><td><input type='checkbox' id='benvelope' name='benvelope' value='0' checked='checked' />
-<{$oscmem_envelopenumber}>
-</td></tr>
-<tr class="odd" valign='top' align='left'><td><input type='checkbox' id='bmembershipdate' name='bmembershipdate' value='0' checked='checked' />
-<{$oscmem_membershipdate}>
-</td></tr>
-<tr class="even" valign='top' align='left'><td><input type='checkbox' id='bbirthanniversary' name='bbirthanniversary' value='0' checked='checked' />
-<{$oscmem_csv_birthanniversary}>
-</td></tr>
-<tr class="odd" valign='top' align='left'><td><input type='checkbox' id='bagemarried' name='bagemarried' value='0' checked='checked' />
-<{$oscmem_csv_ageyearsmarried}>
-</td></tr>
-<tr class="even" valign='top' align='left'><td><input type='checkbox' id='bfamilyrole' name='bfamilyrole' value='0' checked='checked' />
-<{$oscmem_csv_familyrole}>
-</td></tr>
-<tr class="odd" valign='top' align='left'><td><input type='checkbox' id='bfamilyname' name='bfamilyname' value='0' checked='checked' />
-<{$oscmem_csv_familyname}>
-</td></tr>
+<{foreach item=standardfield from=$standardfieldarr}>
+<{ if $standardfield.odd == true }>
+<tr class="odd" valign="top" align="left">
+<{/if}>
+<{ if $standardfield.odd == false }>
+<tr class="even" valign="top" align="left">
+<{/if}>
+<td ><input type="checkbox" id="<{$standardfield.id}>" name="<{$standardfield.name}>" value="<{$standardfield.value}>" checked="true"/>
+<{$standardfield.field_name}>
+</td>
+</tr>
+<{/foreach}>
+
 </table>
 </td>
 <td valign="top">

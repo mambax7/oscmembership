@@ -41,6 +41,7 @@ include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/incl
 require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/class_fpdf_labels.php";
 
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/person.php';
+include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/label.php';
 
 if(!hasPerm("oscmembership_modify",$xoopsUser)) exit(_oscmem_access_denied);
 
@@ -108,18 +109,6 @@ if(isset($groups[0]['id']))
 	}
 }
 
-$xoopsTpl->assign('title',_oscmem_csvexport_title);
-$xoopsTpl->assign('oscmem_lastname',_oscmem_lastname);
-$xoopsTpl->assign('oscmem_membername',_oscmem_name);
-$xoopsTpl->assign('oscmem_address',_oscmem_address);
-$xoopsTpl->assign('oscmem_phone',_oscmem_phone);
-$xoopsTpl->assign('oscmem_email',_oscmem_email);
-$xoopsTpl->assign('oscmem_envelopenumber',_oscmem_envelopenumber);
-$xoopsTpl->assign('oscmem_membershipdate',_oscmem_membershipdate);
-$xoopsTpl->assign('oscmem_csv_birthanniversary',_oscmem_csv_birthanniversary);
-$xoopsTpl->assign('oscmem_csv_ageyearsmarried',_oscmem_csv_ageyearsmarried);
-$xoopsTpl->assign('oscmem_csv_familyrole',_oscmem_csv_familyrole);
-$xoopsTpl->assign('oscmem_csv_familyname',_oscmem_csv_familyname);
 $xoopsTpl->assign('oscmem_csv_ministry',_oscmem_csv_ministry);
 $xoopsTpl->assign('oscmem_cvsexport_infoinclude',_oscmem_cvsexport_infoinclude);
 
@@ -193,7 +182,32 @@ while($row = $db->fetchArray($customFields))
 }
 
 
+$standfieldarr=array();
+$i=0;
+$label=new Label();
 
+$vars=$label->getVars();
+
+foreach($vars as $key => $value)
+{
+	if($key!="body")
+	{
+		$standfieldarr[$i]["id"]=$i;
+		$standfieldarr[$i]["name"]=$key;
+		$standfieldarr[$i]["value"]=0;
+		$standfieldarr[$i]["field_name"]=$key;
+		$standfieldarr[$i]["odd"]=$oddon;
+	
+		if($oddon){ $oddon=false; }
+		else { $oddon=true; } 
+	
+		$i++;
+	}
+
+}
+
+
+$xoopsTpl->assign('standardfieldarr',$standfieldarr);
 $xoopsTpl->assign('custfieldarr',$custfieldarr);
 $xoopsTpl->assign('oscmem_recordstoexport',_oscmem_recordstoexport);
 $xoopsTpl->assign('oscmem_fromfilterbelow',_oscmem_fromfilterbelow);

@@ -118,6 +118,23 @@ while($row = $db->fetchArray($customFields))
 $label_handler = &xoops_getmodulehandler('label', 'oscmembership');
 $labelcritiera_handler = &xoops_getmodulehandler('labelcriteria', 'oscmembership');
 
+//determine what sql fields are requested
+$label=new Label();
+$vars=$label->getVars();
+$includestring="";
+foreach($vars as $key => $value)
+{
+	if($key!="body")
+	{
+		if(isset($_POST[$key]))
+		{
+			$includestring.=$key . ",";
+		}
+	}
+
+}
+
+
 
 $labelcritiera=$labelcritiera_handler->create();
 
@@ -218,6 +235,7 @@ case _oscmem_csv_addtocart:
 	break;
 
 }
+/*
 case _oscmem_csv_individual:
 {
 	header("Content-type: text/x-csv");
@@ -233,18 +251,21 @@ case _oscmem_csv_individual:
 	break;
 
 }
+*/
 
-case _oscmem_csv_spreadsheet:
+case _oscmem_csv_individual:
 {
-	header("Content-type: text/x-csv");
-	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
+//	header("Content-type: text/x-csv");
+//	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
+
+	echo stristr($includestring,"test");
 
 	//Pull out header
 	$vars=$labels[1]->getValues();
 	echo "'";
 	foreach ($vars as $key => $value)
 	{
-		echo $key . "','";
+		if(stristr($includestring,$key)>0) echo $key . "','";
 	}
 	echo "'" . chr(13);
 //loop thru everything
@@ -255,13 +276,14 @@ case _oscmem_csv_spreadsheet:
 		$vars=$label->getValues();
 		foreach($vars as $key => $value)
 		{
-			echo $value . "','";
+			if(stristr($includestring,$key)>0) echo $value . "','";
 		}
 		echo "'" .  chr(13);
 
 	}
 	// Turn OFF output buffering
 	ob_end_flush();
+
 	break;
 
 }
