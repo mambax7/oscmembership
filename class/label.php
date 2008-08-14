@@ -429,8 +429,8 @@ $sSQL= "CREATE TABLE `tmplabel` (
 	`body` text )";
 */
 
-/*$sSQL= "CREATE   TABLE `tmplabel` (
-	`person_id` int default NULL,
+$sSQL= "CREATE temporary  TABLE `tmplabel` (
+	`id` int default NULL,
 	`lastname` varchar(255) default NULL,
 	`firstname` varchar(255) default NULL,
 	`recipient` varchar(255) default NULL,
@@ -453,8 +453,8 @@ $sSQL= "CREATE TABLE `tmplabel` (
   `membershipdate` date default NULL,
   `gender` tinyint(1) unsigned NOT NULL default '0',
 	`body` text )";
-*/
-	$sSQL= "truncate table tmplabel";
+
+//	$sSQL= "truncate table tmplabel";
 	$this->db->query($sSQL);
 
 	$address="'','','','','',''";
@@ -599,7 +599,7 @@ $sSQL= "CREATE TABLE `tmplabel` (
 
 
 
-	$sSQL = "insert into tmplabel(person_id,lastname, firstname,familyid,recipient, sortMe,addressLabel, AddressLine1, AddressLine2, City, State, Zip, homephone,workphone,cellphone,email,workemail,birthday,birthmonth,birthyear,membershipdate,gender, body) Select person.id,lastname,firstname,0,$sortMe,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, person.homephone,person.workphone,person.cellphone,person.email, person.workemail,person.birthday, person.birthmonth, person.birthyear, person.membershipdate, person.gender, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid=0" . $sWhereExt . $customwhere;
+	$sSQL = "insert into tmplabel(id,lastname, firstname,familyid,recipient, sortMe,addressLabel, AddressLine1, AddressLine2, City, State, Zip, homephone,workphone,cellphone,email,workemail,birthday,birthmonth,birthyear,membershipdate,gender, body) Select person.id,lastname,firstname,0,$sortMe,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, person.homephone,person.workphone,person.cellphone,person.email, person.workemail,person.birthday, person.birthmonth, person.birthyear, person.membershipdate, person.gender, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid=0" . $sWhereExt . $customwhere;
 	
 //echo $sSQL;
 
@@ -630,7 +630,7 @@ $sSQL= "CREATE TABLE `tmplabel` (
 		
 		default:
 		
-		$sSQL = "insert into tmplabel(person_id,familyid, sortMe, addresslabel, AddressLine1, AddressLine2, City, State, Zip, body) Select person.id,0,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid!=0" . $sWhereExt . $customwhere;
+		$sSQL = "insert into tmplabel(id,familyid, sortMe, addresslabel, AddressLine1, AddressLine2, City, State, Zip, body) Select person.id,0,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid!=0" . $sWhereExt . $customwhere;
 		$this->db->query($sSQL); 
 		break;
 

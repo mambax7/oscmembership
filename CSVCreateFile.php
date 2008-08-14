@@ -229,9 +229,9 @@ case _oscmem_csv_addtocart:
 	//Add labels to cart
 	foreach($labels as $label)
 	{
-		$persondetail_handler->addtoCart($label["person_id"],$xoopsuid);
+		$persondetail_handler->addtoCart($label->getVar("id"),$xoopsuid);
 	}
-	redirect_header("index.php", 3, _oscmem_addedtocart);
+	redirect_header("viewcart.php", 3, _oscmem_addedtocart);
 	
 	break;
 
@@ -297,21 +297,20 @@ case _oscmem_csv_exporttovcard:
 
 	foreach($labels as $label)
 	{
-		if(isset($label["person_id"]))
+		if($label->getVar("id")>0)
 		{
 
 			$vcard =& new Contact_Vcard_Build();
 
-			$person=$persondetail_handler->get($label["person_id"]);
+			$person=$persondetail_handler->get($label->getVar('id'));
 			$vcard->setName($person->getVar("lastname"),$person->getVar("firstname"),"","","");
-			$vcard->setFormattedName($label["recipient"]);
+			$vcard->setFormattedName($label->getVar('recipient'));
 	
 			$vcard->addEmail($person->getVar("email"));
 			$vcard->addTelephone($person->getVar("homephone"));
 			$workphone=$person->getVar("workphone");
 			if($workphone!="")
 				$vcard->addTelephone($workphone);
-
 
 			$pob="";
 			$extend="";
