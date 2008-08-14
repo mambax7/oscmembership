@@ -221,6 +221,7 @@ else
 	$labels=$label_handler->getexport(false, false, $groups,$labelcritiera);
 }
 
+
 switch($outputmethod)
 {
 case _oscmem_csv_addtocart:
@@ -255,20 +256,19 @@ case _oscmem_csv_individual:
 
 case _oscmem_csv_individual:
 {
-//	header("Content-type: text/x-csv");
-//	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
-
-	echo stristr($includestring,"test");
+	header("Content-type: text/x-csv");
+	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
 
 	//Pull out header
 	$vars=$labels[1]->getValues();
 	echo "'";
 	foreach ($vars as $key => $value)
 	{
-		if(stristr($includestring,$key)>0) echo $key . "','";
+		if(strpos($includestring,$key)>0) echo $key . "','";
 	}
 	echo "'" . chr(13);
 //loop thru everything
+
 	reset($labels);
 	foreach($labels as $label)
 	{
@@ -276,7 +276,7 @@ case _oscmem_csv_individual:
 		$vars=$label->getValues();
 		foreach($vars as $key => $value)
 		{
-			if(stristr($includestring,$key)>0) echo $value . "','";
+			if(strpos($includestring,$key)>0) echo $value . "','";
 		}
 		echo "'" .  chr(13);
 

@@ -38,6 +38,8 @@ class  Label extends XoopsObject {
 //
 	$this->initVar('id',XOBJ_DTYPE_INT);
         $this->initVar('recipient', XOBJ_DTYPE_TXTBOX);
+	$this->initVar('lastname',XOBJ_DTYPE_TXTBOX);
+	$this->initVar('firstname',XOBJ_DTYPE_TXTBOX);
 	$this->initVar('addresslabel',XOBJ_DTYPE_TXTBOX);
         $this->initVar('AddressLine1', XOBJ_DTYPE_TXTBOX);
         $this->initVar('AddressLine2', XOBJ_DTYPE_TXTBOX);
@@ -427,7 +429,7 @@ $sSQL= "CREATE TABLE `tmplabel` (
 	`body` text )";
 */
 
-$sSQL= "CREATE  temporary TABLE `tmplabel` (
+/*$sSQL= "CREATE   TABLE `tmplabel` (
 	`person_id` int default NULL,
 	`lastname` varchar(255) default NULL,
 	`firstname` varchar(255) default NULL,
@@ -451,8 +453,8 @@ $sSQL= "CREATE  temporary TABLE `tmplabel` (
   `membershipdate` date default NULL,
   `gender` tinyint(1) unsigned NOT NULL default '0',
 	`body` text )";
-
-//	$sSQL= "truncate table tmplabel";
+*/
+	$sSQL= "truncate table tmplabel";
 	$this->db->query($sSQL);
 
 	$address="'','','','','',''";
