@@ -324,7 +324,6 @@ $xoopsTpl->assign('dateentered_to',$dateentered_to->render());
 $outputmethod = new XoopsFormSelect(_oscmem_csv_outputmethod,'soutputmethod',"",1,false, 'class');
 
 $outputmethod->addOption(_oscmem_csv_individual, _oscmem_csv_individual);
-$outputmethod->addOption(_oscmem_csv_spreadsheet,_oscmem_csv_spreadsheet);
 $outputmethod->addOption(_oscmem_csv_combinefamily, _oscmem_csv_combinefamily);
 $outputmethod->addOption(_oscmem_csv_addtocart,_oscmem_csv_addtocart);
 $outputmethod->addOption(_oscmem_csv_exporttovcard,_oscmem_csv_exporttovcard);
