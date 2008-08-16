@@ -61,8 +61,6 @@ class  Label extends XoopsObject {
 	$this->initvar('birthyear',XOBJ_DTYPE_TXTBOX);
 	$this->initvar('membershipdate',XOBJ_DTYPE_TXTBOX);
 	$this->initvar('gender',XOBJ_DTYPE_TXTBOX);
-
-
     }
 }    
 
@@ -429,8 +427,8 @@ $sSQL= "CREATE TABLE `tmplabel` (
 	`body` text )";
 */
 
-/*
-$sSQL= "CREATE     TABLE `tmplabel` (
+
+$sSQL= "CREATE  temporary   TABLE `tmplabel` (
 	`id` int default NULL,
 	`lastname` varchar(255) default NULL,
 	`firstname` varchar(255) default NULL,
@@ -453,10 +451,56 @@ $sSQL= "CREATE     TABLE `tmplabel` (
   `birthyear` year(4) default NULL,
   `membershipdate` date default NULL,
   `gender` tinyint(1) unsigned NOT NULL default '0',
-	`body` text )";
+	`body` text ";
 
-*/
-	$sSQL= "truncate table tmplabel";
+
+$customfields=$labelcriteria->getVar('customfields');
+$customfieldsql="";
+$customfieldinsertsql="";
+
+if(!empty($customfields))
+{	
+	//iterate thru custom fields and add the column type for each selected custom field
+	foreach($customfields as $customfld)
+	{
+		$customfieldinsertsql.=", " . $customfld['custom_Field'];
+		$customfieldsql.=", custom." . $customfld['custom_Field'];
+
+
+		$sSQL.="," . $customfld['custom_Field'] . " ";
+		switch($customfld['type_ID'])
+		{
+  			case 1:$sSQL .= "ENUM('false', 'true')";
+  				break;
+  			case 2:$sSQL .= "DATE";
+  				break;
+  			case 3:$sSQL .= "VARCHAR(50)";
+  				break;
+  			case 4:$sSQL .= "VARCHAR(100)";
+  				break;
+  			case 5:$sSQL .= "TEXT";
+  				break;
+  			case 6:$sSQL .= "YEAR";
+  				break;
+  			case 7:$sSQL .= "TEXT";
+  				break;
+  			case 8:$sSQL .= "INT";
+  				break;
+  			case 9:$sSQL .= "MEDIUMINT(9)";
+  				break;
+  			case 10:$sSQL .= "DECIMAL(10,2)";
+  				break;
+  			case 11:$sSQL .= "VARCHAR(30)";
+  				break;
+  			case 12:$sSQL .= "TINYINT(4)";
+
+
+		}
+	}
+}
+$sSQL .=")";
+
+//	$sSQL= "truncate table tmplabel";
 	$this->db->query($sSQL);
 
 	$address="'','','','','',''";
@@ -563,9 +607,8 @@ $sSQL= "CREATE     TABLE `tmplabel` (
 					}
 					else
 					{
-						$customwhere .= $this->db->quoteString("false") . " and "; //$customfld['custom_Field'];
+						$customwhere .= $this->db->quoteString("false") . " and "; 
 					}
-// . "=" $customfld['custom_Value'];
 				break;
 
 				case "2": //Date
@@ -599,11 +642,8 @@ $sSQL= "CREATE     TABLE `tmplabel` (
 	$recipientplus.=",$cr";
 	$fambody.=",$cr";
 
-
-	$sSQL = "insert into tmplabel(id,lastname, firstname,familyid,recipient, sortMe,addressLabel, AddressLine1, AddressLine2, City, State, Zip, homephone,workphone,cellphone,email,workemail,birthday,birthmonth,birthyear,membershipdate,gender, body) Select person.id,lastname,firstname,0,concat(lastname,', ',firstname)  ,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, person.homephone,person.workphone,person.cellphone,person.email, person.workemail,person.birthday, person.birthmonth, person.birthyear, person.membershipdate, person.gender, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid=0" . $sWhereExt . $customwhere;
+	$sSQL = "insert into tmplabel(id,lastname, firstname,familyid,recipient, sortMe,addressLabel, AddressLine1, AddressLine2, City, State, Zip, homephone,workphone,cellphone,email,workemail,birthday,birthmonth,birthyear,membershipdate,gender, body" . $customfieldinsertsql . ") Select person.id,lastname,firstname,0,concat(lastname,', ',firstname)  ,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, person.homephone,person.workphone,person.cellphone,person.email, person.workemail,person.birthday, person.birthmonth, person.birthyear, person.membershipdate, person.gender, concat($indivbodysql) body " . $customfieldsql . "  from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid=0" . $sWhereExt . $customwhere;
 	
-//echo $sSQL;
-
 	$this->db->query($sSQL); 
 
 	$sortMe="familyname";	
@@ -635,13 +675,9 @@ $sSQL= "CREATE     TABLE `tmplabel` (
 		
 		$sSQL = "insert into tmplabel(id,lastname,firstname,recipient,familyid, sortMe, addresslabel, AddressLine1, AddressLine2, City, State, Zip, body) Select person.id,person.lastname, person.firstname, concat(person.lastname,', ', person.firstname),family.id,familyname, concat(family.address1, family.address2, family.city, family.state, family.zip), family.address1, family.address2, family.city, family.state, family.zip, concat($indivbodysql) body from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid!=0" . $sWhereExt . $customwhere;
 
-//echo $sSQL;
 		$this->db->query($sSQL); 
 		break;
 
-/*		$persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');    
-		$person = $persondetail_handler->create(true);  
-*/		
 		//only one record
 	}
 
@@ -656,89 +692,28 @@ $sSQL= "CREATE     TABLE `tmplabel` (
 	$result=$this->db->query($sSQL);
 		
 	$i=0;
-
-/*
-	$labels[$i]['lastname']='lastname';
-	$labels[$i]['firstname']='firstname';
-	$labels[$i]['person_id']='person_id';
-	$labels[$i]['addresslabel']="addresslabel";
-	$labels[$i]['address1']='address1';
-	$labels[$i]['address2']="address2";
-	$labels[$i]['city']="city";
-	$labels[$i]['state']="state";
-	$labels[$i]['zip']="zip";
-	$labels[$i]['country']="country";
-	$labels[$i]['sortme']="sortme";
-
-	$labels[$i]['homephone']="homephone";
-	$labels[$i]['workphone']="workphone";
-	$labels[$i]['cellphone']="cellphone";
-	$labels[$i]['email']="email";
-	$labels[$i]['workemail']="workemail";
-	$labels[$i]['birthday']="birthday";
-	$labels[$i]['birthmonth']="birthmonth";
-	$labels[$i]['birthyear']="birthyear";
-	$labels[$i]['membershipdate']="membershipdate";
-	$labels[$i]['gender']="gender";
-	$labels[$i]['recipient']="recipient";
-*/
-//a
-
-//add if individual output, not spreadsheet
-//	$labels[$i]['body']=$headersql;
 	$i++;
+
+	$customfields=$labelcriteria->getVar('customfields');
+	
 	
 	while($row = $this->db->fetchArray($result)) 
 	{
 		if(isset($row))
 		{
 			$label=&$this->create(false);
+
+			reset($customfields);
+			foreach($customfields as $customfld)
+			{
+				$label->initVar($customfld['custom_Field'], XOBJ_DTYPE_TXTBOX);
+			}
+
 			$label->assignVars($row);
 
 			$labels[$i]=$label;
-/*
-
-			$labels[$i]['lastname']=$label->getVar('lastname');
-			$labels[$i]['firstname']=$label->getVar('firstname');
-			$labels[$i]['person_id']=$label->getVar('person_id');
-			$labels[$i]['recipient']=$label->getVar('recipient');
-			//echo $labelcriteria->getVar('bdiraddress');
-			
-			If($labelcriteria->getVar('bdiraddress'))
-			{
-				$labels[$i]['addresslabel']=$label->getVar('AddressLine1');
-							//echo $label->getVar('AddressLine1');
-
-				if($label->getVar('AddressLine2')<>'')
-				$labels[$i]['addresslabel'].= "\n" . $label->getVar('AddressLine2');
-				$labels[$i]['addresslabel'].= "\n" . $label->getVar('City') . ", " . $label->getVar('State') . "  " . $label->getVar('Zip');
-			}
-			else $labels[$i]['addresslabel']="";
-
-			$labels[$i]['address1']=$label->getVar('AddressLine1');
-			$labels[$i]['address2']=$label->getVar('AddressLine2');
-			$labels[$i]['city']=$label->getVar('City');
-			$labels[$i]['state']=$label->getVar('State');
-			$labels[$i]['zip']=$label->getVar('Zip');
-			$labels[$i]['country']=$label->getVar('country');
-			$labels[$i]['sortme']=$label->getVar('sortme');
-//add if not spreadsheet output
-			//$labels[$i]['body']=$label->getVar('body');
-
-			$labels[$i]['homephone']=$label->getVar('homephone');
-			$labels[$i]['workphone']=$label->getVar('workphone');
-			$labels[$i]['cellphone']=$label->getVar('cellphone');
-			$labels[$i]['email']=$label->getVar('email');
-			$labels[$i]['workemail']=$label->getVar('workemail');
-			$labels[$i]['birthday']=$label->getVar('birthday');
-			$labels[$i]['birthmonth']=$label->getVar('birthmonth');
-			$labels[$i]['birthyear']=$label->getVar('birthyear');
-			$labels[$i]['membershipdate']=$label->getVar('membershipdate');
-			$labels[$i]['gender']=$label->getVar('gender');
-*/
 		}		
 	
-		//echo $labels[$i]['addresslabel'];	
 		$i++;	
 	}
 
@@ -809,7 +784,9 @@ $sSQL= "CREATE temporary TABLE `tmplabel` (
   `birthyear` year(4) default NULL,
   `membershipdate` date default NULL,
   `gender` tinyint(1) unsigned NOT NULL default '0',
-	`body` text )";
+	`body` text ) ";
+
+
 //	$sSQL= "truncate table tmplabel";
 	$this->db->query($sSQL);
 

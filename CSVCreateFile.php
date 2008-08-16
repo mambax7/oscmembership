@@ -103,6 +103,9 @@ while($row = $db->fetchArray($customFields))
 	{
 		$custfieldarr[$i]['custom_Field']=$row["custom_Field"];
 		$custfieldarr[$i]['custom_Name']=$row["custom_Name"];
+		$custfieldarr[$i]['type_ID']=$row["type_ID"];
+		$custfieldnamearr[$i]=$row["custom_Name"];
+		$custfieldfieldarr[$i]=$row["custom_Field"];
 	}
 
 	if(isset($_POST["crit" . $row['custom_Field']]))
@@ -131,9 +134,17 @@ foreach($vars as $key => $value)
 			$includestring.=$key . ",";
 		}
 	}
-
 }
+//Now look at custom fields
+$customFields = $persondetail_handler->getcustompersonFields();
 
+while($row = $db->fetchArray($customFields)) 
+{
+	if(isset($_POST[$row["custom_Field"]]))
+	{
+		$includestring .= $row['custom_Field'] . ",";
+	}
+}
 
 
 $labelcritiera=$labelcritiera_handler->create();
@@ -236,27 +247,12 @@ case _oscmem_csv_addtocart:
 	break;
 
 }
-/*
-case _oscmem_csv_individual:
-{
-	header("Content-type: text/x-csv");
-	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
 
-	foreach($labels as $label)
-	{
-		echo $label['body'] . chr(10) . chr(13);
-	}
-
-	// Turn OFF output buffering
-	ob_end_flush();
-	break;
-
-}
-*/
 
 case _oscmem_csv_combinefamily:
 case _oscmem_csv_individual:
 {
+
 	header("Content-type: text/x-csv");
 	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
 
@@ -265,9 +261,16 @@ case _oscmem_csv_individual:
 	echo "'";
 	foreach ($vars as $key => $value)
 	{
-		if(strpos($includestring,$key)>0) echo $key . "','";
+		if(strpos($includestring,$key)>0) 
+		{
+			$csvheader.= $key . "','";
+		}
 	}
-	echo "'" . chr(13);
+
+	$newcsvheader=str_replace($custfieldfieldarr, $custfieldnamearr,$csvheader);
+
+	echo $newcsvheader . "'" . chr(13);
+
 //loop thru everything
 
 	reset($labels);
@@ -277,9 +280,13 @@ case _oscmem_csv_individual:
 		$vars=$label->getValues();
 		foreach($vars as $key => $value)
 		{
+			//verify of field is a custom field.  If so then display name
 			if(strpos($includestring,$key)>0) echo $value . "','";
 		}
 		echo "'" .  chr(13);
+
+
+			
 
 	}
 	// Turn OFF output buffering
