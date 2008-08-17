@@ -175,6 +175,7 @@ $form->addElement($customTypeid_select);
 $form->addElement($customOrder_text);
 $form->addElement($customName_text);
 $form->setRequired($customOrder_text);
+$form->setRequired($customOrder_text);
 $form->setRequired($customName_text);
 $form->setRequired($customTypeid_select);
 $form->addElement($id_hidden);

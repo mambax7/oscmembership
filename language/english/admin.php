@@ -102,4 +102,5 @@ define("_oscmem_churchname","Church Name");
 
 define("_oscmem_setting_TITLE","Church Details");
 define("_oscmem_website","Web Site");
+define("_oscmem_addcustomfield","Add Custom Field");
 ?>

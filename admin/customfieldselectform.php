@@ -30,18 +30,25 @@
 // Project: The XOOPS Project, The Open Source Church project (OSC)
 // ------------------------------------------------------------------------- //
 //$xoopsOption['template_main'] = 'cs_index.html';
-include("../../../include/cp_header.php");
-//include("../../../include/cp_header.php");
-include_once(XOOPS_ROOT_PATH . "/class/xoopsformloader.php");
-include_once(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php");
+include("../../../mainfile.php");
+include '../../../include/cp_header.php';
 
+//include(XOOPS_ROOT_PATH."/header.php");
+// language files
+
+$language = $xoopsConfig['language'] ;
 // include the default language file for the admin interface
-if ( file_exists( "../language/" . $xoopsConfig['language'] . "/main.php" ) ) {
-    include "../language/" . $xoopsConfig['language'] . "/main.php";
+if( ! file_exists( XOOPS_ROOT_PATH . "/modules/system/language/$language/admin/blocksadmin.php") ) $language = 'english' ;
+
+if (file_exists(XOOPS_ROOT_PATH. "/modules/" . 	$xoopsModule->getVar('dirname') .  "/language/" . $xoopsConfig['language'] . "/admin.php")) {
+    include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/language/" . $xoopsConfig['language'] . "/admin.php";
 }
-elseif ( file_exists( "../language/english/main.php" ) ) {
-    include "../language/english/main.php";
+elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') ."/language/english/admin.php"))
+{ include XOOPS_ROOT_PATH ."/modules/" . $xoopsModule->getVar('dirname') . "/language/english/admin.php";
+
 }
+
+include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 
 
 //redirect
@@ -56,57 +63,23 @@ if ( !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
 }
 
 
-//determine action
-$op = '';
-$confirm = '';
-$action='';
-
-
-if (isset($_GET['op'])) $op = $_GET['op'];
-if (isset($_POST['op'])) $op = $_POST['op'];
-if (isset($_POST['action'])) $action=$_POST['action'];
-if (isset($_GET['action'])) $action=$_GET['action'];
-
 
 $myts = &MyTextSanitizer::getInstance();
 $persondetail_handler = &xoops_getmodulehandler('person', 'oscmembership');
 
 $member_handler =& xoops_gethandler('member');
 
-if($op=="create")
-{
-	$message=_oscmem_customfieldcreate_ack;
-	redirect_header("customfielddetailform.php?action=create", 0,$message);
-}
-
-$op_hidden = new XoopsFormHidden("op", "create");  //save operation
-$submit_button = new XoopsFormButton("", "customdetailsubmit", _oscmem_admin_create, "submit");
-
-if($action=="create")
-{
-	$op_hidden = new XoopsFormHidden("op", "create");  //save operation
-	$submit_button = new XoopsFormButton("", "customfielddetailsubmit", _osc_create, "button");
-}
-
-$form = new XoopsThemeForm(_oscmem_customfield, "customfielddetailform", "customfieldselectform.php?action=create", "post", true);
-
-
-$form->addElement($op_hidden);
-//$form->addElement($id_hidden);
-
-//Upload stuff
-
-$form->addElement($submit_button);
-//$form->setRequired($lastname_text);
-//$form->setRequired($firstname_text);
+$title=_oscmem_customfield;
 
 $db = &Database::getInstance();
 
 //Retrieve custom fields
 $customFields = $persondetail_handler->getcustompersonFields();
 $count=1;
-$table_code="<table><tr>";
-$table_code = $table_code . "<th></th><th>" . _oscmem_customfieldName . "</th><th>" . _oscmem_customfieldType . "</th><th></th></tr>";
+$table_header.="<table class='outer'>";
+$table_header.="<tr><td colspan=4><a href='customfielddetailform.php?action=create'>" . _oscmem_addcustomfield . "</td></tr>";
+$table_header.="<tr>";
+$table_header .= "<th></th><th>" . _oscmem_customfieldName . "</th><th>" . _oscmem_customfieldType . "</th><th></th></tr>";
 
 while($row = $db->fetchArray($customFields)) 
 {
@@ -114,27 +87,29 @@ while($row = $db->fetchArray($customFields))
 
 	$customName = new XoopsFormLabel('',$row["custom_Name"]);	
 		
-	$table_code = $table_code . "<td>" . $customName->render() . "</td>";
+	$table_code = $table_code . "<td>" . $row["custom_Name"] . "</td>";
 	$table_code = $table_code . "<td>" . $row["optionname"]. "</td>";
 	$table_code = $table_code . "<td><a href='customfielddetailform.php?id=" . $row["custom_Field"] . "'>" . "Edit" . "</a></td>";
 	$table_code = $table_code . "</tr>";
 	
 }
 
-$table_code = $table_code . "</table>";
-
-$table_label = new XoopsFormLabel('', $table_code);
-	
-$form->addElement($table_label);
-
-
-//		$form->addElement(new XoopsFormRadioYN($row["custom_Name"],$row["custom_Field"], $customData[$row["custom_Field"]]));
-	
-//	$form->addElement(new XoopsFormText($row["custom_Name"],$row["custom_Field"], 30, 50,$customData[$row["custom_Field"]]));
-	
 
 xoops_cp_header();
-$form->display();
+
+echo "<h2>" . $title . "</h2>";
+	
+if(!isset($row))
+{
+	
+	$osc_label= new XoopsFormLabel('',_oscmem_noitems);
+	echo $table_header . "<tr><td colspan=4>" . _oscmem_noitems . "</td></tr></table>";
+}	
+else
+{
+	echo $table_header . $table_code . "</table>"; 
+}
+
 
 xoops_cp_footer();
 

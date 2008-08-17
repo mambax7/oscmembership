@@ -131,6 +131,6 @@ else
 }
 
 xoops_cp_footer();
-//include(XOOPS_ROOT_PATH."/footer.php");
+
 
 ?>
