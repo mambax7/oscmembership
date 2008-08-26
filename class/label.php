@@ -60,6 +60,7 @@ class  Label extends XoopsObject {
 	$this->initvar('birthmonth',XOBJ_DTYPE_TXTBOX);
 	$this->initvar('birthyear',XOBJ_DTYPE_TXTBOX);
 	$this->initvar('membershipdate',XOBJ_DTYPE_TXTBOX);
+	$this->initvar('classification',XOBJ_DTYPE_TXTBOX);
 	$this->initvar('gender',XOBJ_DTYPE_TXTBOX);
     }
 }    
@@ -440,6 +441,7 @@ $sSQL= "CREATE  temporary   TABLE `tmplabel` (
 	`State` varchar(255) default NULL,
 	`Zip` varchar(255) default NULL,
 	`sortme` varchar(255) default NULL,
+	`classification` varchar(255) default NULL,
 	`familyid` int default null,
   `homephone` varchar(30) default NULL,
   `workphone` varchar(30) default NULL,
@@ -642,7 +644,7 @@ $sSQL .=")";
 	$recipientplus.=",$cr";
 	$fambody.=",$cr";
 
-	$sSQL = "insert into tmplabel(id,lastname, firstname,familyid,recipient, sortMe,addressLabel, AddressLine1, AddressLine2, City, State, Zip, homephone,workphone,cellphone,email,workemail,birthday,birthmonth,birthyear,membershipdate,gender, body" . $customfieldinsertsql . ") Select person.id,lastname,firstname,0,concat(lastname,', ',firstname)  ,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, person.homephone,person.workphone,person.cellphone,person.email, person.workemail,person.birthday, person.birthmonth, person.birthyear, person.membershipdate, person.gender, concat($indivbodysql) body " . $customfieldsql . "  from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " where famid=0" . $sWhereExt . $customwhere;
+	$sSQL = "insert into tmplabel(id,lastname, firstname,familyid,recipient, sortMe,addressLabel, AddressLine1, AddressLine2, City, State, Zip, homephone,workphone,cellphone,email,workemail,birthday,birthmonth,birthyear,membershipdate,gender, body, classification" . $customfieldinsertsql . ") Select person.id,lastname,firstname,0,concat(lastname,', ',firstname)  ,$sortMe, concat(person.address1, person.address2, person.city, person.state, person.zip), person.address1, person.address2, person.city, person.state, person.zip, person.homephone,person.workphone,person.cellphone,person.email, person.workemail,person.birthday, person.birthmonth, person.birthyear, person.membershipdate, person.gender, concat($indivbodysql) body, list.optionname " . $customfieldsql . "  from " . $this->db->prefix("oscmembership_person") . " person left join  " . $this->db->prefix("oscmembership_person_custom") . " custom on person.id=custom.per_ID left join " . $this->db->prefix("oscmembership_family") . " family on person.famid=family.id " . $sGroupTable . " left join " . $this->db->prefix("oscmembership_list") . " list on person.clsid = list.optionid and list.id=1 where famid=0" . $sWhereExt . $customwhere;
 	
 	$this->db->query($sSQL); 
 
