@@ -77,6 +77,16 @@ if(isset($_POST["sDirClassifications"]))
   $sDirClassifications = implode(",",$aClasses);
 }
 
+$sRoles="";
+if(isset($_POST["srole"]))
+{
+	foreach($_POST["srole"] as $strRole)
+	{
+		$aRoles[$count++] = $strRole;
+	}
+	$sRoles=implode(",",$aRoles);
+}
+
 $count = 0;
 $strCls="";
 $groups="";
@@ -151,6 +161,7 @@ $labelcritiera=$labelcritiera_handler->create();
 
 $labelcritiera->assignVar('gender',$gender);
 $labelcritiera->assignVar('sdirclassifications',$sDirClassifications);
+$labelcritiera->assignVar('srole',$sRoles);
 
 $labelcritiera->assignVar('customfields',$custfieldarr);
 $labelcritiera->assignVar('customcriteria',$critarr);
@@ -171,7 +182,7 @@ $labelcritiera->assignVar('bdirpersonalworkemail',isset($_POST["bemail"]));
 $labelcritiera->assignVar('bincompleteaddress',isset($_POST["bincompleteaddress"]));
 
 $labelcritiera->assignVar('benvelope',isset($_POST["benvelope"]));
-$labelcritiera->assignVar('brole',isset($_POST["bfamilyrole"]));
+$labelcritiera->assignVar('brole',isset($_POST["brole"]));
 $labelcritiera->assignVar('bfamilyname',isset($_POST["bfamilyname"]));
 
 if(isset($_POST["soutputmethod"]))

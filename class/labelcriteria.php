@@ -56,7 +56,8 @@ class  Labelcriteria extends XoopsObject
         $this->initVar('sdirclassifications', XOBJ_DTYPE_TXTBOX);
         $this->initVar('sdirroleheads', XOBJ_DTYPE_TXTBOX);
         $this->initVar('benvelope', XOBJ_DTYPE_INT);
-        $this->initVar('brole', XOBJ_DTYPE_INT);
+	$this->initVar('brole',XOBJ_DTYPE_INT);
+        $this->initVar('srole', XOBJ_DTYPE_TXTBOX);
         $this->initVar('bfamilyname', XOBJ_DTYPE_INT);
 	$this->initVar('soutputmethod',XOBJ_DTYPE_TXTBOX);
 		
