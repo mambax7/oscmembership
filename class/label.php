@@ -91,9 +91,16 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	$sGroupTable = "";
 	
 	$sWhereExt="";
-		
-	if (strlen($sDirClassifications)) $sClassQualifier = "AND person.clsid in (" . $sDirClassifications . ")";
+
+	$sdirclassification="";
+	$sdirclassification=$labelcriteria->getVar("sdirclassifications");
 	
+	if (strlen($sdirclassification)>0)
+	{
+	 $sWhereExt = "  and person.clsid in (" . $sdirclassification . ")";
+	}
+
+		
 	if (!empty($sGroupsList))
 	{
 
@@ -115,7 +122,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	$familyprefix="";
 
 //$sSQL=" drop table `tmplabel`;
-	$sSQL= "CREATE TEMPORARY TABLE  `tmplabel` (
+	$sSQL= "CREATE  temporary TABLE  `tmplabel` (
 	`person_id` int default null,	
 	`recipient` varchar(255) default NULL,
 	`AddressLine1` varchar(255) default NULL,
@@ -190,6 +197,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 		
 	$sSQL = "insert into tmplabel Select person.id, concat(lastname, ', ', firstname,$bdate)," . $address . ", $sortMe,0, concat($recipientplus), picloc from " . $this->db->prefix("oscmembership_person") . " person " . $sGroupTable . " where famid=0" . $sWhereExt;
 
+//echo $sSQL;
 	$this->db->query($sSQL); 
 
 //echo $baltIndividualOnly;
@@ -228,7 +236,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 			$sSQL = "insert into tmplabel(familyid) Select distinct fam.id from " . $this->db->prefix("oscmembership_family") . " fam , " . $this->db->prefix("oscmembership_person") . " person  " . $sGroupTable . " where person.famid>0 and  fam.id=person.famid and fam.altfamilyname is not null " . $sWhereExt;
 			$this->db->query($sSQL); 
 		
-			$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " fam set recipient=concat('$familyprefix', altfamilyname), AddressLine1=fam.address1, AddressLine2=fam.address2, tmplabel.City=fam.city, tmplabel.state=fam.state, tmplabel.zip=fam.zip, tmplabel.picloc=fam.picloc sortme=$sortMe, body=concat($fambody) where tmplabel.familyid=fam.id and recipient is null";
+			$sSQL="update tmplabel, " . $this->db->prefix("oscmembership_family") . " fam set recipient=concat('$familyprefix', altfamilyname), AddressLine1=fam.address1, AddressLine2=fam.address2, tmplabel.City=fam.city, tmplabel.state=fam.state, tmplabel.zip=fam.zip, tmplabel.picloc=fam.picloc, sortme=$sortMe, body=concat($fambody) where tmplabel.familyid=fam.id and recipient is null";
 			$this->db->query($sSQL); 
 		}
 	
@@ -634,10 +642,13 @@ $sSQL .=")";
 				case "3": //Text 50
 				case "4": //Text 100
 				case "5": //Text 200
-					$customwhere .= "custom." .$cfc['custom_Field'] . "="; 
+					if($this->db->quoteString($cfc['custom_Value'])!="''")
+					{
+						$customwhere .= "custom." .$cfc['custom_Field'] . "="; 
 
-					$customwhere .= $this->db->quoteString($cfc['custom_Value']) . " and ";
-				break;
+						$customwhere .= $this->db->quoteString($cfc['custom_Value']) . " and ";
+					}
+					break;
 				}
 
 			}

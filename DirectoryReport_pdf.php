@@ -304,6 +304,7 @@ $labelcritiera_handler = &xoops_getmodulehandler('labelcriteria', 'oscmembership
 
 $labelcritiera=$labelcritiera_handler->create();
 
+$labelcritiera->assignVar('sdirclassifications',$sDirClassifications);
 $labelcritiera->assignVar('bdiraddress',isset($_POST["bDirAddress"]));
 $labelcritiera->assignVar('bdirwedding',isset($_POST["bDirWedding"]));
 $labelcritiera->assignVar('bdirbirthday',isset($_POST["bDirBirthday"]));
@@ -424,7 +425,6 @@ foreach($labels as $label)
 	}
 	
 }
-
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate");
