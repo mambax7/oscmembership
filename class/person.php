@@ -476,7 +476,20 @@ function &search3($searcharray, $sort, $hasenvelope=null)
 		$count = count($searcharray);
 		if ( $count > 0 && is_array($searcharray) ) 
 		{
-		$sql .= "(lastname LIKE '%$searcharray[0]%' OR firstname LIKE '%$searcharray[0]%' OR homephone like '%$searcharray[0]%' or workphone like '%$searcharray[0]%' or cellphone like '%$searcharray[0]%' or city like '%$searcharray[0]%' or state like '%$searcharray[0]%')";
+
+			if(stripos($searcharray[0],'%')>0)
+				$searchstring=$searcharray[0];
+			else $searchstring='%' . $searcharray[0] . '%';
+	
+			if(substr($searcharray[0],0,8)=="lastname")
+			{	
+				$searchstring=substr($searcharray[0], 8);
+				$sql .= "(lastname LIKE '$searchstring')";
+			}
+			else
+			{
+				$sql .= "(lastname LIKE '$searchstring' OR firstname LIKE '$searchstring' OR homephone like '$searchstring' or workphone like '$searchstring' or cellphone like '$searchstring' or city like '$searchstring' or state like '$searchstring')";
+			}
 		}
 
 		if(!is_null($hasenvelope))
@@ -493,7 +506,11 @@ function &search3($searcharray, $sort, $hasenvelope=null)
 	
 		$results = $person_handler->search($queryarray);
 
-		$sql .= "(lastname LIKE '%$searcharray[$i]%' OR firstname LIKE '%$searcharray[$i]%' or homephone LIKE '%$searcharray[$i]%' OR workphone LIKE '%$searcharray[$i]%' OR cellphone LIKE '%$searcharray[$i]%' or city like '%$searcharray[$i]%' or state like '%$searcharray[$i]%')";
+		if(strchr($searcharray[$i],'%')>0)
+			$searchstring=$searcharray[$i];
+		else $searchstring='%' . $searcharray[$i] . '%';
+
+		$sql .= "(lastname LIKE '$searchstring' OR firstname LIKE '$searchstring' or homephone LIKE '$searchstring' OR workphone LIKE '$searchstring' OR cellphone LIKE '$searchstring' or city like '$searchstring' or state like '$searchstring')";
 		}
 		if(isset($sort))
 		{
@@ -520,7 +537,7 @@ function &search3($searcharray, $sort, $hasenvelope=null)
 			break;
 			}
 		}
-		
+
 		if (!$result = $this->db->query($sql)) 
 		{
 			//echo "<br />NewbbForumHandler::get error::" . $sql;

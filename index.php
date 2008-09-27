@@ -37,6 +37,7 @@ $sort="";
 $filter="";
 if (isset($_POST['sort'])) $sort = $_POST['sort'];
 if (isset($_POST['filter'])) $filter=$_POST['filter'];
+if (isset($_GET['filter'])) $filter=$_GET['filter'];
 if (isset($_POST['submit'])) $submit = $_POST['submit'];
 if (isset($_POST['loopcount'])) $loopcount = $_POST['loopcount'];
 
