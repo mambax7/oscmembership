@@ -83,6 +83,17 @@ class  Person extends XoopsObject {
 class oscMembershipPersonHandler extends XoopsObjectHandler
 {
 
+	function &getpages($offset)
+	{
+		$sql="select count(1) from $this->db->prefix('oscmembership_person')";
+		$result=$this->db->query($sql);
+		$row=$this->db->fetchArray($result);
+		$rows=$row[0];
+
+		$pages=round($rows/$offset);
+		return $pages;
+	}
+
     function &addtoFamily($personid, $familyid)
     {
 		$sql = "Update  " . $this->db->prefix("oscmembership_person");
@@ -461,7 +472,7 @@ function &search2($searcharray, $sort)
     }
 
 
-function &search3($searcharray, $sort, $hasenvelope=null)
+function &search3($searcharray, $sort, $hasenvelope=null, $limit=0, $offset=0)
     //Search on criteria and return result
     {
 	$result='';
@@ -537,6 +548,11 @@ function &search3($searcharray, $sort, $hasenvelope=null)
 			break;
 			}
 		}
+
+		//add offset
+		if($limit>0)
+			$sql .= " LIMIT $limit, $offset";
+
 
 		if (!$result = $this->db->query($sql)) 
 		{

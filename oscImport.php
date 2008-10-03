@@ -82,7 +82,7 @@ if (isset($_POST["UploadCSV"]))
 
 		// count # lines in the file
 		$iNumRows = 0;
-		while ($tmp = fgets($pFile,2048)) $iNumRows++;
+		while ($tmp = fgetcsv($pFile,2048,",","'")) $iNumRows++;
 		rewind($pFile);
 
 		// create the form
@@ -96,7 +96,7 @@ if (isset($_POST["UploadCSV"]))
 
 		// grab and display up to the first 8 lines of data in the CSV in a table
 		$iRow = 0;
-		while (($aData = fgetcsv($pFile, 2048, ",")) && $iRow++ < 9)
+		while (($aData = fgetcsv($pFile, 2048, ",","'")) && $iRow++ < 9)
 		{
 			$numCol = count($aData);
 
@@ -231,7 +231,7 @@ if (isset($_POST["DoImport"]))
 		if(isset($_POST["DateMode"])) $iDateMode = $_POST["DateMode"];
 		
 		// Get the number of CSV columns for future reference
-		$aData = fgetcsv($pFile, 2048, ",");
+		$aData = fgetcsv($pFile, 2048, ",","'");
 		$numCol = count($aData);
 		if (!isset($_POST["IgnoreFirstRow"])) rewind($pFile);
 
@@ -275,7 +275,7 @@ if (isset($_POST["DoImport"]))
 
 		$importCount = 0;
 
-		while ($aData = fgetcsv($pFile, 2048, ","))
+		while ($aData = fgetcsv($pFile, 2048, ",","'"))
 		{
 			// Use the default country from the mapping form in case we don't find one otherwise
 			$sCountry = $sDefaultCountry;

@@ -40,6 +40,7 @@ if (isset($_POST['filter'])) $filter=$_POST['filter'];
 if (isset($_GET['filter'])) $filter=$_GET['filter'];
 if (isset($_POST['submit'])) $submit = $_POST['submit'];
 if (isset($_POST['loopcount'])) $loopcount = $_POST['loopcount'];
+if(isset($_POST['page'])) $filter="page=" . $_POST['page'];
 
 $person_handler = &xoops_getmodulehandler('person', 'oscmembership');
 
