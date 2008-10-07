@@ -472,7 +472,7 @@ function &search2($searcharray, $sort)
     }
 
 
-function &search3($searcharray, $sort, $hasenvelope=null, $limit=0, $offset=0)
+function &search3($searcharray, $sort, $hasenvelope=null, $offset=0, $limit=0)
     //Search on criteria and return result
     {
 	$result='';
@@ -551,8 +551,9 @@ function &search3($searcharray, $sort, $hasenvelope=null, $limit=0, $offset=0)
 
 		//add offset
 		if($limit>0)
-			$sql .= " LIMIT $limit, $offset";
+			$sql .= " LIMIT $offset,$limit";
 
+echo $sql;
 
 		if (!$result = $this->db->query($sql)) 
 		{

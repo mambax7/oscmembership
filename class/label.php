@@ -448,12 +448,12 @@ $sSQL= "CREATE TABLE `tmplabel` (
 
 $sSQL= "CREATE  temporary   TABLE `tmplabel` (
 	`id` int default NULL,
+	`recipient` varchar(255) default NULL,
 	`lastname` varchar(255) default NULL,
 	`firstname` varchar(255) default NULL,
-	`recipient` varchar(255) default NULL,
+	`addresslabel` text null,
 	`AddressLine1` varchar(255) default NULL,
 	`AddressLine2` varchar(255) default NULL,
-	`addresslabel` text null,
 	`City` varchar(255) default NULL,
 	`State` varchar(255) default NULL,
 	`Zip` varchar(255) default NULL,
@@ -472,6 +472,7 @@ $sSQL= "CREATE  temporary   TABLE `tmplabel` (
   `membershipdate` date default NULL,
   `gender` tinyint(1) unsigned NOT NULL default '0',
 	`body` text ";
+
 
 
 $customfields=$labelcriteria->getVar('customfields');

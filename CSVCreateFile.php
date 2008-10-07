@@ -270,9 +270,10 @@ case _oscmem_csv_individual:
 	//Pull out header
 	$vars=$labels[1]->getValues();
 	echo "'";
+	$includestring=" " . strtolower($includestring);
 	foreach ($vars as $key => $value)
 	{
-		if(strpos($includestring,$key)>0) 
+		if(strpos($includestring,strtolower($key))!=FALSE) 
 		{
 			$csvheader.= $key . "','";
 		}
@@ -280,7 +281,7 @@ case _oscmem_csv_individual:
 
 	$newcsvheader=str_replace($custfieldfieldarr, $custfieldnamearr,$csvheader);
 
-	echo $newcsvheader . "'" . chr(13);
+	echo $newcsvheader . "'" . chr(13) . chr(10);
 
 //loop thru everything
 
@@ -292,9 +293,9 @@ case _oscmem_csv_individual:
 		foreach($vars as $key => $value)
 		{
 			//verify of field is a custom field.  If so then display name
-			if(strpos($includestring,$key)>0) echo $value . "','";
+			if(strpos($includestring,strtolower($key))!=FALSE) echo $value . "','";
 		}
-		echo "'" .  chr(13);
+		echo "'" .  chr(13) . chr(10);
 
 
 			
