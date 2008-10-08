@@ -622,6 +622,84 @@ echo $sql;
 	return $persons;
     }
 
+function &getrowcount($searcharray)
+    //Search on criteria and return result
+    {
+	$result='';
+	$returnresult='';
+	$persons[]=array();
+	
+        if (isset($searcharray)) 
+	{
+	        $person= &$this->create(false);
+		$sql = "SELECT count(1) rowcount FROM " . $this->db->prefix("oscmembership_person") . " WHERE (";
+
+		$count = count($searcharray);
+		if ( $count > 0 && is_array($searcharray) ) 
+		{
+
+			if(stripos($searcharray[0],'%')>0)
+				$searchstring=$searcharray[0];
+			else $searchstring='%' . $searcharray[0] . '%';
+	
+			if(substr($searcharray[0],0,8)=="lastname")
+			{	
+				$searchstring=substr($searcharray[0], 8);
+				$sql .= "(lastname LIKE '$searchstring')";
+			}
+			else
+			{
+				$sql .= "(lastname LIKE '$searchstring' OR firstname LIKE '$searchstring' OR homephone like '$searchstring' or workphone like '$searchstring' or cellphone like '$searchstring' or city like '$searchstring' or state like '$searchstring')";
+			}
+		}
+
+		if(!is_null($hasenvelope))
+		{
+			if($hasenvelope=true)
+			{
+				$sql .= " AND envelope>0";
+			}
+		}
+		
+		for ( $i = 1; $i < $count; $i++ ) 
+		{
+			$sql .= " OR ";	$person_handler = &xoops_getmodulehandler('person', 'oscmembership');
+	
+			$results = $person_handler->search($queryarray);
+	
+			if(strchr($searcharray[$i],'%')>0)
+				$searchstring=$searcharray[$i];
+			else $searchstring='%' . $searcharray[$i] . '%';
+	
+			$sql .= "(lastname LIKE '$searchstring' OR firstname LIKE '$searchstring' or homephone LIKE '$searchstring' OR workphone LIKE '$searchstring' OR cellphone LIKE '$searchstring' or city like '$searchstring' or state like '$searchstring')";
+		}
+
+		$sql .= ")";
+
+echo $sql;
+		if (!$result = $this->db->query($sql)) 
+		{
+			//echo "<br />NewbbForumHandler::get error::" . $sql;
+			return false;
+		}
+
+
+		$row=$this->db->fetchArray($result);
+
+		$returnvalue = $row['rowcount'] ; //row count
+	}
+	else
+	{
+
+		$returnvalue=0;
+	}
+			
+	return $returnvalue;
+    }
+
+
+
+
 function &modsearch($searcharray)
     //Search on criteria and return result
 {

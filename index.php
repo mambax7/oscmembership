@@ -36,6 +36,8 @@ if(hasPerm("oscmembership_modify",$xoopsUser)) $ispermmodify=true;
 $sort="";
 $filter="";
 $page=1;
+$limit=5;
+
 if (isset($_POST['sort'])) $sort = $_POST['sort'];
 if (isset($_POST['filter'])) $filter=$_POST['filter'];
 if (isset($_GET['filter'])) $filter=$_GET['filter'];
@@ -55,10 +57,15 @@ if(isset($submit))
 		break;
 
 	case ">>":
-echo "big page";
 
-		$page=10000;
-echo "page " . $page;
+		if(isset($filter))
+		{
+			$searcharray[0]=$filter;
+		}
+		$rowcount=$person_handler->getrowcount($searcharray);
+
+echo "rowcount " . $rowcount;
+		$page=round($rowcount/$limit,0);
 		break;
 
 	case "<":  //previous page
@@ -150,10 +157,8 @@ if(isset($filter))
 else $searcharray[0]='';
 
 //compute page and offset
-$limit=5;
 $offset=$limit*($page-1);
 
-echo $startoffset . "start<br>";
 echo $offset . "offset<br>";
 
 $persons = $person_handler->search3($searcharray, $sort,null,$offset,$limit);
@@ -173,6 +178,7 @@ $xoopsTpl->assign('oscmem_view',_oscmem_view);
 $xoopsTpl->assign('oscmem_edit',_oscmem_edit);
 $xoopsTpl->assign('oscmem_confirmdelete',_oscmem_confirmdelete);
 $xoopsTpl->assign('oscmem_deletemember',_oscmem_deletemember);
+$xoopsTpl->assign('oscmem_filter',$filter);
 $xoopsTpl->assign('page',$page);
 if($page==1)
 {
