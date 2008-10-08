@@ -44,6 +44,8 @@ if (isset($_GET['filter'])) $filter=$_GET['filter'];
 if (isset($_POST['submit'])) $submit = $_POST['submit'];
 if (isset($_POST['loopcount'])) $loopcount = $_POST['loopcount'];
 if(isset($_POST['page'])) $page=$_POST['page'];
+if(isset($_POST['rowstodisplay'])) $limit=$_POST['rowstodisplay'];
+
 
 $person_handler = &xoops_getmodulehandler('person', 'oscmembership');
 
@@ -64,7 +66,6 @@ if(isset($submit))
 		}
 		$rowcount=$person_handler->getrowcount($searcharray);
 
-echo "rowcount " . $rowcount;
 		$page=round($rowcount/$limit,0);
 		break;
 
@@ -159,8 +160,6 @@ else $searcharray[0]='';
 //compute page and offset
 $offset=$limit*($page-1);
 
-echo $offset . "offset<br>";
-
 $persons = $person_handler->search3($searcharray, $sort,null,$offset,$limit);
 
 $xoopsTpl->assign('oscmem_applyfilter',_oscmem_applyfilter);
@@ -180,6 +179,9 @@ $xoopsTpl->assign('oscmem_confirmdelete',_oscmem_confirmdelete);
 $xoopsTpl->assign('oscmem_deletemember',_oscmem_deletemember);
 $xoopsTpl->assign('oscmem_filter',$filter);
 $xoopsTpl->assign('page',$page);
+$xoopsTpl->assign('oscmem_rowstodisplay',$limit);
+$xoopsTpl->assign('oscmem_label_rowstodisplay',_oscmem_label_rowstodisplay);
+
 if($page==1)
 {
 	$xoopsTpl->assign('oscmem_prevpage',1);

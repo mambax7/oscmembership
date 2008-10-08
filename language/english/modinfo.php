@@ -310,4 +310,6 @@ define("_oscmem_vcardimport_step2","Import VCard &nbsp;<font color=lightgray>Ste
 
 define("_oscmem_csv_exporttovcard","Export to VCard");
 define("_oscmem_createvcard","Create VCard");
+
+define("_oscmem_label_rowstodisplay","Rows to Display");
 ?>

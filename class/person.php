@@ -553,8 +553,6 @@ function &search3($searcharray, $sort, $hasenvelope=null, $offset=0, $limit=0)
 		if($limit>0)
 			$sql .= " LIMIT $offset,$limit";
 
-echo $sql;
-
 		if (!$result = $this->db->query($sql)) 
 		{
 			//echo "<br />NewbbForumHandler::get error::" . $sql;
@@ -676,7 +674,6 @@ function &getrowcount($searcharray)
 
 		$sql .= ")";
 
-echo $sql;
 		if (!$result = $this->db->query($sql)) 
 		{
 			//echo "<br />NewbbForumHandler::get error::" . $sql;
@@ -698,6 +695,36 @@ echo $sql;
     }
 
 
+function &getalphanav()
+    //Search on criteria and return result
+    {
+	$result='';
+	$returnresult='';
+	
+        if (isset($searcharray)) 
+	{
+	        $person= &$this->create(false);
+		$sql = "select left(lastname,1) alphanav from " . $this->db->prefix("oscmembership_person") . " group by left(lastname,1) order by left(lastname,1)";
+
+		if (!$result = $this->db->query($sql)) 
+		{
+			//echo "<br />NewbbForumHandler::get error::" . $sql;
+			return false;
+		}
+
+
+		$row=$this->db->fetchArray($result);
+
+		$returnvalue = $row; //row count
+	}
+	else
+	{
+
+		$returnvalue=null;
+	}
+			
+	return $returnvalue;
+    }
 
 
 function &modsearch($searcharray)
