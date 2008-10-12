@@ -85,7 +85,7 @@ class oscMembershipPersonHandler extends XoopsObjectHandler
 
 	function &getpages($offset)
 	{
-		$sql="select count(1) from $this->db->prefix('oscmembership_person')";
+		$sql="select count(1) from " . $this->db->prefix('oscmembership_person');
 		$result=$this->db->query($sql);
 		$row=$this->db->fetchArray($result);
 		$rows=$row[0];
@@ -701,29 +701,23 @@ function &getalphanav()
 	$result='';
 	$returnresult='';
 	
-        if (isset($searcharray)) 
+	$person= &$this->create(false);
+	$sql = "select left(lastname,1) alphanav from " . $this->db->prefix("oscmembership_person") . " group by left(lastname,1) order by left(lastname,1)";
+
+	if (!$result = $this->db->query($sql)) 
 	{
-	        $person= &$this->create(false);
-		$sql = "select left(lastname,1) alphanav from " . $this->db->prefix("oscmembership_person") . " group by left(lastname,1) order by left(lastname,1)";
-
-		if (!$result = $this->db->query($sql)) 
-		{
-			//echo "<br />NewbbForumHandler::get error::" . $sql;
-			return false;
-		}
-
-
-		$row=$this->db->fetchArray($result);
-
-		$returnvalue = $row; //row count
+		//echo "<br />NewbbForumHandler::get error::" . $sql;
+		return false;
 	}
-	else
+
+	$i=0;	
+	while($row = $this->db->fetchArray($result)) 
 	{
-
-		$returnvalue=null;
+		$returnarray[$i]=$row['alphanav'];
+		$i++;
 	}
-			
-	return $returnvalue;
+
+	return $returnarray;
     }
 
 

@@ -43,6 +43,7 @@ if (isset($_POST['filter'])) $filter=$_POST['filter'];
 if (isset($_GET['filter'])) $filter=$_GET['filter'];
 if (isset($_POST['submit'])) $submit = $_POST['submit'];
 if (isset($_POST['loopcount'])) $loopcount = $_POST['loopcount'];
+if(isset($_SESSION['page'])) $page=$_SESSION['page'];
 if(isset($_POST['page'])) $page=$_POST['page'];
 if(isset($_POST['rowstodisplay'])) $limit=$_POST['rowstodisplay'];
 
@@ -179,6 +180,7 @@ $xoopsTpl->assign('oscmem_confirmdelete',_oscmem_confirmdelete);
 $xoopsTpl->assign('oscmem_deletemember',_oscmem_deletemember);
 $xoopsTpl->assign('oscmem_filter',$filter);
 $xoopsTpl->assign('page',$page);
+$_SESSION['page']=$page;
 $xoopsTpl->assign('oscmem_rowstodisplay',$limit);
 $xoopsTpl->assign('oscmem_label_rowstodisplay',_oscmem_label_rowstodisplay);
 
