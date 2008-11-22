@@ -620,6 +620,114 @@ function &search3($searcharray, $sort, $hasenvelope=null, $offset=0, $limit=0)
 	return $persons;
     }
 
+function &getbdays($month, $sort)
+    //Search on criteria and return result
+    {
+	$result='';
+	$returnresult='';
+	$persons[]=array();
+	
+	if(isset($month))
+	{
+	        $person= &$this->create(false);
+		$sql = "SELECT * FROM " . $this->db->prefix("oscmembership_person") . " WHERE birthmonth=" . $month;
+
+
+		switch($sort)
+		{
+		case "name":
+		$sql .= " order by lastname, firstname ";
+		break;
+		case "city":
+		$sql .= " order by city ";
+		break;
+		case "zip":
+		$sql .= " order by zip ";
+		break;
+		case "state":
+		$sql .= " order by state ";
+		break;
+		case "citystate":
+		$sql .= " order by city,state ";
+		break;
+
+		case "birthday":
+		$sql .=" order by birthday, lastname, firstname";
+		break;
+					
+		default:
+		$sql .= " order by lastname, firstname ";
+		break;
+		}
+
+		if (!$result = $this->db->query($sql)) 
+		{
+			//echo "<br />NewbbForumHandler::get error::" . $sql;
+			return false;
+		}
+		$oddon=false;
+
+		$loopcount = 1;
+
+		
+		$oddrow=false;
+		$person = new Person();
+		$i=0; //start counter
+		while($row = $this->db->fetchArray($result)) 
+		{
+			if(isset($row))
+			{
+				$person=&$this->create(false);
+				$person->assignVars($row);
+				
+				if($person->getVar('address1') !=null)
+				{$person->assignVar('addressflag',_oscmem_yes);}
+				else 
+				{$person->assignVar('addressflag',_oscmem_no);}
+				
+				if($person->getVar('email') != null)
+				{$person->assignVar('emailflag',_oscmem_yes);}
+				else { $person->assignVar('emailflag',_oscmem_no);}
+
+				$person->assignVar('oddrow',$oddrow);
+
+				$person->assignVar('loopcount',$i);
+				
+				if($oddrow){$oddrow=false;}
+				else {$oddrow=true;}
+			
+				$persons[$i]=$person;
+				
+				
+			}
+			$i++;
+			$loopcount++;
+
+		}
+		if($i>0)
+		{
+			$person=$persons[0];
+			$person->assignVar('totalloopcount',$loopcount-1);
+			$persons[0]=$person;
+			
+		}
+		else
+		{
+			$person = new Person();
+			$person->assignVar('totalloopcount',0);
+			$persons[0]=$person;
+		}
+	}
+	else
+	{
+	        $person= &$this->create(false);
+		$persons[0]=$person;
+	}
+			
+	return $persons;
+    }
+
+
 function &getrowcount($searcharray)
     //Search on criteria and return result
     {
