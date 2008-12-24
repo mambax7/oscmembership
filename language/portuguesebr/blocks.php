@@ -1,23 +1,23 @@
 <?php
 // Blocks
-define("_oscmem_nav_block_title","OSC Membership Navigation Block");
-define("_oscmembership_viewperson_menu","Members");
-define("_oscmembership_viewfamily_menu","Family");
-define("_oscmembership_viewgroup_menu","Groups");
-define("_oscmem_view_cart_menu","View Cart");
-define("_oscmem_nav_reports_menu","Reports/Data");
+define("_oscmem_nav_block_title","OSC Sócio Bloco Navegação");
+define("_oscmembership_viewperson_menu","Deputados");
+define("_oscmembership_viewfamily_menu","Família");
+define("_oscmembership_viewgroup_menu","Grupos");
+define("_oscmem_view_cart_menu","Carrinho");
+define("_oscmem_nav_reports_menu","Relatórios / Dados");
 
-define("_oscmem_bday_1","January Birthdays");
-define("_oscmem_bday_2","February Birthdays");
-define("_oscmem_bday_3","March Birthdays");
-define("_oscmem_bday_4","April Birthdays");
-define("_oscmem_bday_5","May Birthdays");
-define("_oscmem_bday_6","June Birthdays");
-define("_oscmem_bday_7","July Birthdays");
-define("_oscmem_bday_8","August Birthdays");
-define("_oscmem_bday_9","September Birthdays");
-define("_oscmem_bday_10","October Birthdays");
-define("_oscmem_bday_11","November Birthdays");
-define("_oscmem_bday_12","December Birthdays");
+define("_oscmem_bday_1","Aniversários Janeiro");
+define("_oscmem_bday_2","Aniversários Fevereiro");
+define("_oscmem_bday_3","Aniversários mar");
+define("_oscmem_bday_4","Aniversários Abril");
+define("_oscmem_bday_5","Aniversários Maio");
+define("_oscmem_bday_6","Aniversários Junho");
+define("_oscmem_bday_7","Aniversários Julho");
+define("_oscmem_bday_8","Aniversários Agosto");
+define("_oscmem_bday_9","Aniversários Setembro");
+define("_oscmem_bday_10","Aniversários Outubro");
+define("_oscmem_bday_11","Aniversários Novembro");
+define("_oscmem_bday_12","Aniversários Dezembro");
 //
 ?>
