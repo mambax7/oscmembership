@@ -1,315 +1,315 @@
 <?php
 // Module 
 //
-define("_oscmem_MOD_NAME","OSC Membership Module");
-define("_oscmem_MOD_DESC","Xoops OSC Module for Membership.");
-define("_oscmem_ADMENU0","OSC Membership Administation");
-define("_oscmem_personselect","Person Select");
-//Field names
-//define("_oscdir_userfile","Church Picture");
+define ( "_oscmem_MOD_NAME", "Composição OSC Módulo");
+define ( "_oscmem_MOD_DESC", "Módulo para OSC um Composição");
+define ( "_oscmem_ADMENU0", "Composição Administation OSC");
+define ( "_oscmem_personselect", "Selecione Pessoa");
+/ / Campo nomes
+/ / define ( "_oscdir_userfile", "Igreja da Imagem");
 
-define("_oscmem_name","Member Name");
-define("_oscmem_lastname", "Last Name");
-define("_oscmem_firstname", "First Name");
-define("_oscmem_phone","Phone Number");
-define("_oscmem_address","Address");
-define("_oscmem_city","City");
-define("_oscmem_state","State");
-define("_oscmem_post","Zip");
-define("_oscmem_email","Email");
-define("_oscmem_country","Country");
-define("_oscmem_title","Member Directory");
-define("_oscmem_birthday","Birthday");
-define("_oscmem_month","Month");
-define("_oscmem_year","Year");
-define("_oscmem_birthfrom","From");
-define("_oscmem_birthto","To");
-define("_oscmem_gender","Gender");
-define("_oscmem_membershipdate","Membership Date");
-define("_oscmem_memberclass","Classification");
-define("_oscmem_submit","Submit");
-define("_osc_save","Save");
-define("_osc_select","Select");
-define("_osc_create","Create");
-define("_oscmem_actions","Actions");
-define("_osc_addmember","Add Family Member");
-define("_oscmem_addmember","Add Member");
-define("_oscmem_addingmember","Redirecting to Add Member");
+define ( "_oscmem_name", "Nome do Estado");
+define ( "_oscmem_lastname", "Sobrenome");
+define ( "_oscmem_firstname", "Nome");
+define ( "_oscmem_phone", "Número de Telefone");
+define ( "_oscmem_address", "Endereço");
+define ( "_oscmem_city", "Cidade");
+define ( "_oscmem_state", "Província");
+define ( "_oscmem_post", "código postal");
+define ( "_oscmem_email", "Email");
+define ( "_oscmem_country", "País");
+define ( "_oscmem_title", "Composição listage");
+define ( "_oscmem_birthday", "Aniversário");
+define ( "_oscmem_month", "Mês");
+define ( "_oscmem_year", "Ano");
+define ( "_oscmem_birthfrom", "Remetente");
+define ( "_oscmem_birthto", "recipiente");
+define ( "_oscmem_gender", "gênero");
+define ( "_oscmem_membershipdate", "Dados de Composição");
+define ( "_oscmem_memberclass", "Classificação");
+define ( "_oscmem_submit", "Enviar");
+define ( "_osc_save", "Guardar");
+define ( "_osc_select", "Escolha");
+define ( "_osc_create", "Criar");
+define ( "_oscmem_actions", "Acções");
+define ( "_osc_addmember", "Adicionar membro da família");
+define ( "_oscmem_addmember", "Adicionar membro");
+define ( "_oscmem_addingmember", "Redireccionando para Adicionar membro");
 
-define("_oscmem_homephone","Home Phone");
-define("_oscmem_workphone","Work Phone");
-define("_oscmem_cellphone","Cell Phone");
+define ( "_oscmem_homephone", "Telefone");
+define ( "_oscmem_workphone", "Telefone Trabalho");
+define ( "_oscmem_cellphone", "Celular");
 
-define("_oscmem_groupname", "Group Name");
-define("_oscmem_groupdescription","Group Description");
-define("_oscmem_grouptype","Group Type");
+define ( "_oscmem_groupname", "Nome do Grupo");
+define ( "_oscmem_groupdescription", "Descrição do grupo");
+define ( "_oscmem_grouptype", "Grupo Tipo");
 
-define("_oscmem_workemail","Work Email");
+define ( "_oscmem_workemail", "Trabalho e-mail");
 
-define("_oscmem_male","Male");
-define("_oscmem_female","Female");
+define ( "_oscmem_male", "Homem");
+define ( "_oscmem_female", "Mulher");
 
-define("_oscmem_datelastedited","Date Last Edited");
-define("_oscmem_editedby","Edited By");
-define("_oscmem_dateentered","Date Entered");
-define("_oscmem_enteredby","Entered By");
-define("_oscmem_birthdayinstructions","&nbsp;&nbsp;Birthday Format (MM/DD/YYYY)");
-define("_oscmem_weddingdate","Wedding Date");
+define ( "_oscmem_datelastedited", "Data Última Editado");
+define ( "_oscmem_editedby", "Editado por");
+define ( "_oscmem_dateentered", "Data de Entrada");
+define ( "_oscmem_enteredby", "Digitado por");
+define ( "_oscmem_birthdayinstructions", "Aniversário Formato (DD / MM / AAAA)");
+define ( "_oscmem_weddingdate", "Wedding Date");
 
-define("_oscmem_familyname","Family Name");
-define("_oscmem_altfamilyname","Alternate Family Name");
-define("_oscmem_altfamilynamedupe","Create duplicate entry using Alternate Family Name");
-define("_oscmem_persondetail_TITLE","Person Detail Form");
-define("_oscmem_familydetail_TITLE","Family Detail Form");
-define("_oscmem_person_list","Person List");
-define("_oscmem_family_list","Family List");
-define("_oscmem_familymember","Family Members");
-define("_oscmem_groupselect_TITLE","Group List");
-define("_oscmem_groupdetail_TITLE","Group Detail");
-//Messages
-define('_oscmem_UPDATESUCCESS','The OSC Membership database has been updated successfully');
-define('_oscmem_CREATESUCCESS_individual','The Individual has been created in the OSC database.');
+define ( "_oscmem_familyname", "Apelido");
+define ( "_oscmem_altfamilyname", "Nome Alternativo Família");
+define ( "_oscmem_altfamilynamedupe", "Criar duplicado entrada usando Alternativo Família Nome");
+define ( "_oscmem_persondetail_TITLE", "Pessoa Detalhe Forma");
+define ( "_oscmem_familydetail_TITLE", "Família Detalhe Forma");
+define ( "_oscmem_person_list", "Lista Pessoa");
+define ( "_oscmem_family_list", "Família List");
+define ( "_oscmem_familymember", "membros da família");
+define ( "_oscmem_groupselect_TITLE", "Grupo Lista");
+define ( "_oscmem_groupdetail_TITLE", "Grupo Detalhe");
+/ / Mensagens
+define ("_oscmem_UPDATESUCCESS","O OSC Composição de dados foi atualizado com sucesso");
+define ("_oscmem_CREATESUCCESS_individual","O indivíduo foi criado no OSC banco de dados. ");
 
-define("_oscmem_CREATESUCCESS_family","The Family has been created in the OSC database.");
-define("_oscmem_addfamily_redirect","Redirecting to Add Family");
+define ( "_oscmem_CREATESUCCESS_family", "A Família foi criado no OSC banco de dados.");
+define ( "_oscmem_addfamily_redirect", "Adicionar Redireccionando para Família");
 
-define("_oscmem_UPDATESUCCESS_member","Member(s) added to family.");
-define("_oscmem_REMOVEMEMBERSUCCESS","Family Member Removed.");
-define("_oscmem_nomembers","No Members");
-define("_oscmem_nogroups","No Groups.  To create a group click <a href=>here</a>");
+define ( "_oscmem_UPDATESUCCESS_member", "Estado (s) adicionado à família.");
+define ( "_oscmem_REMOVEMEMBERSUCCESS", "membro da família foi removido.");
+define ( "_oscmem_nomembers", "Não membros");
+define ( "_oscmem_nogroups", "Não Grupos. Para criar um grupo <a href=> clique aqui </ a>");
 
-define("_oscmem_persondetail","Members");
+define ( "_oscmem_persondetail", "Membros");
 
-//Groups
-define("_oscmem_groupmember","Group Membership");
-define("_osc_addgroupmember","Add Group Members");
-define("_oscmem_UPDATESUCCESS_member_grooup","Member added to Group Successfully");
-define("_oscmem_REMOVEGROUPMEMBERSUCCESS","Group Member Successfully removed.");
+/ / Grupos
+define ( "_oscmem_groupmember", "grupo");
+define ( "_osc_addgroupmember", "Adicionar membros do grupo");
+define ( "_oscmem_UPDATESUCCESS_member_grooup", "membro adicionado ao grupo Successfully");
+define ( "_oscmem_REMOVEGROUPMEMBERSUCCESS", "Grupo Estado Successfully removed.");
 
-//Menu
-define("_oscmembership_viewperson","Members");
-define("_oscmembership_addperson", "Add Member");
-define("_oscmembership_addfamily","Add Family");
-define("_oscmembership_viewfamily","Family");
-define("_oscmem_remove_member","Remove Member");
-define("_oscmem_edit_member","Edit Member");
-define("_oscmem_edit","Edit");
-define("_oscmembership_viewgroup","Groups");
-define("_oscmem_addgroup","Add Group");
-define("_oscmem_addgroup_redirect","Redirecting to Add Group");
-
-
-define("_oscmem_familyrole","Family Role");
-
-define("_oscmem_unassigned","Unassigned");
-
-define("_oscmem_optionname","Option Name");
-define("_oscmem_optionsequence","Sequence");
-define("_oscmem_osclist_famrole_TITLE","Family Roles");
-
-//define("_oscmem_osclist_TITLE_familyroles","Family Roles");
-//define("_oscmem_osclist_TITLE_memberclassifications","Member Classifications");
-//define("_oscmem_osclist_TITLE_grouptypes","Group Types");
+/ / Menu
+define ( "_oscmembership_viewperson", "Membros");
+define ( "_oscmembership_addperson", "Adicionar membro");
+define ( "_oscmembership_addfamily", "Adicionar Família");
+define ( "_oscmembership_viewfamily", "Família");
+define ( "_oscmem_remove_member", "Remover Estado");
+define ( "_oscmem_edit_member", "Editar Membro");
+define ( "_oscmem_edit", "Editar");
+define ( "_oscmembership_viewgroup", "Grupos");
+define ( "_oscmem_addgroup", "Adicionar Grupo");
+define ( "_oscmem_addgroup_redirect", "Redireccionando para Adicionar Grupo");
 
 
-define("_oscmem_noclass","No Classification");
+define ( "_oscmem_familyrole", "Família Papel");
+
+define ( "_oscmem_unassigned", "Unassigned");
+
+define ( "_oscmem_optionname", "Opção Nome");
+define ( "_oscmem_optionsequence", "Seqüência");
+define ( "_oscmem_osclist_famrole_TITLE", "Família Roles");
+
+/ / define ( "_oscmem_osclist_TITLE_familyroles", "Família Roles");
+/ / define ( "_oscmem_osclist_TITLE_memberclassifications", "Estado-Classificações");
+/ / define ( "_oscmem_osclist_TITLE_grouptypes", "Tipos de Grupo");
 
 
-define("_oscmem_filter","Filter");
-define("_oscmem_applyfilter","Apply Filter");
-define("_oscmem_clearfilter","Clear Filter");
-define("_oscmem_addtocart","Add to Cart");
-define("_oscmem_remove","Remove");
-define("_oscmem_emptycart","Empty Cart");
-define("_oscmem_emptycarttogroup","Empty Cart to Group");
-define("_oscmem_emptycarttofamily","Empty Cart to Family");
-define("_oscmem_generatelabels","Generate Labels");
-define("_oscmem_addedtocart","Members have been added to the cart.");
-define("_oscmem_intersectcart","Intersect Cart");
-define("_oscmem_removefromcart","Remove from Cart");
-
-define("_oscmem_msg_removedfromcart","Selected Individuals have been successfully removed from the cart");
-define("_oscmem_msg_intersectedcart","Selected Individuals have been successfully intersected with the cart");
-
-define("_oscmem_view_cart","View Cart");
-define("_oscmem_cartcontents","Cart Contents");
-define("_oscmem_memberview","Membership View");
-define("_oscmem_yes","Yes");
-define("_oscmem_no","No");
-
-define("_oscmem_reporttitle","OSC Membership Reports");
-define("_oscmem_directoryreport","Membership Directory");
-define("_oscmem_reports", "Reports");
-define("_oscmem_nav_reports","Reports/Data");
-define("_oscmem_csvimport_individual","CSV Import Individuals");
-define("_oscmem_vcardimport_individual","VCard Import Individuals");
-
-define("_oscmem_dirreport_selectclass","Select classifications to include:");
-define("_oscmem_usectl","Use Ctrl Key to select multiple");
-define("_oscmem_dirreport_groupmemb","Group Membership:");
-define("_oscmem_dirreport_headhouse","Which role is the head of household?");
-define("_oscmem_dirreport_spouserole","Which role is the spouse?");
-define("_oscmem_dirreport_childrole","Which role is a child?");
-define("_oscmem_dirreport_infoinclude","Information to Include:");
-
-define("_oscmem_address_label","Address:");
-define("_oscmem_familyhomephone","Family Home Phone");
-define("_oscmem_familyworkphone","Family Work Phone");
-define("_oscmem_familycellphone","Family Cell Phone");
-define("_oscmem_familyemail","Family Email");
-define("_oscmem_personalphone","Individual Phone");
-define("_oscmem_personalworkphone","Individual Work Phone");
-define("_oscmem_personalcell","Individual Cell Phone");
-define("_oscmem_personalemail","Individual Email");
-define("_oscmem_personalworkemail","Individual Work Email");
-
-define("_oscmem_informationinclude","Information to Include:");
-define("_oscmem_diroptions","Directory Options");
-define("_oscmem_altfamilyname","Dual Listing - Alternate Family Name");
-define("_oscmem_althead","Use only Family Name for listing");
-define("_oscmem_dirsort","Directory Sort");
-define("_oscmem_orderbyfirstname","Order Directory by First Name");
-define("_oscmem_directorytitle","Church Directory Options");
-
-define("_oscmem_titlepagesettings","Directory Title Page Settings");
-
-define("_oscmem_usetitlepageyn","Use Title Page");
-define("_oscmem_churchname_label","Church Name");
-define("_oscmem_disclaimer","Disclaimer");
-
-define("_oscmem_directory","Directory");
-define("_oscmem_page","Page");
-
-define("_oscmem_incorrectdt_membershipdate","Incorrect Membership Date Format");
-define("_oscmem_incorrectdt_weddingdate","Incorrect Wedding Date Format");
-
-define("_oscmem_CREATESUCCESS_group","Group Successfully Created");
-define("_oscmem_csvexport_individual","CSV Export Individuals");
-define("_oscmem_cvsexport_infoinclude","Fields to include in Export");
+define ( "_oscmem_noclass", "Não Classificação");
 
 
-define("_oscmem_season_select","Select a season");
-define("_oscmem_season_spring","Spring");
-define("_oscmem_season_summer","Summer");
-define("_oscmem_season_fall","Fall");
-define("_oscmem_season_winter","Winter");
+define ( "_oscmem_filter", "Filtro");
+define ( "_oscmem_applyfilter", "Aplicar Filtro");
+define ( "_oscmem_clearfilter", "Limpar Filtro");
+define ( "_oscmem_addtocart", "Encomendas");
+define ( "_oscmem_remove", "Remover");
+define ( "_oscmem_emptycart", "Esvaziar Carrinho");
+define ( "_oscmem_emptycarttogroup", "Esvaziar Carrinho para o Grupo");
+define ( "_oscmem_emptycarttofamily", "Esvaziar Carrinho de Família");
+define ( "_oscmem_generatelabels", "Gerar etiquetas");
+define ( "_oscmem_addedtocart", "Os membros foram adicionados ao carrinho.");
+define ( "_oscmem_intersectcart", "intersect carrinho");
+define ( "_oscmem_removefromcart", "Remover do carrinho");
 
-define("_oscmem_filters","Filters");
-define("_oscmem_recordstoexport","Records to Export");
-define("_oscmem_classificationstoexport","Classifications to Export");
+define ( "_oscmem_msg_removedfromcart", "indivíduos selecionados foram removidos com sucesso a partir do carrinho");
+define ( "_oscmem_msg_intersectedcart", "indivíduos selecionados foram sucesso intersectada com o carrinho");
 
-define("_oscmem_fromfilterbelow","Based on Filters Below...");
-define("_oscmem_fromcart","People in Cart (filters ignored)");
+define ( "_oscmem_view_cart", "Carrinho");
+define ( "_oscmem_cartcontents", "Compras");
+define ( "_oscmem_memberview", "Composição Ver");
+define ( "_oscmem_yes", "Sim");
+define ( "_oscmem_no", "Não");
 
-define("_oscmem_cvsexport_customfields","Custom Fields To Include In Export");
-define("_oscmem_rolestoexport","Family Roles to Export");
+define ( "_oscmem_reporttitle", "Composição OSC Relatórios");
+define ( "_oscmem_directoryreport", "Composição Directory");
+define ( "_oscmem_reports", "Relatórios");
+define ( "_oscmem_nav_reports", "Relatórios / Dados");
+define ( "_oscmem_csvimport_individual", "Importar CSV Indivíduos");
+define ( "_oscmem_vcardimport_individual", "Importar VCard Indivíduos");
 
-define("_oscmem_gender_nofilter","Do not filter on Gender");
+define ( "_oscmem_dirreport_selectclass", "Seleccionar classificações para incluir:");
+define ( "_oscmem_usectl", "Utilizar tecla Ctrl para selecionar vários");
+define ( "_oscmem_dirreport_groupmemb", "Grupo Composição:");
+define ( "_oscmem_dirreport_headhouse", "Qual o papel é o chefe de família?");
+define ( "_oscmem_dirreport_spouserole", "Qual é o papel cônjuge?");
+define ( "_oscmem_dirreport_childrole", "Qual o papel é uma criança?");
+define ( "_oscmem_dirreport_infoinclude", "Informação a incluir:");
 
-define("_oscmem_filter_from","From");
-define("_oscmem_filter_to","To");
+define ( "_oscmem_address_label", "Endereço:");
+define ( "_oscmem_familyhomephone", "Família Phone Home");
+define ( "_oscmem_familyworkphone", "Família Telefone");
+define ( "_oscmem_familycellphone", "Família Celular");
+define ( "_oscmem_familyemail", "Família e-mail");
+define ( "_oscmem_personalphone", "Indivíduo Telefone");
+define ( "_oscmem_personalworkphone", "trabalho individual Telefone");
+define ( "_oscmem_personalcell", "Indivíduo Celular");
+define ( "_oscmem_personalemail", "Indivíduo e-mail");
+define ( "_oscmem_personalworkemail", "Indivíduo e-mail de trabalho");
 
-define("_oscmem_otheremail","Other Email");
-define("_oscmem_envelopenumber","Envelope Number");
-define("_oscmem_csv_birthanniversary","Birth/Anniversary");
-define("_oscmem_csv_ageyearsmarried","Age and Years Married");
-define("_oscmem_csv_familyrole","Family Role");
-define("_oscmem_csv_familyname","Family Name");
-define("_oscmem_csv_ministry","Ministry");
-define("_oscmem_anniversary","Anniversary");
+define ( "_oscmem_informationinclude", "Informação a incluir:");
+define ( "_oscmem_diroptions", "Directório Opções");
+define ( "_oscmem_altfamilyname", "Dual Listing - Suplente Família Nome");
+define ( "_oscmem_althead", "Nome de Família Utilize apenas listagem");
+define ( "_oscmem_dirsort", "Classificar Directory");
+define ( "_oscmem_orderbyfirstname", "Ordem Directory Primeiro Nome");
+define ( "_oscmem_directorytitle", "Igreja Directory Opções");
 
-define("_oscmem_csv_individual","CSV Individual Records");
-define("_oscmem_csv_combinefamily","CSV Combine Families");
-define("_oscmem_csv_addtocart","Add Individuals to Cart");
-define("_oscmem_csv_outputmethod","Output Method");
+define ( "_oscmem_titlepagesettings", "Directório Título Page Settings");
 
-define("_oscmem_csv_skipincompleteaddress","Skip Incomplete Mail Addresses");
-define("_oscmem_csv_skipnoenvelope","Skip Records with No Envelope Number<br>(Individual Records Only)");
+define ( "_oscmem_usetitlepageyn", "Uso Título Page");
+define ( "_oscmem_churchname_label", "Igreja Nome");
+define ( "_oscmem_disclaimer", "Aviso");
 
-define("_oscmem_admin_osclist_familyroles","Modify Family Roles");
-define("_oscmem_admin_osclist_memberclassification","Modify Member Classifications");
-define("_oscmem_admin_osclist_grouptype","Modify Group Types");
-define("_oscmem_admin_osclist_permissions","Modify Permissions");
-define("_oscmem_admin_customfield","Modify Custom Fields");
-define("_oscmem_admin_churchdetail","Modify Church Detail");
-define("_oscmem_view","View");
+define ( "_oscmem_directory", "Diretório");
+define ( "_oscmem_page", "Page");
 
-define("_oscmem_defaultcountry_value",22);
-define("_oscmem_defaultcountry_text"," &nbsp;&nbsp;(Default Country is USA)");
+define ( "_oscmem_incorrectdt_membershipdate incorreto", "Composição Data Format");
+define ( "_oscmem_incorrectdt_weddingdate incorreto", "Wedding Date Format");
 
-define("_oscmem_accessdenied","Access Denied");
-define("_oscmem_fax","Fax");
-define("_oscmembership_directorydisclaimer","Directory Disclaimer");
-define("_oscmembership_csvuploaderror","ERROR: the uploaded CSV file no longer exists!");
-define("_oscmem_invaliddate","Invalid Date");
-define("_oscmem_membershipcard","Membership Cards (PDF) - Generated from Cart Contents - Uses Business Card Layout - Avery #8371");
-define("_oscmem_childcard","Child Check-In ID Cards (PDF) - Generated from Cart Contents - Uses Business Card Layout - Avery #8371");
+define ( "_oscmem_CREATESUCCESS_group", "Grupo criado com sucesso");
+define ( "_oscmem_csvexport_individual", "CSV Exportar Indivíduos");
+define ( "_oscmem_cvsexport_infoinclude", "Campos de incluir no Exportar");
 
-define("_oscmem_website","Website");
-define("_oscmem_child","Child");
-define("_oscmem_parent","Parent");
-define("_oscmem_addtocart_redirect","Group added to cart");
-define("_oscmem_groupview","Group View");
-define("_oscmem_generateemails","Generate Emails");
-define("_oscmem_cartgenerateemail_TITLE","Generate Email");
-define("_oscmem_emailsubject","Subject");
-define("_oscmem_emailbody_label","Body of Email");
-define("_oscmem_emailto_label","Recipients");
-define("_oscmem_family_select","Select Families");
-define("_oscmembership_addcarttofamily","Add Cart to Selected Family");
-define("_oscmem_confirmdelete","Please confirm you want these members deleted.  The delete will be permanent.");
-define("_oscmem_deletemember","Delete Member");
-define("_oscmem_deletefamily","Delete Family");
-define("_oscmem_deleted","Members have been deleted");
 
-define("_oscmem_picloc","Picture Location");
-define("_oscmem_familypicture","Family Picture");
-define("_oscmem_personpicture","Person Picture");
+define ( "_oscmem_season_select", "Escolha uma época");
+define ( "_oscmem_season_spring", "Primavera");
+define ( "_oscmem_season_summer", "Verão");
+define ( "_oscmem_season_fall", "Queda");
+define ( "_oscmem_season_winter", "Inverno");
 
-define("_oscmem_filetoupload","File to Upload");
-define("_oscmem_cvsimport_family_step1","Import Family - Step 1&nbsp;&nbsp;<font color=lightgray>Step 2</font>&nbsp;&nbsp;<font color=lightgray>Step 3</font>");
+define ( "_oscmem_filters", "Filtros");
+define ( "_oscmem_recordstoexport", "Registros de Exportação");
+define ( "_oscmem_classificationstoexport", "Classificações para Exportar");
 
-define("_oscmem_cvsimport_family_step2","Import Family - <font color=lightgray>Step 1</font>&nbsp;&nbsp;Step 2&nbsp;&nbsp;<font color=lightgray>Step3</font>");
+define ( "_oscmem_fromfilterbelow", "Baseado em Filtros ..."); Abaixo
+define ( "_oscmem_fromcart", "Pessoas no Carrinho (filtros ignorada)");
 
-define("_oscmem_cvsimport_family_step3","Import Family - <font color=lightgray>Step 1</font>&nbsp;&nbsp;<font color=lightgray>Step 2</font>&nbsp;&nbsp;Step 3");
+define ( "_oscmem_cvsexport_customfields", "Personalizar campos para incluir em Exportar");
+define ( "_oscmem_rolestoexport", "Família Papéis para Exportar");
 
-define("_oscmem_importfile","Import File");
+define ( "_oscmem_gender_nofilter", "Não filtrar sobre Sexo");
 
-define("_oscmem_uploadfile","Upload File");
+define ( "_oscmem_filter_from", "De");
+define ( "_oscmem_filter_to", "Para");
 
-define("_oscmem_column","Column");
+define ( "_oscmem_otheremail", "Outro e-mail");
+define ( "_oscmem_envelopenumber", "Número Envelope");
+define ( "_oscmem_csv_birthanniversary", "Nascimento / Aniversário");
+define ( "_oscmem_csv_ageyearsmarried", "Idade e Anos Casado");
+define ( "_oscmem_csv_familyrole", "Família Papel");
+define ( "_oscmem_csv_familyname", "Apelido");
+define ( "_oscmem_csv_ministry", "Ministério");
+define ( "_oscmem_anniversary", "Aniversário");
 
-define("_oscmem_importfile_individual","Import Individuals File");
-define("_oscmem_ignore","Ignore");
-define("_oscmem_ignorefirstrow","Ignore First Row");
-define("_oscmem_csvimport_family","CSV Import Family");
-define("_oscmem_success","Success");
-define("_oscmem_recordsimported","Records Imported");
+define ( "_oscmem_csv_individual", "CSV registos individuais");
+define ( "_oscmem_csv_combinefamily", "CSV Combinar Famílias");
+define ( "_oscmem_csv_addtocart", "Indivíduos Adicionar ao carrinho");
+define ( "_oscmem_csv_outputmethod", "Método de Saída");
 
-define("_oscmem_csvdelimiter","CSV Delimiter");
-define("_oscmem_tab","Tab");
-define("_oscmem_comma","Comma");
-define("_oscmem_import_family","Family Import");
+define ( "_oscmem_csv_skipincompleteaddress", "Passar Incompleta Mail Addresses");
+define ( "_oscmem_csv_skipnoenvelope", "Passar Records com Envelope n º Número <br> (registos individuais Only)");
 
-define("_oscmem_menu_orphanmatchup","Orphan Matchup -- Match Individuals to Families");
+define ( "_oscmem_admin_osclist_familyroles", "Modificar papéis familiares");
+define ( "_oscmem_admin_osclist_memberclassification", "Modificar os Classificações");
+define ( "_oscmem_admin_osclist_grouptype", "Modificar Grupo Tipos");
+define ( "_oscmem_admin_osclist_permissions", "Modificar permissões");
+define ( "_oscmem_admin_customfield", "Modificar campos personalizados");
+define ( "_oscmem_admin_churchdetail", "Modificar Igreja Detalhe");
+define ( "_oscmem_view", "Ver");
 
-define("_oscmem_orphanmatchup","Orphan Matchup");
-define("_oscmem_matchuporphans","Matchup Selected Orphans");
-define("_oscmem_orphanselect","Orphan Select");
-define("_oscmem_matchedfamilyname","Matched<br>Family Name");
-define("_oscmem_orphansmatched","The orphan(s) have been matched.");
-define("_oscmem_noorphans","No orphans found.");
-define("_oscmem_csvexport_title","Member Export");
+define ( "_oscmem_defaultcountry_value", 22);
+define ( "_oscmem_defaultcountry_text", "(Predefinição País é E.U.A.)");
 
-define("_oscmem_altindividualonly","Do not Print Families, Only Individuals");
+define ( "_oscmem_accessdenied", "Acesso Negado");
+define ( "_oscmem_fax", "Fax");
+define ( "_oscmembership_directorydisclaimer", "Directório Aviso");
+define ( "_oscmembership_csvuploaderror", "ERRO: o arquivo CSV carregado já não existe!");
+define ( "_oscmem_invaliddate", "Data inválida");
+define ( "_oscmem_membershipcard", "Membership Cards (PDF) - gerado a partir de Compras - Utiliza Business Card Layout - Avery # 8371");
+define ( "_oscmem_childcard", "Criança Check-In ID Cards (PDF) - gerado a partir de Compras - Utiliza Business Card Layout - Avery # 8371");
 
-define("_oscmem_dirincludepictures","Include Pictures in Directory");
+define ( "_oscmem_website", "Web");
+define ( "_oscmem_child", "Criança");
+define ( "_oscmem_parent", "Pai");
+define ( "_oscmem_addtocart_redirect", "Grupo adicionado ao carrinho");
+define ( "_oscmem_groupview", "Grupo Ver");
+define ( "_oscmem_generateemails", "Gerar e-mails");
+define ( "_oscmem_cartgenerateemail_TITLE", "Gerar e-mail");
+define ( "_oscmem_emailsubject", "Assunto");
+define ( "_oscmem_emailbody_label", "Corpo do e-mail");
+define ( "_oscmem_emailto_label", "Destinatários");
+define ( "_oscmem_family_select", "Seleccionar Famílias");
+define ( "_oscmembership_addcarttofamily", "Adicionar ao Carrinho selecionada Família");
+define ( "_oscmem_confirmdelete", "Por favor, confirme que você deseja que estes membros eliminado. Os apagar serão permanentes.");
+define ( "_oscmem_deletemember", "Excluir Estado");
+define ( "_oscmem_deletefamily", "Apagar Família");
+define ( "_oscmem_deleted", "os deputados têm sido eliminada");
 
-define("_oscmem_vcardimport_step1","Import VCard &nbsp;&nbsp;Step 1&nbsp;-&nbsp;<font color=lightgray>Step 2</font>");
-define("_oscmem_vcardimport_step2","Import VCard &nbsp;<font color=lightgray>Step 1</font>&nbsp;-&nbsp;Step2");
+define ( "_oscmem_picloc", "Picture Location");
+define ( "_oscmem_familypicture", "Família Imagem");
+define ( "_oscmem_personpicture", "Pessoa Imagem");
 
-define("_oscmem_csv_exporttovcard","Export to VCard");
-define("_oscmem_createvcard","Create VCard");
+define ( "_oscmem_filetoupload", "Arquivo para upload");
+define ( "_oscmem_cvsimport_family_step1", "Importar Família - Passo 1 <font color=lightgray> Etapa 2 </ font> <font color=lightgray> Etapa 3 </ font>");
 
-define("_oscmem_label_rowstodisplay","Rows to Display");
+define ( "_oscmem_cvsimport_family_step2", "Importar Família - <font color=lightgray> Etapa 1 </ font> <font color=lightgray> STEP3 Etapa 2 </ font>");
+
+define ( "_oscmem_cvsimport_family_step3", "Importar Família - <font color=lightgray> Etapa 1 </ font> <font color=lightgray> Etapa 2 </ font> Passo 3");
+
+define ( "_oscmem_importfile", "Importar Arquivo");
+
+define ( "_oscmem_uploadfile", "Enviar arquivo");
+
+define ( "_oscmem_column", "Coluna");
+
+define ( "_oscmem_importfile_individual", "Importar Arquivo Indivíduos");
+define ( "_oscmem_ignore", "Ignorar");
+define ( "_oscmem_ignorefirstrow", "Ignorar Primeira Linha");
+define ( "_oscmem_csvimport_family", "Importar CSV Família");
+define ( "_oscmem_success", "Sucesso");
+define ( "_oscmem_recordsimported", "Registros importados");
+
+define ( "_oscmem_csvdelimiter", "CSV Delimitador");
+define ( "_oscmem_tab", "Tab");
+define ( "_oscmem_comma", "Vírgula");
+define ( "_oscmem_import_family", "Importar Família");
+
+define ( "_oscmem_menu_orphanmatchup", "Orphan concordância - Corresponder às Famílias Indivíduos");
+
+define ( "_oscmem_orphanmatchup", "Orphan concordância");
+define ( "_oscmem_matchuporphans", "combinação selecionada Órfãos");
+define ( "_oscmem_orphanselect", "Orphan Escolha");
+define ( "_oscmem_matchedfamilyname", "matched <br> Família Nome");
+define ( "_oscmem_orphansmatched", "O órfão (s) que tenham sido ajustadas.");
+define ( "_oscmem_noorphans", "Não órfãos encontrado.");
+define ( "_oscmem_csvexport_title", "Estado de exportação");
+
+define ( "_oscmem_altindividualonly", "Não Imprimir Famílias, Só Indivíduos");
+
+define ( "_oscmem_dirincludepictures", "Incluir Fotos do diretório");
+
+define ( "_oscmem_vcardimport_step1", "Importar VCard Passo 1 - <font color=lightgray> Etapa 2 </ font>");
+define ( "_oscmem_vcardimport_step2", "Importar VCard <font color=lightgray> Etapa 1 </ font> - STEP2");
+
+define ( "_oscmem_csv_exporttovcard", "Exportar para VCard");
+define ( "_oscmem_createvcard", "Criar VCard");
+
+define ( "_oscmem_label_rowstodisplay", "linhas para apresentação");
 ?>
