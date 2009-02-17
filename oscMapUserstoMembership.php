@@ -34,8 +34,33 @@ if (!$xoopsUser)
 if(hasPerm("oscmembership_view",$xoopsUser)) $ispermview=true;
 if(hasPerm("oscmembership_modify",$xoopsUser)) $ispermmodify=true;
 
+//$profile_handler =& xoops_getmodulehandler('smartprofile','profile');
 
-$member_handler =& xoops_gethandler('member');
+//$profile_handler->search(null,null);
+
+$profile_handler =& xoops_getmodulehandler('profile','smartprofile');
+// Get fields
+$fields =& $profile_handler->loadFields();
+
+foreach (array_keys($fields) as $i) 
+{
+	echo $fields[$i]->getVar('field_name') . "<br>";
+}
+
+$person_handler = &xoops_getmodulehandler('person', 'oscmembership');
+$person=$person_handler->create();
+
+$vars=$person->getVars();
+echo "<hr>";
+foreach(array_keys($vars) as $osc_key)
+{
+	echo $osc_key . "<br>";
+}
+//echo var_dump($vars);
+
+
+/*
+$member_handler =& xoops_gethandler('profile');
 $users=$member_handler->getUsers();
 
 echo $users[0]->getVar('email');
@@ -51,7 +76,7 @@ foreach($users as $user)
 
 
 }
- 
+ */
 /*
 $searcharray=array();
 if(isset($submit))

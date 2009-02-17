@@ -1,0 +1,19 @@
+
+<h2 class=comTitle><{$title}></h2>
+
+<form action='oscMapUserstoMembership.php>' method="POST">
+<table class='outer' >
+<tr>
+<td><select name="field1">
+<{foreach item=fieldname from=$fields}>
+<option value=""
+<{/foreach}>
+
+
+</select>
+</td>
+</tr>
+</table>
+<input type="hidden" name="loopcount" value="<{$loopcount}>">
+</form>
+
