@@ -1,7 +1,7 @@
 <?php
 include("../../mainfile.php");
 
-//$GLOBALS['xoopsOption']['template_main'] ="memberview.html";
+$GLOBALS['xoopsOption']['template_main'] ="oscMapUserstoMembership_step1.html";
 
 
 $user=$xoopsUser;
@@ -56,7 +56,9 @@ foreach(array_keys($vars) as $osc_key)
 {
 	echo $osc_key . "<br>";
 }
-//echo var_dump($vars);
+
+$oscmem_person_keys=array(array_keys($vars));
+$xoopsTpl->assign('oscmem_person_keys',$oscmem_person_keys);
 
 
 /*
