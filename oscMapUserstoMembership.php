@@ -42,24 +42,31 @@ $profile_handler =& xoops_getmodulehandler('profile','smartprofile');
 // Get fields
 $fields =& $profile_handler->loadFields();
 
+/*
 foreach (array_keys($fields) as $i) 
 {
 	echo $fields[$i]->getVar('field_name') . "<br>";
 }
+*/
+
+$profile_keys=array_keys($fields);
+$xoopsTpl->assign('oscmem_profile_keys',$profile_keys);
+
 
 $person_handler = &xoops_getmodulehandler('person', 'oscmembership');
 $person=$person_handler->create();
 
 $vars=$person->getVars();
-echo "<hr>";
-foreach(array_keys($vars) as $osc_key)
-{
-	echo $osc_key . "<br>";
-}
-
 $oscmem_person_keys=array(array_keys($vars));
-$xoopsTpl->assign('oscmem_person_keys',$oscmem_person_keys);
+$xoopsTpl->assign('oscmem_person_keys',$oscmem_person_keys[0]);
 
+$xoopsTpl->assign('oscmem_oscmap_field1',_oscmem_oscmap_field1);
+$xoopsTpl->assign('oscmem_oscmap_field2',_oscmem_oscmap_field2);
+$xoopsTpl->assign('oscmem_oscmap_field3',_oscmem_oscmap_field3);
+$xoopsTpl->assign('oscmem_oscmap_field4',_oscmem_oscmap_field4);
+$xoopsTpl->assign('oscmem_oscmap_field5',_oscmem_oscmap_field5);
+$xoopsTpl->assign('oscmem_oscmap_field6',_oscmem_oscmap_field6);
+$xoopsTpl->assign('oscmem_oscmap_field7',_oscmem_oscmap_field7);
 
 /*
 $member_handler =& xoops_gethandler('profile');
