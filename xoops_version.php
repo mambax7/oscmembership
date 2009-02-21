@@ -49,8 +49,6 @@ $modversion['templates'][11]['file']='familyselect.html';
 $modversion['templates'][11]['description']='family select template';
 $modversion['templates'][12]['file']='orphanselect.html';
 $modversion['templates'][12]['description']='orphan select template';
-$modversion['templates'][13]['file']='oscMapUserstoMembership_step1.html';
-$modversion['templates'][13]['description']='Map Users to Membership roster';
 
 
 $modversion['blocks'][1]['file'] = "oscmemnav.php";
