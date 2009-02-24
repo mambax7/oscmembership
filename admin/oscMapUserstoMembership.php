@@ -110,15 +110,15 @@ $oscmem_vars=array();
 $oscmem_vars[]='email';
 $oscmem_users=$profile_handler->search($oscmem_criteria,$oscmem_vars);
 
-$test=$oscmem_users[0][2];
+$test=$oscmem_users[0][1];
 
 echo $test->getVar('uname');
 //print_r($test);
 
-$oscmem_user=$test[0];
-print_r($oscmem_user);
+//$oscmem_user=$test[0];
+//print_r($oscmem_user);
 
-echo $test['email'];
+//echo $test['email'];
 // Get fields
 $fields =& $profile_handler->loadFields();
 $oscfieldnames=array_keys($fields);
