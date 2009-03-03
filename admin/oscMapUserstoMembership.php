@@ -45,6 +45,106 @@ if(hasPerm("oscmembership_modify",$xoopsUser)) $ispermmodify=true;
 
 if(!$ispermmodify) redirect_header(XOOPS_URL, 3, _oscmem_accessdenied);
 
+    /**
+	* Extracted from SmartProfile
+    * Returns a value for output of this field
+    *
+    * @param XoopsUser $user {@link XoopsUser} object to get the value of
+    * @param SmartProfileProfile $profile object to get the value of
+    *
+    * @return mixed
+    **/
+    function getOutputValue(&$user, $field_name) {
+        $value = in_array($this->getVar('field_name'), $this->getUserVars()) ? $user->getVar($this->getVar('field_name')) : $field_name;
+        
+        switch ($this->getVar('field_type')) {
+            default:
+            case "textbox":
+            case "textarea":
+            case "dhtml":
+            case 'theme':
+            case "language":
+            case "list":
+                return $value;
+                break;
+
+            case "select":
+            case "radio":
+                $options = $this->getVar('field_options');
+                return isset($options[$value]) ? htmlspecialchars($options[$value]) : "";
+                break;
+
+            case "select_multi":
+            case "checkbox":
+                $options = $this->getVar('field_options');
+                $ret = array();
+                if (count($options) > 0) {
+                    foreach (array_keys($options) as $key) {
+                        if (in_array($key, $value)) {
+                            $ret[$key] = htmlspecialchars($options[$key]);
+                        }
+                    }
+                }
+                return $ret;
+                break;
+
+            case "group":
+                //change to retrieve groups and return name of group
+                return $value;
+                break;
+
+            case "group_multi":
+                //change to retrieve groups and return array of group names
+                break;
+
+            case "longdate":
+                //return YYYY/MM/DD format - not optimal as it is not using local date format, but how do we do that
+                //when we cannot convert it to a UNIX timestamp?
+                return str_replace("-", "/", $value);
+
+            case "date":
+                if ($value > 0) {
+                    return formatTimestamp($value, 's');
+                }
+                return "";
+                break;
+
+            case "datetime":
+                if ($value > 0) {
+                    return formatTimestamp($value, 'm');
+                }
+                return "";
+                break;
+
+            case "autotext":
+                $value = $user->getVar($this->getVar('field_name'), 'n'); //autotext can have HTML in it
+                $value = str_replace("{X_UID}", $user->getVar("uid"), $value );
+                $value = str_replace("{X_URL}", XOOPS_URL, $value );
+                $value = str_replace("{X_UNAME}", $user->getVar("uname"), $value );
+                return $value;
+                break;
+
+            case "rank":
+                $userrank =& $user->rank();
+                $user_rankimage = "";
+                if (isset($userrank['image']) && $userrank['image'] != "") {
+                    $user_rankimage = '<img src="'.XOOPS_UPLOAD_URL.'/'.$userrank['image'].'" alt="'.$userrank['title'].'" /><br />';
+                }
+                return $user_rankimage.$userrank['title'];
+                break;
+                
+            case "yesno":
+                return $value ? _YES : _NO;
+                break;
+                
+            case "timezone":
+                include_once XOOPS_ROOT_PATH."/class/xoopslists.php";
+                $timezones = XoopsLists::getTimeZoneList();
+                return $timezones[str_replace('.0', '', $value) ];
+                break;
+        }
+    }
+
 
 xoops_cp_header();
 
@@ -110,18 +210,23 @@ $oscmem_vars=array();
 $oscmem_vars[]='email';
 $oscmem_users=$profile_handler->search($oscmem_criteria,$oscmem_vars);
 
-$test=$oscmem_users[0][1];
-
-echo $test->getVar('uname');
+//$test=$oscmem_users[0][1];
 //print_r($test);
 
 //$oscmem_user=$test[0];
 //print_r($oscmem_user);
 
 //echo $test['email'];
-// Get fields
+// Get smart profile fields
 $fields =& $profile_handler->loadFields();
 $oscfieldnames=array_keys($fields);
+
+//get user fields
+$oscuser=$oscmem_users[0][1];
+$oscuserarr=$oscuser->getVars();
+
+//join smart and user fields
+//$oscfieldnames +=array_keys($oscuserarr);
 
 
 $person_handler = &xoops_getmodulehandler('person', 'oscmembership');
@@ -203,15 +308,7 @@ $osc_tray8->addElement($oscmembers_select8);
 
 $submit_button = new XoopsFormButton("", "mapusers", _oscmem_submit, "submit");
 
-/*
-foreach (array_keys($fields) as $i) 
-{
-	echo $fields[$i]->getVar('field_name') . "<br>";
-}
-*/
-
-$profile_keys=array_keys($fields);
-
+//$profile_keys=array_keys($fields);
 
 $form = new XoopsThemeForm(_oscmem_oscmapusers_TITLE, "oscmapusers", "oscMapUserstoMembership.php", "post", true);
 
@@ -225,7 +322,37 @@ $form->addElement($osc_tray7);
 $form->addElement($osc_tray8);
 $form->addElement($submit_button);
 
+//Create Sample Data
+//print_r($oscmem_users[1][1]);
+$user_smart=$oscmem_users[1][1];
+$vars=$user_smart->getVars();
+$i=0;
+$osclabel=array();
+
+//        $value = $fields[$i]->getOutputValue($thisUser, $profile);
+
+$thisUser =& $xoopsUser;
+$fields =& $profile_handler->loadFields();
+$profile =& $profile_handler->get($thisUser->getVar('uid'));
+
+//$fields[$i]->getVar('field_title')
+  //      $value = $fields[$i]->getOutputValue($thisUser, $profile);
+
+$field_name=$profile->getVar($this->getVar('field_name'));
+
+foreach (array_keys($fields) as $i) 
+{
+        $value = getOutputValue($thisUser, $field_name);
+	echo $value;
+//	$osclabel[$i]=new XoopsFormLabel($key,$value['value']);
+//	$form->addElement($osclabel[$i]);
+//	$i++;
+}
+
+
 $form->display();
+
+
 
 /*
 $xoopsTpl->assign('oscmem_person_keys',$oscmem_person_keys[0]);

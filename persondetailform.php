@@ -128,6 +128,8 @@ switch (true)
 
 	if(isset($_POST['picloc'])) $person->assignVar('picloc',$_POST['picloc']);
 
+	if(isset($_POST['envelope'])) $person->assignVar('envelope',$_POST['envelope']);
+
 	$person->assignVar('membershipdate',oscverifyXoopsDate($_POST['membershipdate']));
 	
 	if($person->getVar('membershipdate')=='error')
@@ -327,7 +329,9 @@ if($person->getVar('enteredby')<>'')
 
 $enteredby_label = new XoopsFormLabel(_oscmem_enteredby, $user->getVar('uname'));
 
-$envelope_label= new XoopsFormLabel(_oscmem_envelopenumber,$person->getVar('envelope'));
+$envelope_label = new XoopsFormText(_oscmem_envelopenumber, "envelope", 30, 50, $person->getVar('envelope'));
+
+//$envelope_label= new XoopsFormLabel(_oscmem_envelopenumber,$person->getVar('envelope'));
 
 $id_hidden = new XoopsFormHidden("id",$person->getVar('id'));
 
