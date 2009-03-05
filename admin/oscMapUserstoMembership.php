@@ -78,6 +78,9 @@ include_once XOOPS_ROOT_PATH . '/modules/oscmembership/include/functions.php';
 
 
 $searcharray=array();
+$fieldcount=8;
+$fieldvalues=array();
+$membervalues=array();
 if(isset($submit))
 {
 	switch($submit)
@@ -85,16 +88,14 @@ if(isset($submit))
 		
 	case _oscmem_addtocart: 
 		//call add cart
-		for($i=0;$i<$loopcount+1;$i++)
+		for($i=0;$i<$fieldcount;$i++)
 		{
-			if (isset($_POST['chk' . $i]))
-			{
-				$id=$_POST['chk' . $i];
-				$uid=$xoopsUser->getVar('uid');
-				$person_handler->addtoCart($id, $uid);
-			}
+
+			if(isset)$_POST['field' . $i]) $fieldvalues[$i]=$_POST['field' . $i];
+			if(isset)$_POST['member' . $i]) $membervalues[$i]=$_POST['member' . $i];
 		}
-		redirect_header("index.php", 3, _oscmem_addedtocart);
+
+		//redirect_header("index.php", 3, _oscmem_addedtocart);
 		break;
 	}
 }
@@ -223,24 +224,15 @@ $vars=$user_smart->getVars();
 $i=0;
 $osclabel=array();
 
-//        $value = $fields[$i]->getOutputValue($thisUser, $profile);
-
 $thisUser =& $xoopsUser;
 $fields =& $profile_handler->loadFields();
 $profile =& $profile_handler->get($thisUser->getVar('uid'));
 
-//$fields[$i]->getVar('field_title')
-  //      $value = $fields[$i]->getOutputValue($thisUser, $profile);
-
-$field_name=$profile->getVar($this->getVar('field_name'));
-
 foreach (array_keys($fields) as $i) 
 {
-        $value = getOutputValue($thisUser, $field_name);
-	echo $value;
-//	$osclabel[$i]=new XoopsFormLabel($key,$value['value']);
-//	$form->addElement($osclabel[$i]);
-//	$i++;
+	
+	$osclabel[$i]=new XoopsFormLabel($i,$profile->getVar($i));
+	$form->addElement($osclabel[$i]);
 }
 
 
@@ -248,81 +240,7 @@ $form->display();
 
 
 
-/*
-$xoopsTpl->assign('oscmem_person_keys',$oscmem_person_keys[0]);
-
-$xoopsTpl->assign('oscmem_oscmap_field1',_oscmem_oscmap_field1);
-$xoopsTpl->assign('oscmem_oscmap_field2',_oscmem_oscmap_field2);
-$xoopsTpl->assign('oscmem_oscmap_field3',_oscmem_oscmap_field3);
-$xoopsTpl->assign('oscmem_oscmap_field4',_oscmem_oscmap_field4);
-$xoopsTpl->assign('oscmem_oscmap_field5',_oscmem_oscmap_field5);
-$xoopsTpl->assign('oscmem_oscmap_field6',_oscmem_oscmap_field6);
-$xoopsTpl->assign('oscmem_oscmap_field7',_oscmem_oscmap_field7);
-*/
-/*
-$member_handler =& xoops_gethandler('profile');
-$users=$member_handler->getUsers();
-
-echo $users[0]->getVar('email');
-foreach($users as $user)
-{
-	echo $user->getVar('email') . "<br>";
-	echo $user->getVar('name');
-
-               foreach ($user->vars as $k => $v) {
-		echo $k . '&nbsp;' . $v . '<br>';
-                }
-
-
-
-}
- */
-
-/*
-$xoopsTpl->assign('oscmem_applyfilter',_oscmem_applyfilter);
-$xoopsTpl->assign('title',_oscmem_memberview); 
-$xoopsTpl->assign('oscmem_name',_oscmem_name);
-$xoopsTpl->assign('oscmem_address',_oscmem_address);
-$xoopsTpl->assign('oscmem_email',_oscmem_email);
-$xoopsTpl->assign('oscmem_clearfilter',_oscmem_clearfilter);
-$xoopsTpl->assign('oscmem_addtocart',_oscmem_addtocart);
-$xoopsTpl->assign('oscmem_removefromcart',_oscmem_removefromcart);
-$xoopsTpl->assign('oscmem_addmember',_oscmem_addmember);
-$xoopsTpl->assign('is_perm_view',$ispermview);
-$xoopsTpl->assign('is_perm_modify',$ispermmodify);
-$xoopsTpl->assign('oscmem_view',_oscmem_view);
-$xoopsTpl->assign('oscmem_edit',_oscmem_edit);
-$xoopsTpl->assign('oscmem_confirmdelete',_oscmem_confirmdelete);
-$xoopsTpl->assign('oscmem_deletemember',_oscmem_deletemember);
-$xoopsTpl->assign('oscmem_filter',$filter);
-$xoopsTpl->assign('page',$page);
-$_SESSION['page']=$page;
-$xoopsTpl->assign('oscmem_rowstodisplay',$limit);
-$xoopsTpl->assign('oscmem_label_rowstodisplay',_oscmem_label_rowstodisplay);
-
-if($page==1)
-{
-	$xoopsTpl->assign('oscmem_prevpage',1);
-}
-else
-{
-	$xoopsTpl->assign('oscmemb_prevpage',$page-1);
-}
-
-
-
-if($persons[0]->getVar('totalloopcount')>0)
-{
-	$xoopsTpl->assign('persons',$persons);
-	$xoopsTpl->assign('loopcount', $persons[0]->getVar('totalloopcount'));
-}
-else
-{
-	$person=array();
-	$xoopsTpl->assign('persons',$persons);
-	$xoopsTpl->assign('loopcount', '0');
-}	
-*/	
+	
 
 xoops_cp_footer();
 
