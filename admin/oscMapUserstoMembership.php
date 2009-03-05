@@ -86,12 +86,32 @@ if(isset($submit))
 	switch($submit)
 	{
 		
-	case _oscmem_addtocart: 
+	case _oscmem_submit: 
 		//call add cart
 		for($i=0;$i<$fieldcount;$i++)
 		{
 			if(isset($_POST['field' . $i])) $fieldvalues[$i]=$_POST['field' . $i];
 			if(isset($_POST['member' . $i])) $membervalues[$i]=$_POST['member' . $i];
+
+/*
+        switch ($match) {
+        case XOOPS_MATCH_START:
+            $criteria->add(new Criteria('uname', $myts->addSlashes(trim($_POST['user_uname'])).'%', 'LIKE'));
+            break;
+        case XOOPS_MATCH_END:
+            $criteria->add(new Criteria('uname', '%'.$myts->addSlashes(trim($_POST['user_uname'])), 'LIKE'));
+            break;
+        case XOOPS_MATCH_EQUAL:
+            $criteria->add(new Criteria('uname', $myts->addSlashes(trim($_POST['user_uname']))));
+            break;
+        case XOOPS_MATCH_CONTAIN:
+            $criteria->add(new Criteria('uname', '%'.$myts->addSlashes(trim($_POST['user_uname'])).'%', 'LIKE'));
+            break;
+
+    $criteria = new CriteriaCompo();
+
+//        $foundusers =& $member_handler->getUsersByGroupLink($groups, $criteria, true);
+*/			
 		}
 
 		//redirect_header("index.php", 3, _oscmem_addedtocart);
@@ -237,9 +257,6 @@ foreach (array_keys($fields) as $i)
 
 $form->display();
 
-
-
-	
 
 xoops_cp_footer();
 
