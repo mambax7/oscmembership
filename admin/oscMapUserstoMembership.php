@@ -90,9 +90,8 @@ if(isset($submit))
 		//call add cart
 		for($i=0;$i<$fieldcount;$i++)
 		{
-
-			if(isset)$_POST['field' . $i]) $fieldvalues[$i]=$_POST['field' . $i];
-			if(isset)$_POST['member' . $i]) $membervalues[$i]=$_POST['member' . $i];
+			if(isset($_POST['field' . $i])) $fieldvalues[$i]=$_POST['field' . $i];
+			if(isset($_POST['member' . $i])) $membervalues[$i]=$_POST['member' . $i];
 		}
 
 		//redirect_header("index.php", 3, _oscmem_addedtocart);
