@@ -81,6 +81,14 @@ $searcharray=array();
 $fieldcount=8;
 $fieldvalues=array();
 $membervalues=array();
+$profile_handler =& xoops_getmodulehandler('profile','smartprofile');
+
+$person_handler = &xoops_getmodulehandler('person', 'oscmembership');
+$person=$person_handler->create();
+$oscmemvars=$person->getVars();
+$oscmem_person_keys=array_keys($oscmemvars);
+
+if(isset($_POST['mapusers'])) $submit=$_POST['mapusers'];
 if(isset($submit))
 {
 	switch($submit)
@@ -88,31 +96,65 @@ if(isset($submit))
 		
 	case _oscmem_submit: 
 		//call add cart
-		for($i=0;$i<$fieldcount;$i++)
+
+		//find all users
+		$oscmem_criteria = new CriteriaCompo(new Criteria('email', 'null', "<>"));
+		$oscmem_vars=array();
+		$oscmem_vars[]='email';
+
+		$start=0;
+		$limit=50;
+		$order="ASC";
+		$sort='uname';
+		$oscmem_criteria->setSort($sort);
+		$oscmem_criteria->setOrder($order);
+		$oscmem_criteria->setLimit($limit);
+		$oscmem_criteria->setStart($start);
+		$groups=array();
+		$foundusers =& $member_handler->getUsersByGroupLink($groups, $criteria, true);
+
+		//print_r($foundusers);
+
+		$person_handler = &xoops_getmodulehandler('person', 'oscmembership');
+		$person=$person_handler->create();
+
+		$osc_searcharray=array();
+
+		foreach($foundusers as $founduser)
 		{
-			if(isset($_POST['field' . $i])) $fieldvalues[$i]=$_POST['field' . $i];
-			if(isset($_POST['member' . $i])) $membervalues[$i]=$_POST['member' . $i];
+//			echo $founduser->getVar('email') . "<br>";
+
+			for($i=0;$i<$fieldcount;$i++)
+			{
+				if(isset($_POST['field' . $i])) $fieldvalues[$i]=$_POST['field' . $i];
+
+
+				if($_POST['member' . $i]!=0)
+				{
+					echo $oscmem_person_keys[$_POST['member' . $i]];
 
 /*
-        switch ($match) {
-        case XOOPS_MATCH_START:
-            $criteria->add(new Criteria('uname', $myts->addSlashes(trim($_POST['user_uname'])).'%', 'LIKE'));
-            break;
-        case XOOPS_MATCH_END:
-            $criteria->add(new Criteria('uname', '%'.$myts->addSlashes(trim($_POST['user_uname'])), 'LIKE'));
-            break;
-        case XOOPS_MATCH_EQUAL:
-            $criteria->add(new Criteria('uname', $myts->addSlashes(trim($_POST['user_uname']))));
-            break;
-        case XOOPS_MATCH_CONTAIN:
-            $criteria->add(new Criteria('uname', '%'.$myts->addSlashes(trim($_POST['user_uname'])).'%', 'LIKE'));
-            break;
+					$membervalues[$i]=$_POST['member' . $i];
 
-    $criteria = new CriteriaCompo();
+					$osc_searcharray[0]=$founduser->getVar('email');
+					$personupdate=$person_handler->search3($osc_searcharray,'');
 
-//        $foundusers =& $member_handler->getUsersByGroupLink($groups, $criteria, true);
-*/			
+				//print_r($personupdate[0]);
+				//echo "id" . $personupdate[0]->getVar('email');
+					$personupdate->setVar($membervalues[$i],$founduser->getVar($fieldvalues[$i]));
+
+					echo "xx".  $personupdate->getVar($membervalues[$i]);
+*/
+				}
+
+				//$person_handler->update($personupdate);
+
+				
+
+			}
+
 		}
+
 
 		//redirect_header("index.php", 3, _oscmem_addedtocart);
 		break;
@@ -124,32 +166,24 @@ if(isset($submit))
 
 //$profile_handler->search(null,null);
 
-$profile_handler =& xoops_getmodulehandler('profile','smartprofile');
 
-$oscmem_criteria = new CriteriaCompo(new Criteria('email', 'null', "<>"));
-$oscmem_vars=array();
-$oscmem_vars[]='email';
-$oscmem_users=$profile_handler->search($oscmem_criteria,$oscmem_vars);
 
 // Get smart profile fields
 $fields =& $profile_handler->loadFields();
 $oscfieldnames=array_keys($fields);
 
 //get user fields
-$oscuser=$oscmem_users[0][1];
-$oscuserarr=$oscuser->getVars();
+//$oscuser=$oscmem_users[0][1];
+//$oscuserarr=$oscuser->getVars();
 
 //join smart and user fields
 //$oscfieldnames +=array_keys($oscuserarr);
 
 
-$person_handler = &xoops_getmodulehandler('person', 'oscmembership');
-$person=$person_handler->create();
 
 $myts = &MyTextSanitizer::getInstance();
 
-$vars=$person->getVars();
-$oscmem_person_keys=array_keys($vars);
+$oscmem_person_keys=array_keys($oscmemvars);
 $oscmem_person_keys[0]=_oscmem_map_nomap;
 
 $oscfieldnames[0]=_oscmem_map_nomap;
@@ -238,6 +272,11 @@ $form->addElement($blank_tray);
 
 //Create Sample Data
 //print_r($oscmem_users[1][1]);
+$oscmem_criteria = new CriteriaCompo(new Criteria('email', 'null', "<>"));
+$oscmem_vars=array();
+$oscmem_vars[]='email';
+$oscmem_users=$profile_handler->search($oscmem_criteria,$oscmem_vars);
+
 $user_smart=$oscmem_users[1][1];
 $vars=$user_smart->getVars();
 $i=0;

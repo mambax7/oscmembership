@@ -499,7 +499,7 @@ function &search3($searcharray, $sort, $hasenvelope=null, $offset=0, $limit=0)
 			}
 			else
 			{
-				$sql .= "(lastname LIKE '$searchstring' OR firstname LIKE '$searchstring' OR homephone like '$searchstring' or workphone like '$searchstring' or cellphone like '$searchstring' or city like '$searchstring' or state like '$searchstring')";
+				$sql .= "(lastname LIKE '$searchstring' OR firstname LIKE '$searchstring' OR homephone like '$searchstring' or workphone like '$searchstring' or cellphone like '$searchstring' or city like '$searchstring' or state like '$searchstring' or email like '$searchstring' )";
 			}
 		}
 
@@ -521,7 +521,7 @@ function &search3($searcharray, $sort, $hasenvelope=null, $offset=0, $limit=0)
 			$searchstring=$searcharray[$i];
 		else $searchstring='%' . $searcharray[$i] . '%';
 
-		$sql .= "(lastname LIKE '$searchstring' OR firstname LIKE '$searchstring' or homephone LIKE '$searchstring' OR workphone LIKE '$searchstring' OR cellphone LIKE '$searchstring' or city like '$searchstring' or state like '$searchstring')";
+		$sql .= "(lastname LIKE '$searchstring' OR firstname LIKE '$searchstring' or homephone LIKE '$searchstring' OR workphone LIKE '$searchstring' OR cellphone LIKE '$searchstring' or city like '$searchstring' or state like '$searchstring' or email like '$searchstring' )";
 		}
 		if(isset($sort))
 		{
