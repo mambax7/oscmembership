@@ -88,6 +88,11 @@ $person=$person_handler->create();
 $oscmemvars=$person->getVars();
 $oscmem_person_keys=array_keys($oscmemvars);
 
+// Get smart profile fields
+$fields =& $profile_handler->loadFields();
+$oscfieldnames=array_keys($fields);
+
+
 if(isset($_POST['mapusers'])) $submit=$_POST['mapusers'];
 if(isset($submit))
 {
@@ -111,7 +116,12 @@ if(isset($submit))
 		$oscmem_criteria->setLimit($limit);
 		$oscmem_criteria->setStart($start);
 		$groups=array();
-		$foundusers =& $member_handler->getUsersByGroupLink($groups, $criteria, true);
+		$foundusers =& $member_handler->getUsersByGroupLink($groups,$oscmem_criteria, true);
+
+		//echo $foundusers[0]->getVar('uid');
+		//print_r($foundusers);
+		//$osc_profiles=$foundusers[1];
+		//echo $osc_profiles['baptized'];
 
 		//print_r($foundusers);
 
@@ -131,20 +141,24 @@ if(isset($submit))
 
 				if($_POST['member' . $i]!=0)
 				{
-					echo $oscmem_person_keys[$_POST['member' . $i]];
 
-/*
-					$membervalues[$i]=$_POST['member' . $i];
+					$profile = $profile_handler->get($founduser->getVar('uid'));
+
+//					print_r($profile);
+					$osc_memberfield=$oscmem_person_keys[$_POST['member' . $i]];
+					$osc_userfield=$oscfieldnames[$_POST['field' . $i]];
 
 					$osc_searcharray[0]=$founduser->getVar('email');
 					$personupdate=$person_handler->search3($osc_searcharray,'');
+					$personupdate[0]->setVar($osc_memberfield,$profile->getVar($osc_userfield));
 
+echo $osc_userfield;
+					echo 'xx' . $personupdate[0]->getVar('middlename');
 				//print_r($personupdate[0]);
 				//echo "id" . $personupdate[0]->getVar('email');
-					$personupdate->setVar($membervalues[$i],$founduser->getVar($fieldvalues[$i]));
+//					echo "xxx" .  $founduser->getVar($oscfield);
+//					$personupdate->setVar($oscfield,$founduser->getVar($osc_userfield));
 
-					echo "xx".  $personupdate->getVar($membervalues[$i]);
-*/
 				}
 
 				//$person_handler->update($personupdate);
@@ -168,9 +182,6 @@ if(isset($submit))
 
 
 
-// Get smart profile fields
-$fields =& $profile_handler->loadFields();
-$oscfieldnames=array_keys($fields);
 
 //get user fields
 //$oscuser=$oscmem_users[0][1];
