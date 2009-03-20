@@ -152,20 +152,12 @@ if(isset($submit))
 					$personupdate=$person_handler->search3($osc_searcharray,'');
 					$personupdate[0]->setVar($osc_memberfield,$profile->getVar($osc_userfield));
 
-echo $osc_userfield;
-					echo 'xx' . $personupdate[0]->getVar('middlename');
-				//print_r($personupdate[0]);
-				//echo "id" . $personupdate[0]->getVar('email');
-//					echo "xxx" .  $founduser->getVar($oscfield);
-//					$personupdate->setVar($oscfield,$founduser->getVar($osc_userfield));
-
 				}
-
-				//$person_handler->update($personupdate);
-
-				
-
 			}
+
+			//update person field
+			$person_handler->update($personupdate[0]);
+			
 
 		}
 
@@ -192,9 +184,21 @@ echo $osc_userfield;
 
 
 
+$customFields=$person_handler->getcustompersonFields();
+$db = &Database::getInstance();
+$i=0;
+$custfieldarr=array();
+
+while($row = $db->fetchArray($customFields)) 
+{
+	$custfieldarr[$i]=$row["custom_Name"];
+}
+
+
 $myts = &MyTextSanitizer::getInstance();
 
 $oscmem_person_keys=array_keys($oscmemvars);
+$oscmem_person_keys_m=array_merge($oscmem_person_keys,$custfieldarr);
 $oscmem_person_keys[0]=_oscmem_map_nomap;
 
 $oscfieldnames[0]=_oscmem_map_nomap;
