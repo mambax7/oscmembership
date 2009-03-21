@@ -87,6 +87,7 @@ $person_handler = &xoops_getmodulehandler('person', 'oscmembership');
 $person=$person_handler->create();
 $oscmemvars=$person->getVars();
 $oscmem_person_keys=array_keys($oscmemvars);
+$oscmem_fieldcount=count($oscmem_person_keys);
 
 // Get smart profile fields
 $fields =& $profile_handler->loadFields();
@@ -126,7 +127,7 @@ if(isset($submit))
 		//print_r($foundusers);
 
 		$person_handler = &xoops_getmodulehandler('person', 'oscmembership');
-		$person=$person_handler->create();
+		$oscmem_person=$person_handler->create();
 
 		$osc_searcharray=array();
 
@@ -138,25 +139,70 @@ if(isset($submit))
 			{
 				if(isset($_POST['field' . $i])) $fieldvalues[$i]=$_POST['field' . $i];
 
+				$osc_searcharray[0]=$founduser->getVar('email');
+				$personupdate=$person_handler->search3($osc_searcharray,'');
+
 
 				if($_POST['member' . $i]!=0)
 				{
 
 					$profile = $profile_handler->get($founduser->getVar('uid'));
-
-//					print_r($profile);
-					$osc_memberfield=$oscmem_person_keys[$_POST['member' . $i]];
 					$osc_userfield=$oscfieldnames[$_POST['field' . $i]];
 
-					$osc_searcharray[0]=$founduser->getVar('email');
-					$personupdate=$person_handler->search3($osc_searcharray,'');
-					$personupdate[0]->setVar($osc_memberfield,$profile->getVar($osc_userfield));
+					if($_POST['member'.$i]>$oscmem_fieldcount-1) //we have custom field
+					{
+						//Get full person object so custom fields are populated
+						$oscmem_person=$person_handler->get($personupdate[0]->getVar('id'));
+
+						$customFields = $person_handler->getcustompersonFields();
+						
+						$oscmem_customfieldata_post=$oscmem_person->getVar('customfields');
+
+						$oscmem_arraydata=Array();
+						$oscmem_arraydata=explode(',',$oscmem_customfieldata_post);
+echo "field" . $osc_userfield;
+echo "profile" . $profile->getVar($osc_userfield);
+						$oscmem_arraydata[$_POST['member'.$i]-$oscmem_fieldcount]=$profile->getVar($osc_userfield);
+
+						//now put humpty dumpty back together
+						$oscmem_customfieldata_post=implode(',',$oscmem_arraydata);
+						$oscmem_person->assignVar('customfields',$oscmem_customfieldata_post);
+
+					}
+					else //we have normal field
+					{
+						$osc_memberfield=$oscmem_person_keys[$_POST['member' . $i]];
+						$personupdate[0]->assignVar($osc_memberfield,$profile->getVar($osc_userfield));
+
+						$oscmem_person=$personupdate[0];
+
+					}
+
+//	$customFields = $person_handler->getcustompersonFields();
+	
+//	$customfieldata_post="";
+
+/*	
+	while($row = $db->fetchArray($customFields)) 
+	{
+		if(isset($_POST[$row['custom_Field']])) $customfieldata_post.= $_POST[$row['custom_Field']] . ",";
+		else
+		$customfieldata_post.= "null,";
+		
+	}
+	
+	//Strip off end comma;
+	if(isset($customfieldata_post)) $customfieldata_post=rtrim($customfieldata_post,",");
+	
+	$person->assignVar('customfields',$customfieldata_post);		
+*/
+
 
 				}
 			}
 
 			//update person field
-			$person_handler->update($personupdate[0]);
+			$person_handler->update($oscmem_person);
 			
 
 		}
@@ -198,7 +244,7 @@ while($row = $db->fetchArray($customFields))
 $myts = &MyTextSanitizer::getInstance();
 
 $oscmem_person_keys=array_keys($oscmemvars);
-$oscmem_person_keys_m=array_merge($oscmem_person_keys,$custfieldarr);
+$oscmem_person_keys=array_merge($oscmem_person_keys,$custfieldarr);
 $oscmem_person_keys[0]=_oscmem_map_nomap;
 
 $oscfieldnames[0]=_oscmem_map_nomap;

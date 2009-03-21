@@ -1083,7 +1083,6 @@ function &searchgroupmembers($searcharray, $groupid)
 			}
 			else
 			{
-				//echo "explode: " . $person->getVar('customfields');
 				$customupdate=explode(",",$person->getVar('customfields'));
 
 				//update custom fields
