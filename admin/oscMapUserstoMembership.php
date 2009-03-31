@@ -160,8 +160,7 @@ if(isset($submit))
 
 						$oscmem_arraydata=Array();
 						$oscmem_arraydata=explode(',',$oscmem_customfieldata_post);
-echo "field" . $osc_userfield;
-echo "profile" . $profile->getVar($osc_userfield);
+
 						$oscmem_arraydata[$_POST['member'.$i]-$oscmem_fieldcount]=$profile->getVar($osc_userfield);
 
 						//now put humpty dumpty back together
@@ -177,36 +176,11 @@ echo "profile" . $profile->getVar($osc_userfield);
 						$oscmem_person=$personupdate[0];
 
 					}
-
-//	$customFields = $person_handler->getcustompersonFields();
-	
-//	$customfieldata_post="";
-
-/*	
-	while($row = $db->fetchArray($customFields)) 
-	{
-		if(isset($_POST[$row['custom_Field']])) $customfieldata_post.= $_POST[$row['custom_Field']] . ",";
-		else
-		$customfieldata_post.= "null,";
-		
-	}
-	
-	//Strip off end comma;
-	if(isset($customfieldata_post)) $customfieldata_post=rtrim($customfieldata_post,",");
-	
-	$person->assignVar('customfields',$customfieldata_post);		
-*/
-
-
 				}
 			}
-
 			//update person field
 			$person_handler->update($oscmem_person);
-			
-
 		}
-
 
 		//redirect_header("index.php", 3, _oscmem_addedtocart);
 		break;
