@@ -312,4 +312,6 @@ define("_oscmem_csv_exporttovcard","Export to VCard");
 define("_oscmem_createvcard","Create VCard");
 
 define("_oscmem_label_rowstodisplay","Rows to Display");
+define("_OSCMEM_USERTOMEMBERMAP","Users to Members Map");
+define("_OSCMEM_USERSTOMEMBERMAP_DESC","Configuration field that saves prior mapping settings");
 ?>

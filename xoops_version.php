@@ -76,4 +76,69 @@ $modversion['hasComments'] = 1;
 $modversion['comments']['pageName'] = 'index.php';
 $modversion['comments']['itemName'] = 'id';
 
+$i = 0;
+$modversion['config'][$i]['name'] = 'usermap' . $i;
+$modversion['config'][$i]['title'] = '_OSCMEM_USERTOMEMBERMAP' . $i;
+$modversion['config'][$i]['description'] = '_OSCMEM_USERSTOMEMBERMAP_DESC';
+$modversion['config'][$i]['formtype'] = 'text';
+$modversion['config'][$i]['valuetype'] = 'int';
+$modversion['config'][$i]['default'] = '';
+
+$i++;
+$modversion['config'][$i]['name'] = 'usermap' . $i;
+$modversion['config'][$i]['title'] = '_OSCMEM_USERTOMEMBERMAP' . $i;
+$modversion['config'][$i]['description'] = '_OSCMEM_USERSTOMEMBERMAP_DESC';
+$modversion['config'][$i]['formtype'] = 'text';
+$modversion['config'][$i]['valuetype'] = 'int';
+$modversion['config'][$i]['default'] = '';
+
+$i++;
+$modversion['config'][$i]['name'] = 'usermap' . $i;
+$modversion['config'][$i]['title'] = '_OSCMEM_USERTOMEMBERMAP' . $i;
+$modversion['config'][$i]['description'] = '_OSCMEM_USERSTOMEMBERMAP_DESC';
+$modversion['config'][$i]['formtype'] = 'text';
+$modversion['config'][$i]['valuetype'] = 'int';
+$modversion['config'][$i]['default'] = '';
+
+$i++;
+$modversion['config'][$i]['name'] = 'usermap' . $i;
+$modversion['config'][$i]['title'] = '_OSCMEM_USERTOMEMBERMAP' . $i;
+$modversion['config'][$i]['description'] = '_OSCMEM_USERSTOMEMBERMAP_DESC';
+$modversion['config'][$i]['formtype'] = 'text';
+$modversion['config'][$i]['valuetype'] = 'int';
+$modversion['config'][$i]['default'] = '';
+
+$i++;
+$modversion['config'][$i]['name'] = 'usermap' . $i;
+$modversion['config'][$i]['title'] = '_OSCMEM_USERTOMEMBERMAP' . $i;
+$modversion['config'][$i]['description'] = '_OSCMEM_USERSTOMEMBERMAP_DESC';
+$modversion['config'][$i]['formtype'] = 'text';
+$modversion['config'][$i]['valuetype'] = 'int';
+$modversion['config'][$i]['default'] = '';
+
+$i++;
+$modversion['config'][$i]['name'] = 'usermap' . $i;
+$modversion['config'][$i]['title'] = '_OSCMEM_USERTOMEMBERMAP' . $i;
+$modversion['config'][$i]['description'] = '_OSCMEM_USERSTOMEMBERMAP_DESC';
+$modversion['config'][$i]['formtype'] = 'text';
+$modversion['config'][$i]['valuetype'] = 'int';
+$modversion['config'][$i]['default'] = '';
+
+$i++;
+$modversion['config'][$i]['name'] = 'usermap' . $i;
+$modversion['config'][$i]['title'] = '_OSCMEM_USERTOMEMBERMAP' . $i;
+$modversion['config'][$i]['description'] = '_OSCMEM_USERSTOMEMBERMAP_DESC';
+$modversion['config'][$i]['formtype'] = 'text';
+$modversion['config'][$i]['valuetype'] = 'int';
+$modversion['config'][$i]['default'] = '';
+
+$i++;
+$modversion['config'][$i]['name'] = 'usermap' . $i;
+$modversion['config'][$i]['title'] = '_OSCMEM_USERTOMEMBERMAP' . $i;
+$modversion['config'][$i]['description'] = '_OSCMEM_USERSTOMEMBERMAP_DESC';
+$modversion['config'][$i]['formtype'] = 'text';
+$modversion['config'][$i]['valuetype'] = 'int';
+$modversion['config'][$i]['default'] = '';
+
+
 ?>
