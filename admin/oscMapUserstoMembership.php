@@ -234,6 +234,7 @@ $field_select0->setValue($xoopsModuleConfig['usermap0']);
 
 $oscmembers_select0 = new XoopsFormSelect(null,'member0');
 $oscmembers_select0->addOptionArray($oscmem_person_keys);
+$oscmembers_select0->setValue($xoopsModuleConfig['membermap0']);
 
 $osc_tray0 = new XoopsFormElementTray(_oscmem_oscmap_field0,"&nbsp;<large>---></large>&nbsp;");
 $osc_tray0->addElement($field_select0);
@@ -245,6 +246,7 @@ $field_select1->setValue($xoopsModuleConfig['usermap1']);
 
 $oscmembers_select1 = new XoopsFormSelect(null,'member1');
 $oscmembers_select1->addOptionArray($oscmem_person_keys);
+$oscmembers_select1->setValue($xoopsModuleConfig['membermap1']);
 
 $osc_tray1 = new XoopsFormElementTray(_oscmem_oscmap_field1,"&nbsp;<large>---></large>&nbsp;");
 $osc_tray1->addElement($field_select1);
@@ -256,6 +258,8 @@ $field_select2->setValue($xoopsModuleConfig['usermap2']);
 
 $oscmembers_select2 = new XoopsFormSelect(null,'member2');
 $oscmembers_select2->addOptionArray($oscmem_person_keys);
+$oscmembers_select2->setValue($xoopsModuleConfig['membermap2']);
+
 $osc_tray2 = new XoopsFormElementTray(_oscmem_oscmap_field2,"&nbsp;<large>---></large>&nbsp;");
 $osc_tray2->addElement($field_select2);
 $osc_tray2->addElement($oscmembers_select2);
@@ -267,6 +271,8 @@ $field_select3->setValue($xoopsModuleConfig['usermap3']);
 
 $oscmembers_select3 = new XoopsFormSelect(null,'member3');
 $oscmembers_select3->addOptionArray($oscmem_person_keys);
+$oscmembers_select3->setValue($xoopsModuleConfig['membermap3']);
+
 $osc_tray3 = new XoopsFormElementTray(_oscmem_oscmap_field1,"&nbsp;<large>---></large>&nbsp;");
 $osc_tray3->addElement($field_select3);
 $osc_tray3->addElement($oscmembers_select3);
@@ -277,6 +283,8 @@ $field_select4->setValue($xoopsModuleConfig['usermap4']);
 
 $oscmembers_select4 = new XoopsFormSelect(null,'member4');
 $oscmembers_select4->addOptionArray($oscmem_person_keys);
+$oscmembers_select4->setValue($xoopsModuleConfig['membermap4']);
+
 $osc_tray4 = new XoopsFormElementTray(_oscmem_oscmap_field1,"&nbsp;<large>---></large>&nbsp;");
 $osc_tray4->addElement($field_select4);
 $osc_tray4->addElement($oscmembers_select4);
@@ -287,6 +295,8 @@ $field_select5->setValue($xoopsModuleConfig['usermap5']);
 
 $oscmembers_select5 = new XoopsFormSelect(null,'member5');
 $oscmembers_select5->addOptionArray($oscmem_person_keys);
+$oscmembers_select5->setValue($xoopsModuleConfig['membermap5']);
+
 $osc_tray5 = new XoopsFormElementTray(_oscmem_oscmap_field5,"&nbsp;<large>---></large>&nbsp;");
 $osc_tray5->addElement($field_select5);
 $osc_tray5->addElement($oscmembers_select5);
@@ -297,6 +307,8 @@ $field_select6->setValue($xoopsModuleConfig['usermap6']);
 
 $oscmembers_select6 = new XoopsFormSelect(null,'member6');
 $oscmembers_select6->addOptionArray($oscmem_person_keys);
+$oscmembers_select6->setValue($xoopsModuleConfig['membermap6']);
+
 $osc_tray6 = new XoopsFormElementTray(_oscmem_oscmap_field6,"&nbsp;<large>---></large>&nbsp;");
 $osc_tray6->addElement($field_select6);
 $osc_tray6->addElement($oscmembers_select6);
@@ -307,6 +319,8 @@ $field_select7->setValue($xoopsModuleConfig['usermap7']);
 
 $oscmembers_select7 = new XoopsFormSelect(null,'member7');
 $oscmembers_select7->addOptionArray($oscmem_person_keys);
+$oscmembers_select7->setValue($xoopsModuleConfig['membermap7']);
+
 $osc_tray7 = new XoopsFormElementTray(_oscmem_oscmap_field7,"&nbsp;<large>---></large>&nbsp;");
 $osc_tray7->addElement($field_select7);
 $osc_tray7->addElement($oscmembers_select7);

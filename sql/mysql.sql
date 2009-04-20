@@ -162,8 +162,33 @@ CREATE TABLE `oscmembership_cart` (
   `editedby` smallint(5) unsigned default '0',
   `directorydisclaimer` text default NULL,
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM;  
+);
   
+
+CREATE TABLE `oscmembership_defaults` (
+	`id` mediumint (9) NOT NULL,
+	`key` varchar(50) default NULL,
+	`defaultvalue` varchar(50) default NULL,
+	PRIMARY KEY (`id`) );
+
+#default data for defaults
+INSERT INTO oscmembership_defaults VALUES(1,'usermapfield1',null);
+INSERT INTO oscmembership_defaults VALUES(2,'usermapfield2',null);
+INSERT INTO oscmembership_defaults VALUES(3,'usermapfield3',null);
+INSERT INTO oscmembership_defaults VALUES(4,'usermapfield4',null);
+INSERT INTO oscmembership_defaults VALUES(5,'usermapfield5',null);
+INSERT INTO oscmembership_defaults VALUES(6,'usermapfield6',null);
+INSERT INTO oscmembership_defaults VALUES(7,'usermapfield7',null);
+INSERT INTO oscmembership_defaults VALUES(8,'usermapfield8',null);
+
+INSERT INTO oscmembership_defaults VALUES(9,'oscmapfield1',null);
+INSERT INTO oscmembership_defaults VALUES(10,'oscmapfield2',null);
+INSERT INTO oscmembership_defaults VALUES(11,'oscmapfield3',null);
+INSERT INTO oscmembership_defaults VALUES(12,'oscmapfield4',null);
+INSERT INTO oscmembership_defaults VALUES(13,'oscmapfield5',null);
+INSERT INTO oscmembership_defaults VALUES(14,'oscmapfield6',null);
+INSERT INTO oscmembership_defaults VALUES(15,'oscmapfield7',null);
+INSERT INTO oscmembership_defaults VALUES(16,'oscmapfield8',null);
 
 # Sample data for member classifications
 INSERT INTO oscmembership_list VALUES (1, 1, 1, 'Member');

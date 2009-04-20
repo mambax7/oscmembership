@@ -104,14 +104,14 @@ define("_oscmem_setting_TITLE","Church Details");
 define("_oscmem_website","Web Site");
 define("_oscmem_addcustomfield","Add Custom Field");
 
-define("_oscmem_oscmap_field1","Field 1");
-define("_oscmem_oscmap_field2","Field 2");
-define("_oscmem_oscmap_field3","Field 3");
-define("_oscmem_oscmap_field4","Field 4");
-define("_oscmem_oscmap_field5","Field 5");
-define("_oscmem_oscmap_field6","Field 6");
-define("_oscmem_oscmap_field7","Field 7");
-define("_oscmem_oscmap_field8","Field 8");
+define("_oscmem_oscmap_field0","Field 1");
+define("_oscmem_oscmap_field1","Field 2");
+define("_oscmem_oscmap_field2","Field 3");
+define("_oscmem_oscmap_field3","Field 4");
+define("_oscmem_oscmap_field4","Field 5");
+define("_oscmem_oscmap_field5","Field 6");
+define("_oscmem_oscmap_field6","Field 7");
+define("_oscmem_oscmap_field7","Field 8");
 define("_oscmem_map_nomap","No Map");
 define("_oscmem_oscmapusers_TITLE","Map User to Member Form");
 
