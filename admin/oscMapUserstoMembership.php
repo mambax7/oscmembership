@@ -84,6 +84,8 @@ $membervalues=array();
 $profile_handler =& xoops_getmodulehandler('profile','smartprofile');
 
 $person_handler = &xoops_getmodulehandler('person', 'oscmembership');
+$defaults_handler = &xoops_getmodulehandler('oscdefaults','oscmembership');
+
 $person=$person_handler->create();
 $oscmemvars=$person->getVars();
 $oscmem_person_keys=array_keys($oscmemvars);
@@ -230,7 +232,11 @@ $oscfieldnames[0]=_oscmem_map_nomap;
 
 $field_select0 = new XoopsFormSelect(null,'field0');
 $field_select0->addOptionArray($oscfieldnames);
-$field_select0->setValue($xoopsModuleConfig['usermap0']);
+$oscdefaults=$defaults_handler->create(false);
+$oscdefaults->assignVar('defaultkey','usermapfield1');
+$oscdefaults=$defaults_handler->get($oscdefaults);
+
+$field_select0->setValue($oscdefaults->getVar('defaultvalue'));
 
 $oscmembers_select0 = new XoopsFormSelect(null,'member0');
 $oscmembers_select0->addOptionArray($oscmem_person_keys);

@@ -167,7 +167,7 @@ CREATE TABLE `oscmembership_cart` (
 
 CREATE TABLE `oscmembership_defaults` (
 	`id` mediumint (9) NOT NULL,
-	`key` varchar(50) default NULL,
+	`defaultkey` varchar(50) default NULL,
 	`defaultvalue` varchar(50) default NULL,
 	PRIMARY KEY (`id`) );
 
