@@ -165,7 +165,7 @@ define("_oscmem_personalworkemail","Individual Work Email");
 
 define("_oscmem_informationinclude","Information to Include:");
 define("_oscmem_diroptions","Directory Options");
-define("_oscmem_altfamilyname","Dual Listing - Alternate Family Name");
+define("_oscmem_altfamilyname_dual","Dual Listing - Alternate Family Name");
 define("_oscmem_althead","Use only Family Name for listing");
 define("_oscmem_dirsort","Directory Sort");
 define("_oscmem_orderbyfirstname","Order Directory by First Name");
@@ -312,6 +312,8 @@ define("_oscmem_csv_exporttovcard","Export to VCard");
 define("_oscmem_createvcard","Create VCard");
 
 define("_oscmem_label_rowstodisplay","Rows to Display");
-define("_OSCMEM_USERTOMEMBERMAP","Users to Members Map");
-define("_OSCMEM_USERSTOMEMBERMAP_DESC","Configuration field that saves prior mapping settings");
+define("_OSCMEM_USERFIELDSDONOTMAP","User fields that do not map");
+define("_OSCMEM_USERFIELDSDONOTMAP_DESC","User fields that will not map in the profile to membership map process");
+define("_OSCMEM_MEMBERNOMAP","Member fields that do not map");
+define("_OSCMEM_MEMBERNOMAP_DESC","Member fields that will not map in the profile to membership map process");
 ?>

@@ -96,7 +96,6 @@ $oscmem_fieldcount=count($oscmem_person_keys);
 $fields =& $profile_handler->loadFields();
 $oscfieldnames=array_keys($fields);
 
-$profile_array_exclude=array('');
 
 
 if(isset($_POST['mapusers'])) $submit=$_POST['mapusers'];
@@ -244,6 +243,12 @@ $oscmem_person_keys[0]=_oscmem_map_nomap;
 
 $oscfieldnames[0]=_oscmem_map_nomap;
 
+echo $xoopsModuleConfig['usermapnomap'];
+
+$profile_array_exclude=explode(',',$xoopsModuleConfig['usermapnomap']); 
+print_r($profile_array_exclude);
+$oscfieldnames=array_diff($oscfieldnames,$profile_array_exclude);
+
 $field_select0 = new XoopsFormSelect(null,'field0');
 $field_select0->addOptionArray($oscfieldnames);
 $oscdefaults=$defaults_handler->create(false);
@@ -251,6 +256,7 @@ $oscdefaults->assignVar('defaultkey','usermapfield1');
 $oscdefaults=$defaults_handler->get($oscdefaults);
 
 $field_select0->setValue($oscdefaults->getVar('defaultvalue'));
+
 
 $oscmembers_select0 = new XoopsFormSelect(null,'member0');
 $oscmembers_select0->addOptionArray($oscmem_person_keys);

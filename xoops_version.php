@@ -76,20 +76,20 @@ $modversion['hasComments'] = 1;
 $modversion['comments']['pageName'] = 'index.php';
 $modversion['comments']['itemName'] = 'id';
 
-$i = 0;
+$i = 1;
 $modversion['config'][$i]['name'] = 'usermapnomap';
 $modversion['config'][$i]['title'] = _OSCMEM_USERFIELDSDONOTMAP;
 $modversion['config'][$i]['description'] = _OSCMEM_USERFIELDSDONOTMAP_DESC;
-$modversion['config'][$i]['formtype'] = 'text';
-$modversion['config'][$i]['valuetype'] = 'txt';
-$modversion['config'][$i]['default'] = '';
+$modversion['config'][$i]['formtype'] = 'textarea';
+$modversion['config'][$i]['valuetype'] = 'text';
+$modversion['config'][$i]['default'] = 'user_aim,user_yim,user_msnm,user_from,timezone_offset,user_occ,user_intrest,bio,user_regdate,user_viewemail,attachsig,user_mailok,theme,umode_uorder,notify_mode,notify_method,url,posts,rank,last_login,user_sig,uorder';
 
 $i++;
 $modversion['config'][$i]['name'] = 'membermapnomap';
 $modversion['config'][$i]['title'] = _OSCMEM_MEMBERNOMAP;
 $modversion['config'][$i]['description'] = _OSCMEM_MEMBERNOMAP_DESC;
-$modversion['config'][$i]['formtype'] = 'text';
-$modversion['config'][$i]['valuetype'] = 'txt';
+$modversion['config'][$i]['formtype'] = 'textarea';
+$modversion['config'][$i]['valuetype'] = 'text';
 $modversion['config'][$i]['default'] = 'churchid,fmrid,clsid,famid,datelastedited,dateentered,enteredby,editedby,loopcount,oddrow,customfields,totalloopcount';
 
 ?>
