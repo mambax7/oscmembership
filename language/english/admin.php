@@ -115,4 +115,6 @@ define("_oscmem_oscmap_field7","Field 8");
 define("_oscmem_map_nomap","No Map");
 define("_oscmem_oscmapusers_TITLE","Map User to Member Form");
 
+define("_oscmem_submit","Submit");
+
 ?>
