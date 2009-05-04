@@ -32,6 +32,12 @@ $adminmenu[$admini]['icon'] = "admin/images/5Church-Details.png";
 $adminmenu[$admini]['small'] = "admin/images/5Church-Details.png";
 
 $admini++;
+$adminmenu[$admini]['title'] = _oscmem_admin_profiletomembermap;
+$adminmenu[$admini]['link'] = "admin/oscMapUserstoMembership.php";
+$adminmenu[$admini]['icon'] = "admin/images/5Church-Details.png";
+$adminmenu[$admini]['small'] = "admin/images/5Church-Details.png";
+
+$admini++;
 $adminmenu[$admini]['title'] = _oscmem_admin_osclist_permissions;
 $adminmenu[$admini]['link'] = "admin/perm.php?id=4";
 $adminmenu[$admini]['icon'] = "admin/images/6Permissions.png";

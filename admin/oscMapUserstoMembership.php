@@ -243,10 +243,7 @@ $oscmem_person_keys[0]=_oscmem_map_nomap;
 
 $oscfieldnames[0]=_oscmem_map_nomap;
 
-echo $xoopsModuleConfig['usermapnomap'];
-
 $profile_array_exclude=explode(',',$xoopsModuleConfig['usermapnomap']); 
-print_r($profile_array_exclude);
 $oscfieldnames=array_diff($oscfieldnames,$profile_array_exclude);
 
 $field_select0 = new XoopsFormSelect(null,'field0');
@@ -415,7 +412,10 @@ $thisUser =& $xoopsUser;
 $fields =& $profile_handler->loadFields();
 $profile =& $profile_handler->get($thisUser->getVar('uid'));
 
-foreach (array_keys($fields) as $i) 
+$fields_keys=array_keys($fields);
+$fields_keys=array_diff($fields_keys,$profile_array_exclude);  //strip away fields that are not included in map
+
+foreach ($fields_keys as $i) 
 {
 	
 	$osclabel[$i]=new XoopsFormLabel($i,$profile->getVar($i));
