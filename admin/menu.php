@@ -34,8 +34,8 @@ $adminmenu[$admini]['small'] = "admin/images/5Church-Details.png";
 $admini++;
 $adminmenu[$admini]['title'] = _oscmem_admin_profiletomembermap;
 $adminmenu[$admini]['link'] = "admin/oscMapUserstoMembership.php";
-$adminmenu[$admini]['icon'] = "admin/images/5Church-Details.png";
-$adminmenu[$admini]['small'] = "admin/images/5Church-Details.png";
+$adminmenu[$admini]['icon'] = "admin/images/profiletomemmap.png";
+$adminmenu[$admini]['small'] = "admin/images/profiletomemmap.png";
 
 $admini++;
 $adminmenu[$admini]['title'] = _oscmem_admin_osclist_permissions;
