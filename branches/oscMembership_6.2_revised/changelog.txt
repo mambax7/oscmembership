@@ -1,0 +1,16 @@
+== oscMembership 6.2 revised ==
+Status: Beta
+Released: unreleased
+
+Added
+* Changelog.txt
+
+Improved
+
+Fixed
+
+Language additions
+
+Contributors to this release
+* skenow
+* srmcatee
