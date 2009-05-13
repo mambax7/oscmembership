@@ -1,0 +1,45 @@
+
+<h2 class=comTitle><{$title}></h2>
+
+<form name="selectfile" action='oscimport_family_step2.php' method="POST">
+<table class='outer' >
+<tr class="odd">
+<td>
+<select name="Classification">
+<option value="0"><{$oscmem_unassigned}></option>
+<option value="0">-----------------------</option>
+
+			<?php
+				foreach($optionItems as $osclist)
+				{
+					extract($aRow);
+					echo "<option value=\"" .  $osclist['optionid'] . "\"";
+					echo ">" . $osclist['optionname'] . "&nbsp;";
+				}
+			?>
+		</select>
+		<?php echo gettext("Classification"); ?>
+		<BR><BR>
+		<input type="submit" class="icButton" value="<?php echo gettext("Perform Import"); ?>" name="DoImport">
+		</form>
+<{/if}>
+<{ if $group->getVar('oddrow') == false }>
+<tr class="even">
+<{/if}>
+<td width=10><input name="chk<{$group->getVar('loopcount')}>" id="chk<{$group->getVar('loopcount')}>" value="<{$group->getVar('id')}>" type="checkbox"></td>
+<td><{$group->getVar('group_Name')}></td>
+<td><{ if $is_perm_view }>
+<a href='groupdetailview.php?id=<{$group->getVar('id')}>'><{$oscmem_view}></a>
+<{/if}>
+&nbsp;&nbsp;&nbsp;
+<{ if $is_perm_modify }>
+<a href='groupdetailform.php?id=<{$group->getVar('id')}>'><{$oscmem_edit}></a>
+</a>
+<{/if}>
+</td></tr>
+<{/foreach}>
+
+</table>
+<input type="hidden" name="loopcount" value="<{$loopcount}>">
+</form>
+

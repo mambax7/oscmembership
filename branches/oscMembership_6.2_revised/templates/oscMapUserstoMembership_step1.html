@@ -1,0 +1,121 @@
+
+<h2 class=comTitle><{$title}></h2>
+
+<form action='oscMapUserstoMembership.php>' method="POST">
+<table class='outer' >
+<tr>
+<th><{$oscmem_oscmap_field1}></th>
+<th><{$oscmem_oscmap_field2}></th>
+<th><{$oscmem_oscmap_field3}></th>
+<th><{$oscmem_oscmap_field4}></th>
+<th><{$oscmem_oscmap_field5}></th>
+<th><{$oscmem_oscmap_field6}></th>
+<th><{$oscmem_oscmap_field7}></th>
+</tr>
+<tr>
+<TD>
+<select name="profilefield1">
+<{foreach item=profilename from=$oscmem_profile_keys}>
+<option value="<{$profilename}>" ><{$profilename}></option>
+<{/foreach}>
+</select>
+</TD>
+<TD>
+<select name="profilefield2">
+<{foreach item=profilename from=$oscmem_profile_keys}>
+<option value="<{$profilename}>" ><{$profilename}></option>
+<{/foreach}>
+</select>
+</TD>
+<TD>
+<select name="profilefield3">
+<{foreach item=profilename from=$oscmem_profile_keys}>
+<option value="<{$profilename}>" ><{$profilename}></option>
+<{/foreach}>
+</select>
+</TD>
+<TD>
+<select name="profilefield4">
+<{foreach item=profilename from=$oscmem_profile_keys}>
+<option value="<{$profilename}>" ><{$profilename}></option>
+<{/foreach}>
+</select>
+</TD>
+<TD>
+<select name="profilefield5">
+<{foreach item=profilename from=$oscmem_profile_keys}>
+<option value="<{$profilename}>" ><{$profilename}></option>
+<{/foreach}>
+</select>
+</TD>
+<TD>
+<select name="profilefield6">
+<{foreach item=profilename from=$oscmem_profile_keys}>
+<option value="<{$profilename}>" ><{$profilename}></option>
+<{/foreach}>
+</select>
+</TD>
+<TD>
+<select name="profilefield7">
+<{foreach item=profilename from=$oscmem_profile_keys}>
+<option value="<{$profilename}>" ><{$profilename}></option>
+<{/foreach}>
+</select>
+</TD>
+</tr>
+
+<tr>
+<td>
+<select name="oscmemfield1">
+<{foreach item=fieldname from=$oscmem_person_keys}>
+<option value="<{$fieldname}>" ><{$fieldname}></option>
+<{/foreach}>
+</select>
+</Th>
+<td>
+<select name="oscmemfield1">
+<{foreach item=fieldname from=$oscmem_person_keys}>
+<option value="<{$fieldname}>" ><{$fieldname}></option>
+<{/foreach}>
+</select>
+</td>
+<td>
+<select name="oscmemfield2">
+<{foreach item=fieldname from=$oscmem_person_keys}>
+<option value="<{$fieldname}>" ><{$fieldname}></option>
+<{/foreach}>
+</select>
+</td>
+<td>
+<select name="oscmemfield3">
+<{foreach item=fieldname from=$oscmem_person_keys}>
+<option value="<{$fieldname}>" ><{$fieldname}></option>
+<{/foreach}>
+</select>
+</td>
+<td>
+<select name="oscmemfield4">
+<{foreach item=fieldname from=$oscmem_person_keys}>
+<option value="<{$fieldname}>" ><{$fieldname}></option>
+<{/foreach}>
+</select>
+</td>
+<td>
+<select name="oscmemfield5">
+<{foreach item=fieldname from=$oscmem_person_keys}>
+<option value="<{$fieldname}>" ><{$fieldname}></option>
+<{/foreach}>
+</select>
+</td>
+<td>
+<select name="oscmemfield6">
+<{foreach item=fieldname from=$oscmem_person_keys}>
+<option value="<{$fieldname}>" ><{$fieldname}></option>
+<{/foreach}>
+</select>
+</td>
+</tr>
+</table>
+<input type="hidden" name="loopcount" value="<{$loopcount}>">
+</form>
+

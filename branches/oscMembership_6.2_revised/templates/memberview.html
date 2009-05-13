@@ -1,0 +1,57 @@
+
+<h2 class=comTitle><{$title}></h2>
+
+<form name="listform" action='index.php?sort=<{$sort}>' method="POST">
+<input type=hidden name=sortprior value='<{$sort}>'>
+<table class='outer' >
+<tr><TD colspan="4">
+
+<input type="text" name="filter" value="<{$oscmem_filter}>">&nbsp; 
+<input type="submit" name="submit" value="<{$oscmem_applyfilter}>">&nbsp;
+<input type="submit" name="submit" value="<{$oscmem_clearfilter}>"></TD><td align="right">
+<input type="submit" name="submit" value="<{$oscmem_addmember}>">
+&nbsp;&nbsp;
+<input type="submit" name="submit" onclick="return confirm('<{$oscmem_confirmdelete}>');" value="<{$oscmem_deletemember}>">
+<input type="submit" name="submit"  value="<{$oscmem_addtocart}>"> 
+&nbsp;<input type="submit" name="submit" value="<{$oscmem_removefromcart}>">
+</td></tr>
+<tr><TD colspan=3><input type="submit" name="submit" value="&lt;&lt;">&nbsp;<input type="submit" name="submit" value="&lt;">&nbsp;&nbsp;<input type="submit" name="submit" value="&gt;"><input type="submit" name="submit" value="&gt;&gt;"></TD><td colspan="2"><input name="rowstodisplay" value="<{$oscmem_rowstodisplay}>"  size="3" >&nbsp;&nbsp;<{$oscmem_label_rowstodisplay}></td></tr>
+<tr>
+<th>
+<input name="allbox" id="allbox" onclick="xoopsCheckAll('listform','allbox');" type="checkbox" value="Check All" /></th>
+<th><a href='index.php?sort=lastname' class=sort><{$oscmem_name}></a></th>
+<th><{$oscmem_address}></th><th><{$oscmem_email}></th><th></th>
+</tr>
+<{foreach item=person from=$persons}>
+<{ if $person->getVar('oddrow') == true }>
+<tr class="odd">
+<{/if}>
+<{ if $person->getVar('oddrow') == false }>
+<tr class="even">
+<{/if}>
+<td width=10><input name="chk<{$person->getVar('loopcount')}>" id="chk<{$person->getVar('loopcount')}>" value="<{$person->getVar('id')}>" type="checkbox"></td>
+<td><{$person->getVar('lastname')}>, <{$person->getVar('firstname')}></td>
+<td><{$person->getVar('city')}>, <{$person->getVar('state')}></td><td><{$person->getVar('email')}></td>
+<td><{ if $is_perm_view }>
+<a href='persondetailview.php?id=<{$person->getVar('id')}>'><{$oscmem_view}></a>
+<{/if}>
+&nbsp;&nbsp;&nbsp;
+<{ if $is_perm_modify }>
+<a href='persondetailform.php?id=<{$person->getVar('id')}>'><{$oscmem_edit}></a>
+<{/if}>
+</td>
+</tr>
+<{/foreach}>
+
+</table>
+<input type="hidden" name="loopcount" value="<{$loopcount}>">
+<input type="hidden" name="page" value="<{$page}>">
+<!--
+Empty Cart<br>
+Empty Cart to Group<br>
+Empty Cart to Family<br>
+CSV Export<br>
+Open Standard E-mail Client<br>
+-->
+</form>
+

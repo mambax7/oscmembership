@@ -1,0 +1,46 @@
+<h2 class=comTitle><{$title}></h2>
+
+<form name="orphanselect" action='orphanselect.php?sort=<{$sort}>' method="POST">
+<input type=hidden name=sortprior value='<{$sort}>'>
+<table class='outer' >
+<tr><TD colspan="4">
+
+<input type="text" name="filter">&nbsp; 
+<input type="submit" name="submit" value="<{$oscmem_applyfilter}>">&nbsp;
+<input type="submit" name="submit" value="<{$oscmem_clearfilter}>"></TD><td align="right">
+<input type="submit" name="submit"  value="<{$oscmem_addtocart}>"> 
+&nbsp;<input type="submit" name="submit" value="<{$oscmem_removefromcart}>">
+&nbsp;<input type="submit" name="submit" value="<{$oscmem_matchuporphans}>">
+
+</td></tr>
+<tr class="head">
+<th >
+<input name="allbox" id="allbox" onclick="xoopsCheckAll('orphanselect','allbox');" type="checkbox" value="Check All" /></th>
+<th><a href='orphanselect.php?sort=lastname' class=sort><{$oscmem_name}></a></th>
+<th><{$oscmem_address}></th>
+<th><{$oscmem_matchedfamilyname}></th>
+<th><{$oscmem_email}></th>
+</tr>
+<{if $persons[0]->getVar('firstname')!="" }>
+<{foreach item=person from=$persons}>
+<{ if $person->getVar('oddrow') == true }>
+<tr class="odd">
+<{/if}>
+<{ if $person->getVar('oddrow') == false }>
+<tr class="even">
+<{/if}>
+<td width=10><input name="chk<{$person->getVar('loopcount')}>" id="chk<{$person->getVar('loopcount')}>" value="<{$person->getVar('id')}>" type="checkbox">
+<input type="hidden" name="family<{$person->getVar('loopcount')}>" value="<{$person->getVar("famid")}>"/>
+</td>
+<td><{$person->getVar('lastname')}>, <{$person->getVar('firstname')}></td>
+<td><{$person->getVar('city')}>, <{$person->getVar('state')}></td>
+<td><{$person->getVar('familyname')}></td>
+<td><{$person->getVar('email')}></td>
+</tr>
+<{/foreach}>
+<{else}>
+<tr class="odd"><TD colspan="5"><{$oscmem_noorphans}></TD></tr>
+<{/if}>
+</table>
+<input type="hidden" name="totalloopcount" value="<{$totalloopcount}>">
+</form>

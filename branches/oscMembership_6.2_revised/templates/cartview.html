@@ -1,0 +1,32 @@
+<h2 class=comTitle><{$title}></h2>
+
+<form name='listform' action='viewcart.php' method="POST">
+<input type=hidden name=sortprior value='<{$sort}>'>
+<table class='outer' >
+<tr ><TD colspan="4"><input type="submit" name="submit" value="<{$oscmem_generatelabels}>">&nbsp;<input type="submit" name="submit" value="<{$oscmem_generateemails}>"></TD></tr>
+<tr><td colspan="4"><input type="submit" name="submit" value="<{$oscmem_remove}>">&nbsp;<input type="submit" name="submit" value="<{$oscmem_emptycart}>">&nbsp;
+<input type="submit" name="submit"  value="<{$oscmem_emptycarttogroup}>">&nbsp;<input type="submit" name="submit"  value="<{$oscmem_emptycarttofamily}>">
+</td></tr>
+<tr><th><input name="allbox" id="allbox" onclick="xoopsCheckAll('listform','allbox');" type="checkbox" value="Check All" /></th>
+<th><a href='viewcart.php?sort=lastname' class=sort><{$oscmem_name}></a></th>
+<th><{$oscmem_address}>?</th><th><{$oscmem_email}>?</th>
+</tr>
+<{foreach item=person from=$persons}>
+<tr class="odd">
+<td width=10><input name="chk<{$person.loopcount}>" value="<{$person.id}>" type="checkbox"></td>
+<td><{$person.lastname}>, <{$person.firstname}></td>
+<td><{$person.addressflag}></td><td><{$person.emailflag}></td>
+</tr>
+<{/foreach}>
+
+</table>
+<input type="hidden" name="loopcount" value="<{$loopcount}>">
+<!--
+Empty Cart<br>
+Empty Cart to Group<br>
+Empty Cart to Family<br>
+CSV Export<br>
+Open Standard E-mail Client<br>
+-->
+</form>
+

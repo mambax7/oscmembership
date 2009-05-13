@@ -1,0 +1,147 @@
+<h2><{$title}></h2>
+<!--<table class="outer" border="1" >-->
+<form action="CSVCreateFile.php" method="POST">
+<{$submit}>
+<table border=1 >
+<!--<tr><TD colspan="2"><hr></TD></tr>-->
+<tr><td>
+<table class="outer" border='0' width='100%'>
+<tr  valign='top' height=60 align='left'><th><{$oscmem_cvsexport_infoinclude}>
+</th></tr>
+<tr><TD>&nbsp;</TD></tr>
+<{foreach item=standardfield from=$standardfieldarr}>
+<{ if $standardfield.odd == true }>
+<tr class="odd" valign="top" align="left">
+<{/if}>
+<{ if $standardfield.odd == false }>
+<tr class="even" valign="top" align="left">
+<{/if}>
+<td ><input type="checkbox" id="<{$standardfield.id}>" name="<{$standardfield.name}>" value="<{$standardfield.value}>" checked="true"/>
+<{$standardfield.field_name}>
+</td>
+</tr>
+<{/foreach}>
+
+</table>
+</td>
+<td valign="top">
+<table class="outer"><TR valign='top' height=60><th><{$oscmem_cvsexport_customfields}></th></TR>
+<tr><TD>&nbsp;</TD></tr>
+<{foreach item=customfield from=$custfieldarr}>
+<{ if $customfield.odd == true }>
+<tr class="odd">
+<{/if}>
+<{ if $customfield.odd == false }>
+<tr class="even">
+<{/if}>
+<td ><input type="checkbox" id="<{$customfield.id}>" name="<{$customfield.name}>" value="<{$customfield.value}>"/>
+<{$customfield.field_name}>
+</td>
+</tr>
+<{/foreach}>
+</table>
+</td>
+</tr>
+
+<tr><TD colspan="2">
+
+<table>
+<tr valign="top" height=60><Th colspan="2" align="center"><{$oscmem_filter}></TD></tr>
+<tr><TD>&nbsp;</TD></tr>
+<tr valign='top' align='left'>
+<td><{$oscmem_filters}></td>
+<td><select  size='1' name='sfilters' id='class'>
+<option value='<{$oscmem_fromfilterbelow}>'><{$oscmem_fromfilterbelow}></option>
+<option value='<{$oscmem_fromcart}>'><{$oscmem_fromcart}></option>
+</select>
+</tr>
+<tr valign='top' align='left'>
+<td><{$oscmem_classificationstoexport}></td>
+<td><select  size='5' name='sDirClassifications[]' id='class' multiple='multiple'>
+<{foreach item=option from=$option_array}>
+<option value='<{$option.id}>'><{$option.name}></option>
+<{/foreach}>
+</select></td></tr>
+<tr valign='top' align='left'>
+<td><{$oscmem_rolestoexport}></td>
+<td><select  size='5' name='srole[]' id='class' multiple='multiple'>
+<{foreach item=role from=$role_array}>
+<option value='<{$role.id}>'><{$role.name}></option>
+<{/foreach}>
+</select></td></tr>
+<tr valign='top' align='left'>
+<td><{$oscmem_gender}></td>
+<td><select  size='1' name='gender' id='gender'>
+<{foreach item=gender from=$gender_array}>
+<option value='<{$gender.id}>'><{$gender.name}></option>
+<{/foreach}>
+</select></td></tr>
+<tr valign='top' align='left'>
+<td><{$oscmem_groupmember}></td>
+<td><select  size='5' name='GroupID[]' id='class' multiple='multiple'>
+<{foreach item=group from=$groups_array}>
+<option value='<{$group.id}>'><{$group.name}></option>
+<{/foreach}>
+</select></td></tr>
+<tr valign='top' align='left'>
+<td><{$oscmem_membershipdate}></td>
+<td>
+<{$memberdatefrom}>
+<{$memberdateto}>
+</td></tr>
+<tr valign='top' align='left'>
+<td><{$oscmem_birthday}></td>
+<td>
+<table border="0">
+<TR><TD><{$oscmem_birthfrom}><TD><td><{$birthmonthfrom}></TD><td><{$birthyearfrom}></td></TR>
+<TR><TD><{$oscmem_birthto}><TD><td><{$birthmonthto}></TD><td><{$birthyearto}></{$birthyearto}></TR>
+</table>
+</td></tr>
+<tr valign='top' align='left'>
+<td><{$oscmem_anniversary}></td>
+<td><{$ann_from}>
+<{$ann_to}>
+</td></tr>
+<tr valign='top' align='left'>
+<td><{$oscmem_dateentered}></td>
+<td>
+<{$dateentered_from}>
+<{$dateentered_to}>
+</td></tr>
+<{foreach item=customfield from=$custfieldarr}>
+<{ if $customfield.odd == true }>
+<tr class="odd">
+<{/if}>
+<{ if $customfield.odd == false }>
+<tr class="even">
+<{/if}>
+
+<td><{$customfield.field_name}></td>
+<td><{$customfield.criteriahtml}>
+</td>
+</tr>
+<{/foreach}>
+
+
+<tr valign='top' align='left'>
+<td><{$oscmem_csv_outputmethod}></td>
+<td><{$outputmethod}>
+</td></tr>
+<tr valign='top' align='left'>
+<td>&nbsp;</td>
+<td><{$skipincompleteaddress}>
+</td>
+</tr>
+<tr valign='top' align='left'>
+<td></td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+</div>
+
+<{$submit}>
+
+</form>
