@@ -2,7 +2,7 @@
 $modversion['name'] = _oscmem_MOD_NAME;
 $modversion['version'] = "6.2";
 $modversion['description'] = _oscmem_MOD_DESC;
-$modversion['credits'] = "Open Source Church Project - http://sourceforge.net/osc";
+$modversion['credits'] = "Open Source Church Project - http://sourceforge.net/projects/osc";
 $modversion['author'] = "Steve McAtee";
 $modversion['help'] = "help.html";
 $modversion['license'] = "GPL see LICENSE";
