@@ -1,4 +1,10 @@
 <?php
+/**
+ * Configuration file for oscMembership
+ * @package oscMembership
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
+ * @version $Id$
+ */
 $modversion['name'] = _oscmem_MOD_NAME;
 $modversion['version'] = "6.2";
 $modversion['description'] = _oscmem_MOD_DESC;
@@ -9,87 +15,115 @@ $modversion['license'] = "GPL see LICENSE";
 $modversion['official'] = "6.2";
 $modversion['image'] = "images/module_logo.png";
 $modversion['dirname'] = "oscmembership";
+
+// Database information
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
 $modversion['tables'][0] = "oscmembership_person";
-$modversion['tables'][1] = "oscmembership_family";
-$modversion['tables'][2] = "oscmembership_group";
-$modversion['tables'][3] = "oscmembership_groupprop_master";
-$modversion['tables'][4] = "oscmembership_list";
-$modversion['tables'][5] = "oscmembership_p2g2r";
-$modversion['tables'][6] = "oscmembership_group_members";
-$modversion['tables'][7] = "oscmembership_person_custom";
-$modversion['tables'][8] = "oscmembership_person_custom_master";
-$modversion['tables'][9] = "oscmembership_cart";
-$modversion['tables'][10] = "oscmembership_churchdetail";
+$modversion['tables'][] = "oscmembership_family";
+$modversion['tables'][] = "oscmembership_group";
+$modversion['tables'][] = "oscmembership_groupprop_master";
+$modversion['tables'][] = "oscmembership_list";
+$modversion['tables'][] = "oscmembership_p2g2r";
+$modversion['tables'][] = "oscmembership_group_members";
+$modversion['tables'][] = "oscmembership_person_custom";
+$modversion['tables'][] = "oscmembership_person_custom_master";
+$modversion['tables'][] = "oscmembership_cart";
+$modversion['tables'][] = "oscmembership_churchdetail";
 
 // Templates
-$modversion['templates'][0]['file'] = 'simple.html';
-$modversion['templates'][0]['description'] = 'Simple';
-$modversion['templates'][1]['file'] = 'oscmembership_optionlist.html';
-$modversion['templates'][1]['description'] = '';
-$modversion['templates'][2]['file'] = 'cartview.html';
-$modversion['templates'][2]['description'] = 'Cart View Template';
-$modversion['templates'][3]['file'] = 'memberview.html';
-$modversion['templates'][3]['description'] = 'Member View Template';
-$modversion['templates'][4]['file'] = 'reports.html';
-$modversion['templates'][4]['description'] = 'Report Page';
-$modversion['templates'][5]['file'] = 'reportdirectory.html';
-$modversion['templates'][5]['description'] = 'Report Directory Options';
-$modversion['templates'][6]['file'] = 'csvexport.html';
-$modversion['templates'][6]['description'] = 'CSV Export Options';
-$modversion['templates'][7]['file'] = 'oscselect.html';
-$modversion['templates'][7]['description'] = 'standard select template';
-$modversion['templates'][8]['file'] = 'familyview.html';
-$modversion['templates'][8]['description'] = 'family view template';
-$modversion['templates'][9]['file'] = 'groupview.html';
-$modversion['templates'][9]['description'] = 'group view template';
-$modversion['templates'][10]['file']='cartemail.html';
-$modversion['templates'][10]['description']='cart generate email template';
-$modversion['templates'][11]['file']='familyselect.html';
-$modversion['templates'][11]['description']='family select template';
-$modversion['templates'][12]['file']='orphanselect.html';
-$modversion['templates'][12]['description']='orphan select template';
+$modversion['templates'][0] = array(
+	'file' => 'simple.html',
+	'description' => 'Simple');
+$modversion['templates'][] = array(
+	'file' => 'oscmembership_optionlist.html',
+	'description' => '');
+$modversion['templates'][] = array(
+	'file' => 'cartview.html',
+	'description' => 'Cart View Template');
+$modversion['templates'][] = array(
+	'file' => 'memberview.html',
+	'description' => 'Member View Template');
+$modversion['templates'][] = array(
+	'file' => 'reports.html',
+	'description' => 'Report Page');
+$modversion['templates'][] = array(
+	'file' => 'reportdirectory.html',
+	'description' => 'Report Directory Options');
+$modversion['templates'][] = array(
+	'file' => 'csvexport.html',
+	'description' => 'CSV Export Options');
+$modversion['templates'][] = array(
+	'file' => 'oscselect.html',
+	'description' => 'standard select template');
+$modversion['templates'][] = array(
+	'file' => 'familyview.html',
+	'description' => 'family view template');
+$modversion['templates'][] = array(
+	'file' => 'groupview.html',
+	'description' => 'group view template');
+$modversion['templates'][] = array(
+	'file' => 'cartemail.html',
+	'description' => 'cart generate email template');
+$modversion['templates'][] = array(
+	'file' => 'familyselect.html',
+	'description' => 'family select template');
+$modversion['templates'][] = array(
+	'file' => 'orphanselect.html',
+	'description' => 'orphan select template');
 
+// Blocks
+$modversion['blocks'][1] = array(
+	'file' => "oscmemnav.php",
+	'name' => 'OSC Navigation',
+	'description' => "OSC Membership Menu",
+	'show_func' => "oscmemnav_show");
+$modversion['blocks'][] = array(
+	'file' => "oscmemalphanav.php",
+	'name' => 'Member Alpha Navigation',
+	'description' => "Alpha Navigation of Membership",
+	'show_func' => "oscmemalphanav_show");
+$modversion['blocks'][] = array(
+	'file' => "oscbirthdayblock.php",
+	'name' => 'Member BirthDays',
+	'description' => "Block Displaying Birthdays for the Current Month",
+	'show_func' => "oscbirthdayblock_show");
 
-$modversion['blocks'][1]['file'] = "oscmemnav.php";
-$modversion['blocks'][1]['name'] = 'OSC Navigation';
-$modversion['blocks'][1]['description'] = "OSC Membership Menu";
-$modversion['blocks'][1]['show_func'] = "oscmemnav_show";
-$modversion['blocks'][2]['file'] = "oscmemalphanav.php";
-$modversion['blocks'][2]['name'] = 'Member Alpha Navigation';
-$modversion['blocks'][2]['description'] = "Alpha Navigation of Membership";
-$modversion['blocks'][2]['show_func'] = "oscmemalphanav_show";
-$modversion['blocks'][3]['file'] = "oscbirthdayblock.php";
-$modversion['blocks'][3]['name'] = 'Member BirthDays';
-$modversion['blocks'][3]['description'] = "Block Displaying Birthdays for the Current Month";
-$modversion['blocks'][3]['show_func'] = "oscbirthdayblock_show";
+// Search
 $modversion['hasSearch'] = 0;
 //$modversion['search']['file']="include/search.inc.php";
 //$modversion['search']['func']="oscmem_search";
+
+// Administration menu
 $modversion['hasAdmin'] = 1;
 $modversion['adminindex'] = "admin/index.php";
 $modversion['adminmenu'] = "admin/menu.php";
+
+// Include in Main Menu?
 $modversion['hasMain'] = 1;
 //$modversion['templates'][1]['file'] = 'cs_index.html';
 //$modversion['templates'][1]['description'] = 'cs main template file';
+
+// Comments
 $modversion['hasComments'] = 1;
 $modversion['comments']['pageName'] = 'index.php';
 $modversion['comments']['itemName'] = 'id';
 
-$i = 1;
-$modversion['config'][$i]['name'] = 'usermapnomap';
-$modversion['config'][$i]['title'] = _OSCMEM_USERFIELDSDONOTMAP;
-$modversion['config'][$i]['description'] = _OSCMEM_USERFIELDSDONOTMAP_DESC;
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'user_aim,user_yim,user_msnm,user_from,timezone_offset,user_occ,user_intrest,bio,user_regdate,user_viewemail,attachsig,user_mailok,theme,umode_uorder,notify_mode,notify_method,url,posts,rank,last_login,user_sig,uorder';
+// Admin preferences items
+$modversion['config'][1] = array(
+	'name' => 'usermapnomap',
+	'title' => _OSCMEM_USERFIELDSDONOTMAP,
+	'description' => _OSCMEM_USERFIELDSDONOTMAP_DESC,
+	'formtype' => 'textarea',
+	'valuetype' => 'text',
+	'default' => 'user_aim,user_yim,user_msnm,user_from,timezone_offset,user_occ,user_intrest,bio,user_regdate,user_viewemail,attachsig,user_mailok,theme,umode_uorder,notify_mode,notify_method,url,posts,rank,last_login,user_sig,uorder')
+;
 
-$i++;
-$modversion['config'][$i]['name'] = 'membermapnomap';
-$modversion['config'][$i]['title'] = _OSCMEM_MEMBERNOMAP;
-$modversion['config'][$i]['description'] = _OSCMEM_MEMBERNOMAP_DESC;
-$modversion['config'][$i]['formtype'] = 'textarea';
-$modversion['config'][$i]['valuetype'] = 'text';
-$modversion['config'][$i]['default'] = 'churchid,fmrid,clsid,famid,datelastedited,dateentered,enteredby,editedby,loopcount,oddrow,customfields,totalloopcount';
+$modversion['config'][] = array(
+	'name' => 'membermapnomap',
+	'title' => _OSCMEM_MEMBERNOMAP,
+	'description' => _OSCMEM_MEMBERNOMAP_DESC,
+	'formtype' => 'textarea',
+	'valuetype' => 'text',
+	'default' => 'churchid,fmrid,clsid,famid,datelastedited,dateentered,enteredby,editedby,loopcount,oddrow,customfields,totalloopcount');
 
 ?>
