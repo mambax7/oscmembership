@@ -39,7 +39,7 @@ require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/incl
 
 require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/include/functions.php";
 
-require_once 'Contact_Vcard_Build.php';   //PEAR MODULE
+//require_once 'Contact_Vcard_Build.php';   //PEAR MODULE
 
 if (file_exists(XOOPS_ROOT_PATH. "/modules/" . 	$xoopsModule->getVar('dirname') .  "/language/" . $xoopsConfig['language'] . "/modinfo.php")) 
 {
@@ -127,10 +127,8 @@ while($row = $db->fetchArray($customFields))
 	}
 	$i++;
 }
-
 $label_handler = &xoops_getmodulehandler('label', 'oscmembership');
 $labelcritiera_handler = &xoops_getmodulehandler('labelcriteria', 'oscmembership');
-
 //determine what sql fields are requested
 $label=new Label();
 $vars=$label->getVars();
@@ -267,16 +265,13 @@ case _oscmem_csv_individual:
 	header("Content-type: text/x-csv");
 	header("Content-Disposition: attachment; filename=osc-export-" . date("Ymd-Gis") . ".csv");
 
-	//Pull out header
-	$vars=$labels[1]->getValues();
+	$labelkeys=explode(",",$includestring);
+
 	echo "'";
 	$includestring=" " . strtolower($includestring);
-	foreach ($vars as $key => $value)
+	foreach ($labelkeys as $labelkey)
 	{
-		if(strpos($includestring,strtolower($key))!=FALSE) 
-		{
-			$csvheader.= $key . "','";
-		}
+		$csvheader.=$labelkey . "','";
 	}
 
 	$newcsvheader=str_replace($custfieldfieldarr, $custfieldnamearr,$csvheader);
@@ -288,17 +283,14 @@ case _oscmem_csv_individual:
 	reset($labels);
 	foreach($labels as $label)
 	{
+
 		echo "'";
-		$vars=$label->getValues();
-		foreach($vars as $key => $value)
+		foreach($labelkeys as $labelkey)
 		{
 			//verify of field is a custom field.  If so then display name
-			if(strpos($includestring,strtolower($key))!=FALSE) echo $value . "','";
+			echo $label->getVar($labelkey) . "','";
 		}
 		echo "'" .  chr(13) . chr(10);
-
-
-			
 
 	}
 	// Turn OFF output buffering
