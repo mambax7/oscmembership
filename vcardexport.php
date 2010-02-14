@@ -36,8 +36,8 @@ $person=$persondetail_handler->get($personid);
 if(isset($person))
 {
 	require_once 'Contact_Vcard_Build.php';
-	$vcard =& new Contact_Vcard_Build();
-	
+	$vcard = new Contact_Vcard_Build();
+
 	$vcard->setName($person->getVar("lastname"),$person->getVar("firstname"),"","","");
 	$vcard->setFormattedName($label["recipient"]);
 
@@ -57,13 +57,13 @@ if(isset($person))
 	$postcode=$person->getVar("zip");
 
 	$vcard->addAddress($pob, $extend,$street,$locality, $region, $postcode, $country);
-	
-	
+
+
 	$text=$vcard->fetch();
 
 	header("Content-type: text/x-vcard");
 	header("Content-Disposition: attachment; filename=" . $person->getVar("firstname") . $person->getVar("lastname") . ".vcf");
-	
+
 	echo $text;
 }
 

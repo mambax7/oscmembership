@@ -10,12 +10,12 @@
  *  on their PHP version Church Management Software that they discontinued
  *  and we have taken over.  We continue to improve and build upon this product
  *  in the direction of excellence.
- * 
+ *
  *  OpenSourceChurch (OSC) is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
- * 
+ *
  *  Any changes to the software must be submitted back to the OpenSourceChurch project
  *  for review and possible inclusion.
  *
@@ -41,7 +41,7 @@ require XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/incl
 
 //require_once 'Contact_Vcard_Build.php';   //PEAR MODULE
 
-if (file_exists(XOOPS_ROOT_PATH. "/modules/" . 	$xoopsModule->getVar('dirname') .  "/language/" . $xoopsConfig['language'] . "/modinfo.php")) 
+if (file_exists(XOOPS_ROOT_PATH. "/modules/" . 	$xoopsModule->getVar('dirname') .  "/language/" . $xoopsConfig['language'] . "/modinfo.php"))
 {
     include XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirname') . "/language/" . $xoopsConfig['language'] . "/modinfo.php";
 }
@@ -107,7 +107,7 @@ $i=0;
 $custfieldarr=array();
 $critarr=array();
 
-while($row = $db->fetchArray($customFields)) 
+while($row = $db->fetchArray($customFields))
 {
 	if(isset($_POST[$row["custom_Field"]]))
 	{
@@ -146,7 +146,7 @@ foreach($vars as $key => $value)
 //Now look at custom fields
 $customFields = $persondetail_handler->getcustompersonFields();
 
-while($row = $db->fetchArray($customFields)) 
+while($row = $db->fetchArray($customFields))
 {
 	if(isset($_POST[$row["custom_Field"]]))
 	{
@@ -189,7 +189,7 @@ if(isset($_POST["soutputmethod"]))
 	$labelcritiera->assignVar('soutputmethod',$_POST["soutputmethod"]);
 }
 
-if(isset($_POST["memberdatefrom"])) 
+if(isset($_POST["memberdatefrom"]))
 {
 	if($_POST["memberdatefrom"]!="YYYY/MM/DD")
 	{
@@ -252,7 +252,7 @@ case _oscmem_csv_addtocart:
 		$persondetail_handler->addtoCart($label->getVar("id"),$xoopsuid);
 	}
 	redirect_header("viewcart.php", 3, _oscmem_addedtocart);
-	
+
 	break;
 
 }
@@ -312,12 +312,12 @@ case _oscmem_csv_exporttovcard:
 		if($label->getVar("id")>0)
 		{
 
-			$vcard =& new Contact_Vcard_Build();
+			$vcard = new Contact_Vcard_Build();
 
 			$person=$persondetail_handler->get($label->getVar('id'));
 			$vcard->setName($person->getVar("lastname"),$person->getVar("firstname"),"","","");
 			$vcard->setFormattedName($label->getVar('recipient'));
-	
+
 			$vcard->addEmail($person->getVar("email"));
 			$vcard->addTelephone($person->getVar("homephone"));
 			$workphone=$person->getVar("workphone");
@@ -335,7 +335,7 @@ case _oscmem_csv_exporttovcard:
 			$vcard->addAddress($pob, $extend,$street,$locality, $region, $postcode, $country);
 
 			$text=$vcard->fetch();
-			
+
 			echo $text;
 		}
 	}
