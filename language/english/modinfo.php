@@ -1,5 +1,9 @@
 <?php
-// Module 
+/**
+ * Module danguage constants
+ * @version $Id$
+ */
+// Module
 //
 define("_oscmem_MOD_NAME","OSC Membership Module");
 define("_oscmem_MOD_DESC","Xoops OSC Module for Membership.");
@@ -316,4 +320,24 @@ define("_OSCMEM_USERFIELDSDONOTMAP","User fields that do not map");
 define("_OSCMEM_USERFIELDSDONOTMAP_DESC","User fields that will not map in the profile to membership map process");
 define("_OSCMEM_MEMBERNOMAP","Member fields that do not map");
 define("_OSCMEM_MEMBERNOMAP_DESC","Member fields that will not map in the profile to membership map process");
+
+/** Constants changed or added in 6.2 revision - */
+define('_OSCMEM_TEMPLATE_SIMPLE_DESC','Simple');
+define('_OSCMEM_TEMPLATE_CARTVIEW_DESC','Cart View Template');
+define('_OSCMEM_TEMPLATE_MEMBERVIEW_DESC','Member View Template');
+define('_OSCMEM_TEMPLATE_REPORTS_DESC','Report Page');
+define('_OSCMEM_TEMPLATE_RPT_DIR_DESC','Report Directory Options');
+define('_OSCMEM_TEMPLATE_CSV_DESC','CSV Export Options');
+define('_OSCMEM_TEMPLATE_SELECT_DESC','standard select template');
+define('_OSCMEM_TEMPLATE_FAMILY_DESC','family view template');
+define('_OSCMEM_TEMPLATE_GROUP_DESC','group view template');
+define('_OSCMEM_TEMPLATE_CARTEMAIL_DESC','cart generate email template');
+define('_OSCMEM_TEMPLATE_FAMILYSEL_DESC','family select template');
+define('_OSCMEM_TEMPLATE_ORPHAN_DESC','orphan select template');
+define('_OSCMEM_BLOCK_MEM_NAME','OSC Navigation');
+define('_OSCMEM_BLOCK_MEM_DESC','OSC Membership Menu');
+define('_OSCMEM_BLOCK_ALPHANAV_NAME','Member Alpha Navigation');
+define('_OSCMEM_BLOCK_ALPHANAV_DESC','Alpha Navigation of Membership');
+define('_OSCMEM_BLOCK_BIRTHDAYS_NAME','Member BirthDays');
+define('_OSCMEM_BLOCK_BIRTHDAYS_DESC','Block Displaying Birthdays for the Current Month');
 ?>
