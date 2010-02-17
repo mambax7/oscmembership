@@ -32,6 +32,11 @@ Language additions/changes
 	define('_OSCMEM_BLOCK_BIRTHDAYS_NAME','Member BirthDays');
 	define('_OSCMEM_BLOCK_BIRTHDAYS_DESC','Block Displaying Birthdays for the Current Month');
 
+* cartemail.php - Missing Send button at bottom of page
+
+
 Contributors to this release
 * skenow
 * srmcatee
+
+
