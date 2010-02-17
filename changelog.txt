@@ -5,6 +5,9 @@ Released: unreleased
 Added
 * Changelog.txt
 * ReadMe.txt
+* setupgsync.html
+* setupgsync.php
+* gsync.php
 
 Improved
 * Use of language constants
@@ -33,7 +36,7 @@ Language additions/changes
 	define('_OSCMEM_BLOCK_BIRTHDAYS_DESC','Block Displaying Birthdays for the Current Month');
 
 * cartemail.php - Missing Send button at bottom of page
-
+* viewcart.php  - Added Gsync button for Google contacts.
 
 Contributors to this release
 * skenow
