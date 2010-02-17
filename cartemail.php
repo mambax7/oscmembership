@@ -27,45 +27,59 @@ if (isset($_POST['filter'])) $filter=$_POST['filter'];
 if (isset($_POST['submit'])) $submit = $_POST['submit'];
 if (isset($_POST['loopcount'])) $loopcount = $_POST['loopcount'];
 
+if (isset($_POST['body'])) $osc_body=$_POST['body'];
+if (isset($_POST['subject'])) $osc_subject=$_POST['subject'];
 
 $person_handler = &xoops_getmodulehandler('person', 'oscmembership');
 $searcharray=array();
 
-if(isset($submit))
-{
-	switch($submit)
-	{
-		case 0:
-		break;
-	}
-}
-
 $results = $person_handler->getCartc($xoopsUser->getVar('uid'));
-$to="";
+$osc_to="";
 $person=$person_handler->Create(false);
 
 foreach($results as $person)
 {
 	if(strlen($person->getVar('email'))>0)
 	{
-		$to.=$person->getVar('email') . ", ";
+		$osc_to.=$person->getVar('email') . ", ";
 	}
 }
 
-$to=substr($to,0,strlen($to)-2);  //strip trailing comma
+$osc_to=substr($osc_to,0,strlen($osc_to)-2);  //strip trailing comma
+$osc_header='From: ' . $xoopsUser->getVar('email')  . "\r\n" . 'Reply-To: ' . $xoopsUser->getVar('email');
 
-$to_label= new XoopsFormlabel(_oscmem_emailto_label . ":",$to);
+if(isset($submit))
+{
+	switch($submit)
+	{
+		case 0:
+		if (mail($osc_to, $osc_subject, $osc_body, $osc_header)) {
+		
+			redirect_header("viewcart.php",2,"Message Sent.");
+
+ 		} else {
+  		echo("<p>Message delivery failed...</p>");
+ 		}
+
+		break;
+	}
+}
+
+
+$to_label= new XoopsFormlabel(_oscmem_emailto_label . ":",$osc_to);
 
 $emailsubject_text= new XoopsFormText(_oscmem_emailsubject . ":", "subject", 30, 50, "");
 
 
 $editor = new XoopsFormDhtmlTextArea(_oscmem_emailbody_label . ":", "body", "", 10, 50, "");
+$submit_button = new XoopsFormButton("", "submit", "Send", "submit");
 
 $form = new XoopsThemeForm("", "cartgenerateemailform", "cartemail.php", "post", true);
 
 $form->addElement($to_label);
 $form->addElement($emailsubject_text);
 $form->addElement($editor);
+$form->addElement($submit_button);
 
 $xoopsTpl->assign('title',_oscmem_cartgenerateemail_TITLE); 
 $xoopsTpl->assign('formbody',$form->render());
