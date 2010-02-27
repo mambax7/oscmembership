@@ -71,6 +71,8 @@ $modversion['templates'][] = array(
 	'file' => 'orphanselect.html',
 	'description' => _OSCMEM_TEMPLATE_ORPHAN_DESC);
 
+
+
 // Blocks
 $modversion['blocks'][1] = array(
 	'file' => 'oscmemnav.php',

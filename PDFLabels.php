@@ -93,7 +93,7 @@ function GenerateLabels(&$pdf, $mode, $uid, $bOnlyComplete = false, $bremoveFami
 //			if (!$bOnlyComplete || ( (strlen($sAddress)) && strlen($sCity) && strlen($sState) && strlen($sZip) ) )
 			if(strlen($person->getVar('address1')))
 			{
-				$pdf->Add_PDF_Label(sprintf("%s\n%s\n%s, %s %s", $person->getVar('lastname'), $person->getVar('address1'), $person->getVar('city'), $person->getVar('state'),  $person->getVar('zip')));
+				$pdf->Add_PDF_Label(sprintf("%s\n%s\n%s, %s %s", $person->getVar('firstname') . ' ' .$person->getVar('lastname'), $person->getVar('address1'), $person->getVar('city'), $person->getVar('state'),  $person->getVar('zip')));
 			}
 			
 			

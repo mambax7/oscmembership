@@ -19,8 +19,10 @@ elseif( file_exists(XOOPS_ROOT_PATH . "/modules/" . $xoopsModule->getVar('dirnam
 
 }
 
-if isset($_POST['googleaccount']) $user=$_POST['googleaccount'];
-if isset($_POST['googlepwd']) $pass=$_POST['googlepwd'];
+echo $_POST['googleaccount'];
+
+if (isset($_POST['googleaccount'])) $user=$_POST['googleaccount'];
+if (isset($_POST['googlepwd'])) $pass=$_POST['googlepwd'];
 
 
 if(!hasPerm("oscmembership_view",$xoopsUser) && !hasPerm("oscmembership_modify",$xoopsUser))     redirect_header(XOOPS_URL, 3, _oscmem_accessdenied);
