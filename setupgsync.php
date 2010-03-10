@@ -27,6 +27,10 @@ include(XOOPS_ROOT_PATH."/header.php");
 if(!hasPerm("oscmembership_view",$xoopsUser) && !hasPerm("oscmembership_modify",$xoopsUser))     redirect_header(XOOPS_URL, 3, _oscmem_accessdenied);
 
 if (isset($_POST['op'])) $op=$_POST['op'];
+if (isset($_POST['googleaccount'])) $user=$_POST['googleaccount'];
+if (isset($_POST['googlepwd'])) $pass=$_POST['googlepwd'];
+if (isset($_POST['googlegroup'])) $osc_googlegroup=$_POST['googlegroup'];
+
 
 switch (true) 
 {
@@ -68,19 +72,56 @@ switch (true)
 		$gdata = new Zend_Gdata($client);
 		$gdata->setMajorProtocolVersion(3);
 		
+		//verify group exists.  if not create it
+		$osc_query = new Zend_Gdata_Query(       'http://www.google.com/m8/feeds/groups/default/full');
+		$osc_feed = $gdata->getFeed($osc_query);
+
+		$osc_ggroup_exits=false;
 		
+		foreach($osc_feed as $entry)
+		{
+			if($entry->title->text=='ChurchLedger')
+			{
+				$osc_ggroup_exists=true;
+				$osc_ggroup_id=$entry->id->text; //grab id from Google
+			}
+
+		}
+
+		$doc  = new DOMDocument();
+		$doc->formatOutput = true;
+
+		if(!($osc_ggroup_exists))
+		{
+			//group does not exist.  create it.
+			$osc_group = $doc->createElement('atom:entry');
+			$osc_group->setAttributeNS('http://www.w3.org/2000/xmlns/' ,
+			'xmlns:atom', 'http://www.w3.org/2005/Atom');
+			$osc_group->setAttributeNS('http://www.w3.org/2000/xmlns/' ,
+			'xmlns:gd', 'http://schemas.google.com/g/2005');
+			$doc->appendChild($osc_group);
+	
+			$osc_group_title=$doc->createElement('atom:title','ChurchLedger');
+			$osc_group->appendChild($osc_group_title);
+			
+			$entryResult = $gdata->insertEntry($doc->saveXML(), 
+			'http://www.google.com/m8/feeds/groups/default/full');
+
+		}
+
+		$doc  = new DOMDocument();
+		$doc->formatOutput = true;
+
 		// create new entry
 		//Loop through people
 		foreach($cart as $person)
 		{
-		
-			$doc  = new DOMDocument();
-			$doc->formatOutput = true;
 			$entry = $doc->createElement('atom:entry');
 			$entry->setAttributeNS('http://www.w3.org/2000/xmlns/' ,
 			'xmlns:atom', 'http://www.w3.org/2005/Atom');
 			$entry->setAttributeNS('http://www.w3.org/2000/xmlns/' ,
 			'xmlns:gd', 'http://schemas.google.com/g/2005');
+			$entry->setAttributeNS('http://www.w3.org/2000/xmlns/','xmlns:gContact','http://schemas.google.com/contact/2008');
 			$doc->appendChild($entry);
 			
 			// add name element
@@ -99,24 +140,35 @@ switch (true)
 			$org = $doc->createElement('gd:organization');
 			$org->setAttribute('rel' ,'http://schemas.google.com/g/2005#work');
 			$entry->appendChild($org);
-			$orgName = $doc->createElement('gd:orgName', 'My Church Name');
+			$orgName = $doc->createElement('gd:orgName', $osc_googlegroup);
 			$org->appendChild($orgName);
+
+			$group=$doc->createElement('gContact:groupMembershipInfo');
+			$group->setAttribute('href',$osc_ggroup_id);
+			$entry->appendChild($group);
+
+
 			
-			// insert entry
-			$entryResult = $gdata->insertEntry($doc->saveXML(), 
-			'http://www.google.com/m8/feeds/contacts/default/full');
 		}
+
+		// insert entry
+		$entryResult = $gdata->insertEntry($doc->saveXML(), 
+		'http://www.google.com/m8/feeds/contacts/default/full');
+
 	$message=_oscmem_msg_googlesyncsuccess;
 
 	} 
 
 	catch (Exception $e) 
 	{
+	echo "boom";
 		$message=$e->getMessage();
+echo $message;
 	}
 
 
-	redirect_header("index.php", 3, $message);
+
+//	redirect_header("index.php", 3, $message);
 
 	break;
 }

@@ -218,6 +218,7 @@ if(isset($optionItems))
 
 
 $firstname_text = new XoopsFormText(_oscmem_firstname, "firstname", 30, 50, $person->getVar('firstname'));
+
 $lastname_text=new XoopsFormText(_oscmem_lastname,"lastname",30,50,$person->getVar('lastname'));
 
 $address1_text = new XoopsFormText(_oscmem_address, "address1", 30, 50, $person->getVar('address1'));
@@ -393,6 +394,7 @@ $form->addElement($id_hidden);
 
 $form->addElement($submit_button);
 $form->setRequired($lastname_text);
+
 $form->setRequired($firstname_text);
 
 //$form->addElement($customfields);
