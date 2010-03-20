@@ -1,6 +1,6 @@
-== oscMembership 6.2 revised ==
-Status: Beta
-Released: unreleased
+== oscMembership 6.3 revised ==
+Status: Release Candidate
+Released: RC1
 
 Added
 * Changelog.txt
