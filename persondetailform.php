@@ -294,7 +294,7 @@ $personpicture=new XoopsFormLabel(_oscmem_personpicture,$myts->displayTArea($per
 $pictray=new XoopsFormElementTray(_oscmem_picloc);
 $pictray->addElement($picloc);
 
-$picbutton= new XoopsFormLabel('',"<img onmouseover='style.cursor=\"hand\"' onclick='javascript:openWithSelfMain(\"".XOOPS_URL."/imagemanager.php?target=picloc\",\"imgmanager\",400,430);' src='".XOOPS_URL."/images/image.gif' alt='image' />");
+$picbutton= new XoopsFormLabel('',"<img onmouseover='style.cursor=\"hand\"'onclick='javascript:openWithSelfMain(\"".XOOPS_URL."/class/xoopsform/formimage_browse.php?target=picloc&type=iman\",\"imgmanager\",400,430);' src='".XOOPS_URL."/images/image.gif' alt='image' />");
 
 $pictray->addElement($picbutton);
 
