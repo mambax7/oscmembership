@@ -357,8 +357,8 @@ $map_label = new XoopsFormLabel(_oscmem_map, $map->renderMap());
 */
 
 $form = new XoopsThemeForm(_oscmem_persondetail_TITLE, "persondetailform", "persondetailform.php", "post", true);
-$form->addElement($firstname_text);
-$form->addElement($lastname_text);
+$form->addElement($firstname_text,true);
+$form->addElement($lastname_text,true);
 $form->addElement($personpicture);
 $form->addElement($pictray);
 $form->addElement($address1_text);
