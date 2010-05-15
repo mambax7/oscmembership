@@ -122,9 +122,9 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	$familyprefix="";
 
 //$sSQL=" drop table `tmplabel`;
-	$sSQL= "CREATE  temporary TABLE  `tmplabel` (
+	$sSQL= "CREATE  TEMPORARY TABLE  `tmplabel` (
 	`person_id` int default null,	
-	`recipient` varchar(255) default NULL
+	`recipient` varchar(255) default NULL,
 	`AddressLine1` varchar(255) default NULL,
 	`AddressLine2` varchar(255) default NULL,
 	`addresslabel` text null,
@@ -296,6 +296,7 @@ class oscMembershipLabelHandler extends XoopsObjectHandler
 	}
 	
 	$sSQL="select * from tmplabel order by sortme";
+
 	$result=$this->db->query($sSQL); 
 
 	$i=0;
