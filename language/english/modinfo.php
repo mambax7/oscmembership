@@ -347,19 +347,33 @@ define('_oscmem_gsync_TITLE','Google OSC Sync Page');
 define('_oscmem_instructions','Instructions');
 define('_oscmem_gsync_instructions_content','Submitting this form will take the contents of the cart and send them to Google contacts for the specified Google Account.  This process will sync contacts and create new ones.  The process will not delete contacts in Google contacts.');
 
-define("_OSCMEM_directoryreport_description","Phone book directory with pictures.  Created in PDF format.");
-define("_OSCMEM_csvexport_individual_description","Screen that allows the user to filter their selection of members or use the contents of the cart to generate a Comma Seperated file.");
-define("_oscmem_csvimport_individual_description","Import allows the import of indivual records provided in a comma seperated format.");
-define("_oscmem_vcardimport_individual_description","Screen imports vcard format files to create an individual");
-define("_oscmem_menu_orphanmatchup_description","Screen matches orphan records to likely family records.  Allows user to select the orphaned records and associate them with a family record.");
-define("_oscmem_csvimport_family_description","Screen imports family records that are provided in a comma seperated format.");
-define("_oscmem_membershipcard_description","Generates membership id cards with a scannable bar code.");
-define("_oscmem_childcard_description","Generates a child and parent id card for child check-in purposes.");
-define("_oscmem_googlecontactsync","Google Contact Sync");
-define("_oscmem_googlecontactsync_description","Syncs membership data with any selected Google gmail's contacs.");
+define("_OSCMEM_directoryreport_description","Phone book directory with pictures.  Created in PDF format.");
+
+define("_OSCMEM_csvexport_individual_description","Screen that allows the user to filter their selection of members or use the contents of the cart to generate a Comma Seperated file.");
+
+define("_oscmem_csvimport_individual_description","Import allows the import of indivual records provided in a comma seperated format.");
+
+define("_oscmem_vcardimport_individual_description","Screen imports vcard format files to create an individual");
+
+define("_oscmem_menu_orphanmatchup_description","Screen matches orphan records to likely family records.  Allows user to select the orphaned records and associate them with a family record.");
+
+define("_oscmem_csvimport_family_description","Screen imports family records that are provided in a comma seperated format.");
+
+define("_oscmem_membershipcard_description","Generates membership id cards with a scannable bar code.");
+
+define("_oscmem_childcard_description","Generates a child and parent id card for child check-in purposes.");
+
+define("_oscmem_googlecontactsync","Google Contact Sync");
+
+define("_oscmem_googlecontactsync_description","Syncs membership data with any selected Google gmail's contacs.");
+
 
 define('_oscmem_report_label','Reports');
 define('_oscmem_report_description','Description of Available Reports');
 
 define('_oscmem_google_group','Google Contact Group');
+define('_oscmem_menu_rightbutton','Next >');
+define('_oscmem_menu_rightrightbutton','>>');
+define('_oscmem_menu_leftbutton','< Previous');
+define('_oscmem_menu_leftleftbutton','<<');
 ?>

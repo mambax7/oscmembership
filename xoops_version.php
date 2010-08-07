@@ -6,13 +6,13 @@
  * @version $Id$
  */
 $modversion['name'] = _oscmem_MOD_NAME;
-$modversion['version'] = '6.3';
+$modversion['version'] = '6.4';
 $modversion['description'] = _oscmem_MOD_DESC;
 $modversion['credits'] = 'Open Source Church Project - http://sourceforge.net/projects/osc';
 $modversion['author'] = 'Steve McAtee';
 $modversion['help'] = 'help.html';
 $modversion['license'] = 'GPL see LICENSE';
-$modversion['official'] = '6.3';
+$modversion['official'] = '6.4';
 $modversion['image'] = 'images/module_logo.png';
 $modversion['dirname'] = 'oscmembership';
 

@@ -55,11 +55,11 @@ if(isset($submit))
 {
 	switch($submit)
 	{
-		case '<<':
+		case _oscmem_menu_leftleftbutton :
 			$page=1;
 			break;
 
-		case '>>':
+		case _oscmem_menu_rightrightbutton :
 
 			if(isset($filter))
 			{
@@ -70,12 +70,12 @@ if(isset($submit))
 			$page=round($rowcount/$limit,0);
 			break;
 
-		case '<':  //previous page
+		case _oscmem_menu_leftbutton :  //previous page
 			$page--;
 			if($page<1) $page=1;
 			break;
 
-		case '>': //next page
+		case _oscmem_menu_rightbutton : //next page
 			$page++;
 			break;
 
@@ -182,6 +182,14 @@ $xoopsTpl->assign('page',$page);
 $_SESSION['page']=$page;
 $xoopsTpl->assign('oscmem_rowstodisplay',$limit);
 $xoopsTpl->assign('oscmem_label_rowstodisplay',_oscmem_label_rowstodisplay);
+
+$xoopsTpl->assign('oscmem_menu_leftleftbutton',_oscmem_menu_leftleftbutton);
+
+$xoopsTpl->assign('oscmem_menu_leftbutton',_oscmem_menu_leftbutton);
+
+$xoopsTpl->assign('oscmem_menu_rightrightbutton',_oscmem_menu_rightrightbutton);
+
+$xoopsTpl->assign('oscmem_menu_rightbutton',_oscmem_menu_rightbutton);
 
 if($page==1)
 {
