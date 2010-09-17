@@ -48,24 +48,27 @@ switch (true)
 	
 	$person=$person_handler->create(false);
 
-	try
-	{
-	
-		require_once 'Zend/Loader.php';
-		
+
+       try{
+		require_once XOOPS_ROOT_PATH . '/Zend/Loader.php';
+
 		Zend_Loader::loadClass('Zend_Gdata');
 		Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
 		Zend_Loader::loadClass('Zend_Http_Client');
 		Zend_Loader::loadClass('Zend_Gdata_Query');
 		Zend_Loader::loadClass('Zend_Gdata_Feed');
-	}
-	catch (Exception $e) {
-		die('ERROR:' . $e->getMessage());
+       }
+
+       catch (Exception $e)
+        {
+            echo 'exception here';
+            die('ERROR:' . $e->getMessage());
 	}
 	
-	
+
 	try 
 	{
+
 		// perform login and set protocol version to 3.0
 		$client = Zend_Gdata_ClientLogin::getHttpClient(
 		$user, $pass, 'cp');
@@ -73,7 +76,7 @@ switch (true)
 		$gdata->setMajorProtocolVersion(3);
 		
 		//verify group exists.  if not create it
-		$osc_query = new Zend_Gdata_Query(       'http://www.google.com/m8/feeds/groups/default/full');
+		$osc_query = new Zend_Gdata_Query('http://www.google.com/m8/feeds/groups/default/full');
 		$osc_feed = $gdata->getFeed($osc_query);
 
 		$osc_ggroup_exits=false;
@@ -109,14 +112,16 @@ switch (true)
 
 		}
 
-		$doc  = new DOMDocument();
-		$doc->formatOutput = true;
 
 		// create new entry
 		//Loop through people
 		foreach($cart as $person)
 		{
-			$entry = $doc->createElement('atom:entry');
+
+                        $doc  = new DOMDocument();
+                        $doc->formatOutput = true;
+
+                        $entry = $doc->createElement('atom:entry');
 			$entry->setAttributeNS('http://www.w3.org/2000/xmlns/' ,
 			'xmlns:atom', 'http://www.w3.org/2005/Atom');
 			$entry->setAttributeNS('http://www.w3.org/2000/xmlns/' ,
@@ -147,28 +152,29 @@ switch (true)
 			$group->setAttribute('href',$osc_ggroup_id);
 			$entry->appendChild($group);
 
+                        // insert entry
+                        $entryResult = $gdata->insertEntry($doc->saveXML(),'http://www.google.com/m8/feeds/contacts/default/full');
+
 
 			
 		}
 
-		// insert entry
-		$entryResult = $gdata->insertEntry($doc->saveXML(), 
-		'http://www.google.com/m8/feeds/contacts/default/full');
 
 	$message=_oscmem_msg_googlesyncsuccess;
+
+        redirect_header("index.php", 3, $message);
 
 	} 
 
 	catch (Exception $e) 
 	{
-	echo "boom";
 		$message=$e->getMessage();
-echo $message;
+                echo '<font color=red>' . $message . '</font>';
+//                 redirect_header(XOOPS_URL ."/modules/" . $xoopsModule->getVar('dirname') . '/setupgsync.php',10,$message);
 	}
 
 
 
-//	redirect_header("index.php", 3, $message);
 
 	break;
 }

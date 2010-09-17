@@ -19,3 +19,11 @@ Upgrading from a previous version of oscMembership
 == oscMembership 6.2 ==
 
 What's New in 6.2
+
+
+== oscMembership 6.4 ==
+Next and Previous buttons on main page now use the language file and will support multilingual.
+
+== oscMembership 6.5 ==
+Fixed Google contacts sync.  Now does more than one contact.  However, it creates all new contacts and does not sync existing contacts.  Feature coming soon.
+
